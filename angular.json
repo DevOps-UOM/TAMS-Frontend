@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "TAMSFrontend"
+    }
+  },
+  "defaultProject": "TAMSFrontend",
+  "cli": {
+    "analytics": "40a44ba5-f76a-408f-b037-d18355ef3811"
+  }
 }
