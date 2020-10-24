@@ -1,1 +1,15 @@
-<p>nav-bar works!</p>
+<div class="container" fxlayout="row" fxLayoutAlign="space-between center">
+    <div class="topic" fxlayout="column" fxLayoutAlign="center center">
+        <div>
+            <p class="title">Travelling Agents Management System</p>
+        </div>
+    </div>
+    <div class="buttons" fxLayout="row" fxLayoutAlign="center">
+        <div class="button">
+            <p class="label">Itinerary Map</p>
+        </div>
+        <div class="button" (click)="callScreen('Itinerary Map')">
+            <p class="label">Task</p>
+        </div>
+    </div>
+</div>
