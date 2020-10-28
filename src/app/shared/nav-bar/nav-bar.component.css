@@ -1,0 +1,41 @@
+
+  
+  .container {
+    width: 100%;
+    padding: 0px;
+    color: white;
+    background-color: white;
+    background-image: url('../../../assets/images/1.jpg');
+    background-position: right;
+    background-repeat: no-repeat;
+    -webkit-box-shadow: 0 8px 6px -6px rgb(168, 168, 168);
+    -moz-box-shadow: 0 8px 6px -6px rgb(168, 168, 168);
+    box-shadow: 0 8px 6px -6px rgb(168, 168, 168);
+    padding: 20px 20px 10px 20px;
+    position: fixed;
+    z-index: 100;
+  }
+  
+  .title {
+    font-size: 30px;
+    font-weight: 600;
+    color: rgb(78, 78, 194);
+    font-family: "brannboll", "arial", sans-serif;
+  }
+  
+  .button {
+    align-content: center;
+    vertical-align: middle;
+    font-size: 16px;
+    color: rgb(0, 0, 0);
+    padding: 10px 20px 0 20px;
+    border-right: 1px solid grey;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: rgba(0, 0, 0, 0.041);
+    color: rgb(78, 78, 194);
+  }
+  
+  
