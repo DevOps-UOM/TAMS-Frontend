@@ -5,6 +5,7 @@ import { ItineraryMapComponent } from './itinerary-map/itinerary-map.component';
 import { MapComponent } from '../shared/map/map.component';
 import { SharedModule } from '../shared/shared.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { CustomerAvailabilityComponent } from './customer-availability/customer-availability.component';
 
 
 const routes: Routes = [
@@ -22,7 +23,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  declarations: [ItineraryMapComponent],
+  declarations: [ItineraryMapComponent, CustomerAvailabilityComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
