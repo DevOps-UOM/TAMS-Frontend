@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MapComponent } from './map.component';
+import { TAItineraryMapComponent } from './ta-itinerary-map.component';
 
-describe('MapComponent', () => {
-  let component: MapComponent;
-  let fixture: ComponentFixture<MapComponent>;
+describe('TAItineraryMapComponent', () => {
+  let component: TAItineraryMapComponent;
+  let fixture: ComponentFixture<TAItineraryMapComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MapComponent ]
+      declarations: [ TAItineraryMapComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MapComponent);
+    fixture = TestBed.createComponent(TAItineraryMapComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

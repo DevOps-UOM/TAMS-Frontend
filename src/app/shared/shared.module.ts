@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MapComponent } from './map/map.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import {FlexLayoutModule} from '@angular/flex-layout'
 import {AgmCoreModule}from '@agm/core';
+import { ItineraryMapComponent } from './itinerary-map/itinerary-map.component';
 
 
 @NgModule({
-  declarations: [MapComponent, NavBarComponent],
+  declarations: [ NavBarComponent, ItineraryMapComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -16,7 +16,7 @@ import {AgmCoreModule}from '@agm/core';
     })
   ],
   exports:[
-    MapComponent,NavBarComponent
+    NavBarComponent,ItineraryMapComponent
   ]
 })
 export class SharedModule { }
