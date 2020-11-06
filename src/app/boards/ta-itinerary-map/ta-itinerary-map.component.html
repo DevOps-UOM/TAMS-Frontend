@@ -1,2 +1,4 @@
-<app-itinerary-map [mapHeight]="550">
-</app-itinerary-map>
+<div *ngIf="customerList.length>0">
+    <app-map [mapHeight]="550" [modeSignal]="modeSignal" [markerList]="customerList">
+    </app-map>
+</div>
