@@ -21,12 +21,6 @@ export class NavBarComponent implements OnInit {
       case 'Itinerary Map':
         this.router.navigate(['/boards/itinerary-map']);
         break;
-      case 'Bin Manager':
-        this.router.navigate(["/boards/bin-manager"])
-        break;
-      case 'Bin Map':
-        this.router.navigate(["/boards/bin-map"])
-        break;
 
       default:
         this.router.navigate(['boards/home']);

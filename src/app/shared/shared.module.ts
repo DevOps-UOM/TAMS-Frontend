@@ -1,25 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MapComponent } from './map/map.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import {FlexLayoutModule} from '@angular/flex-layout'
 import {AgmCoreModule}from '@agm/core';
+import { AgmDirectionModule } from 'agm-direction';
+import { MapComponent } from './map/map.component';
 
 
 @NgModule({
-  declarations: [MapComponent, NavBarComponent],
+  declarations: [ NavBarComponent, MapComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,
     AgmCoreModule.forRoot({
-      apiKey:'AIzaSyAnQIrbexL15BeN97xOY7nOjcQkJZfJsig'
-    })
+      apiKey:'AIzaSyA9rPesD1LpqsLTVFeHEpxvjnl5FNLDbS0'
+    }),
+    AgmDirectionModule
   ],
   exports:[
-    MapComponent,NavBarComponent
+    NavBarComponent,MapComponent
   ]
 })
 export class SharedModule { }
 
-
-//AIzaSyA9rPesD1LpqsLTVFeHEpxvjnl5FNLDbS0

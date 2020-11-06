@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes,RouterModule} from '@angular/router'
-import { ItineraryMapComponent } from './itinerary-map/itinerary-map.component';
-import { MapComponent } from '../shared/map/map.component';
 import { SharedModule } from '../shared/shared.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+
+import { TAItineraryMapComponent } from './ta-itinerary-map/ta-itinerary-map.component';
+
 import { CustomerAvailabilityComponent } from './customer-availability/customer-availability.component';
+
 
 
 const routes: Routes = [
@@ -17,13 +19,13 @@ const routes: Routes = [
 
   {
     path: 'itinerary-map',
-    component: ItineraryMapComponent
+    component: TAItineraryMapComponent
   }
 ]
 
 
 @NgModule({
-  declarations: [ItineraryMapComponent, CustomerAvailabilityComponent],
+neraryMapComponent, CustomerAvailabilityComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
