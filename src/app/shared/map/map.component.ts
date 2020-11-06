@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AllocatedCustomers } from 'src/app/models/itinerary.model';
-import { ItineraryService } from '../../services/itinerary.service'
+import { ItineraryService } from '../../services/itinerary/itinerary.service'
 
 
 

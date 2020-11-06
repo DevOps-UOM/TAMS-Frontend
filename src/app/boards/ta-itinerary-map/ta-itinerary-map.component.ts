@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AllocatedCustomers, modeSignalStatus } from 'src/app/models/itinerary.model';
-import { ItineraryService } from '../../services/itinerary.service';
+import { ItineraryService } from '../../services/itinerary/itinerary.service';
 import { Observable } from 'rxjs';
 
 @Component({

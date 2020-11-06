@@ -4,6 +4,7 @@ import { Routes,RouterModule} from '@angular/router'
 import { SharedModule } from '../shared/shared.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TAItineraryMapComponent } from './ta-itinerary-map/ta-itinerary-map.component';
+import { TaTaskComponent } from './ta-task/ta-task.component';
 
 
 const routes: Routes = [
@@ -21,7 +22,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  declarations: [ TAItineraryMapComponent],
+  declarations: [ TAItineraryMapComponent, TaTaskComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
