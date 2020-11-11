@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+
+import { Component, OnInit,HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,16 +17,36 @@ export class NavBarComponent implements OnInit {
   }
 
   callScreen(screenName) {
-    console.log("called here")
+    console.log("called here" + screenName);
     switch (screenName) {
       case 'Itinerary Map':
         this.router.navigate(['/boards/itinerary-map']);
         break;
+      case 'Itinerary Task':
+        this.router.navigate(['/boards/itinerary-task']);
+        break;
 
       default:
-        this.router.navigate(['boards/home']);
+        this.router.navigate(['/boards/home']);
         break;
     }
 
+  }
+  userMenu() {
+    document.getElementById("userMenuDropdown").classList.toggle("show");
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    if (!(event.target == document.getElementById("user-det"))) {
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
+    }
   }
 }

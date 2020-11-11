@@ -5,11 +5,21 @@
         </div>
     </div>
     <div class="buttons" fxLayout="row" fxLayoutAlign="center">
-        <div class="button">
+        <div class="button" (click)="callScreen('Itinerary Map')">
             <p class="label">Itinerary Map</p>
         </div>
-        <div class="button" (click)="callScreen('Itinerary Map')">
+        <div class="button" (click)="callScreen('Itinerary Task')">
             <p class="label">Task</p>
+        </div>
+        <div>
+            <div id="user-det" class="user-btn" (click)="userMenu()"></div>
+            <div id="userMenuDropdown" class="dropdown-content">
+                <div class="agent-type"><label>Travel Agent</label></div>
+                <hr>
+                <a href="#home">Profile</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
         </div>
     </div>
 </div>

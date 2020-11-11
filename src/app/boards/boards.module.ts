@@ -5,7 +5,9 @@ import { SharedModule } from '../shared/shared.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TAItineraryMapComponent } from './ta-itinerary-map/ta-itinerary-map.component';
 import { TaTaskComponent } from './ta-task/ta-task.component';
-
+import {MatButtonModule} from '@angular/material/button';
+import { MatSliderModule } from '@angular/material/slider';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 const routes: Routes = [
   {
@@ -17,6 +19,10 @@ const routes: Routes = [
   {
     path: 'itinerary-map',
     component: TAItineraryMapComponent
+  },
+  {
+    path: 'itinerary-task',
+    component:TaTaskComponent
   }
 ]
 
@@ -27,7 +33,10 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     SharedModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatButtonModule,
+    MatSliderModule,
+    OverlayModule
   ]
 })
 export class BoardsModule { }

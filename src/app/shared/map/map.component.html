@@ -1,9 +1,18 @@
 <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [style.height.px]="mapHeight" [style.width.px]="mapWidth">
     <div *ngIf="markers.length>0 && modeSignal==='markerMode'">
-        <agm-marker *ngFor="let m of markers" [latitude]="m.lat" [longitude]="m.lng">
+        <agm-marker *ngFor="let m of markers;index as i" [latitude]="m.lat" [longitude]="m.lng" [iconUrl]="customerLocationIcon">
+            <agm-snazzy-info-window [maxWidth]="300" [closeWhenOthersOpen]="true">
+                <ng-template>
+                    Name : {{markerList[i].name.first_name}} {{markerList[i].name.last_name}}
+                </ng-template>
+            </agm-snazzy-info-window>
         </agm-marker>
     </div>
     <div *ngIf="destination && modeSignal==='directionMode'">
-        <agm-direction [origin]="origin" [destination]="destination" [waypoints]="waypoints"></agm-direction>
+        <agm-marker [latitude]="currentLat" [longitude]="currentLng" [iconUrl]="currentLocaionIcon">
+        </agm-marker>
+        <agm-direction [origin]="origin" [destination]="destination" [waypoints]="waypoints">
+
+        </agm-direction>
     </div>
 </agm-map>

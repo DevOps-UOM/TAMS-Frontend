@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutsModule } from './layouts/layouts.module';
 import {HttpClientModule} from '@angular/common/http';
+import { AlertsModule } from 'angular-alert-module';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import {HttpClientModule} from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     LayoutsModule,
-    HttpClientModule
+    HttpClientModule,
+    AlertsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
