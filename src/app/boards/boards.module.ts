@@ -1,13 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Routes,RouterModule} from '@angular/router'
+import { Routes, RouterModule } from '@angular/router'
 import { SharedModule } from '../shared/shared.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TAItineraryMapComponent } from './ta-itinerary-map/ta-itinerary-map.component';
 import { LeaveComponent } from './leave/leave.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
+import { TaTaskComponent } from './ta-task/ta-task.component';
+import {MatButtonModule} from '@angular/material/button';
+import { MatSliderModule } from '@angular/material/slider';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 const routes: Routes = [
   {
@@ -23,12 +27,16 @@ const routes: Routes = [
   {
     path: 'leave',
     component: LeaveComponent
+  },
+  {
+    path: 'itinerary-task',
+    component: TaTaskComponent
   }
 ]
 
 
 @NgModule({
-  declarations: [ TAItineraryMapComponent, LeaveComponent],
+  declarations: [ TAItineraryMapComponent, TaTaskComponent,LeaveComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -36,7 +44,10 @@ const routes: Routes = [
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatButtonModule,
+    MatSliderModule,
+    OverlayModule
   ]
 })
 export class BoardsModule { }

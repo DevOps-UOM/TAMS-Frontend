@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,OnDestroy} from '@angular/core';
 import { AllocatedCustomers, modeSignalStatus } from 'src/app/models/itinerary.model';
-import { ItineraryService } from '../../services/itinerary.service';
-import { Observable } from 'rxjs';
+import { ItineraryService } from '../../services/itinerary/itinerary.service';
+import { Overlay } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-ta-itinerary-map',
@@ -19,16 +19,18 @@ export class TAItineraryMapComponent implements OnInit {
   taid: String = "TA001";
   modeSignal:string= modeSignalStatus.markerMode;
 
+  
+
   constructor(private itineraryService: ItineraryService) {
 
   }
 
   ngOnInit(){
-    this.getCustomers()
+    this.getCustomers();
+    
   }
 
-  
-
+ 
 
   getCustomers() {
     this.loading = true;
@@ -40,7 +42,7 @@ export class TAItineraryMapComponent implements OnInit {
     })
      
    } catch (exception) {
-     
+     console.log("Recieved Empty Customer List!");
    }
   }
 
