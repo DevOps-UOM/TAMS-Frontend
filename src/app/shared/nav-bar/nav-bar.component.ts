@@ -21,6 +21,9 @@ export class NavBarComponent implements OnInit {
       case 'Itinerary Map':
         this.router.navigate(['/boards/itinerary-map']);
         break;
+      case 'Leaves':
+        this.router.navigate(['/boards/leave']);
+        break;
 
       default:
         this.router.navigate(['boards/home']);

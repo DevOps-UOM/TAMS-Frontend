@@ -4,6 +4,9 @@ import { Routes,RouterModule} from '@angular/router'
 import { SharedModule } from '../shared/shared.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TAItineraryMapComponent } from './ta-itinerary-map/ta-itinerary-map.component';
+import { LeaveComponent } from './leave/leave.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 
 const routes: Routes = [
@@ -16,17 +19,24 @@ const routes: Routes = [
   {
     path: 'itinerary-map',
     component: TAItineraryMapComponent
+  },
+  {
+    path: 'leave',
+    component: LeaveComponent
   }
 ]
 
 
 @NgModule({
-  declarations: [ TAItineraryMapComponent],
+  declarations: [ TAItineraryMapComponent, LeaveComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     SharedModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ]
 })
 export class BoardsModule { }
