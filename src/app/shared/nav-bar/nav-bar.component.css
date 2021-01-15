@@ -1,40 +1,24 @@
 .container {
+    display: flex;
+    margin-left: auto;
+    margin-right: 5px;
     width: 100%;
-    height: 130px;
+    height: auto;
     padding: 0px;
     color: white;
     background-color: white;
-    background-image: url('../../../assets/images/1.jpg');
-    background-position: right;
-    background-repeat: no-repeat;
     -webkit-box-shadow: 0 8px 6px -6px rgb(168, 168, 168);
     -moz-box-shadow: 0 8px 6px -6px rgb(168, 168, 168);
     box-shadow: 0 8px 6px -6px rgb(168, 168, 168);
     padding: 20px 20px 10px 20px;
-    position: fixed;
     z-index: 100;
 }
 
 .title {
-    font-size: 30px;
+    font-size: 20px;
     font-weight: 600;
-    color: rgb(78, 78, 194);
-    font-family: "brannboll", "arial", sans-serif;
-}
-
-.button {
-    align-content: center;
-    vertical-align: middle;
-    font-size: 16px;
-    color: rgb(0, 0, 0);
-    padding: 20px 20px 0 20px;
-    border-right: 1px solid grey;
-    cursor: pointer;
-}
-
-.button:hover {
-    background-color: rgba(0, 0, 0, 0.041);
-    color: rgb(78, 78, 194);
+    color: #298E69;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
 .user-btn {
@@ -42,8 +26,8 @@
     width: 60px;
     vertical-align: middle;
     margin-left: 25px;
-    background-image: url("../../../assets/images/ic_profile_circle.png");
-    background-size: 200%;
+    background-image: url("../../../assets/images/ic_user.png");
+    background-size: 120%;
     background-position-y: center;
     background-position-x: center;
     display: inline-block;
@@ -53,8 +37,6 @@
 .user-btn:hover,
 .user-btn:focus {
     border: 5px solid rgba(73, 73, 73, 0.808);
-    height: 50px;
-    width: 50px;
 }
 
 .dropbtn:hover,
@@ -95,3 +77,5 @@
 .dropdown-content a:hover {
     background-color: rgba(108, 67, 255, 0.664)
 }
+
+.user {}

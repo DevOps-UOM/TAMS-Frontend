@@ -6,10 +6,11 @@ import { AgmCoreModule } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
 import { MapComponent } from './map/map.component';
 import { TaTaskCardComponent } from './ta-task-card/ta-task-card.component';
-import {AgmSnazzyInfoWindowModule} from '@agm/snazzy-info-window'
+import {AgmSnazzyInfoWindowModule} from '@agm/snazzy-info-window';
+import { SideBarComponent } from './side-bar/side-bar.component'
 
 @NgModule({
-  declarations: [NavBarComponent, MapComponent, TaTaskCardComponent],
+  declarations: [NavBarComponent, MapComponent, TaTaskCardComponent, SideBarComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -20,7 +21,7 @@ import {AgmSnazzyInfoWindowModule} from '@agm/snazzy-info-window'
     AgmSnazzyInfoWindowModule
   ],
   exports: [
-    NavBarComponent, MapComponent
+    NavBarComponent, MapComponent,SideBarComponent
   ]
 })
 export class SharedModule { }

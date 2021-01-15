@@ -1,28 +1,16 @@
-<div class="container" fxlayout="row" fxLayoutAlign="space-between center">
-    <div class="topic" fxlayout="column" fxLayoutAlign="center center">
+<div class="container" fxLayoutAlign="space-between center">
+    <div></div>
+    <div class="user">
         <div>
-            <p class="title">Travelling Agents Management System</p>
+            <p class="title">John Doe</p>
         </div>
-    </div>
-    <div class="buttons" fxLayout="row" fxLayoutAlign="center">
-        <div class="button" (click)="callScreen('Itinerary Map')">
-            <p class="label">Itinerary Map</p>
-        </div>
-        <div class="button" (click)="callScreen('Leaves')">
-            <p class="label">Leaves</p>
-        </div>
-        <div class="button" (click)="callScreen('Itinerary Task')">
-            <p class="label">Task</p>
-        </div>
-        <div>
-            <div id="user-det" class="user-btn" (click)="userMenu()"></div>
-            <div id="userMenuDropdown" class="dropdown-content">
-                <div class="agent-type"><label>Travel Agent</label></div>
-                <hr>
-                <a href="#home">Profile</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
-            </div>
+        <div id="user-det" class="user-btn" (click)="userMenu()"></div>
+        <div id="userMenuDropdown" class="dropdown-content">
+            <div class="agent-type"><label>Travel Agent</label></div>
+            <hr>
+            <a href="#home">Profile</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
         </div>
     </div>
 </div>

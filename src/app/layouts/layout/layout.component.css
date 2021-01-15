@@ -1,9 +1,24 @@
 .content {
-    padding-top: 130px;
     height: auto;
     z-index: 1;
+    width: 100%;
 }
 
 app-nav-bar {
     z-index: 10;
+    width: 100%;
+}
+
+.sidebar {
+    z-index: 10;
+    height: auto;
+    width: 22%;
+}
+
+.boards {
+    width: 100%;
+}
+
+.navbar {
+    height: 10%;
 }
