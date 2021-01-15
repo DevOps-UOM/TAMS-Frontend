@@ -17,7 +17,7 @@ export class TAItineraryMapComponent implements OnInit {
 
   date: Date = new Date("2012-04-23");
   taid: String = "TA001";
-  modeSignal:string= modeSignalStatus.directionMode;
+  modeSignal:string= modeSignalStatus.markerMode;
 
   constructor(private itineraryService: ItineraryService) {
 
