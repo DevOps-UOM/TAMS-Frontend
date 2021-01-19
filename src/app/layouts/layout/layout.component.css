@@ -12,7 +12,7 @@ app-nav-bar {
 .sidebar {
     z-index: 10;
     height: auto;
-    width: 22%;
+    width: 300px;
 }
 
 .boards {

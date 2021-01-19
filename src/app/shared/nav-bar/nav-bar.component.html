@@ -1,10 +1,17 @@
 <div class="container" fxLayoutAlign="space-between center">
-    <div></div>
-    <div class="user">
-        <div>
-            <p class="title">John Doe</p>
+    <div class="burger_btn_area">
+        <div *ngIf="burger" class="burger_btn">
+
         </div>
-        <div id="user-det" class="user-btn" (click)="userMenu()"></div>
+    </div>
+    <div class="user">
+        <div class="flex-container row-reverse">
+            <div id="user-det" class="user-btn" (click)="userMenu()"></div>
+            <div class="user-name-div">
+                <p class="title">John Doe</p>
+
+            </div>
+        </div>
         <div id="userMenuDropdown" class="dropdown-content">
             <div class="agent-type"><label>Travel Agent</label></div>
             <hr>

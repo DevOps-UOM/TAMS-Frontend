@@ -1,7 +1,5 @@
 .container {
     display: flex;
-    margin-left: auto;
-    margin-right: 5px;
     width: 100%;
     height: auto;
     padding: 0px;
@@ -18,7 +16,7 @@
     font-size: 20px;
     font-weight: 600;
     color: #298E69;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .user-btn {
@@ -79,3 +77,39 @@
 }
 
 .user {}
+
+.flex-container {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    -ms-box-orient: horizontal;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.row-reverse {
+    -webkit-flex-direction: row-reverse;
+    flex-direction: row-reverse;
+}
+
+.user-name-div {
+    margin-top: 14px;
+}
+
+.burger_btn {
+    height: 35px;
+    width: 35px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-image: url("../../../assets/images/ic_burger_button.png");
+    border-radius: 5px;
+}
+
+.burger_btn:hover {
+    background-color: rgba(155, 155, 155, 0.568);
+}

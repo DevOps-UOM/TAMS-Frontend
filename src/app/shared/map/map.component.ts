@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit, ViewChild,ElementRef ,AfterViewInit,Renderer2} from '@angular/core';
 import { AllocatedCustomers } from 'src/app/models/itinerary.model';
 import { ItineraryService } from '../../services/itinerary/itinerary.service'
 
@@ -8,30 +8,102 @@ import { ItineraryService } from '../../services/itinerary/itinerary.service'
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnInit {
-  @Input() mapHeight: number;
-  @Input() mapWidth: number;
+export class MapComponent implements OnInit,AfterViewInit {
   @Input() modeSignal: string;
   @Input() markerList: AllocatedCustomers[] = [];
+
+  @ViewChild('AgmMap') agmMap: any;
+  @ViewChild('wrapper') wrapper: ElementRef;
+
+public latitude: number=7.928309;
+  public longitude: number=80.5;
+  private centerLat: number=7.928309;
+  private centerLng: number=80.5;
+  public zoom: number=8;
+
+  private changeLat: number=7.928309;
+  private changeLng: number=80.5;
 
   currentLocaionIcon = '../../../assets/images/ic_ta_location.svg';
   customerLocationIcon = '../../../assets/images/ic_customer_location.svg';
 
-  lat: number = 7.928309;
-  lng: number = 80.5;
-  zoom: number = 7.5;
+  //lat: number = 7.928309;
+  //lng: number = 80.5;
 
   currentLat: number;
   currentLng: number;
   isTracking:boolean;
   
+  widthReduce:number;
+  heightReduce:number=150;
+
   origin: any;
   destination: any;
   waypoints: Loc[] = [];
 
   markers: PointLoc[] = [];
 
-  constructor(private itineraryService: ItineraryService) {
+  @HostListener('window:resize')
+  onWindowResize() {
+    this.onResize();
+  }
+
+  ngAfterViewInit() {
+    if(window.innerWidth>600){
+      this.widthReduce=290;
+    }else{
+      this.widthReduce=55;
+    }
+    this.renderer.setStyle(
+      this.wrapper.nativeElement, 'width',
+      (window.innerWidth-this.widthReduce) + 'px'
+    );
+    this.renderer.setStyle(
+      this.wrapper.nativeElement, 'height',
+      (window.innerHeight-this.heightReduce) + 'px'
+    );
+    
+  }
+
+  onResize() {
+    // resize the container for the google map
+    if(window.innerWidth>600){
+      this.widthReduce=290;
+    }else{
+      this.widthReduce=55;
+    }
+    this.renderer.setStyle(
+      this.wrapper.nativeElement, 'width',
+      (window.innerWidth-this.widthReduce) + 'px'
+    );
+    this.renderer.setStyle(
+      this.wrapper.nativeElement, 'height',
+      (window.innerHeight-this.heightReduce) + 'px'
+    );
+    // recenters the map to the resized area.
+    this.agmMap.triggerResize().then(() =>  
+       this.agmMap._mapsWrapper.setCenter({lat: this.centerLat, lng: this.centerLng}));
+       
+
+  }
+
+  // idle fires after paning or zooming is done. 
+  // This is where we want to capture the center of the map.
+  // This way if the user resizes, the center is preserved.
+  idle() {
+    this.centerLat = this.changeLat;
+    this.centerLng = this.changeLng;
+  }
+
+// this event fires whenever any event changes the center. Panning, zooming, or resizing.
+  centerChange(event: any) {
+    if (event) {
+      this.changeLat = event.lat;
+      this.changeLng = event.lng;
+    }
+  }
+
+  constructor(private itineraryService: ItineraryService,private renderer:Renderer2) {
     this.trackMe();
   }
 
