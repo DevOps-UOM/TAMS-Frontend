@@ -27,11 +27,15 @@ export class NavBarComponent implements OnInit {
       case 'Bin Map':
         this.router.navigate(["/boards/bin-map"])
         break;
+      case 'User Management':
+        this.router.navigate(["/boards/admin-user-management"])
+        break;
 
       default:
-        this.router.navigate(['boards/home']);
+        this.router.navigate(['/boards/home']);
         break;
     }
 
   }
 }
+
