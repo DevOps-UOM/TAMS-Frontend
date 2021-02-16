@@ -1,1 +1,29 @@
-<p>ta-task-card works!</p>
+<div class="task-card" fxLayout="column" fxLayoutAlign="start start">
+    <div fxLayout="row" fxLayoutAlign="start center">
+        <div class="text-card-area">
+            <mat-label class="label">Customer : </mat-label>
+        </div>
+        <div class="text-card-area">
+            <mat-label class="label">W.A. Wijesinghe</mat-label>
+        </div>
+        <div class="card-button">
+            <p class="label-btn">Remove</p>
+        </div>
+        <div class="card-button">
+            <p class="label-btn">View in Map</p>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center">
+        <div class="text-card-area">
+            <mat-label class="label">Task : </mat-label>
+        </div>
+        <div>
+            <textarea class="text-area" name="" id=""></textarea>
+        </div>
+    </div>
+    <div class="map" *ngIf="customerList.length>0">
+        <app-map [modeSignal]="modeSignal" [markerList]="customerList">
+
+        </app-map>
+    </div>
+</div>

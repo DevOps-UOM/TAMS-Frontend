@@ -2,6 +2,7 @@
     background-color: #298E69;
     height: 1000px;
     width: 100%;
+    min-width: 200px;
 }
 
 .title {
@@ -28,8 +29,6 @@
     padding-left: 20%;
     padding-top: 13px;
 }
-
-.buttons {}
 
 .log-button:hover {
     background-color: #39C892;
@@ -60,3 +59,29 @@
     margin: auto;
     width: fit-content;
 }
+
+.sub-button {
+    padding: 3px;
+    padding-left: 30%;
+    padding-top: 11px;
+}
+
+.collaspe-icon {
+    padding-right: 15px;
+    padding-bottom: 8px;
+}
+
+.collapse-button {
+    padding: 5px;
+    padding-left: 7%;
+    padding-top: 13px;
+}
+
+.collapse-button:hover {
+    background-color: #39C892;
+}
+
+.sub-button:hover {
+    background-color: #39C892;
+}
+

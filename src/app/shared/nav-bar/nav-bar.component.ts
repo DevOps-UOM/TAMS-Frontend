@@ -1,11 +1,21 @@
 
 import { Component, OnInit,HostListener, Input } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css']
+  styleUrls: ['./nav-bar.component.css'],
+  animations:[
+    trigger('fade',[
+      //state(),
+      transition('void => *',[
+        style({opacity:0.3,transform:'translateY(-50px)'}),
+        animate(1000,style({opacity:1,transform:'translateX(0px)'}))
+      ] )
+    ])
+  ]
 })
 export class NavBarComponent implements OnInit {
 

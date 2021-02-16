@@ -26,9 +26,14 @@
     "@angular/router": "~10.1.5",
     "agm-direction": "^0.8.7",
     "angular-alert-module": "^2.0.3",
+    "bootstrap": "^4.6.0",
+    "jquery": "^3.5.1",
+    "material-design-icons": "^3.0.1",
+    "popper.js": "^1.16.1",
     "rxjs": "~6.6.0",
     "snazzy-info-window": "^1.1.0",
     "tslib": "^2.0.0",
+    "web-animations-js": "^2.3.2",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

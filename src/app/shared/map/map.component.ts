@@ -50,9 +50,9 @@ public latitude: number=7.928309;
 
   ngAfterViewInit() {
     if(window.innerWidth>600){
-      this.widthReduce=290;
+      this.widthReduce=310;
     }else{
-      this.widthReduce=55;
+      this.widthReduce=75;
     }
     this.renderer.setStyle(
       this.wrapper.nativeElement, 'width',
@@ -68,9 +68,9 @@ public latitude: number=7.928309;
   onResize() {
     // resize the container for the google map
     if(window.innerWidth>600){
-      this.widthReduce=290;
+      this.widthReduce=310;
     }else{
-      this.widthReduce=55;
+      this.widthReduce=75;
     }
     this.renderer.setStyle(
       this.wrapper.nativeElement, 'width',

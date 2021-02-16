@@ -1,4 +1,4 @@
-<div class="sidebar">
+<div class="sidebar" @fade>
     <div class="topic" fxLayoutAlign="center center">
         <div>
             <p class="title">TAMS SYSTEM</p>
@@ -6,7 +6,7 @@
     </div>
     <div class="buttons">
         <div class="button" (click)="callScreen('Itinerary Map')">
-            <p class="label">Itinerary Map</p>
+            <p class="label">Travel Agent Map</p>
         </div>
         <div class="button" (click)="callScreen('Leaves')">
             <p class="label">Leaves</p>
@@ -14,16 +14,26 @@
         <div class="button" (click)="callScreen('Itinerary Task')">
             <p class="label">Task</p>
         </div>
-        <!-- <div>
-            <div id="user-det" class="user-btn" (click)="userMenu()"></div>
-            <div id="userMenuDropdown" class="dropdown-content">
-                <div class="agent-type"><label>Travel Agent</label></div>
-                <hr>
-                <a href="#home">Profile</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
+
+        <div class="collapse-button" fxLayout="row" fxLayoutAlign="start center" (click)="CollapseChange('TA')" type="button" data-toggle="collapse" data-target="#collapseTA" aria-expanded="false" aria-controls="collapseTA">
+
+            <div class="collaspe-icon">
+                <svg id="collapseSVGTA" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                    <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                  </svg>
             </div>
-        </div> -->
+
+
+            <p class="label">Travel Agent</p>
+        </div>
+        <div class="collapse" id="collapseTA">
+            <div class="sub-button">
+                <p class="label">Travel Itinerary</p>
+            </div>
+            <div class="sub-button">
+                <p class="label">Profile</p>
+            </div>
+        </div>
     </div>
     <div class="sidebar-log-area center">
         <div class="log-button">

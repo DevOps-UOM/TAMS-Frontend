@@ -1,0 +1,50 @@
+.task-card {
+    margin: 25px;
+    padding: 10px;
+    border-radius: 15px;
+    width: max-content;
+    background-color: rgba(0, 0, 0, 0.205);
+    -webkit-box-shadow: 8px 8px 6px -6px rgb(168, 168, 168);
+    -moz-box-shadow: 8px 8px 6px -6px rgb(168, 168, 168);
+    box-shadow: 8px 8px 6px -6px rgb(168, 168, 168);
+    z-index: 100;
+}
+
+.label {
+    font-size: 15px;
+    font-weight: 500;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.label-btn {
+    font-size: 15px;
+    font-weight: 350;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.text-card-area {
+    margin: 10px;
+}
+
+.card-button {
+    margin: 10px;
+    background-color: #298E69;
+    color: white;
+    border-radius: 10px;
+    padding: 7px 5px 0px 5px;
+}
+
+.card-button:hover {
+    background-color: #39C892;
+}
+
+.text-area {
+    margin-left: 45px;
+    width: 500px;
+}
+
+.map {
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 10px;
+}

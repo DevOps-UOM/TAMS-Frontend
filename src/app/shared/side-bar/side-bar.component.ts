@@ -1,14 +1,31 @@
+
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-side-bar',
   templateUrl: './side-bar.component.html',
-  styleUrls: ['./side-bar.component.css']
+  styleUrls: ['./side-bar.component.css'],
+  animations:[
+    trigger('fade',[
+      //state(),
+      transition('void => *',[
+        style({opacity:0.3,transform:'translateX(-50px)'}),
+        animate(1000,style({opacity:1,transform:'translateX(0px)'}))
+      ] )
+    ])
+  ]
 })
 export class SideBarComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  TAButton:boolean=false;
+  panelOpenState = false;
+
+  constructor(private router: Router) {
+   }
 
   ngOnInit(): void {
   }
@@ -31,4 +48,55 @@ export class SideBarComponent implements OnInit {
     }
 
   }
+
+  CollapseChange(buttonName){
+    switch(buttonName){
+      case 'TA':
+        
+        console.log("sdsds");
+        break;
+    }
+  }
+
+  
 }
+
+
+// interface Category {
+//   name: string;
+//   children?: Category[];
+// }
+
+// const TREE_DATA: Category[] = [
+//   {
+//     name: 'Dashboard'
+//   }, 
+//   {
+//     name: 'Customers',
+//     children: [
+//       {
+//         name: 'Assign Customers'
+//       }
+//     ]
+//   },
+//   {
+//     name: 'Call Center Agents'
+//   },
+//   {
+//     name: 'Travel Agents',
+//     children:[
+//       {
+//         name:'Profiles'
+//       },
+//       {
+//         name: 'Travel Itinerary'
+//       },
+//       {
+//         name: 'Leaves'
+//       }
+//     ]
+//   },
+//   {
+//     name:'About'
+//   }
+// ];
