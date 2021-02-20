@@ -41,6 +41,9 @@ export class SideBarComponent implements OnInit {
       case 'Itinerary Task':
         this.router.navigate(['/boards/itinerary-task']);
         break;
+      case 'User Management':
+        this.router.navigate(["/boards/admin-user-management"])
+        break;
 
       default:
         this.router.navigate(['/boards/home']);

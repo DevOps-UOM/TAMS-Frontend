@@ -1,3 +1,7 @@
 .navbar {
-  align-content: right;
+    align-content: right;
+}
+
+.forum-container {
+    margin: 50px;
 }
