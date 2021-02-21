@@ -12,6 +12,7 @@ import { TaTaskComponent } from './ta-task/ta-task.component';
 import {MatButtonModule} from '@angular/material/button';
 import { MatSliderModule } from '@angular/material/slider';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { CustomerAvailabiltyComponent } from './customer-availabilty/customer-availabilty.component';
 
 const routes: Routes = [
   {
@@ -36,7 +37,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  declarations: [ TAItineraryMapComponent, TaTaskComponent,LeaveComponent],
+  declarations: [ TAItineraryMapComponent, TaTaskComponent,LeaveComponent, CustomerAvailabiltyComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
