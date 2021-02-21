@@ -32,6 +32,10 @@ const routes: Routes = [
   {
     path: 'itinerary-task',
     component: TaTaskComponent
+  },
+  {
+    path: 'customer-availability',
+    component: CustomerAvailabiltyComponent
   }
 ]
 
