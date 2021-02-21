@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <div class="outer-wrapper">
     <div class="map-wrapper" id="wrapper" #wrapper>
 
@@ -22,16 +21,3 @@
         </agm-map>
     </div>
 </div>
-=======
-
-<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [style.height.px]="mapHeight" [style.width.px]="mapWidth">
-    <div *ngIf="markers.length>0 && modeSignal==='markerMode'">
-        <agm-marker *ngFor="let m of markers" [latitude]="m.lat" [longitude]="m.lng">
-        </agm-marker>
-    </div>
-    <div *ngIf="destination && modeSignal==='directionMode'">
-        <agm-direction [origin]="origin" [destination]="destination" [waypoints]="waypoints"></agm-direction>
-    </div>
-</agm-map>
-
->>>>>>> 6ca565919a50c602e08b2541f7a773e53611ee0a
