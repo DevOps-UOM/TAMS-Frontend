@@ -2,7 +2,7 @@
     background-color: #298E69;
     height: 1000px;
     width: 100%;
-    min-width: 200px;
+    min-width: 240px;
 }
 
 .title {
@@ -84,4 +84,3 @@
 .sub-button:hover {
     background-color: #39C892;
 }
-
