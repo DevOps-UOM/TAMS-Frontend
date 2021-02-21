@@ -6,16 +6,23 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router'
 import { SharedModule } from '../shared/shared.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { TAItineraryMapComponent } from './ta-itinerary-map/ta-itinerary-map.component';
 import { LeaveComponent } from './leave/leave.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminUserManagementComponent } from './admin-user-management/admin-user-management.component';
 
+<<<<<<< HEAD
 import { TaTaskComponent } from './ta-task/ta-task.component';
 import {MatButtonModule} from '@angular/material/button';
 import { MatSliderModule } from '@angular/material/slider';
 import { OverlayModule } from '@angular/cdk/overlay';
+=======
+import { CustomerAvailabilityComponent } from './customer-availability/customer-availability.component';
+
+
+>>>>>>> 6ca565919a50c602e08b2541f7a773e53611ee0a
 
 const routes: Routes = [
   {
@@ -44,7 +51,11 @@ const routes: Routes = [
 
 
 @NgModule({
+<<<<<<< HEAD
   declarations: [ TAItineraryMapComponent, TaTaskComponent,LeaveComponent,AdminUserManagementComponent],
+=======
+neraryMapComponent, CustomerAvailabilityComponent],
+>>>>>>> 6ca565919a50c602e08b2541f7a773e53611ee0a
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
