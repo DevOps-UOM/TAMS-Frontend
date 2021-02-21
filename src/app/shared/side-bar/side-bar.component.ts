@@ -44,6 +44,9 @@ export class SideBarComponent implements OnInit {
       case 'Customer Availability':
         this.router.navigate(['/boards/customer-availability']);
         break;
+      case 'User Management':
+        this.router.navigate(["/boards/admin-user-management"])
+        break;
 
       default:
         this.router.navigate(['/boards/home']);

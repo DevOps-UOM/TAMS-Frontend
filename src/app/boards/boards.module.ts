@@ -1,3 +1,6 @@
+// import { FormControllService } from './../services/form-controll.service';
+// import { TaAgentsTableComponent } from './../shared/ta-agents-table/ta-agents-table.component';
+// import { CaAgentsTableComponent} from './../shared/ca-agents-table/ca-agents-table.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router'
@@ -7,6 +10,7 @@ import { TAItineraryMapComponent } from './ta-itinerary-map/ta-itinerary-map.com
 import { LeaveComponent } from './leave/leave.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AdminUserManagementComponent } from './admin-user-management/admin-user-management.component';
 
 import { TaTaskComponent } from './ta-task/ta-task.component';
 import {MatButtonModule} from '@angular/material/button';
@@ -36,12 +40,16 @@ const routes: Routes = [
   {
     path: 'customer-availability',
     component: CustomerAvailabiltyComponent
+  },
+  {
+    path: 'admin-user-management',
+    component: AdminUserManagementComponent
   }
 ]
 
 
 @NgModule({
-  declarations: [ TAItineraryMapComponent, TaTaskComponent,LeaveComponent, CustomerAvailabiltyComponent],
+  declarations: [ TAItineraryMapComponent, TaTaskComponent,LeaveComponent,AdminUserManagementComponent,CustomerAvailabiltyComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -56,3 +64,4 @@ const routes: Routes = [
   ]
 })
 export class BoardsModule { }
+

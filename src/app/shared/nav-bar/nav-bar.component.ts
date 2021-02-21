@@ -40,6 +40,7 @@ export class NavBarComponent implements OnInit {
       case 'Itinerary Task':
         this.router.navigate(['/boards/itinerary-task']);
         break;
+      
 
       default:
         this.router.navigate(['/boards/home']);
@@ -65,3 +66,4 @@ export class NavBarComponent implements OnInit {
     }
   }
 }
+

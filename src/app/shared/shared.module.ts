@@ -1,3 +1,4 @@
+//import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -11,15 +12,31 @@ import { SideBarComponent } from './side-bar/side-bar.component';
 import { MatIconModule } from '@angular/material/icon';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { ContainerComponent } from './container/container.component';
+import { DetailFormComponent } from './detail-form/detail-form.component';
+import { CaAgentsTableComponent } from './ca-agents-table/ca-agents-table.component';
+import { TaAgentsTableComponent } from './ta-agents-table/ta-agents-table.component';
+import { NavTablesComponent } from './nav-tables/nav-tables.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes} from '@angular/router';
+
+const admin_routes: Routes = [
+  { path: 'admin-user-management/ca-agents' , component: CaAgentsTableComponent},
+  { path: 'admin-user-management/ta-agents' , component: TaAgentsTableComponent}
+];
 
 @NgModule({
-  declarations: [NavBarComponent, MapComponent, TaTaskCardComponent, SideBarComponent],
+  declarations: [NavBarComponent, MapComponent, TaTaskCardComponent, SideBarComponent, ContainerComponent, DetailFormComponent, CaAgentsTableComponent, TaAgentsTableComponent, NavTablesComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule,
+    //BrowserModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyA9rPesD1LpqsLTVFeHEpxvjnl5FNLDbS0'
     }),
+    RouterModule.forChild(admin_routes),
     AgmDirectionModule,
     AgmSnazzyInfoWindowModule,
     MatIconModule,
@@ -27,7 +44,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatFormFieldModule
   ],
   exports: [
-    NavBarComponent, MapComponent,SideBarComponent,TaTaskCardComponent
+    NavBarComponent, MapComponent,SideBarComponent,TaTaskCardComponent,FormsModule, ReactiveFormsModule, ContainerComponent, DetailFormComponent, NavTablesComponent, TaAgentsTableComponent, CaAgentsTableComponent
   ]
 })
 export class SharedModule { }
