@@ -34,7 +34,8 @@ const admin_routes: Routes = [
     ReactiveFormsModule,
     //BrowserModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyA9rPesD1LpqsLTVFeHEpxvjnl5FNLDbS0'
+      apiKey: 'AIzaSyA9rPesD1LpqsLTVFeHEpxvjnl5FNLDbS0',
+      libraries:['places']
     }),
     RouterModule.forChild(admin_routes),
     AgmDirectionModule,

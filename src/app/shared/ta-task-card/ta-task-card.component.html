@@ -4,13 +4,13 @@
             <mat-label class="label">Customer : </mat-label>
         </div>
         <div class="text-card-area">
-            <mat-label class="label">W.A. Wijesinghe</mat-label>
+            <mat-label class="label">{{customer.name.first_name}}</mat-label>
         </div>
         <div class="card-button">
             <p class="label-btn">Remove</p>
         </div>
         <div class="card-button">
-            <p class="label-btn">View in Map</p>
+            <p class="label-btn" (click)="toggle()">View in Map</p>
         </div>
     </div>
     <div fxLayout="row" fxLayoutAlign="start center">
@@ -21,8 +21,8 @@
             <textarea class="text-area" name="" id=""></textarea>
         </div>
     </div>
-    <div class="map" *ngIf="customerList.length>0">
-        <app-map [modeSignal]="modeSignal" [markerList]="customerList">
+    <div class="map" *ngIf="customer!=null && isShowMap">
+        <app-map [modeSignal]="modeSignal" [selectedCustomer]="customer">
 
         </app-map>
     </div>
