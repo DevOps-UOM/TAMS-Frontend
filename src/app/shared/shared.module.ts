@@ -21,8 +21,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes} from '@angular/router';
 
 const admin_routes: Routes = [
-  { path: 'admin-user-management/ca-agents' , component: CaAgentsTableComponent},
-  { path: 'admin-user-management/ta-agents' , component: TaAgentsTableComponent}
+  // { path: 'admin-user-management/ca-agents' , component: CaAgentsTableComponent},
+  // { path: 'admin-user-management/ta-agents' , component: TaAgentsTableComponent}
 ];
 
 @NgModule({
@@ -44,6 +44,7 @@ const admin_routes: Routes = [
     MatFormFieldModule
   ],
   exports: [
+    CaAgentsTableComponent, TaAgentsTableComponent, 
     NavBarComponent, MapComponent,SideBarComponent,TaTaskCardComponent,FormsModule, ReactiveFormsModule, ContainerComponent, DetailFormComponent, NavTablesComponent, TaAgentsTableComponent, CaAgentsTableComponent
   ]
 })
