@@ -129,7 +129,7 @@ public latitude: number=7.928309;
     //console.log("marker list"+JSON.stringify(this.markerList));
     //this.trackMe();
 
-    this.getSingleDirection();
+    //this.getSingleDirection();
 
     console.log(this.modeSignal);
     switch (this.modeSignal) {
