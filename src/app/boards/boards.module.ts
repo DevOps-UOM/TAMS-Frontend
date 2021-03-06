@@ -1,6 +1,3 @@
-// import { FormControllService } from './../services/form-controll.service';
-// import { TaAgentsTableComponent } from './../shared/ta-agents-table/ta-agents-table.component';
-// import { CaAgentsTableComponent} from './../shared/ca-agents-table/ca-agents-table.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router'
@@ -19,6 +16,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { CustomerAvailabiltyComponent } from './customer-availabilty/customer-availabilty.component';
 import { CaAgentsTableComponent } from '../shared/ca-agents-table/ca-agents-table.component';
 import { TaAgentsTableComponent } from '../shared/ta-agents-table/ta-agents-table.component';
+import { CaUserManagementComponent } from './ca-user-management/ca-user-management.component';
 
 const routes: Routes = [
   {
@@ -51,12 +49,19 @@ const routes: Routes = [
       { path: 'ta-agents' , component: TaAgentsTableComponent}
     
     ]
+  },
+  {
+    path: 'ca-user-management',
+    component: CaUserManagementComponent,
+    children: [
+      { path: 'ta-agents' , component: TaAgentsTableComponent}
+    ]
   }
 ]
 
 
 @NgModule({
-  declarations: [ TAItineraryMapComponent, TaTaskComponent,LeaveComponent,AdminUserManagementComponent,CustomerAvailabiltyComponent],
+  declarations: [ TAItineraryMapComponent, TaTaskComponent,LeaveComponent,AdminUserManagementComponent,CustomerAvailabiltyComponent, CaUserManagementComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

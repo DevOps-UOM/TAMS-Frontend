@@ -19,7 +19,7 @@ export class CaAgentsTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.get<{status: string, msg: string, data: Grade[]}>('http://localhost:3000/marks').subscribe((postData) => {
+    this.http.get<{status: string, msg: string, data: Grade[]}>('http://localhost:3000/ca-agents').subscribe((postData) => {
     this.grades = postData['data'];
     });
 

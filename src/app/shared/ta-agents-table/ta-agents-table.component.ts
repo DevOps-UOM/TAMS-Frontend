@@ -22,7 +22,7 @@ export class TaAgentsTableComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.http.get<{ status: string, msg: string, data: Grade[] }>('http://localhost:3000/marks/max').subscribe((postData) => {
+    this.http.get<{ status: string, msg: string, data: Grade[] }>('http://localhost:3000/ta-agents').subscribe((postData) => {
       this.grades = postData['data'];
     });
 
