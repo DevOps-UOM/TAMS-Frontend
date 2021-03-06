@@ -1,3 +1,4 @@
+import { from } from 'rxjs';
 //import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -19,6 +20,8 @@ import { TaAgentsTableComponent } from './ta-agents-table/ta-agents-table.compon
 import { NavTablesComponent } from './nav-tables/nav-tables.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes} from '@angular/router';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 const admin_routes: Routes = [
   { path: 'admin-user-management/ca-agents' , component: CaAgentsTableComponent},
@@ -26,7 +29,19 @@ const admin_routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [NavBarComponent, MapComponent, TaTaskCardComponent, SideBarComponent, ContainerComponent, DetailFormComponent, CaAgentsTableComponent, TaAgentsTableComponent, NavTablesComponent],
+
+  declarations: [
+    NavBarComponent, 
+    MapComponent, 
+    TaTaskCardComponent, 
+    SideBarComponent, 
+    ContainerComponent, 
+    DetailFormComponent, 
+    CaAgentsTableComponent, 
+    TaAgentsTableComponent, 
+    NavTablesComponent, 
+  ],
+
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -41,11 +56,24 @@ const admin_routes: Routes = [
     AgmSnazzyInfoWindowModule,
     MatIconModule,
     MatExpansionModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatDialogModule
   ],
+
   exports: [
-    NavBarComponent, MapComponent,SideBarComponent,TaTaskCardComponent,FormsModule, ReactiveFormsModule, ContainerComponent, DetailFormComponent, NavTablesComponent, TaAgentsTableComponent, CaAgentsTableComponent
+    NavBarComponent, 
+    MapComponent,
+    SideBarComponent,
+    TaTaskCardComponent,
+    FormsModule, 
+    ReactiveFormsModule, 
+    ContainerComponent, 
+    DetailFormComponent, 
+    NavTablesComponent, 
+    TaAgentsTableComponent, 
+    CaAgentsTableComponent,
   ]
 })
+
 export class SharedModule { }
 

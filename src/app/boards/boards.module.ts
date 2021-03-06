@@ -17,6 +17,8 @@ import {MatButtonModule} from '@angular/material/button';
 import { MatSliderModule } from '@angular/material/slider';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CustomerAvailabiltyComponent } from './customer-availabilty/customer-availabilty.component';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 const routes: Routes = [
   {
@@ -60,7 +62,8 @@ const routes: Routes = [
     HttpClientModule,
     MatButtonModule,
     MatSliderModule,
-    OverlayModule
+    OverlayModule,
+    MatDialogModule
   ]
 })
 export class BoardsModule { }

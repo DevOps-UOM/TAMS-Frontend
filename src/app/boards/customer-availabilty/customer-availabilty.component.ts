@@ -1,7 +1,9 @@
+import { AddTaskComponent } from './../../shared/add-task/add-task.component';
 import { Component, OnInit } from '@angular/core';
 import { from } from 'rxjs';
 import{FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AvailabilityServiceService} from '../../services/availability-service.service'
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-customer-availabilty',
@@ -9,15 +11,17 @@ import {AvailabilityServiceService} from '../../services/availability-service.se
   styleUrls: ['./customer-availabilty.component.css']
 })
 export class CustomerAvailabiltyComponent implements OnInit {
+  
   custId = '';
   availabilityForm: FormGroup;
   availabilities: any;
   displayAvailabilities: any;
+
   constructor(
     private fb: FormBuilder,
-    private availabilityService: AvailabilityServiceService
-  ) {
-  }
+    private availabilityService: AvailabilityServiceService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.formInstaller();
@@ -75,6 +79,14 @@ export class CustomerAvailabiltyComponent implements OnInit {
         return a.cust_id === term; 
       });
     }
+  }
+
+  addTask(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig. width = "30%";
+    this.dialog.open(AddTaskComponent, dialogConfig);
   }
 
 
