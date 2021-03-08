@@ -13,10 +13,19 @@ Add Task
         <div class="form-group col-md">
             <label for="">Estimated Task Duration</label>
             <select class="custom-select" formControlName="task_duration">
-       <option selected >15 min</option>
-       <option >30 min</option>
-       <option >45 min</option>
-     </select>
+                <option selected >15 min</option>
+                <option >30 min</option>
+                <option >45 min</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md">
+            <label for="">Task Details</label>
+            <textarea formControlName="note" name="" id="" cols="30" rows="10" class="form-control"></textarea>
+        </div>
+
+        <div class="btn btn-info float-right ml-2" style="background-color:#33B585">
+            Add
         </div>
 
 </form>
