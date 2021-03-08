@@ -26,7 +26,18 @@ const admin_routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [NavBarComponent, MapComponent, TaTaskCardComponent, SideBarComponent, ContainerComponent, DetailFormComponent, CaAgentsTableComponent, TaAgentsTableComponent, NavTablesComponent],
+  declarations: [
+    NavBarComponent, 
+    MapComponent, 
+    TaTaskCardComponent, 
+    SideBarComponent, 
+    ContainerComponent, 
+    DetailFormComponent, 
+    CaAgentsTableComponent, 
+    TaAgentsTableComponent, 
+    NavTablesComponent
+  ],
+
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -45,9 +56,21 @@ const admin_routes: Routes = [
     MatFormFieldModule
   ],
   exports: [
-    CaAgentsTableComponent, TaAgentsTableComponent, 
-    NavBarComponent, MapComponent,SideBarComponent,TaTaskCardComponent,FormsModule, ReactiveFormsModule, ContainerComponent, DetailFormComponent, NavTablesComponent, TaAgentsTableComponent, CaAgentsTableComponent
+    CaAgentsTableComponent, 
+    TaAgentsTableComponent, 
+    NavBarComponent, 
+    MapComponent,
+    SideBarComponent,
+    TaTaskCardComponent,
+    FormsModule, 
+    ReactiveFormsModule, 
+    ContainerComponent, 
+    DetailFormComponent, 
+    NavTablesComponent,
+    TaAgentsTableComponent, 
+    CaAgentsTableComponent
   ]
 })
+
 export class SharedModule { }
 

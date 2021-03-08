@@ -32,8 +32,12 @@ export class SideBarComponent implements OnInit {
   callScreen(screenName) {
     console.log("called here" + screenName);
     switch (screenName) {
+      
       case 'Itinerary Map':
         this.router.navigate(['/boards/itinerary-map']);
+        break;
+        case 'Itinerary Map':
+        this.router.navigate(['/boards/itinerary-details']);
         break;
       case 'Leaves':
         this.router.navigate(['/boards/leave']);

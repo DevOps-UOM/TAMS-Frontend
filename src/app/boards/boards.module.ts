@@ -19,6 +19,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { CustomerAvailabiltyComponent } from './customer-availabilty/customer-availabilty.component';
 import { CaAgentsTableComponent } from '../shared/ca-agents-table/ca-agents-table.component';
 import { TaAgentsTableComponent } from '../shared/ta-agents-table/ta-agents-table.component';
+import { ItineraryDetailsComponent } from './itinerary-details/itinerary-details.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,10 @@ const routes: Routes = [
   {
     path: 'itinerary-map',
     component: TAItineraryMapComponent
+  },
+  {
+    path: 'itinerary-details',
+    component: ItineraryDetailsComponent
   },
   {
     path: 'leave',
@@ -56,7 +61,15 @@ const routes: Routes = [
 
 
 @NgModule({
-  declarations: [ TAItineraryMapComponent, TaTaskComponent,LeaveComponent,AdminUserManagementComponent,CustomerAvailabiltyComponent],
+  declarations: [
+    TAItineraryMapComponent, 
+    TaTaskComponent,
+    LeaveComponent,
+    AdminUserManagementComponent,
+    CustomerAvailabiltyComponent,
+    ItineraryDetailsComponent
+    ],
+
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -70,5 +83,6 @@ const routes: Routes = [
     OverlayModule
   ]
 })
+
 export class BoardsModule { }
 
