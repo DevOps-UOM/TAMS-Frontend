@@ -47,6 +47,9 @@ export class SideBarComponent implements OnInit {
       case 'User Management':
         this.router.navigate(["/boards/admin-user-management"])
         break;
+      case 'Statistical Dashboard':
+        this.router.navigate(["/boards/stat-dashboard"])
+        break;
 
       default:
         this.router.navigate(['/boards/home']);
