@@ -20,14 +20,16 @@ import { NavTablesComponent } from './nav-tables/nav-tables.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes} from '@angular/router';
 import { TaOnlyDetailFormComponent } from './ta-only-detail-form/ta-only-detail-form.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const admin_routes: Routes = [
   // { path: 'admin-user-management/ca-agents' , component: CaAgentsTableComponent},
   // { path: 'admin-user-management/ta-agents' , component: TaAgentsTableComponent}
+    { path: 'users/:userid' , component: UserProfileComponent }
 ];
 
 @NgModule({
-  declarations: [NavBarComponent, MapComponent, TaTaskCardComponent, SideBarComponent, ContainerComponent, DetailFormComponent, CaAgentsTableComponent, TaAgentsTableComponent, NavTablesComponent, TaOnlyDetailFormComponent],
+  declarations: [NavBarComponent, MapComponent, TaTaskCardComponent, SideBarComponent, ContainerComponent, DetailFormComponent, CaAgentsTableComponent, TaAgentsTableComponent, NavTablesComponent, TaOnlyDetailFormComponent, UserProfileComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,
