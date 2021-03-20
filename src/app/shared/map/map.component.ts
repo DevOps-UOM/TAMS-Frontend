@@ -1,8 +1,12 @@
 import { Component, HostListener, Input, OnInit, OnChanges, ViewChild,ElementRef ,AfterViewInit,Renderer2,NgZone   } from '@angular/core';
-import { AllocatedCustomers } from 'src/app/models/itinerary.model';
+import { AllocatedCustomers, modeSignalStatus } from 'src/app/models/itinerary.model';
 import { ItineraryService } from '../../services/itinerary/itinerary.service'
 
 import {MapsAPILoader} from '@agm/core'
+
+import { DataService } from '../../services/data/data.service'
+import {Subscription} from 'rxjs'
+
 
 @Component({
   selector: 'app-map',
@@ -25,8 +29,13 @@ public latitude: number=7.928309;
   private centerLng: number=80.5;
   public zoom: number=8;
 
+  map_width:number;
+
   private changeLat: number=7.928309;
   private changeLng: number=80.5;
+
+  isShowSidebar:boolean;
+  subscription: Subscription;
 
   currentLocaionIcon = '../../../assets/images/ic_ta_location.svg';
   customerLocationIcon = '../../../assets/images/ic_customer_location.svg';
@@ -44,7 +53,7 @@ public latitude: number=7.928309;
   currentLng: number;
   isTracking:boolean;
   
-  widthReduce:number;
+  widthReduce:number=0;
   heightReduce:number=150;
 
   origin: any;
@@ -61,11 +70,24 @@ public latitude: number=7.928309;
     this.onResize();
   }
 
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   ngAfterViewInit() {
-    if(window.innerWidth>600){
-      this.widthReduce=310;
-    }else{
-      this.widthReduce=75;
+    if(this.modeSignal=modeSignalStatus.singlePathMode){
+      if(this.isShowSidebar){
+        this.widthReduce=350;
+      }else{
+        this.widthReduce=110;
+      }
+    }else if(this.modeSignal=modeSignalStatus.markerMode){
+      if(this.isShowSidebar){
+        this.widthReduce=100;
+      }else{
+        this.widthReduce=5;
+      }
     }
     this.renderer.setStyle(
       this.wrapper.nativeElement, 'width',
@@ -76,19 +98,31 @@ public latitude: number=7.928309;
       (window.innerHeight-this.heightReduce) + 'px'
     );
     
+    this.agmMap.triggerResize().then(() =>  
+       this.agmMap._mapsWrapper.setCenter({lat: this.centerLat, lng: this.centerLng}));
   }
 
   ngOnChanges(){
     
   }
 
+
   onResize() {
     // resize the container for the google map
-    if(window.innerWidth>600){
-      this.widthReduce=310;
-    }else{
-      this.widthReduce=75;
+    if(this.modeSignal=modeSignalStatus.singlePathMode){
+      if(this.isShowSidebar){
+        this.widthReduce=350;
+      }else{
+        this.widthReduce=110;
+      }
+    }else if(this.modeSignal=modeSignalStatus.markerMode){
+      if(this.isShowSidebar){
+        this.widthReduce=100;
+      }else{
+        this.widthReduce=5;
+      }
     }
+    
     this.renderer.setStyle(
       this.wrapper.nativeElement, 'width',
       (window.innerWidth-this.widthReduce) + 'px'
@@ -121,15 +155,17 @@ public latitude: number=7.928309;
   }
 
   constructor(private itineraryService: ItineraryService,private renderer:Renderer2,private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone) {
+    private ngZone: NgZone, private data: DataService) {
     //this.trackMe();
   }
 
   ngOnInit(): void {
     //console.log("marker list"+JSON.stringify(this.markerList));
     //this.trackMe();
-
+    this.subscription = this.data.currentMessage.subscribe(isShowSidebar => this.isShowSidebar = isShowSidebar)
     //this.getSingleDirection();
+
+    
 
     console.log(this.modeSignal);
     switch (this.modeSignal) {
@@ -164,6 +200,8 @@ public latitude: number=7.928309;
     
   }
 
+
+
   getDirections() {
     var loc: Loc;
     var i: number;
@@ -172,7 +210,8 @@ public latitude: number=7.928309;
       lat: this.markerList[0].location.coordinates[0],
       lng: this.markerList[0].location.coordinates[1]
     };
-    for (i = 1; i < this.markerList.length - 1; i++) {
+    
+    for (i = 1; i < this.markerList.length; i++) {
       loc = {
         location: {
           lat: this.markerList[i].location.coordinates[0],
@@ -184,9 +223,11 @@ public latitude: number=7.928309;
     }
     console.log(this.waypoints);
     this.destination = {
-      lat: this.markerList[i].location.coordinates[0],
-      lng: this.markerList[i].location.coordinates[1]
+      lat: this.markerList[0].location.coordinates[0],
+      lng: this.markerList[0].location.coordinates[1]
     };
+    console.log(this.origin);
+    console.log(this.destination);
   }
 
   getMarkers() {
@@ -196,6 +237,8 @@ public latitude: number=7.928309;
         lng: this.markerList[i].location.coordinates[1]
       });
     }
+
+    console.log(this.markers);
   }
 
   // trackMe() {

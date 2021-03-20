@@ -30,7 +30,7 @@ export class ItineraryService {
     return this.http.delete(this.apiEndPoint + '/itineraries/' + date + '/' + taid);
   }
 
-  getASingleItinerary(date: Date, taid: String) {
+  getASingleItinerary(date: Date, taid: String) : Observable<any>  {
     return this.http.get(this.apiEndPoint + '/itineraries/' + date + '/' + taid);
   }
 

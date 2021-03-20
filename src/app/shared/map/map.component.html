@@ -14,7 +14,7 @@
             <div *ngIf="destination && modeSignal==='directionMode'">
                 <agm-marker [latitude]="currentLat" [longitude]="currentLng" [iconUrl]="currentLocaionIcon">
                 </agm-marker>
-                <agm-direction [origin]="origin" [destination]="destination" [waypoints]="waypoints">
+                <agm-direction [origin]="origin" [destination]="destination" [waypoints]="waypoints" [optimizeWaypoints]="true">
 
                 </agm-direction>
             </div>

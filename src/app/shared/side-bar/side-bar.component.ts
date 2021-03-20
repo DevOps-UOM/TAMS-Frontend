@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
       //state(),
       transition('void => *',[
         style({opacity:0.3,transform:'translateX(-50px)'}),
-        animate(1000,style({opacity:1,transform:'translateX(0px)'}))
+        animate(500,style({opacity:1,transform:'translateX(0px)'}))
       ] )
     ])
   ]

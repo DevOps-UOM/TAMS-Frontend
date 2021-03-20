@@ -19,6 +19,7 @@ import { TaAgentsTableComponent } from './ta-agents-table/ta-agents-table.compon
 import { NavTablesComponent } from './nav-tables/nav-tables.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes} from '@angular/router';
+import {MatButtonModule} from '@angular/material/button';
 
 const admin_routes: Routes = [
   // { path: 'admin-user-management/ca-agents' , component: CaAgentsTableComponent},
@@ -42,7 +43,8 @@ const admin_routes: Routes = [
     AgmSnazzyInfoWindowModule,
     MatIconModule,
     MatExpansionModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatButtonModule
   ],
   exports: [
     CaAgentsTableComponent, TaAgentsTableComponent, 

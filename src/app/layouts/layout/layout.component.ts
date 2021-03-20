@@ -1,5 +1,8 @@
 import { Component, HostListener, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 
+import { DataService } from '../../services/data/data.service'
+import {Subscription} from 'rxjs'
+
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
@@ -12,6 +15,8 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   fontSize: number;
   viewInitAfter: boolean = false;
 
+  isShowSidebar:boolean =false;
+  subscription: Subscription;
 
   @HostListener('window:resize', [])
   private onResize() {
@@ -22,6 +27,15 @@ export class LayoutComponent implements OnInit, AfterViewInit {
     this.viewInitAfter = true;
     this.cdr.detectChanges();
   }
+
+  ngOnChange(){
+    this.subscription = this.data.currentMessage.subscribe(isShowSidebar => this.isShowSidebar = isShowSidebar)
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
 
   private detectScreenSize() {
     if (window.innerWidth > 1024) {
@@ -44,11 +58,19 @@ export class LayoutComponent implements OnInit, AfterViewInit {
 
 
   constructor(
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private data: DataService
   ) { }
 
   ngOnInit(): void {
     this.detectScreenSize();
+    this.showSideBar(this.isTablet|| this.isDesktop);
   }
 
+  showSideBar(burgerBoolean:boolean){
+    this.isShowSidebar=burgerBoolean;
+
+    this.data.showSidebar(this.isShowSidebar);
+    //console.log(this.isShowSidebar);
+  }
 }

@@ -1,6 +1,13 @@
-<div class="task-container">
+<div class="task-container" [@listAnimation]="customerList.length+1">
 
     <div *ngFor="let customer of customerList">
-        <app-ta-task-card [customer]="customer"></app-ta-task-card>
+        <app-ta-task-card [customer]="customer" [selectedItinerary]="selectedItinerary"></app-ta-task-card>
     </div>
+
+    <div class="flex-container" @listAnimation>
+        <div class="button">
+            <p>Route Completed</p>
+        </div>
+    </div>
+
 </div>

@@ -1,5 +1,6 @@
 
 export interface IItinerary {
+  _id:String;
   taid: String,
   date: Date,
   assigned_customer_id: [String],
@@ -9,6 +10,7 @@ export interface IItinerary {
 export class Itinerary implements IItinerary {
 
   constructor(
+    public _id:string,
     public taid: string,
     public location: Location,
     public assigned_customer_id: [String],
@@ -64,3 +66,6 @@ export enum modeSignalStatus{
   markerMode="markerMode",
   singlePathMode="singlePathMode"
 }
+
+
+
