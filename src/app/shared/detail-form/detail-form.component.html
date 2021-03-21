@@ -1,0 +1,27 @@
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+<div class="form-group">
+    <form [formGroup]="form" (ngSubmit)="OnSubmit()">
+      <label for="email">E-mail</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        class="form-control"
+      /><br /><br />
+  
+      <label for="agenttype">Agent Type</label> &nbsp; &nbsp; &nbsp;
+      <select name="type" id="agenttype" formControlName="agentType" class="form-control">
+        <option value="ca" class="form-control">Call Centre Agent</option>
+        <option value="ta" class="form-control">Travelling Agent</option>
+      </select><br /> <br />
+     
+      <label for="userid">User ID</label> &nbsp; &nbsp; &nbsp;
+      <input type="text" id="userid" value="AB00001" class="form-control" formControlName="userid">
+      <br /> <br />
+  
+  <button type="submit" class="btn btn-secondary">Add</button>
+    </form>
+  </div>
+  
+  

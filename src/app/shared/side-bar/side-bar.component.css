@@ -1,0 +1,86 @@
+.sidebar {
+    background-color: #298E69;
+    height: 1000px;
+    width: 100%;
+    min-width: 240px;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 700;
+    color: rgb(255, 255, 255);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.topic {
+    padding-top: 34px;
+    padding-bottom: 34px;
+}
+
+.label {
+    font-size: 20px;
+    font-weight: 350;
+    color: rgb(255, 255, 255);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.button {
+    padding: 5px;
+    padding-left: 20%;
+    padding-top: 13px;
+}
+
+.log-button:hover {
+    background-color: #39C892;
+}
+
+.button:hover {
+    background-color: #39C892;
+}
+
+.log-button {
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 30%);
+    padding-left: 33px;
+    padding-right: 33px;
+    padding-top: 7px;
+    padding-bottom: 4px;
+    vertical-align: middle;
+    border-radius: 30px;
+    background-color: #298E69;
+    width: fit-content;
+}
+
+.sidebar-log-area {
+    position: relative;
+    top: 200px;
+}
+
+.center {
+    margin: auto;
+    width: fit-content;
+}
+
+.sub-button {
+    padding: 3px;
+    padding-left: 30%;
+    padding-top: 11px;
+}
+
+.collaspe-icon {
+    padding-right: 15px;
+    padding-bottom: 8px;
+}
+
+.collapse-button {
+    padding: 5px;
+    padding-left: 7%;
+    padding-top: 13px;
+}
+
+.collapse-button:hover {
+    background-color: #39C892;
+}
+
+.sub-button:hover {
+    background-color: #39C892;
+}

@@ -1,4 +1,13 @@
-<app-nav-bar></app-nav-bar>
-<div class="content">
-    <router-outlet></router-outlet>
+<div fxLayout="row">
+    <div *ngIf="isDesktop || isTablet" fxLayout="column" class="sidebar">
+        <app-side-bar></app-side-bar>
+    </div>
+    <div fxLayout="column" class="boards">
+        <div fxLayout="row" class="navbar">
+            <app-nav-bar [burger]="!(isDesktop || isTablet)"></app-nav-bar>
+        </div>
+        <div fxLayout="row" class="content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
 </div>

@@ -1,12 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+
+import { Component, OnInit,HostListener, Input } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css']
+  styleUrls: ['./nav-bar.component.css'],
+  animations:[
+    trigger('fade',[
+      //state(),
+      transition('void => *',[
+        style({opacity:0.3,transform:'translateY(-50px)'}),
+        animate(1000,style({opacity:1,transform:'translateX(0px)'}))
+      ] )
+    ])
+  ]
 })
 export class NavBarComponent implements OnInit {
+
+  @Input() burger:boolean;
 
   constructor(
     private router: Router
@@ -16,7 +29,7 @@ export class NavBarComponent implements OnInit {
   }
 
   callScreen(screenName) {
-    console.log("called here")
+    console.log("called here" + screenName);
     switch (screenName) {
       case 'Itinerary Map':
         this.router.navigate(['/boards/itinerary-map']);
@@ -24,11 +37,33 @@ export class NavBarComponent implements OnInit {
       case 'Leaves':
         this.router.navigate(['/boards/leave']);
         break;
+      case 'Itinerary Task':
+        this.router.navigate(['/boards/itinerary-task']);
+        break;
+      
 
       default:
-        this.router.navigate(['boards/home']);
+        this.router.navigate(['/boards/home']);
         break;
     }
 
   }
+  userMenu() {
+    document.getElementById("userMenuDropdown").classList.toggle("show");
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    if (!(event.target == document.getElementById("user-det"))) {
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
+    }
+  }
 }
+

@@ -1,18 +1,23 @@
-<div class="container" fxlayout="row" fxLayoutAlign="space-between center">
-    <div class="topic" fxlayout="column" fxLayoutAlign="center center">
-        <div>
-            <p class="title">Travelling Agents Management System</p>
+<div class="container" fxLayoutAlign="space-between center" @fade>
+    <div class="burger_btn_area">
+        <div *ngIf="burger" class="burger_btn">
+
         </div>
     </div>
-    <div class="buttons" fxLayout="row" fxLayoutAlign="center">
-        <div class="button">
-            <p class="label">Itinerary Map</p>
+    <div class="user">
+        <div class="flex-container row-reverse">
+            <div id="user-det" class="user-btn" (click)="userMenu()"></div>
+            <div class="user-name-div">
+                <p class="title">John Doe</p>
+
+            </div>
         </div>
-        <div class="button" (click)="callScreen('Itinerary Map')">
-            <p class="label">Task</p>
-        </div>
-        <div class="button" (click)="callScreen('Leaves')">
-            <p class="label">Leaves</p>
+        <div id="userMenuDropdown" class="dropdown-content">
+            <div class="agent-type"><label>Travel Agent</label></div>
+            <hr>
+            <a href="#home">Profile</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
         </div>
     </div>
 </div>

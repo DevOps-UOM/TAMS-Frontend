@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpResponse,HttpClientModule } from '@angular/common/http';
-import { AllocatedCustomers } from '../models/itinerary.model'
+import { AllocatedCustomers } from '../../models/itinerary.model'
 import { Observable } from 'rxjs';
 
 

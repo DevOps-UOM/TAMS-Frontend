@@ -9,6 +9,10 @@ const routes: Routes = [{
   {
     path: 'boards',
     loadChildren: () => import('./boards/boards.module').then(module => module.BoardsModule)
+  },
+  {
+    path: 'shared',
+    loadChildren: () => import('./shared/shared.module').then(module => module.SharedModule)
   }
 ];
 
