@@ -1,13 +1,17 @@
 <div class="task-container" [@listAnimation]="customerList.length+1">
 
+    <div class="header" fxLayoutAlign="space-between center">
+        <p class="title">Travel Itinerary</p>
+        <button mat-raised-button class="button ref_btn" (click)="refresh()"><div class="refresh"></div></button>
+    </div>
     <div *ngFor="let customer of customerList">
         <app-ta-task-card [customer]="customer" [selectedItinerary]="selectedItinerary"></app-ta-task-card>
     </div>
 
     <div class="flex-container" @listAnimation>
-        <div class="button">
-            <p>Route Completed</p>
-        </div>
+        <button mat-raised-button class="button">
+            <p class="Complete_btn">Route Completed</p>
+    </button>
     </div>
 
 </div>

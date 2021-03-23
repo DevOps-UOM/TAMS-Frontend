@@ -23,7 +23,7 @@ import { getQueryPredicate } from '@angular/compiler/src/render3/view/util';
 
   ]
 })
-export class TaTaskCardComponent implements OnInit,AfterViewInit {
+export class TaTaskCardComponent implements OnInit {
 
   @Input() customer: AllocatedCustomers;
 
@@ -48,7 +48,7 @@ export class TaTaskCardComponent implements OnInit,AfterViewInit {
 
   text_width: number;
 
-  currentStatus: string;
+  private currentStatus: string;
 
   itinerary_id: String;
   cust_id: String;
@@ -65,9 +65,9 @@ export class TaTaskCardComponent implements OnInit,AfterViewInit {
 
   changeSize() {
     if (this.isShowSidebar) {
-      this.text_width = window.innerWidth - 420;
+      this.text_width = window.innerWidth - 460;
     } else {
-      this.text_width = window.innerWidth - 160;
+      this.text_width = window.innerWidth - 230;
     }
 
   }
@@ -78,10 +78,7 @@ export class TaTaskCardComponent implements OnInit,AfterViewInit {
   }
 
 
-  ngAfterViewInit() {
-    //this.checkStatus();
-    this.checkStatus();
-  }
+  
 
   
 
@@ -91,12 +88,16 @@ export class TaTaskCardComponent implements OnInit,AfterViewInit {
 
     
     this.changeSize();
+    this.checkStatus();
   }
 
   toggle() {
     this.isShowMap = !this.isShowMap;
+    
   }
 
+
+ 
 
   startAnimation(state) {
     if (!this.animationState) {
@@ -111,14 +112,18 @@ export class TaTaskCardComponent implements OnInit,AfterViewInit {
   checkStatus() {
     try {
       this.taskAssignmentService.getTaskStatus(this.selectedItinerary._id, this.customer.cust_id).subscribe((res) => {
-        this.currentStatus = res.data.status;
-        console.log(this.currentStatus);
+
+        if(res.data && res.data[0] && res.data[0].status){
+          this.currentStatus = res.data[0].status;
+          //console.log(this.currentStatus);
+        }
+
         if (this.currentStatus == "Completed" || this.currentStatus == "Postponed") {
           this.isDisabled = true;
         }else{
           this.isDisabled = false;
         }
-        console.log(this.currentStatus);
+        
       })
     } catch (exception) {
       console.log("Checking Status Error");
@@ -136,21 +141,32 @@ export class TaTaskCardComponent implements OnInit,AfterViewInit {
 
 
     this.taskAssignmentService.updateTaskStatus(changeStatus).subscribe((res: any) => {
-      this.currentStatus = res.data.status
+      //console.log(res);
+      this.currentStatus = res.data.status;
       //this.cd.detectChanges();
       // console.log("hey");
       //this.getColor();
       if (this.currentStatus == "Completed" || this.currentStatus == "Postponed") {
         this.isDisabled = true;
       }else{
+        //console.log("Called")
         this.isDisabled = false;
       }
-      console.log(res.data.status);
+      //console.log(res.data[0].status);
     })
+
+    
 
   }
 
+  navigate(){
+      let stringDestination = ""+this.customer.location.coordinates[0]+","+this.customer.location.coordinates[1];
+      let url =`https://www.google.com/maps/dir/?api=1&destination=${stringDestination}`;
+      console.log(url);
+     // window.location.href = url;
 
+      window.open(url, "_blank");
+  }
 
   //   let newStudent={
   //     _id:this._id,

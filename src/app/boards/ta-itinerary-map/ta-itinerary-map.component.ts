@@ -35,7 +35,7 @@ export class TAItineraryMapComponent implements OnInit {
   getCustomers() {
     this.loading = true;
    try {
-    this.itineraryService.getAllocatedCustomers(this.date, this.taid).subscribe((res) => {
+    this.itineraryService.getAllocatedPendingCustomers(this.date, this.taid).subscribe((res) => {
       this.loading = false;
      (res.body.data && res.body.data.length>0)? this.customerList = res.body.data : this.customerList=[];
       //console.log("Dataaaa"+JSON.stringify(this.customerList));

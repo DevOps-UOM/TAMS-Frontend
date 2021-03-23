@@ -1,6 +1,6 @@
 .task-card {
     margin: 25px;
-    padding: 10px;
+    padding: 10px 30px 10px 30px;
     border-radius: 15px;
     width: auto;
     min-width: 340px;
@@ -43,6 +43,11 @@
     background-color: #39C892;
 }
 
+.card-button:active {
+    box-shadow: inset 0px 0px 5px #2b2b2b;
+    outline: none;
+}
+
 .text-area {
     margin-left: 45px;
     min-width: 190px;
@@ -52,4 +57,8 @@
     margin-top: 20px;
     background-color: white;
     border-radius: 10px;
+}
+
+.button-container {
+    overflow: hidden;
 }

@@ -78,13 +78,13 @@ public latitude: number=7.928309;
   ngAfterViewInit() {
     if(this.modeSignal=modeSignalStatus.singlePathMode){
       if(this.isShowSidebar){
-        this.widthReduce=350;
+        this.widthReduce=400;
       }else{
-        this.widthReduce=110;
+        this.widthReduce=150;
       }
-    }else if(this.modeSignal=modeSignalStatus.markerMode){
+    }else if(this.modeSignal=modeSignalStatus.directionMode){
       if(this.isShowSidebar){
-        this.widthReduce=100;
+        this.widthReduce=70;
       }else{
         this.widthReduce=5;
       }
@@ -111,13 +111,13 @@ public latitude: number=7.928309;
     // resize the container for the google map
     if(this.modeSignal=modeSignalStatus.singlePathMode){
       if(this.isShowSidebar){
-        this.widthReduce=350;
+        this.widthReduce=400;
       }else{
-        this.widthReduce=110;
+        this.widthReduce=150;
       }
-    }else if(this.modeSignal=modeSignalStatus.markerMode){
+    }else if(this.modeSignal=modeSignalStatus.directionMode){
       if(this.isShowSidebar){
-        this.widthReduce=100;
+        this.widthReduce=70;
       }else{
         this.widthReduce=5;
       }
@@ -211,7 +211,7 @@ public latitude: number=7.928309;
       lng: this.markerList[0].location.coordinates[1]
     };
     
-    for (i = 1; i < this.markerList.length; i++) {
+    for (i = 1; i < this.markerList.length-1; i++) {
       loc = {
         location: {
           lat: this.markerList[i].location.coordinates[0],
@@ -223,8 +223,8 @@ public latitude: number=7.928309;
     }
     console.log(this.waypoints);
     this.destination = {
-      lat: this.markerList[0].location.coordinates[0],
-      lng: this.markerList[0].location.coordinates[1]
+      lat: this.markerList[i].location.coordinates[0],
+      lng: this.markerList[i].location.coordinates[1]
     };
     console.log(this.origin);
     console.log(this.destination);
@@ -260,10 +260,16 @@ public latitude: number=7.928309;
         this.currentLng = position.coords.longitude;
         //this.zoom = 8;
         //this.getAddress(this.currentLat, this.currentLng);
-      });
+      },(err)=>{
+        console.log(err);
+      }
+      );
+    }else{
+      alert("Geo location is not supported");
     }
     console.log(this.currentLat+" "+this.currentLng);
   }
+
 
   getAddress(latitude, longitude) {
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {

@@ -8,15 +8,23 @@
             <mat-label class="label">{{customer.name.first_name}}</mat-label>
         </div>
     </div>
-    <div fxLayout="row" fxLayoutAlign="start center">
-        <button mat-raised-button class="card-button label-btn" (click)="TaskButton('Completed')" [disabled]="isDisabled">
+    <div class="row" fxLayout="row" fxLayoutAlign="start center">
+        <button *ngIf="!isDisabled" mat-raised-button class="card-button label-btn col-sm-auto " (click)="TaskButton('Completed')">
             Complete
         </button>
-        <button mat-raised-button class="card-button label-btn" (click)="TaskButton('Postponed')" [disabled]="isDisabled">
+        <button *ngIf="!isDisabled" mat-raised-button class="card-button label-btn col-sm-auto " (click)="TaskButton('Postponed')">
             Not Available
+         </button>
+
+        <button *ngIf="isDisabled" mat-raised-button class="card-button label-btn col-sm-auto" (click)="TaskButton('Pending')">
+            Reschedule
         </button>
-        <button mat-raised-button class="card-button label-btn" (click)="toggle()">
-            View in Map
+
+        <button mat-raised-button class="card-button label-btn col-sm-auto" (click)="toggle()">
+            {{isShowMap?'Close Map':'View in Map'}}
+        </button>
+        <button mat-raised-button class="card-button label-btn col-sm-auto" (click)="navigate()">
+            Navigate
         </button>
     </div>
     <div fxLayout="row " fxLayoutAlign="start center ">

@@ -11,7 +11,8 @@ import { Observable } from 'rxjs';
 })
 export class ItineraryService {
 
-  apiEndPoint = 'http://localhost:3000';
+  apiEndPoint = 'http://192.168.8.101:3000';
+
 
   constructor(private http: HttpClient) { }
 
@@ -37,6 +38,12 @@ export class ItineraryService {
   getAllocatedCustomers(date: Date, taid: String): Observable<HttpResponse<any>> {
     //console.log("1");
     return this.http.get<any>(`${this.apiEndPoint}/itineraries/allocated_customers/${date}/${taid}`, {observe : 'response'});
+        
+  }
+
+  getAllocatedPendingCustomers(date: Date, taid: String): Observable<HttpResponse<any>> {
+    //console.log("1");
+    return this.http.get<any>(`${this.apiEndPoint}/itineraries/allocated_pending_customers/${date}/${taid}`, {observe : 'response'});
         
   }
 

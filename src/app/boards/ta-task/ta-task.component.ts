@@ -47,6 +47,8 @@ import { emitWarning } from 'process';
 export class TaTaskComponent implements OnInit {
   private loading: boolean = false;
   customerList: AllocatedCustomers[] = [];
+  completedList:AllocatedCustomers[]=[];
+
 
  selectedItinerary: Itinerary;
 
@@ -92,6 +94,10 @@ export class TaTaskComponent implements OnInit {
     } catch (exception) {
       console.log("Recieved Empty Customer List!");
     }
+  }
+
+  refresh(){
+    this.getItinerary();
   }
 
 }
