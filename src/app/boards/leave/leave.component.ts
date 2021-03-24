@@ -74,6 +74,14 @@ export class LeaveComponent implements OnInit {
     }
   }
 
+  deleteRow(x){
+    var delBtn = confirm(" Do you want to delete ?");
+    if ( delBtn == true ) {
+      this.leaves.splice(x, 1 );
+    }   
+  } 
+    
+
   
 
 

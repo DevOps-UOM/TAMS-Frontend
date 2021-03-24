@@ -68,15 +68,7 @@
                 <td>{{lv.ta_name}}</td>
                 <td>{{lv.leave_date | date:'shortDate' }}</td>
                 <td>{{lv.pod}}</td>
-                <td>{{lv.note}}</td>
-                <td>
-                    <a class="action-btn" (click)="onEdit(lv)">
-                        <i class="material-icons">edit</i>
-                    </a>
-                    <a class="action-btn" (click)="onDelete(lv._id,leaveForm)">
-                        <i class="material-icons">delete</i>
-                    </a>
-                </td>
+                <td> <button (click) = "deleteRow(i)"><i class="fa fa-trash"></i></button></td>
 
             </tr>
         </tbody>
