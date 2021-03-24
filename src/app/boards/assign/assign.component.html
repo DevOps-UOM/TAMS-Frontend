@@ -1,1 +1,41 @@
-<p>assign works!cfyjd tfvjhf ufuygvjh ovfbjib</p>
+
+
+<div class="row mt-4 ml-4">
+    <div class="col-md-10 mb-8">
+        <input placeholder="Search" #search type="date" class="form-control" (input)="onSearch(search.value)">
+    </div>
+    <div class="col-md-2 mb-8">
+        <button (click)="onClickReset(search)" class="btn btn-danger"> reset</button>
+    </div>
+</div>
+
+<div class="row mt-4 ml-4">
+    <div class="col-md-12">
+        <table class="table table-striped w-full">
+            <thead>
+                <tr>
+                    <th scope="col">Customer Id</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Available Time</th>
+                    <th scope="col">Note</th>
+                    <th scope="col">Task</th>
+                    <th scope="col">Duration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let v of displayAvailabilities">
+                    <th scope="row">{{v.cust_id}}</th>
+                    <td>{{v.date | date:'shortDate' }}</td>
+                    <td>{{v.time_from }} - {{v.time_to}}</td>
+                    <td>{{v.note}}</td>
+                    <td>
+                        <div *ngFor="let single_task of v.task">
+                            {{single_task.task_name}}
+                        </div>
+                    </td>
+                    <td>{{v.task_duration}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
