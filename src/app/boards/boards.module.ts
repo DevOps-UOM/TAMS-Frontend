@@ -21,6 +21,9 @@ import { CaAgentsTableComponent } from '../shared/ca-agents-table/ca-agents-tabl
 import { TaAgentsTableComponent } from '../shared/ta-agents-table/ta-agents-table.component';
 import { AssignComponent } from './assign/assign.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
 
 const routes: Routes = [
   {
@@ -76,8 +79,11 @@ const routes: Routes = [
     MatButtonModule,
     MatSliderModule,
     OverlayModule,
-    MatDialogModule
-  ]
+    MatDialogModule, 
+    MatDatepickerModule,
+    MatNativeDateModule 
+  ],
+  providers: [MatDatepickerModule]
 })
 export class BoardsModule { }
 

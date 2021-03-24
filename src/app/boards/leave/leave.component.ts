@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {LeaveService} from '../../services/leave/leave.service';
 
 @Component({
@@ -42,7 +42,10 @@ export class LeaveComponent implements OnInit {
     this.leaveForm = this.fb.group({
       ta_id: ['', Validators.required],
       ta_name: ['', Validators.required],
-      leave_date: ['', Validators.required],
+      leave_date: this.fb.group({
+        start_date: ['', Validators.required],
+        end_date: ['', Validators.required],
+      }),
       pod: ['', Validators.required],
       note: ['', Validators.required]
     });
@@ -69,7 +72,9 @@ export class LeaveComponent implements OnInit {
       this.displayleaves = this.leaves;
     } else {
       this.displayleaves =  this.leaves.filter((a) => {
-        return a.ta_id === term; 
+        if(a.ta_id.toLowerCase().indexOf(term.toLowerCase()) > -1) {
+          return a
+        } 
       });
     }
   }
@@ -79,7 +84,11 @@ export class LeaveComponent implements OnInit {
     if ( delBtn == true ) {
       this.leaves.splice(x, 1 );
     }   
-  } 
+  }
+  range = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl()
+  }); 
     
 
   

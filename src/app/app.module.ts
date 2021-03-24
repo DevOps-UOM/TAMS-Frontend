@@ -20,7 +20,7 @@ import{BrowserAnimationsModule} from '@angular/platform-browser/animations'
     HttpClientModule,
     AlertsModule,
     BrowserAnimationsModule
-  ],
+    ],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents:[AddTaskComponent]
