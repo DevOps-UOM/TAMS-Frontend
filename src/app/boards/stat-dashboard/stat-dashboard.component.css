@@ -1,0 +1,12 @@
+.card {
+    margin: 20px;
+    position:inherit;
+}
+
+.card-body {
+    height: 50%;
+}
+
+.row {
+    margin: 20px;
+}
