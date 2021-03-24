@@ -1,4 +1,8 @@
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TaskServiceService } from './../../services/task-service.service';
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-add-task',
@@ -6,10 +10,40 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-task.component.css']
 })
 export class AddTaskComponent implements OnInit {
+  
 
-  constructor() { }
+  taskForm: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private taskService: TaskServiceService,
+    public dialogRef: MatDialogRef<AddTaskComponent>
+  ) { }
 
   ngOnInit(): void {
+    this.formInstaller();
   }
 
-}
+  formInstaller(): void {
+    this.taskForm = this.fb.group({
+      note: ['', Validators.required],
+      task_name: ['', Validators.required],
+      task_duration: ['', Validators.required]
+    });
+  }
+
+  onAddTask() {
+    console.log(this.taskForm.value);
+    this.taskService.createTask(this.taskForm.value)
+      .subscribe(
+        res => {
+          console.log(res);
+          this.dialogRef.close()
+        }, error => {
+          console.log(error);
+        }
+      );
+    this.taskForm.reset();
+
+      }
+    }

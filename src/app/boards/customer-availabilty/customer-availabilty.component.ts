@@ -1,3 +1,4 @@
+import { TaskServiceService } from './../../services/task-service.service';
 import { AddTaskComponent } from './../../shared/add-task/add-task.component';
 import { Component, OnInit } from '@angular/core';
 import{FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -15,16 +16,21 @@ export class CustomerAvailabiltyComponent implements OnInit {
   availabilityForm: FormGroup;
   availabilities: any;
   displayAvailabilities: any;
+  tasks: any;
+  displayTasks: any;
+
 
   constructor(
     private fb: FormBuilder,
     private availabilityService: AvailabilityServiceService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private TaskService: TaskServiceService
   ) {}
 
   ngOnInit(): void {
     this.formInstaller();
     this.loadAvailability();
+    this.loadTask();
   }
   // tslint:disable-next-line:typedef
   loadAvailability() {
@@ -40,7 +46,18 @@ export class CustomerAvailabiltyComponent implements OnInit {
       );
   }
 
+  loadTask() {
+    this.TaskService.getAllTask()
+      .subscribe(
+        res => {
+          this.tasks = res.data;
+          this.displayTasks =  this.tasks;
+        },
+        error => {
 
+        }
+      );
+  }
 
   formInstaller(): void {
     this.availabilityForm = this.fb.group({
@@ -53,6 +70,7 @@ export class CustomerAvailabiltyComponent implements OnInit {
       task_duration: ['', Validators.required]
     });
   }
+  
   // tslint:disable-next-line:typedef
   onClickSubmit() {
     console.log(this.availabilityForm.value);
@@ -75,7 +93,9 @@ export class CustomerAvailabiltyComponent implements OnInit {
       this.displayAvailabilities = this.availabilities;
     } else {
       this.displayAvailabilities =  this.availabilities.filter((a) => {
-        return a.cust_id === term; 
+        if(a.cust_id.toLowerCase().indexOf(term.toLowerCase()) > -1) {
+          return a
+        } 
       });
     }
   }

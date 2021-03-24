@@ -10,7 +10,7 @@
         <div class="form-row">
             <div class="form-group col-md">
                 <label for="">Customer ID</label>
-                <input formControlName="cust_id" type="text" class="form-control" placeholder="">
+                <input required formControlName="cust_id" type="text" class="form-control" placeholder="">
             </div>
             <div class="form-group col-md">
                 <label for="">Date</label>
@@ -37,11 +37,9 @@
         <div class="form-row">
             <div class="form-group col-md">
                 <label for="">Select Task</label>
-                <select class="custom-select" formControlName="task" size="11">
-        <option >Sample Task 1</option>
-        <option >Sample Task 2</option>
-        <option >Sample Task 3</option>
-      </select>
+                <select multiple=true class="form-control" formControlName="task" size="11" >
+                    <option [ngValue]="t._id" *ngFor="let t of displayTasks">{{t.task_name}}</option> 
+                </select>
             </div>
             <div class="form-group col-md">
                 <label for="">Special Notes</label>
@@ -78,7 +76,11 @@
                 <td>{{v.date | date:'shortDate' }}</td>
                 <td>{{v.time_from }} - {{v.time_to}}</td>
                 <td>{{v.note}}</td>
-                <td>{{v.task}}</td>
+                <td>
+                    <div *ngFor="let single_task of v.task">
+                        {{single_task.task_name}}
+                    </div>
+                </td>
                 <td>{{v.task_duration}}</td>
             </tr>
         </tbody>

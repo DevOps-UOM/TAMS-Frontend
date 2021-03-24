@@ -2,12 +2,12 @@
 <h1 class="text-center text-black-50">
 Add Task
 </h1>
-
-<form>
+<div>
+    <form [formGroup]='taskForm'  class="mt-5">
 
         <div class="form-group col-md">
             <label for="">Task Name</label>
-            <input formControlName="cust_id" type="text" class="form-control" placeholder="">
+            <input formControlName="task_name" type="text" class="form-control" placeholder="">
         </div>
 
         <div class="form-group col-md">
@@ -24,8 +24,12 @@ Add Task
             <textarea formControlName="note" name="" id="" cols="30" rows="10" class="form-control"></textarea>
         </div>
 
-        <div class="btn btn-info float-right ml-2" style="background-color:#33B585">
+        <div (click)="onAddTask()" class="btn btn-info float-right ml-2" style="background-color:#33B585" >
             Add
         </div>
 
 </form>
+
+
+
+</div>

@@ -21,6 +21,7 @@ import { NavTablesComponent } from './nav-tables/nav-tables.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes} from '@angular/router';
 import {MatDialogModule} from '@angular/material/dialog';
+import { AddTaskComponent } from './add-task/add-task.component';
 
 
 const admin_routes: Routes = [
@@ -40,6 +41,7 @@ const admin_routes: Routes = [
     CaAgentsTableComponent, 
     TaAgentsTableComponent, 
     NavTablesComponent, 
+    AddTaskComponent
   ],
 
   imports: [
@@ -72,6 +74,7 @@ const admin_routes: Routes = [
     NavTablesComponent, 
     TaAgentsTableComponent, 
     CaAgentsTableComponent,
+    AddTaskComponent
   ]
 })
 
