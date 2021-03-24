@@ -20,6 +20,7 @@ import { CustomerAvailabiltyComponent } from './customer-availabilty/customer-av
 import { CaAgentsTableComponent } from '../shared/ca-agents-table/ca-agents-table.component';
 import { TaAgentsTableComponent } from '../shared/ta-agents-table/ta-agents-table.component';
 import { AssignComponent } from './assign/assign.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 const routes: Routes = [
   {
@@ -74,7 +75,8 @@ const routes: Routes = [
     HttpClientModule,
     MatButtonModule,
     MatSliderModule,
-    OverlayModule
+    OverlayModule,
+    MatDialogModule
   ]
 })
 export class BoardsModule { }
