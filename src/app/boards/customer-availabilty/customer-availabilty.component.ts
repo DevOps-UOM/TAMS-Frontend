@@ -3,7 +3,7 @@ import { AddTaskComponent } from './../../shared/add-task/add-task.component';
 import { Component, OnInit } from '@angular/core';
 import{FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AvailabilityServiceService} from '../../services/availability-service.service'
-import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-customer-availabilty',
@@ -105,7 +105,11 @@ export class CustomerAvailabiltyComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig. width = "30%";
-    this.dialog.open(AddTaskComponent, dialogConfig);
+    const dialogRef = this.dialog.open(AddTaskComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadTask()
+    })
+
   }
 
 
