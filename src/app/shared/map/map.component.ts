@@ -1,5 +1,5 @@
 import { Component, HostListener, Input, OnInit, OnChanges, ViewChild, ElementRef, AfterViewInit, Renderer2, NgZone } from '@angular/core';
-import { AllocatedCustomers, modeSignalStatus } from 'src/app/models/itinerary.model';
+import { AllocatedCustomers, Itinerary, modeSignalStatus } from 'src/app/models/itinerary.model';
 import { ItineraryService } from '../../services/itinerary/itinerary.service'
 
 import { MapsAPILoader } from '@agm/core'
@@ -25,6 +25,9 @@ export class MapComponent implements OnInit, AfterViewInit {
   @ViewChild('map') mapElement: any;
   map: google.maps.Map;
 
+  tempOptimalRoute = [];
+   minTime: number = null;
+  destNum: number;
 
   public latitude: number = 7.928309;
   public longitude: number = 80.5;
@@ -33,6 +36,8 @@ export class MapComponent implements OnInit, AfterViewInit {
   public zoom: number = 8;
 
   map_width: number;
+
+  orderedItinerary: Itinerary;
 
   private changeLat: number = 7.928309;
   private changeLng: number = 80.5;
@@ -61,7 +66,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   origin: any;
   destination: any;
-  waypoints: google.maps.DirectionsWaypoint[] = [];;
+  waypoints: google.maps.DirectionsWaypoint[] = [];
 
   markers: PointLoc[] = [];
 
@@ -178,6 +183,14 @@ export class MapComponent implements OnInit, AfterViewInit {
     }
 
     this.initMap();
+
+
+    setTimeout(() => {
+      this.calculateRoute();
+    }, 2000);
+
+    //this.test();
+
   }
 
   getSingleDirection() {
@@ -321,8 +334,103 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   }
 
-  calculateAndDisplayRoute(directionsService: google.maps.DirectionsService, directionsRenderer: google.maps.DirectionsRenderer) {
+  calculateRoute() {
+
     
+
+    let loading: boolean = true;
+    var count = 0;
+
+    var loc: Loc;
+    const directionsService = new google.maps.DirectionsService();
+    let tempOrigin = this.origin;
+    for (var i = 0; i < this.markerList.length; i++) {
+      const tempWaypoints: google.maps.DirectionsWaypoint[] = [];
+
+      let tempDestination = {
+        lat: this.markerList[i].location.coordinates[0],
+        lng: this.markerList[i].location.coordinates[1]
+      };
+
+
+      //console.log(this.markerList.length);
+      for (var j = 0; j < this.markerList.length; j++) {
+        //console.log(this.markerList[j]);
+        if (i == j) {
+          continue;
+        }
+
+        loc = {
+          location: {
+            lat: this.markerList[j].location.coordinates[0],
+            lng: this.markerList[j].location.coordinates[1]
+          },
+          stopover: true
+        }
+        tempWaypoints.push(loc);
+
+      }
+      // var tempBool = false;
+
+      var route;
+      directionsService.route(
+        {
+          origin: tempOrigin,
+          destination: tempDestination,
+          waypoints: tempWaypoints,
+          optimizeWaypoints: true,
+          travelMode: google.maps.TravelMode.DRIVING,
+        },
+        (response, status) => {
+          if (status === "OK" && response) {
+           
+            //console.log(response);
+            route = response.routes[0];
+            
+            let tempTime = 0;
+            console.log(route);
+            for (var k = 0; k < route.legs.length; k++) {
+              tempTime += route.legs[k].duration.value;
+            }
+
+            if (this.minTime == null || this.minTime > tempTime) {
+              this.tempOptimalRoute = route.waypoint_order;
+              this.minTime = tempTime;
+              this.destNum = count;
+            }
+            
+            console.log(count++);
+            console.log("Time : " + tempTime);
+            console.log("Route : " + route.waypoint_order);
+
+            // For each route, display summary information.
+          } else {
+            alert("Directions request failed due to " + status);
+          }
+        }
+      );
+
+        
+      
+
+      //console.log(route);
+
+    }
+    //while(loading);
+
+    setTimeout(() => {
+      console.log("Minimum Time : " + this.minTime);
+      console.log("Optimal Route : " + this.tempOptimalRoute);
+      console.log("Destination : " + this.destNum);
+
+      
+    }, 2000);
+  }
+
+
+
+  calculateAndDisplayRoute(directionsService: google.maps.DirectionsService, directionsRenderer: google.maps.DirectionsRenderer) {
+
     if (this.origin && this.destination) {
 
       directionsService.route(
@@ -335,8 +443,10 @@ export class MapComponent implements OnInit, AfterViewInit {
         },
         (response, status) => {
           if (status === "OK" && response) {
+            console.log(response);
             directionsRenderer.setDirections(response);
             const route = response.routes[0];
+
 
             // For each route, display summary information.
           } else {
@@ -344,7 +454,7 @@ export class MapComponent implements OnInit, AfterViewInit {
           }
         }
       );
-    }else{
+    } else {
       setTimeout(() => {
         this.calculateAndDisplayRoute(directionsService, directionsRenderer);
       }, 1000);
