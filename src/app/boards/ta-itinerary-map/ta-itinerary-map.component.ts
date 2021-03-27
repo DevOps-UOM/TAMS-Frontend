@@ -11,15 +11,13 @@ import { Overlay } from '@angular/cdk/overlay';
 export class TAItineraryMapComponent implements OnInit {
 
   private loading: boolean = false;
-   customerList: AllocatedCustomers[] = [];
+  customerList: AllocatedCustomers[] = [];
 
   selectedItinerary: any;
 
   date: Date = new Date("2012-04-23");
   taid: String = "TA001";
   modeSignal:string= modeSignalStatus.directionMode;
-
-  
 
   constructor(private itineraryService: ItineraryService) {
 

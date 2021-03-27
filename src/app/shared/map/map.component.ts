@@ -1,11 +1,11 @@
-import { Component, HostListener, Input, OnInit, OnChanges, ViewChild,ElementRef ,AfterViewInit,Renderer2,NgZone   } from '@angular/core';
+import { Component, HostListener, Input, OnInit, OnChanges, ViewChild, ElementRef, AfterViewInit, Renderer2, NgZone } from '@angular/core';
 import { AllocatedCustomers, modeSignalStatus } from 'src/app/models/itinerary.model';
 import { ItineraryService } from '../../services/itinerary/itinerary.service'
 
-import {MapsAPILoader} from '@agm/core'
+import { MapsAPILoader } from '@agm/core'
 
 import { DataService } from '../../services/data/data.service'
-import {Subscription} from 'rxjs'
+import { Subscription } from 'rxjs'
 
 
 @Component({
@@ -13,28 +13,31 @@ import {Subscription} from 'rxjs'
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnInit,AfterViewInit {
+export class MapComponent implements OnInit, AfterViewInit {
   @Input() modeSignal: string;
   @Input() markerList: AllocatedCustomers[] = [];
 
 
   //--------------to change map size dynamically---------------
-  @ViewChild('AgmMap') agmMap: any;                        
+  @ViewChild('AgmMap') agmMap: any;
   @ViewChild('wrapper') wrapper: ElementRef;
-  //-----------------------------------------------------------
-  
-public latitude: number=7.928309;
-  public longitude: number=80.5;
-  private centerLat: number=7.928309;
-  private centerLng: number=80.5;
-  public zoom: number=8;
+  //---------------------Map-----------------------------------
+  @ViewChild('map') mapElement: any;
+  map: google.maps.Map;
 
-  map_width:number;
 
-  private changeLat: number=7.928309;
-  private changeLng: number=80.5;
+  public latitude: number = 7.928309;
+  public longitude: number = 80.5;
+  private centerLat: number = 7.928309;
+  private centerLng: number = 80.5;
+  public zoom: number = 8;
 
-  isShowSidebar:boolean;
+  map_width: number;
+
+  private changeLat: number = 7.928309;
+  private changeLng: number = 80.5;
+
+  isShowSidebar: boolean;
   subscription: Subscription;
 
   currentLocaionIcon = '../../../assets/images/ic_ta_location.svg';
@@ -46,19 +49,19 @@ public latitude: number=7.928309;
   address: string;
   private geoCoder;
 
-  selectedCustomerId:String;
-  @Input() selectedCustomer:AllocatedCustomers;
+  selectedCustomerId: String;
+  @Input() selectedCustomer: AllocatedCustomers;
 
   currentLat: number;
   currentLng: number;
-  isTracking:boolean;
-  
-  widthReduce:number=0;
-  heightReduce:number=150;
+  isTracking: boolean;
+
+  widthReduce: number = 0;
+  heightReduce: number = 150;
 
   origin: any;
   destination: any;
-  waypoints: Loc[] = [];
+  waypoints: google.maps.DirectionsWaypoint[] = [];;
 
   markers: PointLoc[] = [];
 
@@ -76,65 +79,65 @@ public latitude: number=7.928309;
   }
 
   ngAfterViewInit() {
-    if(this.modeSignal=modeSignalStatus.singlePathMode){
-      if(this.isShowSidebar){
-        this.widthReduce=400;
-      }else{
-        this.widthReduce=150;
+    if (this.modeSignal = modeSignalStatus.singlePathMode) {
+      if (this.isShowSidebar) {
+        this.widthReduce = 400;
+      } else {
+        this.widthReduce = 150;
       }
-    }else if(this.modeSignal=modeSignalStatus.directionMode){
-      if(this.isShowSidebar){
-        this.widthReduce=70;
-      }else{
-        this.widthReduce=5;
+    } else if (this.modeSignal = modeSignalStatus.directionMode) {
+      if (this.isShowSidebar) {
+        this.widthReduce = 70;
+      } else {
+        this.widthReduce = 5;
       }
     }
     this.renderer.setStyle(
       this.wrapper.nativeElement, 'width',
-      (window.innerWidth-this.widthReduce) + 'px'
+      (window.innerWidth - this.widthReduce) + 'px'
     );
     this.renderer.setStyle(
       this.wrapper.nativeElement, 'height',
-      (window.innerHeight-this.heightReduce) + 'px'
+      (window.innerHeight - this.heightReduce) + 'px'
     );
-    
-    this.agmMap.triggerResize().then(() =>  
-       this.agmMap._mapsWrapper.setCenter({lat: this.centerLat, lng: this.centerLng}));
+
+    // this.agmMap.triggerResize().then(() =>
+    //   this.agmMap._mapsWrapper.setCenter({ lat: this.centerLat, lng: this.centerLng }));
   }
 
-  ngOnChanges(){
-    
+  ngOnChanges() {
+
   }
 
 
   onResize() {
     // resize the container for the google map
-    if(this.modeSignal=modeSignalStatus.singlePathMode){
-      if(this.isShowSidebar){
-        this.widthReduce=400;
-      }else{
-        this.widthReduce=150;
+    if (this.modeSignal = modeSignalStatus.singlePathMode) {
+      if (this.isShowSidebar) {
+        this.widthReduce = 400;
+      } else {
+        this.widthReduce = 150;
       }
-    }else if(this.modeSignal=modeSignalStatus.directionMode){
-      if(this.isShowSidebar){
-        this.widthReduce=70;
-      }else{
-        this.widthReduce=5;
+    } else if (this.modeSignal = modeSignalStatus.directionMode) {
+      if (this.isShowSidebar) {
+        this.widthReduce = 70;
+      } else {
+        this.widthReduce = 5;
       }
     }
-    
+
     this.renderer.setStyle(
       this.wrapper.nativeElement, 'width',
-      (window.innerWidth-this.widthReduce) + 'px'
+      (window.innerWidth - this.widthReduce) + 'px'
     );
     this.renderer.setStyle(
       this.wrapper.nativeElement, 'height',
-      (window.innerHeight-this.heightReduce) + 'px'
+      (window.innerHeight - this.heightReduce) + 'px'
     );
     // recenters the map to the resized area.
-    this.agmMap.triggerResize().then(() =>  
-       this.agmMap._mapsWrapper.setCenter({lat: this.centerLat, lng: this.centerLng}));
-       
+    // this.agmMap.triggerResize().then(() =>
+    //   this.agmMap._mapsWrapper.setCenter({ lat: this.centerLat, lng: this.centerLng }));
+
 
   }
 
@@ -146,7 +149,7 @@ public latitude: number=7.928309;
     this.centerLng = this.changeLng;
   }
 
-// this event fires whenever any event changes the center. Panning, zooming, or resizing.
+  // this event fires whenever any event changes the center. Panning, zooming, or resizing.
   centerChange(event: any) {
     if (event) {
       this.changeLat = event.lat;
@@ -154,7 +157,7 @@ public latitude: number=7.928309;
     }
   }
 
-  constructor(private itineraryService: ItineraryService,private renderer:Renderer2,private mapsAPILoader: MapsAPILoader,
+  constructor(private itineraryService: ItineraryService, private renderer: Renderer2, private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone, private data: DataService) {
     //this.trackMe();
   }
@@ -164,40 +167,41 @@ public latitude: number=7.928309;
     //this.trackMe();
     this.subscription = this.data.currentMessage.subscribe(isShowSidebar => this.isShowSidebar = isShowSidebar)
     //this.getSingleDirection();
-
-    
+    this.setCurrentLocation()
 
     console.log(this.modeSignal);
     switch (this.modeSignal) {
       case "directionMode": this.getDirections(); break;
       case "markerMode": this.getMarkers(); break;
-      case "singlePathMode": this.getSingleDirection();break;
+      case "singlePathMode": this.getSingleDirection(); break;
       default: console.log("default Case Triggered");
     }
+
+    this.initMap();
   }
 
-  getSingleDirection(){
-   // this.trackMe();
-   this.mapsAPILoader.load().then(() => {
-    this.setCurrentLocation();
-    this.geoCoder = new google.maps.Geocoder;
-    
-  });
-  setTimeout(() => {  
-    this.origin = {
-      lat:this.currentLat,
-      lng: this.currentLng
-    };
+  getSingleDirection() {
+    // this.trackMe();
+    this.mapsAPILoader.load().then(() => {
+      //this.setCurrentLocation();
+      this.geoCoder = new google.maps.Geocoder;
 
-    this.destination = {
-      lat: this.selectedCustomer.location.coordinates[0],
-      lng: this.selectedCustomer.location.coordinates[1]
-    };
-    console.log(this.currentLat+" "+this.currentLng);
-   }, 2000);
+    });
+    setTimeout(() => {
+      this.origin = {
+        lat: this.currentLat,
+        lng: this.currentLng
+      };
+
+      this.destination = {
+        lat: this.selectedCustomer.location.coordinates[0],
+        lng: this.selectedCustomer.location.coordinates[1]
+      };
+      console.log(this.currentLat + " " + this.currentLng);
+    }, 2000);
 
 
-    
+
   }
 
 
@@ -206,26 +210,36 @@ public latitude: number=7.928309;
     var loc: Loc;
     var i: number;
 
-    this.origin = {
-      lat: this.markerList[0].location.coordinates[0],
-      lng: this.markerList[0].location.coordinates[1]
-    };
-    
-    for (i = 1; i < this.markerList.length-1; i++) {
-      loc = {
-        location: {
-          lat: this.markerList[i].location.coordinates[0],
-          lng: this.markerList[i].location.coordinates[1]
-        },
-        stopover: true
+    if (this.markerList && this.markerList[0] && this.markerList[0].location && this.markerList[0].location.coordinates) {
+
+      // this.origin = {
+      //   lat: this.currentLat,
+      //   lng: this.currentLng
+      // };
+
+      this.origin = {
+        lat: 6.879277,
+        lng: 79.918083
+      };
+
+
+      for (i = 0; i < this.markerList.length - 1; i++) {
+        loc = {
+          location: {
+            lat: this.markerList[i].location.coordinates[0],
+            lng: this.markerList[i].location.coordinates[1]
+          },
+          stopover: true
+        }
+        this.waypoints.push(loc);
       }
-      this.waypoints.push(loc);
+      console.log(this.waypoints);
+      this.destination = {
+        lat: this.markerList[i].location.coordinates[0],
+        lng: this.markerList[i].location.coordinates[1]
+      };
     }
-    console.log(this.waypoints);
-    this.destination = {
-      lat: this.markerList[i].location.coordinates[0],
-      lng: this.markerList[i].location.coordinates[1]
-    };
+
     console.log(this.origin);
     console.log(this.destination);
   }
@@ -256,18 +270,21 @@ public latitude: number=7.928309;
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
+
         this.currentLat = position.coords.latitude;
         this.currentLng = position.coords.longitude;
+
+
         //this.zoom = 8;
         //this.getAddress(this.currentLat, this.currentLng);
-      },(err)=>{
-        console.log(err);
+      }, (err) => {
+        console.log("Current Location Error" + err);
       }
       );
-    }else{
+    } else {
       alert("Geo location is not supported");
     }
-    console.log(this.currentLat+" "+this.currentLng);
+    console.log(this.currentLat + " " + this.currentLng);
   }
 
 
@@ -284,10 +301,56 @@ public latitude: number=7.928309;
       } else {
         window.alert('Geocoder failed due to: ' + status);
       }
-    
+
     });
   }
-  
+
+  initMap(): void {
+    const directionsService = new google.maps.DirectionsService();
+    const directionsRenderer = new google.maps.DirectionsRenderer();
+    const map = new google.maps.Map(
+      document.getElementById("map") as HTMLElement,
+      {
+        zoom: 8,
+        center: { lat: 7.928309, lng: 80.5 },
+      }
+    );
+    directionsRenderer.setMap(map);
+
+    this.calculateAndDisplayRoute(directionsService, directionsRenderer);
+
+  }
+
+  calculateAndDisplayRoute(directionsService: google.maps.DirectionsService, directionsRenderer: google.maps.DirectionsRenderer) {
+    
+    if (this.origin && this.destination) {
+
+      directionsService.route(
+        {
+          origin: this.origin,
+          destination: this.destination,
+          waypoints: this.waypoints,
+          optimizeWaypoints: true,
+          travelMode: google.maps.TravelMode.DRIVING,
+        },
+        (response, status) => {
+          if (status === "OK" && response) {
+            directionsRenderer.setDirections(response);
+            const route = response.routes[0];
+
+            // For each route, display summary information.
+          } else {
+            window.alert("Directions request failed due to " + status);
+          }
+        }
+      );
+    }else{
+      setTimeout(() => {
+        this.calculateAndDisplayRoute(directionsService, directionsRenderer);
+      }, 1000);
+    }
+  }
+
 }
 
 

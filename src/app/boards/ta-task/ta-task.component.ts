@@ -58,12 +58,12 @@ export class TaTaskComponent implements OnInit {
 
 
  
-  constructor(private itineraryService: ItineraryService) { }
+  constructor(private itineraryService: ItineraryService) { 
+  }
 
   ngOnInit(): void {
     this.getItineraryDetails();
     this.getItinerary();
-   
   }
 
   getItinerary(){
@@ -97,7 +97,20 @@ export class TaTaskComponent implements OnInit {
   }
 
   refresh(){
-    this.getItinerary();
+    //this.getItinerary();
+    var service = new google.maps.DistanceMatrixService();
+    var origin1 = {lat: 55.930, lng: -3.118};
+var origin2 = 'Greenwich, England';
+var destinationA = 'Stockholm, Sweden';
+var destinationB = {lat: 50.087, lng: 14.421};
+    service.getDistanceMatrix(
+      {
+        origins: [origin1, origin2],
+        destinations: [destinationA, destinationB],
+        
+      }, (res,status)=>{
+        console.log(res);
+      });
   }
 
 }

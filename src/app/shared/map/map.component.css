@@ -15,3 +15,10 @@ agm-map {
     margin: 0;
     padding: 0;
 }
+
+#map {
+    height: 100%;
+    float: left;
+    width: 70%;
+    height: 100%;
+}
