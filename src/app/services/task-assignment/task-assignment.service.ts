@@ -24,5 +24,8 @@ export class TaskAssignmentService {
     return this.http.get(`${this.apiEndPoint}/taskAssignment/${itinerary_id}/${cust_id}`)
   }
 
+  updateQueueNumber(data:any) {
+    return this.http.put(this.apiEndPoint + '/taskAssignment/' + data.itinerary_id + '/' + data.cust_id, data);
+  }
 
 }

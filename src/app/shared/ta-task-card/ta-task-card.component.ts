@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, HostListener, ChangeDetectorRef,AfterViewInit } from '@angular/core';
+import { Component, Input, OnInit, HostListener, ChangeDetectorRef,AfterViewInit,ViewChild, Output, EventEmitter  } from '@angular/core';
 import { AllocatedCustomers, modeSignalStatus, Itinerary } from 'src/app/models/itinerary.model';
 import { ItineraryService } from '../../services/itinerary/itinerary.service';
 import { TaskAssignmentService } from '../../services/task-assignment/task-assignment.service'
@@ -9,6 +9,8 @@ import * as kf from './keyframes';
 import { DataService } from '../../services/data/data.service'
 import { Subscription } from 'rxjs'
 import { getQueryPredicate } from '@angular/compiler/src/render3/view/util';
+
+import {MapComponent} from "../../shared/map/map.component"
 
 
 
@@ -25,7 +27,11 @@ import { getQueryPredicate } from '@angular/compiler/src/render3/view/util';
 })
 export class TaTaskCardComponent implements OnInit {
 
+  //@ViewChild(MapComponent, {static: true}) child: MapComponent;
+
   @Input() customer: AllocatedCustomers;
+
+  @Output("refresh") refresh:EventEmitter<any>=new EventEmitter();
 
   color: String;
 
@@ -133,10 +139,17 @@ export class TaTaskCardComponent implements OnInit {
   TaskButton(taskStatus: string) {
     //console.log(this.selectedItinerary);
     //console.log(this.selectedItinerary._id);
+    let tempQueue:number;
+
+    if(taskStatus=="Pending"){
+      tempQueue=100;
+    }else{}
+
     let changeStatus = {
       itinerary_id: this.selectedItinerary._id,
       cust_id: this.customer.cust_id,
-      status: taskStatus
+      status: taskStatus,
+      queue_number:100
     }
 
 
@@ -155,6 +168,7 @@ export class TaTaskCardComponent implements OnInit {
       //console.log(res.data[0].status);
     })
 
+    this.refresh.emit();
     
 
   }

@@ -1,8 +1,10 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit,Input, ViewChildren,QueryList, AfterViewInit } from '@angular/core';
 import { AllocatedCustomers, modeSignalStatus,Itinerary } from 'src/app/models/itinerary.model';
 import { ItineraryService } from '../../services/itinerary/itinerary.service';
 import {trigger,style,transition,animate,keyframes,query,stagger} from '@angular/animations'
 import { emitWarning } from 'process';
+import {TaTaskCardComponent} from "../../shared/ta-task-card/ta-task-card.component";
+import {TaskAssignmentService} from "../../services/task-assignment/task-assignment.service"
 
 @Component({
   selector: 'app-ta-task',
@@ -45,10 +47,22 @@ import { emitWarning } from 'process';
   ]
 })
 export class TaTaskComponent implements OnInit {
+
+  //@ViewChildren(TaTaskCardComponent) parent: QueryList<TaTaskCardComponent>;
+  
   private loading: boolean = false;
   customerList: AllocatedCustomers[] = [];
-  completedList:AllocatedCustomers[]=[];
+  pendingList: AllocatedCustomers[] = [];
 
+  origin: any;
+  destination: any;
+  waypoints: google.maps.DirectionsWaypoint[] = [];
+  
+  tempOptimalRoute = [];
+   minTime: number = null;
+  destNum: number;
+
+  optimalRoute =[];
 
  selectedItinerary: Itinerary;
 
@@ -58,13 +72,15 @@ export class TaTaskComponent implements OnInit {
 
 
  
-  constructor(private itineraryService: ItineraryService) { 
+  constructor(private itineraryService: ItineraryService, private taskAssignmentService:TaskAssignmentService) { 
   }
 
   ngOnInit(): void {
     this.getItineraryDetails();
     this.getItinerary();
   }
+
+  
 
   getItinerary(){
     try{
@@ -89,28 +105,202 @@ export class TaTaskComponent implements OnInit {
        this.loading = false;
       (res.body.data && res.body.data.length>0)? this.customerList = res.body.data : this.customerList=[];
        //console.log("Dataaaa"+JSON.stringify(this.customerList));
+       //console.log(res);
      })
       
     } catch (exception) {
       console.log("Recieved Empty Customer List!");
     }
+
+    try {
+      this.itineraryService.getAllocatedPendingCustomers(this.date, this.taid).subscribe((res) => {
+  
+       (res.body.data && res.body.data.length>0)? this.pendingList = res.body.data : this.pendingList=[];
+        
+      })
+       
+     } catch (exception) {
+       console.log("Recieved Empty Customer List!");
+     }
+
+
   }
+  
 
   refresh(){
     //this.getItinerary();
-    var service = new google.maps.DistanceMatrixService();
-    var origin1 = {lat: 55.930, lng: -3.118};
-var origin2 = 'Greenwich, England';
-var destinationA = 'Stockholm, Sweden';
-var destinationB = {lat: 50.087, lng: 14.421};
-    service.getDistanceMatrix(
-      {
-        origins: [origin1, origin2],
-        destinations: [destinationA, destinationB],
-        
-      }, (res,status)=>{
-        console.log(res);
-      });
+   // this.parent.forEach((p)=>p.child.calculateRoute());
+   this.getDirections();
+   this.calculateRoute();
   }
 
+  calculateRoute() {
+
+    var count = 0;
+
+    var loc: Loc;
+    const directionsService = new google.maps.DirectionsService();
+    let tempOrigin = this.origin;
+
+    this.minTime=null;
+    this.tempOptimalRoute = null;
+    this.destNum = null;
+
+    console.log(this.origin);
+    for (var i = 0; i < this.pendingList.length; i++) {
+      const tempWaypoints: google.maps.DirectionsWaypoint[] = [];
+
+      let tempDestination = {
+        lat: this.pendingList[i].location.coordinates[0],
+        lng: this.pendingList[i].location.coordinates[1]
+      };
+
+
+      //console.log(this.markerList.length);
+      for (var j = 0; j < this.pendingList.length; j++) {
+        //console.log(this.markerList[j]);
+        if (i == j) {
+          continue;
+        }
+
+        loc = {
+          location: {
+            lat: this.pendingList[j].location.coordinates[0],
+            lng: this.pendingList[j].location.coordinates[1]
+          },
+          stopover: true
+        }
+        tempWaypoints.push(loc);
+
+      }
+      // var tempBool = false;
+
+      //console.log(tempWaypoints);
+      var route;
+      directionsService.route(
+        {
+          origin: tempOrigin,
+          destination: tempDestination,
+          waypoints: tempWaypoints,
+          optimizeWaypoints: true,
+          travelMode: google.maps.TravelMode.DRIVING,
+          avoidTolls: true,
+        },
+        (response, status) => {
+          if (status === "OK" && response) {
+           
+            //console.log(response);
+            route = response.routes[0];
+            
+            let tempTime = 0;
+            //console.log(route);
+            for (var k = 0; k < route.legs.length; k++) {
+              tempTime += route.legs[k].duration.value;
+            }
+
+            if (this.minTime == null || this.minTime > tempTime) {
+              this.tempOptimalRoute = route.waypoint_order;
+              this.minTime = tempTime;
+              this.destNum = count;
+            }
+            
+            // console.log(count++);
+            // console.log("Time : " + tempTime);
+            // console.log("Route : " + route.waypoint_order);
+
+            // For each route, display summary information.
+          } else {
+            alert("Directions request failed due to " + status);
+          }
+        }
+      );
+
+      //console.log(route);
+
+    }
+    //while(loading);
+
+    setTimeout(() => {
+      // console.log("Minimum Time : " + this.minTime);
+      // console.log("Optimal Route : " + this.tempOptimalRoute);
+      // console.log("Destination : " + this.destNum);
+      this.optimalRoute=[];
+      for(var i=0;i<this.tempOptimalRoute.length;i++){
+        if(this.tempOptimalRoute[i]>=this.destNum){
+          this.tempOptimalRoute[i]++;
+        }
+        this.optimalRoute.push(this.tempOptimalRoute[i]);
+      }
+      this.optimalRoute.push(this.destNum);
+
+      //console.log(this.optimalRoute);
+
+      this.updateQueueNumber();
+      this.getItineraryDetails();
+    this.getItinerary();
+    }, 2000);
+  }
+
+  updateQueueNumber(){
+    for(var i=0;i<this.pendingList.length;i++){
+      let data={
+        cust_id:this.pendingList[this.optimalRoute[i]].cust_id,
+        itinerary_id:this.selectedItinerary._id,
+        queue_number:i
+      }
+      console.log(data);
+      this.taskAssignmentService.updateQueueNumber(data).subscribe((res)=>{
+        try{
+          console.log(res);
+        }catch(exception){
+          alert("Updating Optimal Route Error...!");
+        }
+        
+      });
+    }
+  }
+
+  getDirections() {
+    var loc: Loc;
+    var i: number;
+
+    if (this.customerList && this.customerList[0] && this.customerList[0].location && this.customerList[0].location.coordinates) {
+
+      // this.origin = {
+      //   lat: this.currentLat,
+      //   lng: this.currentLng
+      // };
+
+      this.origin = {
+        lat: 6.879277,
+        lng: 79.918083
+      };
+
+      console.log(this.origin);
+      for (i = 0; i < this.customerList.length - 1; i++) {
+        loc = {
+          location: {
+            lat: this.customerList[i].location.coordinates[0],
+            lng: this.customerList[i].location.coordinates[1]
+          },
+          stopover: true
+        }
+        this.waypoints.push(loc);
+      }
+      console.log(this.waypoints);
+      this.destination = {
+        lat: this.customerList[i].location.coordinates[0],
+        lng: this.customerList[i].location.coordinates[1]
+      };
+    }
+
+    console.log(this.origin);
+    console.log(this.destination);
+  }
+}
+
+
+class Loc {
+  location: any;
+  stopover: boolean;
 }

@@ -8,6 +8,14 @@
             <mat-label class="label">{{customer.name.first_name}}</mat-label>
         </div>
     </div>
+    <div fxLayout="row" fxLayoutAlign="start center">
+        <div class="text-card-area">
+            <mat-label class="label">Customer ID : </mat-label>
+        </div>
+        <div class="text-card-area">
+            <mat-label class="label">{{customer.cust_id}}</mat-label>
+        </div>
+    </div>
     <div class="row" fxLayout="row" fxLayoutAlign="start center">
         <button *ngIf="!isDisabled" mat-raised-button class="card-button label-btn col-sm-auto " (click)="TaskButton('Completed')">
             Complete

@@ -1,6 +1,7 @@
 import { Component, HostListener, Input, OnInit, OnChanges, ViewChild, ElementRef, AfterViewInit, Renderer2, NgZone } from '@angular/core';
 import { AllocatedCustomers, Itinerary, modeSignalStatus } from 'src/app/models/itinerary.model';
 import { ItineraryService } from '../../services/itinerary/itinerary.service'
+import{TaskAssignmentService} from '../../services/task-assignment/task-assignment.service'
 
 import { MapsAPILoader } from '@agm/core'
 
@@ -16,7 +17,7 @@ import { Subscription } from 'rxjs'
 export class MapComponent implements OnInit, AfterViewInit {
   @Input() modeSignal: string;
   @Input() markerList: AllocatedCustomers[] = [];
-
+  @Input() currentItinerary : Itinerary;
 
   //--------------to change map size dynamically---------------
   @ViewChild('AgmMap') agmMap: any;
@@ -29,6 +30,8 @@ export class MapComponent implements OnInit, AfterViewInit {
    minTime: number = null;
   destNum: number;
 
+  optimalRoute =[];
+
   public latitude: number = 7.928309;
   public longitude: number = 80.5;
   private centerLat: number = 7.928309;
@@ -36,8 +39,6 @@ export class MapComponent implements OnInit, AfterViewInit {
   public zoom: number = 8;
 
   map_width: number;
-
-  orderedItinerary: Itinerary;
 
   private changeLat: number = 7.928309;
   private changeLng: number = 80.5;
@@ -163,7 +164,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   constructor(private itineraryService: ItineraryService, private renderer: Renderer2, private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone, private data: DataService) {
+    private ngZone: NgZone, private data: DataService,private taskAssignmentService:TaskAssignmentService) {
     //this.trackMe();
   }
 
@@ -171,8 +172,12 @@ export class MapComponent implements OnInit, AfterViewInit {
     //console.log("marker list"+JSON.stringify(this.markerList));
     //this.trackMe();
     this.subscription = this.data.currentMessage.subscribe(isShowSidebar => this.isShowSidebar = isShowSidebar)
+
+    this.initMap();
     //this.getSingleDirection();
     this.setCurrentLocation()
+
+  
 
     console.log(this.modeSignal);
     switch (this.modeSignal) {
@@ -182,12 +187,12 @@ export class MapComponent implements OnInit, AfterViewInit {
       default: console.log("default Case Triggered");
     }
 
-    this.initMap();
 
 
-    setTimeout(() => {
-      this.calculateRoute();
-    }, 2000);
+
+    // setTimeout(() => {
+    //   this.calculateRoute();
+    // }, 3000);
 
     //this.test();
 
@@ -253,8 +258,8 @@ export class MapComponent implements OnInit, AfterViewInit {
       };
     }
 
-    console.log(this.origin);
-    console.log(this.destination);
+    //console.log(this.origin);
+    //console.log(this.destination);
   }
 
   getMarkers() {
@@ -265,7 +270,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       });
     }
 
-    console.log(this.markers);
+    //console.log(this.markers);
   }
 
   // trackMe() {
@@ -297,7 +302,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     } else {
       alert("Geo location is not supported");
     }
-    console.log(this.currentLat + " " + this.currentLng);
+    console.log("Current Location "+this.currentLat + " " + this.currentLng);
   }
 
 
@@ -330,15 +335,48 @@ export class MapComponent implements OnInit, AfterViewInit {
     );
     directionsRenderer.setMap(map);
 
-    this.calculateAndDisplayRoute(directionsService, directionsRenderer);
+    
 
+    switch (this.modeSignal) {
+      case "directionMode": this.calculateAndDisplayRoute(directionsService, directionsRenderer);; break;
+      case "singlePathMode": this.displaySingleRoute(directionsService, directionsRenderer); break;
+      default: console.log("default Case Triggered");
+    }
+
+  }
+
+  displaySingleRoute(directionsService: google.maps.DirectionsService, directionsRenderer: google.maps.DirectionsRenderer) {
+
+    if (this.origin && this.destination) {
+
+      directionsService.route(
+        {
+          origin: this.origin,
+          destination: this.destination,
+          travelMode: google.maps.TravelMode.DRIVING,
+        },
+        (response, status) => {
+          if (status === "OK" && response) {
+            //console.log(response);
+            directionsRenderer.setDirections(response);
+            const route = response.routes[0];
+
+
+            // For each route, display summary information.
+          } else {
+            window.alert("Directions request failed due to " + status);
+          }
+        }
+      );
+    } else {
+      setTimeout(() => {
+        this.displaySingleRoute(directionsService, directionsRenderer);
+      }, 1000);
+    }
   }
 
   calculateRoute() {
 
-    
-
-    let loading: boolean = true;
     var count = 0;
 
     var loc: Loc;
@@ -378,7 +416,7 @@ export class MapComponent implements OnInit, AfterViewInit {
           origin: tempOrigin,
           destination: tempDestination,
           waypoints: tempWaypoints,
-          optimizeWaypoints: true,
+          optimizeWaypoints: false,
           travelMode: google.maps.TravelMode.DRIVING,
         },
         (response, status) => {
@@ -388,7 +426,7 @@ export class MapComponent implements OnInit, AfterViewInit {
             route = response.routes[0];
             
             let tempTime = 0;
-            console.log(route);
+            //console.log(route);
             for (var k = 0; k < route.legs.length; k++) {
               tempTime += route.legs[k].duration.value;
             }
@@ -399,9 +437,9 @@ export class MapComponent implements OnInit, AfterViewInit {
               this.destNum = count;
             }
             
-            console.log(count++);
-            console.log("Time : " + tempTime);
-            console.log("Route : " + route.waypoint_order);
+            // console.log(count++);
+            // console.log("Time : " + tempTime);
+            // console.log("Route : " + route.waypoint_order);
 
             // For each route, display summary information.
           } else {
@@ -410,21 +448,47 @@ export class MapComponent implements OnInit, AfterViewInit {
         }
       );
 
-        
-      
-
       //console.log(route);
 
     }
     //while(loading);
 
     setTimeout(() => {
-      console.log("Minimum Time : " + this.minTime);
-      console.log("Optimal Route : " + this.tempOptimalRoute);
-      console.log("Destination : " + this.destNum);
+      // console.log("Minimum Time : " + this.minTime);
+      // console.log("Optimal Route : " + this.tempOptimalRoute);
+      // console.log("Destination : " + this.destNum);
 
-      
+      for(var i=0;i<this.tempOptimalRoute.length;i++){
+        if(this.tempOptimalRoute[i]>=this.destNum){
+          this.tempOptimalRoute[i]++;
+        }
+        this.optimalRoute.push(this.tempOptimalRoute[i]);
+      }
+      this.optimalRoute.push(this.destNum);
+
+      //console.log(this.optimalRoute);
+
+      this.updateQueueNumber();
     }, 2000);
+  }
+
+  updateQueueNumber(){
+    for(var i=0;i<this.markerList.length;i++){
+      let data={
+        cust_id:this.markerList[this.optimalRoute[i]].cust_id,
+        itinerary_id:this.currentItinerary,
+        queue_number:i
+      }
+      //console.log(data);
+      this.taskAssignmentService.updateQueueNumber(data).subscribe((res)=>{
+        try{
+          console.log(res);
+        }catch(exception){
+          alert("Updating Optimal Route Error...!");
+        }
+        
+      });
+    }
   }
 
 
@@ -443,7 +507,7 @@ export class MapComponent implements OnInit, AfterViewInit {
         },
         (response, status) => {
           if (status === "OK" && response) {
-            console.log(response);
+            //console.log(response);
             directionsRenderer.setDirections(response);
             const route = response.routes[0];
 
