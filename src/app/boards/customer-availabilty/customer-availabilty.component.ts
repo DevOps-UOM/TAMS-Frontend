@@ -1,7 +1,7 @@
 import { TaskServiceService } from './../../services/task-service.service';
 import { AddTaskComponent } from './../../shared/add-task/add-task.component';
 import { Component, OnInit } from '@angular/core';
-import{FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AvailabilityServiceService} from '../../services/availability-service.service'
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 
@@ -18,6 +18,7 @@ export class CustomerAvailabiltyComponent implements OnInit {
   displayAvailabilities: any;
   tasks: any;
   displayTasks: any;
+  minDate = new Date();
 
 
   constructor(
