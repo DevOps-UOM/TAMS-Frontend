@@ -48,6 +48,10 @@ export class SideBarComponent implements OnInit {
         this.router.navigate(["/boards/admin-user-management"])
         break;
 
+        case 'Assign':
+          this.router.navigate(['/boards/assign']);
+          break;
+
       default:
         this.router.navigate(['/boards/home']);
         break;

@@ -18,6 +18,11 @@
 
                 </agm-direction>
             </div>
+            <div *ngIf="destination && modeSignal==='singlePathMode'">
+                <agm-direction [origin]="origin" [destination]="destination">
+
+                </agm-direction>
+            </div>
         </agm-map>
     </div>
 </div>

@@ -1,3 +1,6 @@
 <div class="task-container">
-    <app-ta-task-card></app-ta-task-card>
+
+    <div *ngFor="let customer of customerList">
+        <app-ta-task-card [customer]="customer"></app-ta-task-card>
+    </div>
 </div>

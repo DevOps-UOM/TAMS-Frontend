@@ -26,8 +26,8 @@ import { AddTaskComponent } from './add-task/add-task.component';
 
 
 const admin_routes: Routes = [
-  { path: 'admin-user-management/ca-agents' , component: CaAgentsTableComponent},
-  { path: 'admin-user-management/ta-agents' , component: TaAgentsTableComponent}
+  // { path: 'admin-user-management/ca-agents' , component: CaAgentsTableComponent},
+  // { path: 'admin-user-management/ta-agents' , component: TaAgentsTableComponent}
 ];
 
 @NgModule({
@@ -52,7 +52,8 @@ const admin_routes: Routes = [
     ReactiveFormsModule,
     //BrowserModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyA9rPesD1LpqsLTVFeHEpxvjnl5FNLDbS0'
+      apiKey: 'AIzaSyA9rPesD1LpqsLTVFeHEpxvjnl5FNLDbS0',
+      libraries:['places']
     }),
     RouterModule.forChild(admin_routes),
     AgmDirectionModule,
@@ -64,6 +65,7 @@ const admin_routes: Routes = [
   ],
 
   exports: [
+    CaAgentsTableComponent, TaAgentsTableComponent, 
     NavBarComponent, 
     MapComponent,
     SideBarComponent,
