@@ -25,8 +25,8 @@
                 <div class="col-md-12" formGroupName="leave_date">
                     <!-- <mat-form-field appearance="fill"> -->
                         <!-- <mat-label>Enter a date range</mat-label> -->
-                        <mat-date-range-input [rangePicker]="picker">
-                          <input matStartDate formControlName="start_date" placeholder="Start date">
+                        <mat-date-range-input [rangePicker]="picker" [min]="minDate">
+                          <input matStartDate formControlName="start_date" placeholder="Start date" >
                           <input matEndDate formControlName="end_date" placeholder="End date">
                         </mat-date-range-input>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -85,6 +85,7 @@
                 <td>{{lv.ta_name}}</td>
                 <td>{{lv.leave_date.start_date | date:'shortDate' }} - {{lv.leave_date.end_date | date:'shortDate' }}</td>
                 <td>{{lv.pod}}</td>
+                <td>{{lv.note}}</td>
                 <td> <button (click) = "deleteRow(i)"><i class="fa fa-trash"></i></button></td>
 
             </tr>

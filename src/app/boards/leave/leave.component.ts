@@ -10,6 +10,9 @@ import {LeaveService} from '../../services/leave/leave.service';
 export class LeaveComponent implements OnInit {
   leaveId = '';
   leaveForm: FormGroup;
+
+  minDate = new Date();
+  
   leaves: any;
   displayleaves: any;
   constructor(

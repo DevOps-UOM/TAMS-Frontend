@@ -17,9 +17,9 @@
                     <th scope="col">Customer Id</th>
                     <th scope="col">Date</th>
                     <th scope="col">Available Time</th>
-                    <th scope="col">Note</th>
-                    <th scope="col">Task</th>
-                    <th scope="col">Duration</th>
+                    <th scope="col">Assigned TA ID</th>
+                    <th scope="col">Assingend TA Name</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -27,13 +27,7 @@
                     <th scope="row">{{v.cust_id}}</th>
                     <td>{{v.date | date:'shortDate' }}</td>
                     <td>{{v.time_from }} - {{v.time_to}}</td>
-                    <td>{{v.note}}</td>
-                    <td>
-                        <div *ngFor="let single_task of v.task">
-                            {{single_task.task_name}}
-                        </div>
-                    </td>
-                    <td>{{v.task_duration}}</td>
+                   
                 </tr>
             </tbody>
         </table>
