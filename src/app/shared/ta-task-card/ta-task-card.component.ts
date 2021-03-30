@@ -139,11 +139,6 @@ export class TaTaskCardComponent implements OnInit {
   TaskButton(taskStatus: string) {
     //console.log(this.selectedItinerary);
     //console.log(this.selectedItinerary._id);
-    let tempQueue:number;
-
-    if(taskStatus=="Pending"){
-      tempQueue=100;
-    }else{}
 
     let changeStatus = {
       itinerary_id: this.selectedItinerary._id,
@@ -157,18 +152,19 @@ export class TaTaskCardComponent implements OnInit {
       //console.log(res);
       this.currentStatus = res.data.status;
       //this.cd.detectChanges();
-      // console.log("hey");
-      //this.getColor();
+      console.log(res);
+      //this.getColor()
+
+      this.refresh.emit();
       if (this.currentStatus == "Completed" || this.currentStatus == "Postponed") {
         this.isDisabled = true;
       }else{
         //console.log("Called")
         this.isDisabled = false;
       }
-      //console.log(res.data[0].status);
+      console.log(res.data.status);
     })
 
-    this.refresh.emit();
     
 
   }

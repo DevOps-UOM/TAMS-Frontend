@@ -1,37 +1,37 @@
-import { Component, OnInit,Input, ViewChildren,QueryList, AfterViewInit } from '@angular/core';
-import { AllocatedCustomers, modeSignalStatus,Itinerary } from 'src/app/models/itinerary.model';
+import { Component, OnInit, Input, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
+import { AllocatedCustomers, modeSignalStatus, Itinerary } from 'src/app/models/itinerary.model';
 import { ItineraryService } from '../../services/itinerary/itinerary.service';
-import {trigger,style,transition,animate,keyframes,query,stagger} from '@angular/animations'
+import { trigger, style, transition, animate, keyframes, query, stagger } from '@angular/animations'
 import { emitWarning } from 'process';
-import {TaTaskCardComponent} from "../../shared/ta-task-card/ta-task-card.component";
-import {TaskAssignmentService} from "../../services/task-assignment/task-assignment.service"
+import { TaTaskCardComponent } from "../../shared/ta-task-card/ta-task-card.component";
+import { TaskAssignmentService } from "../../services/task-assignment/task-assignment.service"
 
 @Component({
   selector: 'app-ta-task',
   templateUrl: './ta-task.component.html',
   styleUrls: ['./ta-task.component.css'],
-  animations:[
-    trigger('listAnimation',[
-      transition('* => *',[
-        query(':enter',style({opacity:0}),{optional:true}),
+  animations: [
+    trigger('listAnimation', [
+      transition('* => *', [
+        query(':enter', style({ opacity: 0 }), { optional: true }),
 
-        query(':enter',stagger('300ms',[
-          animate('1s ease-in',keyframes([
-            style({opacity:0,transform:'translateY(-75px)',offset:0}),
-            style({opacity: .5,transform:'translateY(35px)',offset:0.3}),
-            style({opacity:1,transform:'translateY(0px)',offset:1})
+        query(':enter', stagger('300ms', [
+          animate('1s ease-in', keyframes([
+            style({ opacity: 0, transform: 'translateY(-75px)', offset: 0 }),
+            style({ opacity: .5, transform: 'translateY(35px)', offset: 0.3 }),
+            style({ opacity: 1, transform: 'translateY(0px)', offset: 1 })
           ]))
-        ]),{optional:true}),
-  
-        query(':leave',stagger('300ms',[
-          animate('1s ease-in',keyframes([
-            style({opacity:1,transform:'translateY(0px)',offset:0}),
-            style({opacity: .5,transform:'translateY(35px)',offset:0.3}),
-            style({opacity:0,transform:'translateY(-75px)',offset:1})
+        ]), { optional: true }),
+
+        query(':leave', stagger('300ms', [
+          animate('1s ease-in', keyframes([
+            style({ opacity: 1, transform: 'translateY(0px)', offset: 0 }),
+            style({ opacity: .5, transform: 'translateY(35px)', offset: 0.3 }),
+            style({ opacity: 0, transform: 'translateY(-75px)', offset: 1 })
           ]))
-        ]),{optional:true})
+        ]), { optional: true })
       ])
-      
+
     ]),
     // trigger('buttonAnim',[
     //   transition(':enter',[
@@ -49,7 +49,7 @@ import {TaskAssignmentService} from "../../services/task-assignment/task-assignm
 export class TaTaskComponent implements OnInit {
 
   //@ViewChildren(TaTaskCardComponent) parent: QueryList<TaTaskCardComponent>;
-  
+
   private loading: boolean = false;
   customerList: AllocatedCustomers[] = [];
   pendingList: AllocatedCustomers[] = [];
@@ -57,96 +57,154 @@ export class TaTaskComponent implements OnInit {
   origin: any;
   destination: any;
   waypoints: google.maps.DirectionsWaypoint[] = [];
-  
+
   tempOptimalRoute = [];
-   minTime: number = null;
+  minTime: number = null;
   destNum: number;
 
-  optimalRoute =[];
+  alert: any;
 
- selectedItinerary: Itinerary;
+  optimalRoute = [];
 
- date: Date = new Date("2012-04-23");
- taid: String = "TA001";
- modeSignal:string= modeSignalStatus.markerMode;
+  selectedItinerary: Itinerary;
+
+  date: Date = new Date("2012-04-23");
+  taid: String = "TA001";
+  modeSignal: string = modeSignalStatus.markerMode;
 
 
- 
-  constructor(private itineraryService: ItineraryService, private taskAssignmentService:TaskAssignmentService) { 
+
+  constructor(private itineraryService: ItineraryService, private taskAssignmentService: TaskAssignmentService) {
   }
 
-  ngOnInit(): void {
-    this.getItineraryDetails();
-    this.getItinerary();
+  async ngOnInit() {
+    await this.getItineraryDetails();
+    await this.getItinerary();
+    const value = <number> await this.getAllocatedPendingustomers(1);
+    await this.getDirections();
+
+
+
   }
 
-  
 
-  getItinerary(){
-    try{
 
-      this.itineraryService.getASingleItinerary(this.date,this.taid).subscribe((res)=>{
-        
-        this.selectedItinerary = res.data[0];
-        console.log(this.selectedItinerary);
-        
-      })
-      
-    }catch (exception) {
-      console.log("Recieved Empty Itinerary");
-    }
-    
+  async getItinerary() {
+
+    this.itineraryService.getASingleItinerary(this.date, this.taid).subscribe((res) => {
+
+      this.selectedItinerary = res.data[0];
+      console.log(this.selectedItinerary);
+      return true;
+    }, (err) => {
+      this.alert.class = 'alert alert-danger';
+      if (err.status === 401) {
+        this.alert.message = err.error.message;
+        setTimeout(() => {
+          localStorage.clear();
+        }, 3000);
+      } else if (err.status) {
+        this.alert.class = err.error.message;
+      } else {
+        this.alert.message = 'Error! either server is down or no internet connection';
+      }
+      throw err;
+    });
+
+
+
   }
 
-  getItineraryDetails(){
+  async getItineraryDetails() {
     this.loading = true;
-    try {
-     this.itineraryService.getAllocatedCustomers(this.date, this.taid).subscribe((res) => {
-       this.loading = false;
-      (res.body.data && res.body.data.length>0)? this.customerList = res.body.data : this.customerList=[];
-       //console.log("Dataaaa"+JSON.stringify(this.customerList));
-       //console.log(res);
-     })
-      
-    } catch (exception) {
-      console.log("Recieved Empty Customer List!");
-    }
 
-    try {
+    this.itineraryService.getAllocatedCustomers(this.date, this.taid).subscribe((res) => {
+      this.loading = false;
+      (res.body.data && res.body.data.length > 0) ? this.customerList = res.body.data : this.customerList = [];
+      //console.log("Dataaaa"+JSON.stringify(this.customerList));
+      //console.log(res);
+      return true;
+    }, (err) => {
+      this.alert.class = 'alert alert-danger';
+      if (err.status === 401) {
+        this.alert.message = err.error.message;
+        setTimeout(() => {
+          localStorage.clear();
+        }, 3000);
+      } else if (err.status) {
+        this.alert.class = err.error.message;
+      } else {
+        this.alert.message = 'Error! either server is down or no internet connection';
+      }
+      throw err;
+    });
+
+
+
+
+  }
+
+  getAllocatedPendingustomers(x) {
+
+    return new Promise(resolve => {
       this.itineraryService.getAllocatedPendingCustomers(this.date, this.taid).subscribe((res) => {
-  
-       (res.body.data && res.body.data.length>0)? this.pendingList = res.body.data : this.pendingList=[];
-        
+
+        (res.body.data && res.body.data.length > 0) ? this.pendingList = res.body.data : this.pendingList = [];
+
+        console.log(res);
+        resolve(x);
+      }, (err) => {
+        this.alert.class = 'alert alert-danger';
+        if (err.status === 401) {
+          this.alert.message = err.error.message;
+          setTimeout(() => {
+            localStorage.clear();
+          }, 3000);
+        } else if (err.status) {
+          this.alert.class = err.error.message;
+        } else {
+          this.alert.message = 'Error! either server is down or no internet connection';
+        }
+        throw err;
       })
-       
-     } catch (exception) {
-       console.log("Recieved Empty Customer List!");
-     }
+    })
+
+
 
 
   }
-  
 
-  refresh(){
+
+  async refresh() {
     //this.getItinerary();
-   // this.parent.forEach((p)=>p.child.calculateRoute());
-   this.getDirections();
-   this.calculateRoute();
+    // this.parent.forEach((p)=>p.child.calculateRoute());
+
+    const value = <number> await this.getAllocatedPendingustomers(1);
+    await this.getDirections();
+    await this.getItineraryDetails();
+    await this.calculateRoute();
+    await this.getDirections();
+
+
+
   }
 
-  calculateRoute() {
+  async calculateRoute() {
 
+    //this.getItineraryDetails();
+
+    console.log(this.origin);
     var count = 0;
 
     var loc: Loc;
     const directionsService = new google.maps.DirectionsService();
     let tempOrigin = this.origin;
 
-    this.minTime=null;
+    this.minTime = null;
     this.tempOptimalRoute = null;
     this.destNum = null;
 
-    console.log(this.origin);
+    //console.log(this.origin);
     for (var i = 0; i < this.pendingList.length; i++) {
       const tempWaypoints: google.maps.DirectionsWaypoint[] = [];
 
@@ -175,7 +233,7 @@ export class TaTaskComponent implements OnInit {
       }
       // var tempBool = false;
 
-      //console.log(tempWaypoints);
+      console.log(tempWaypoints);
       var route;
       directionsService.route(
         {
@@ -188,10 +246,10 @@ export class TaTaskComponent implements OnInit {
         },
         (response, status) => {
           if (status === "OK" && response) {
-           
+
             //console.log(response);
             route = response.routes[0];
-            
+
             let tempTime = 0;
             //console.log(route);
             for (var k = 0; k < route.legs.length; k++) {
@@ -203,12 +261,13 @@ export class TaTaskComponent implements OnInit {
               this.minTime = tempTime;
               this.destNum = count;
             }
-            
-            // console.log(count++);
-            // console.log("Time : " + tempTime);
-            // console.log("Route : " + route.waypoint_order);
+
+            console.log(count++);
+            console.log("Time : " + tempTime);
+            console.log("Route : " + route.waypoint_order);
 
             // For each route, display summary information.
+
           } else {
             alert("Directions request failed due to " + status);
           }
@@ -224,9 +283,9 @@ export class TaTaskComponent implements OnInit {
       // console.log("Minimum Time : " + this.minTime);
       // console.log("Optimal Route : " + this.tempOptimalRoute);
       // console.log("Destination : " + this.destNum);
-      this.optimalRoute=[];
-      for(var i=0;i<this.tempOptimalRoute.length;i++){
-        if(this.tempOptimalRoute[i]>=this.destNum){
+      this.optimalRoute = [];
+      for (var i = 0; i < this.tempOptimalRoute.length; i++) {
+        if (this.tempOptimalRoute[i] >= this.destNum) {
           this.tempOptimalRoute[i]++;
         }
         this.optimalRoute.push(this.tempOptimalRoute[i]);
@@ -236,33 +295,37 @@ export class TaTaskComponent implements OnInit {
       //console.log(this.optimalRoute);
 
       this.updateQueueNumber();
-      this.getItineraryDetails();
-    this.getItinerary();
+      this.getItinerary();
     }, 2000);
+    return true;
   }
 
-  updateQueueNumber(){
-    for(var i=0;i<this.pendingList.length;i++){
-      let data={
-        cust_id:this.pendingList[this.optimalRoute[i]].cust_id,
-        itinerary_id:this.selectedItinerary._id,
-        queue_number:i
+  updateQueueNumber() {
+    console.log(this.optimalRoute);
+    for (var i = 0; i < this.pendingList.length; i++) {
+      let data = {
+        cust_id: this.pendingList[this.optimalRoute[i]].cust_id,
+        itinerary_id: this.selectedItinerary._id,
+        queue_number: i
       }
       console.log(data);
-      this.taskAssignmentService.updateQueueNumber(data).subscribe((res)=>{
-        try{
+      this.taskAssignmentService.updateQueueNumber(data).subscribe((res) => {
+        try {
           console.log(res);
-        }catch(exception){
+        } catch (exception) {
           alert("Updating Optimal Route Error...!");
         }
-        
+
       });
+
     }
   }
 
-  getDirections() {
+  async getDirections() {
     var loc: Loc;
     var i: number;
+
+    this.waypoints = [];
 
     if (this.customerList && this.customerList[0] && this.customerList[0].location && this.customerList[0].location.coordinates) {
 
