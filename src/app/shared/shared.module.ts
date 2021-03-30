@@ -1,3 +1,4 @@
+import { CustomerTableComponent } from './customer-table/customer-table.component';
 //import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -29,7 +30,7 @@ const admin_routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [NavBarComponent, MapComponent, TaTaskCardComponent, SideBarComponent, ContainerComponent, DetailFormComponent, CaAgentsTableComponent, TaAgentsTableComponent, NavTablesComponent, TaOnlyDetailFormComponent, UserProfileComponent],
+  declarations: [NavBarComponent, MapComponent, TaTaskCardComponent, SideBarComponent, ContainerComponent, DetailFormComponent, CaAgentsTableComponent, TaAgentsTableComponent, NavTablesComponent, TaOnlyDetailFormComponent, UserProfileComponent, CustomerTableComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -48,7 +49,7 @@ const admin_routes: Routes = [
     MatFormFieldModule
   ],
   exports: [
-    CaAgentsTableComponent, TaAgentsTableComponent, TaOnlyDetailFormComponent,
+    CaAgentsTableComponent, TaAgentsTableComponent, TaOnlyDetailFormComponent, CustomerTableComponent,
     NavBarComponent, MapComponent,SideBarComponent,TaTaskCardComponent,FormsModule, ReactiveFormsModule, ContainerComponent, DetailFormComponent, NavTablesComponent, TaAgentsTableComponent, CaAgentsTableComponent
   ]
 })

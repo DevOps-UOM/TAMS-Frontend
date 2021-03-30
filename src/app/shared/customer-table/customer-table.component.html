@@ -1,0 +1,41 @@
+<div class="tables">
+
+    <!-- <div class="search-hero">
+      <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Start searching for an agent by User ID or Email">
+    </div> -->
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Cust ID</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Contact No.</th>
+                <th scope="col">Email</th>
+                <!--<th scope="col">Science</th>
+          <th scope="col">English</th>
+          <th scope="col">Total Marks</th>-->
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <!-- <tr *ngFor="let grade of grades | filter:searchText"> -->
+                <th scope="row">C001</th>
+                <td>Jagath</td>
+                <td>Perera</td>
+                <td>0711234567</td>
+                <td>jagath@gmail.com</td>
+                <!-- <td>
+                    <a class="action-btn" (click)="onDelete(grade.email)">
+                    <i class="material-icons">delete</i>
+                    </a>
+                </td> -->
+                <td><button type="btn btn-small btn-secondary">View Profile</button></td>
+                <!-- <td> <button (click) = "deleteRow(i)"><i class="fa fa-trash"></i></button></td> -->
+                <!--<td>{{ grade.sciMark }}</td>
+          <td>{{ grade.engMark }}</td>
+          <td class="special">{{ grade.totMark }}</td>-->
+            </tr>
+        </tbody>
+    </table>
+</div>

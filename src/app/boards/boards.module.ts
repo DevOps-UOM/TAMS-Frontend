@@ -1,3 +1,6 @@
+import { TaOnlyDetailFormComponent } from './../shared/ta-only-detail-form/ta-only-detail-form.component';
+import { CustomerDetailFormComponent } from './../shared/customer-detail-form/customer-detail-form.component';
+import { CustomerTableComponent } from './../shared/customer-table/customer-table.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router'
@@ -54,7 +57,10 @@ const routes: Routes = [
     path: 'ca-user-management',
     component: CaUserManagementComponent,
     children: [
-      { path: 'ta-agents' , component: TaAgentsTableComponent}
+      { path: 'ta-agents' , component: TaAgentsTableComponent},
+      { path: 'customers' , component: CustomerTableComponent},
+      { path: 'customers-registration' , component: CustomerDetailFormComponent},
+      { path: 'ta-agents-registration' , component: TaOnlyDetailFormComponent},
     ]
   }
 ]
