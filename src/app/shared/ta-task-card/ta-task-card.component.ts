@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AllocatedCustomers, modeSignalStatus } from 'src/app/models/itinerary.model';
 import { ItineraryService } from '../../services/itinerary/itinerary.service';
 
@@ -9,14 +9,17 @@ import { ItineraryService } from '../../services/itinerary/itinerary.service';
 })
 export class TaTaskCardComponent implements OnInit {
 
+  @Input() customer: AllocatedCustomers;
+  
   private loading: boolean = false;
-   customerList: AllocatedCustomers[] = [];
+   
+  isShowMap:boolean=false;
 
   selectedItinerary: any;
 
   date: Date = new Date("2012-04-23");
   taid: String = "TA001";
-  modeSignal:string= modeSignalStatus.directionMode;
+  modeSignal:string= modeSignalStatus.singlePathMode;
 
   
 
@@ -25,23 +28,10 @@ export class TaTaskCardComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.getCustomers();
     
   }
 
- 
-
-  getCustomers() {
-    this.loading = true;
-   try {
-    this.itineraryService.getAllocatedCustomers(this.date, this.taid).subscribe((res) => {
-      this.loading = false;
-     (res.body.data && res.body.data.length>0)? this.customerList = res.body.data : this.customerList=[];
-      //console.log("Dataaaa"+JSON.stringify(this.customerList));
-    })
-     
-   } catch (exception) {
-     console.log("Recieved Empty Customer List!");
-   }
+  toggle(){
+    this.isShowMap=!this.isShowMap;
   }
 }

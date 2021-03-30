@@ -17,6 +17,9 @@ import { TaTaskComponent } from './ta-task/ta-task.component';
 import {MatButtonModule} from '@angular/material/button';
 import { MatSliderModule } from '@angular/material/slider';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { CustomerAvailabiltyComponent } from './customer-availabilty/customer-availabilty.component';
+import { CaAgentsTableComponent } from '../shared/ca-agents-table/ca-agents-table.component';
+import { TaAgentsTableComponent } from '../shared/ta-agents-table/ta-agents-table.component';
 
 const routes: Routes = [
   {
@@ -38,14 +41,23 @@ const routes: Routes = [
     component: TaTaskComponent
   },
   {
+    path: 'customer-availability',
+    component: CustomerAvailabiltyComponent
+  },
+  {
     path: 'admin-user-management',
-    component: AdminUserManagementComponent
+    component: AdminUserManagementComponent,
+    children: [
+      { path: 'ca-agents' , component: CaAgentsTableComponent},
+      { path: 'ta-agents' , component: TaAgentsTableComponent}
+    
+    ]
   }
 ]
 
 
 @NgModule({
-  declarations: [ TAItineraryMapComponent, TaTaskComponent,LeaveComponent,AdminUserManagementComponent],
+  declarations: [ TAItineraryMapComponent, TaTaskComponent,LeaveComponent,AdminUserManagementComponent,CustomerAvailabiltyComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
