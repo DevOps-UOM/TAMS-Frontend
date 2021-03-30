@@ -24,6 +24,7 @@ import { RouterModule, Routes} from '@angular/router';
 import {MatDialogModule} from '@angular/material/dialog';
 import { AddTaskComponent } from './add-task/add-task.component';
 
+import {MatButtonModule} from '@angular/material/button';
 
 const admin_routes: Routes = [
   // { path: 'admin-user-management/ca-agents' , component: CaAgentsTableComponent},
@@ -61,7 +62,8 @@ const admin_routes: Routes = [
     MatIconModule,
     MatExpansionModule,
     MatFormFieldModule,
-    MatDialogModule
+    MatDialogModule,
+    MatButtonModule
   ],
 
   exports: [

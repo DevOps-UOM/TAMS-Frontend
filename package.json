@@ -3,7 +3,7 @@
     "version": "0.0.0",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve",
+        "start": "ng serve --host 0.0.0.0",
         "build": "ng build",
         "test": "ng test",
         "lint": "ng lint",
@@ -27,6 +27,7 @@
         "agm-direction": "^0.8.7",
         "angular-alert-module": "^2.0.3",
         "bootstrap": "^4.6.0",
+        "hammerjs": "^2.0.8",
         "jquery": "^3.5.1",
         "material-design-icons": "^3.0.1",
         "moment": "^2.29.1",

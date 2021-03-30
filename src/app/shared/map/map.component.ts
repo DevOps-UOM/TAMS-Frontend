@@ -1,32 +1,50 @@
-import { Component, HostListener, Input, OnInit, OnChanges, ViewChild,ElementRef ,AfterViewInit,Renderer2,NgZone   } from '@angular/core';
-import { AllocatedCustomers } from 'src/app/models/itinerary.model';
+import { Component, HostListener, Input, OnInit, OnChanges, ViewChild, ElementRef, AfterViewInit, Renderer2, NgZone } from '@angular/core';
+import { AllocatedCustomers, Itinerary, modeSignalStatus } from 'src/app/models/itinerary.model';
 import { ItineraryService } from '../../services/itinerary/itinerary.service'
+import{TaskAssignmentService} from '../../services/task-assignment/task-assignment.service'
 
-import {MapsAPILoader} from '@agm/core'
+import { MapsAPILoader } from '@agm/core'
+
+import { DataService } from '../../services/data/data.service'
+import { Subscription } from 'rxjs'
+
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnInit,AfterViewInit {
+export class MapComponent implements OnInit, AfterViewInit {
   @Input() modeSignal: string;
   @Input() markerList: AllocatedCustomers[] = [];
-
+  @Input() currentItinerary : Itinerary;
 
   //--------------to change map size dynamically---------------
-  @ViewChild('AgmMap') agmMap: any;                        
+  @ViewChild('AgmMap') agmMap: any;
   @ViewChild('wrapper') wrapper: ElementRef;
-  //-----------------------------------------------------------
-  
-public latitude: number=7.928309;
-  public longitude: number=80.5;
-  private centerLat: number=7.928309;
-  private centerLng: number=80.5;
-  public zoom: number=8;
+  //---------------------Map-----------------------------------
+  @ViewChild('map') mapElement: any;
+  map: google.maps.Map;
 
-  private changeLat: number=7.928309;
-  private changeLng: number=80.5;
+  tempOptimalRoute = [];
+   minTime: number = null;
+  destNum: number;
+
+  optimalRoute =[];
+
+  public latitude: number = 7.928309;
+  public longitude: number = 80.5;
+  private centerLat: number = 7.928309;
+  private centerLng: number = 80.5;
+  public zoom: number = 8;
+
+  map_width: number;
+
+  private changeLat: number = 7.928309;
+  private changeLng: number = 80.5;
+
+  isShowSidebar: boolean;
+  subscription: Subscription;
 
   currentLocaionIcon = '../../../assets/images/ic_ta_location.svg';
   customerLocationIcon = '../../../assets/images/ic_customer_location.svg';
@@ -37,19 +55,19 @@ public latitude: number=7.928309;
   address: string;
   private geoCoder;
 
-  selectedCustomerId:String;
-  @Input() selectedCustomer:AllocatedCustomers;
+  selectedCustomerId: String;
+  @Input() selectedCustomer: AllocatedCustomers;
 
   currentLat: number;
   currentLng: number;
-  isTracking:boolean;
-  
-  widthReduce:number;
-  heightReduce:number=150;
+  isTracking: boolean;
+
+  widthReduce: number = 0;
+  heightReduce: number = 150;
 
   origin: any;
   destination: any;
-  waypoints: Loc[] = [];
+  waypoints: google.maps.DirectionsWaypoint[] = [];
 
   markers: PointLoc[] = [];
 
@@ -61,46 +79,71 @@ public latitude: number=7.928309;
     this.onResize();
   }
 
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   ngAfterViewInit() {
-    if(window.innerWidth>600){
-      this.widthReduce=310;
-    }else{
-      this.widthReduce=75;
+    if (this.modeSignal = modeSignalStatus.singlePathMode) {
+      if (this.isShowSidebar) {
+        this.widthReduce = 400;
+      } else {
+        this.widthReduce = 150;
+      }
+    } else if (this.modeSignal = modeSignalStatus.directionMode) {
+      if (this.isShowSidebar) {
+        this.widthReduce = 70;
+      } else {
+        this.widthReduce = 5;
+      }
     }
     this.renderer.setStyle(
       this.wrapper.nativeElement, 'width',
-      (window.innerWidth-this.widthReduce) + 'px'
+      (window.innerWidth - this.widthReduce) + 'px'
     );
     this.renderer.setStyle(
       this.wrapper.nativeElement, 'height',
-      (window.innerHeight-this.heightReduce) + 'px'
+      (window.innerHeight - this.heightReduce) + 'px'
     );
-    
+
+    // this.agmMap.triggerResize().then(() =>
+    //   this.agmMap._mapsWrapper.setCenter({ lat: this.centerLat, lng: this.centerLng }));
   }
 
-  ngOnChanges(){
-    
+  ngOnChanges() {
+
   }
+
 
   onResize() {
     // resize the container for the google map
-    if(window.innerWidth>600){
-      this.widthReduce=310;
-    }else{
-      this.widthReduce=75;
+    if (this.modeSignal = modeSignalStatus.singlePathMode) {
+      if (this.isShowSidebar) {
+        this.widthReduce = 400;
+      } else {
+        this.widthReduce = 150;
+      }
+    } else if (this.modeSignal = modeSignalStatus.directionMode) {
+      if (this.isShowSidebar) {
+        this.widthReduce = 70;
+      } else {
+        this.widthReduce = 5;
+      }
     }
+
     this.renderer.setStyle(
       this.wrapper.nativeElement, 'width',
-      (window.innerWidth-this.widthReduce) + 'px'
+      (window.innerWidth - this.widthReduce) + 'px'
     );
     this.renderer.setStyle(
       this.wrapper.nativeElement, 'height',
-      (window.innerHeight-this.heightReduce) + 'px'
+      (window.innerHeight - this.heightReduce) + 'px'
     );
     // recenters the map to the resized area.
-    this.agmMap.triggerResize().then(() =>  
-       this.agmMap._mapsWrapper.setCenter({lat: this.centerLat, lng: this.centerLng}));
-       
+    // this.agmMap.triggerResize().then(() =>
+    //   this.agmMap._mapsWrapper.setCenter({ lat: this.centerLat, lng: this.centerLng }));
+
 
   }
 
@@ -112,7 +155,7 @@ public latitude: number=7.928309;
     this.centerLng = this.changeLng;
   }
 
-// this event fires whenever any event changes the center. Panning, zooming, or resizing.
+  // this event fires whenever any event changes the center. Panning, zooming, or resizing.
   centerChange(event: any) {
     if (event) {
       this.changeLat = event.lat;
@@ -120,73 +163,103 @@ public latitude: number=7.928309;
     }
   }
 
-  constructor(private itineraryService: ItineraryService,private renderer:Renderer2,private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone) {
+  constructor(private itineraryService: ItineraryService, private renderer: Renderer2, private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone, private data: DataService,private taskAssignmentService:TaskAssignmentService) {
     //this.trackMe();
   }
 
   ngOnInit(): void {
     //console.log("marker list"+JSON.stringify(this.markerList));
     //this.trackMe();
+    this.subscription = this.data.currentMessage.subscribe(isShowSidebar => this.isShowSidebar = isShowSidebar)
 
+    this.initMap();
     //this.getSingleDirection();
+    this.setCurrentLocation()
+
+  
 
     console.log(this.modeSignal);
     switch (this.modeSignal) {
       case "directionMode": this.getDirections(); break;
       case "markerMode": this.getMarkers(); break;
-      case "singlePathMode": this.getSingleDirection();break;
+      case "singlePathMode": this.getSingleDirection(); break;
       default: console.log("default Case Triggered");
     }
+
+
+
+
+    // setTimeout(() => {
+    //   this.calculateRoute();
+    // }, 3000);
+
+    //this.test();
+
   }
 
-  getSingleDirection(){
-   // this.trackMe();
-   this.mapsAPILoader.load().then(() => {
-    this.setCurrentLocation();
-    this.geoCoder = new google.maps.Geocoder;
-    
-  });
-  setTimeout(() => {  
-    this.origin = {
-      lat:this.currentLat,
-      lng: this.currentLng
-    };
+  getSingleDirection() {
+    // this.trackMe();
+    this.mapsAPILoader.load().then(() => {
+      //this.setCurrentLocation();
+      this.geoCoder = new google.maps.Geocoder;
 
-    this.destination = {
-      lat: this.selectedCustomer.location.coordinates[0],
-      lng: this.selectedCustomer.location.coordinates[1]
-    };
-    console.log(this.currentLat+" "+this.currentLng);
-   }, 2000);
+    });
+    setTimeout(() => {
+      this.origin = {
+        lat: this.currentLat,
+        lng: this.currentLng
+      };
+
+      this.destination = {
+        lat: this.selectedCustomer.location.coordinates[0],
+        lng: this.selectedCustomer.location.coordinates[1]
+      };
+      console.log(this.currentLat + " " + this.currentLng);
+    }, 2000);
 
 
-    
+
   }
+
+
 
   getDirections() {
     var loc: Loc;
     var i: number;
 
-    this.origin = {
-      lat: this.markerList[0].location.coordinates[0],
-      lng: this.markerList[0].location.coordinates[1]
-    };
-    for (i = 1; i < this.markerList.length - 1; i++) {
-      loc = {
-        location: {
-          lat: this.markerList[i].location.coordinates[0],
-          lng: this.markerList[i].location.coordinates[1]
-        },
-        stopover: true
+    if (this.markerList && this.markerList[0] && this.markerList[0].location && this.markerList[0].location.coordinates) {
+
+      // this.origin = {
+      //   lat: this.currentLat,
+      //   lng: this.currentLng
+      // };
+
+      this.origin = {
+        lat: 6.879277,
+        lng: 79.918083
+      };
+
+
+      for (i = 0; i < this.markerList.length - 1; i++) {
+        loc = {
+          location: {
+            lat: this.markerList[i].location.coordinates[0],
+            lng: this.markerList[i].location.coordinates[1]
+          },
+          stopover: true
+        }
+        this.waypoints.push(loc);
       }
-      this.waypoints.push(loc);
+      console.log(this.waypoints);
+      this.destination = {
+        lat: this.markerList[i].location.coordinates[0],
+        lng: this.markerList[i].location.coordinates[1]
+      };
     }
-    console.log(this.waypoints);
-    this.destination = {
-      lat: this.markerList[i].location.coordinates[0],
-      lng: this.markerList[i].location.coordinates[1]
-    };
+
+    //console.log(this.origin);
+    //console.log(this.destination);
   }
 
   getMarkers() {
@@ -196,6 +269,8 @@ public latitude: number=7.928309;
         lng: this.markerList[i].location.coordinates[1]
       });
     }
+
+    //console.log(this.markers);
   }
 
   // trackMe() {
@@ -213,14 +288,23 @@ public latitude: number=7.928309;
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
+
         this.currentLat = position.coords.latitude;
         this.currentLng = position.coords.longitude;
+
+
         //this.zoom = 8;
         //this.getAddress(this.currentLat, this.currentLng);
-      });
+      }, (err) => {
+        console.log("Current Location Error" + err);
+      }
+      );
+    } else {
+      alert("Geo location is not supported");
     }
-    console.log(this.currentLat+" "+this.currentLng);
+    console.log("Current Location "+this.currentLat + " " + this.currentLng);
   }
+
 
   getAddress(latitude, longitude) {
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
@@ -235,10 +319,212 @@ public latitude: number=7.928309;
       } else {
         window.alert('Geocoder failed due to: ' + status);
       }
-    
+
     });
   }
-  
+
+  initMap(): void {
+    const directionsService = new google.maps.DirectionsService();
+    const directionsRenderer = new google.maps.DirectionsRenderer();
+    const map = new google.maps.Map(
+      document.getElementById("map") as HTMLElement,
+      {
+        zoom: 8,
+        center: { lat: 7.928309, lng: 80.5 },
+      }
+    );
+    directionsRenderer.setMap(map);
+
+    
+
+    switch (this.modeSignal) {
+      case "directionMode": this.calculateAndDisplayRoute(directionsService, directionsRenderer);; break;
+      case "singlePathMode": this.displaySingleRoute(directionsService, directionsRenderer); break;
+      default: console.log("default Case Triggered");
+    }
+
+  }
+
+  displaySingleRoute(directionsService: google.maps.DirectionsService, directionsRenderer: google.maps.DirectionsRenderer) {
+
+    if (this.origin && this.destination) {
+
+      directionsService.route(
+        {
+          origin: this.origin,
+          destination: this.destination,
+          travelMode: google.maps.TravelMode.DRIVING,
+        },
+        (response, status) => {
+          if (status === "OK" && response) {
+            //console.log(response);
+            directionsRenderer.setDirections(response);
+            const route = response.routes[0];
+
+
+            // For each route, display summary information.
+          } else {
+            window.alert("Directions request failed due to " + status);
+          }
+        }
+      );
+    } else {
+      setTimeout(() => {
+        this.displaySingleRoute(directionsService, directionsRenderer);
+      }, 1000);
+    }
+  }
+
+  calculateRoute() {
+
+    var count = 0;
+
+    var loc: Loc;
+    const directionsService = new google.maps.DirectionsService();
+    let tempOrigin = this.origin;
+    for (var i = 0; i < this.markerList.length; i++) {
+      const tempWaypoints: google.maps.DirectionsWaypoint[] = [];
+
+      let tempDestination = {
+        lat: this.markerList[i].location.coordinates[0],
+        lng: this.markerList[i].location.coordinates[1]
+      };
+
+
+      //console.log(this.markerList.length);
+      for (var j = 0; j < this.markerList.length; j++) {
+        //console.log(this.markerList[j]);
+        if (i == j) {
+          continue;
+        }
+
+        loc = {
+          location: {
+            lat: this.markerList[j].location.coordinates[0],
+            lng: this.markerList[j].location.coordinates[1]
+          },
+          stopover: true
+        }
+        tempWaypoints.push(loc);
+
+      }
+      // var tempBool = false;
+
+      var route;
+      directionsService.route(
+        {
+          origin: tempOrigin,
+          destination: tempDestination,
+          waypoints: tempWaypoints,
+          optimizeWaypoints: false,
+          travelMode: google.maps.TravelMode.DRIVING,
+        },
+        (response, status) => {
+          if (status === "OK" && response) {
+           
+            //console.log(response);
+            route = response.routes[0];
+            
+            let tempTime = 0;
+            //console.log(route);
+            for (var k = 0; k < route.legs.length; k++) {
+              tempTime += route.legs[k].duration.value;
+            }
+
+            if (this.minTime == null || this.minTime > tempTime) {
+              this.tempOptimalRoute = route.waypoint_order;
+              this.minTime = tempTime;
+              this.destNum = count;
+            }
+            
+            // console.log(count++);
+            // console.log("Time : " + tempTime);
+            // console.log("Route : " + route.waypoint_order);
+
+            // For each route, display summary information.
+          } else {
+            alert("Directions request failed due to " + status);
+          }
+        }
+      );
+
+      //console.log(route);
+
+    }
+    //while(loading);
+
+    setTimeout(() => {
+      // console.log("Minimum Time : " + this.minTime);
+      // console.log("Optimal Route : " + this.tempOptimalRoute);
+      // console.log("Destination : " + this.destNum);
+
+      for(var i=0;i<this.tempOptimalRoute.length;i++){
+        if(this.tempOptimalRoute[i]>=this.destNum){
+          this.tempOptimalRoute[i]++;
+        }
+        this.optimalRoute.push(this.tempOptimalRoute[i]);
+      }
+      this.optimalRoute.push(this.destNum);
+
+      //console.log(this.optimalRoute);
+
+      this.updateQueueNumber();
+    }, 2000);
+  }
+
+  updateQueueNumber(){
+    for(var i=0;i<this.markerList.length;i++){
+      let data={
+        cust_id:this.markerList[this.optimalRoute[i]].cust_id,
+        itinerary_id:this.currentItinerary,
+        queue_number:i
+      }
+      //console.log(data);
+      this.taskAssignmentService.updateQueueNumber(data).subscribe((res)=>{
+        try{
+          console.log(res);
+        }catch(exception){
+          alert("Updating Optimal Route Error...!");
+        }
+        
+      });
+    }
+  }
+
+
+
+  calculateAndDisplayRoute(directionsService: google.maps.DirectionsService, directionsRenderer: google.maps.DirectionsRenderer) {
+
+    if (this.origin && this.destination) {
+
+      directionsService.route(
+        {
+          origin: this.origin,
+          destination: this.destination,
+          waypoints: this.waypoints,
+          optimizeWaypoints: true,
+          travelMode: google.maps.TravelMode.DRIVING,
+        },
+        (response, status) => {
+          if (status === "OK" && response) {
+            //console.log(response);
+            directionsRenderer.setDirections(response);
+            const route = response.routes[0];
+
+
+            // For each route, display summary information.
+          } else {
+            window.alert("Directions request failed due to " + status);
+          }
+        }
+      );
+    } else {
+      setTimeout(() => {
+        this.calculateAndDisplayRoute(directionsService, directionsRenderer);
+      }, 1000);
+    }
+  }
+
 }
 
 
