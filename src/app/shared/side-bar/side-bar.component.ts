@@ -52,6 +52,10 @@ export class SideBarComponent implements OnInit {
         this.router.navigate(["/boards/ca-user-management"])
         break;
 
+      case 'TA Live Location':
+        this.router.navigate(["/boards/ta-live-location"])
+        break;
+
 
       default:
         this.router.navigate(['/boards/home']);

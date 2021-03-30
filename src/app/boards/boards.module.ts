@@ -17,6 +17,7 @@ import { CustomerAvailabiltyComponent } from './customer-availabilty/customer-av
 import { CaAgentsTableComponent } from '../shared/ca-agents-table/ca-agents-table.component';
 import { TaAgentsTableComponent } from '../shared/ta-agents-table/ta-agents-table.component';
 import { CaUserManagementComponent } from './ca-user-management/ca-user-management.component';
+import { TaLiveLocationComponent } from './ta-live-location/ta-live-location.component';
 
 const routes: Routes = [
   {
@@ -56,12 +57,16 @@ const routes: Routes = [
     children: [
       { path: 'ta-agents' , component: TaAgentsTableComponent}
     ]
+  },
+  {
+    path: 'ta-live-location',
+    component: TaLiveLocationComponent
   }
 ]
 
 
 @NgModule({
-  declarations: [ TAItineraryMapComponent, TaTaskComponent,LeaveComponent,AdminUserManagementComponent,CustomerAvailabiltyComponent, CaUserManagementComponent],
+  declarations: [ TAItineraryMapComponent, TaTaskComponent,LeaveComponent,AdminUserManagementComponent,CustomerAvailabiltyComponent, CaUserManagementComponent, TaLiveLocationComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
