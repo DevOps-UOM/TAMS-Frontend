@@ -1,8 +1,9 @@
 .task-card {
     margin: 25px;
-    padding: 10px;
+    padding: 10px 30px 10px 30px;
     border-radius: 15px;
-    width: max-content;
+    width: auto;
+    min-width: 340px;
     background-color: rgba(0, 0, 0, 0.205);
     -webkit-box-shadow: 8px 8px 6px -6px rgb(168, 168, 168);
     -moz-box-shadow: 8px 8px 6px -6px rgb(168, 168, 168);
@@ -31,20 +32,33 @@
     background-color: #298E69;
     color: white;
     border-radius: 10px;
-    padding: 7px 10px 0px 10px;
+    /* padding: 7px 10px 0px 10px; */
+    -webkit-box-shadow: 3px 8px 6px -6px rgb(104, 104, 104);
+    -moz-box-shadow: 3px 8px 6px -6px rgb(104, 104, 104);
+    box-shadow: 3px 8px 6px -6px rgb(104, 104, 104);
+    z-index: 10;
 }
 
 .card-button:hover {
     background-color: #39C892;
 }
 
+.card-button:active {
+    box-shadow: inset 0px 0px 5px #2b2b2b;
+    outline: none;
+}
+
 .text-area {
     margin-left: 45px;
-    width: 500px;
+    min-width: 190px;
 }
 
 .map {
     margin-top: 20px;
     background-color: white;
     border-radius: 10px;
+}
+
+.button-container {
+    overflow: hidden;
 }

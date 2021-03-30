@@ -1,4 +1,5 @@
-<div class="task-card" fxLayout="column" fxLayoutAlign="start start">
+<div class="task-card" fxLayout="column" fxLayoutAlign="start start" [@cardAnimator]="animationState" (@cardAnimator.done)="resetAnimationState()" (click)="startAnimation('swing')">
+
     <div fxLayout="row" fxLayoutAlign="start center">
         <div class="text-card-area">
             <mat-label class="label">Customer : </mat-label>
@@ -6,23 +7,44 @@
         <div class="text-card-area">
             <mat-label class="label">{{customer.name.first_name}}</mat-label>
         </div>
-        <div class="card-button">
-            <p class="label-btn">Remove</p>
-        </div>
-        <div class="card-button">
-            <p class="label-btn" (click)="toggle()">View in Map</p>
-        </div>
     </div>
     <div fxLayout="row" fxLayoutAlign="start center">
         <div class="text-card-area">
-            <mat-label class="label">Task : </mat-label>
+            <mat-label class="label">Customer ID : </mat-label>
         </div>
-        <div>
-            <textarea class="text-area" name="" id=""></textarea>
+        <div class="text-card-area">
+            <mat-label class="label">{{customer.cust_id}}</mat-label>
         </div>
     </div>
-    <div class="map" *ngIf="customer!=null && isShowMap">
-        <app-map [modeSignal]="modeSignal" [selectedCustomer]="customer">
+    <div class="row" fxLayout="row" fxLayoutAlign="start center">
+        <button *ngIf="!isDisabled" mat-raised-button class="card-button label-btn col-sm-auto " (click)="TaskButton('Completed')">
+            Complete
+        </button>
+        <button *ngIf="!isDisabled" mat-raised-button class="card-button label-btn col-sm-auto " (click)="TaskButton('Postponed')">
+            Not Available
+         </button>
+
+        <button *ngIf="isDisabled" mat-raised-button class="card-button label-btn col-sm-auto" (click)="TaskButton('Pending')">
+            Reschedule
+        </button>
+
+        <button mat-raised-button class="card-button label-btn col-sm-auto" (click)="toggle()">
+            {{isShowMap?'Close Map':'View in Map'}}
+        </button>
+        <button mat-raised-button class="card-button label-btn col-sm-auto" (click)="navigate()">
+            Navigate
+        </button>
+    </div>
+    <div fxLayout="row " fxLayoutAlign="start center ">
+        <div class="text-card-area ">
+            <mat-label class="label ">Task</mat-label>
+        </div>
+        <div>
+            <textarea [ngStyle]="{ 'width.px':text_width} " class="text-area " name=" " id=" "></textarea>
+        </div>
+    </div>
+    <div class="map " *ngIf="customer!=null && isShowMap ">
+        <app-map [modeSignal]="modeSignal " [selectedCustomer]="customer ">
 
         </app-map>
     </div>

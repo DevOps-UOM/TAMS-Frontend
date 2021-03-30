@@ -7,6 +7,7 @@
 app-nav-bar {
     z-index: 10;
     width: 100%;
+    padding: 0px;
 }
 
 .sidebar {
@@ -21,4 +22,5 @@ app-nav-bar {
 
 .navbar {
     height: 10%;
+    padding: 0px;
 }

@@ -16,10 +16,27 @@
                 <label for="">Travel Agent's Name</label>
                 <input formControlName="ta_name" type="text" class="form-control" placeholder="">
             </div>
-            <div class="form-group col-md">
+            <!-- <div class="form-group col-md">
                 <label for="">Leave Date</label>
                 <input formControlName="leave_date" type="date" class="form-control">
-            </div>
+            </div> -->
+
+            <div class="row">
+                <div class="col-md-12" formGroupName="leave_date">
+                    <!-- <mat-form-field appearance="fill"> -->
+                        <!-- <mat-label>Enter a date range</mat-label> -->
+                        <mat-date-range-input [rangePicker]="picker" [min]="minDate">
+                          <input matStartDate formControlName="start_date" placeholder="Start date" >
+                          <input matEndDate formControlName="end_date" placeholder="End date">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                      
+                        <!-- <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error> -->
+                        <!-- <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error> -->
+                      <!-- </mat-form-field> -->
+                </div>
+            </div>  
 
             <div class="form-group col-md">
                 <label for="">Part Of The Day</label>
@@ -66,17 +83,10 @@
             <tr *ngFor="let lv of displayleaves">
                 <th scope="row">{{lv.ta_id}}</th>
                 <td>{{lv.ta_name}}</td>
-                <td>{{lv.leave_date | date:'shortDate' }}</td>
+                <td>{{lv.leave_date.start_date | date:'shortDate' }} - {{lv.leave_date.end_date | date:'shortDate' }}</td>
                 <td>{{lv.pod}}</td>
                 <td>{{lv.note}}</td>
-                <td>
-                    <a class="action-btn" (click)="onEdit(lv)">
-                        <i class="material-icons">edit</i>
-                    </a>
-                    <a class="action-btn" (click)="onDelete(lv._id,leaveForm)">
-                        <i class="material-icons">delete</i>
-                    </a>
-                </td>
+                <td> <button (click) = "deleteRow(i)"><i class="fa fa-trash"></i></button></td>
 
             </tr>
         </tbody>
