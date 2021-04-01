@@ -3,10 +3,10 @@
         <app-side-bar></app-side-bar>
     </div>
     <div fxLayout="column" class="boards">
-        <div fxLayout="row" class="navbar">
+        <div fxLayout="row" class="">
             <app-nav-bar [burger]="!(isDesktop || isTablet)"></app-nav-bar>
         </div>
-        <div fxLayout="row" class="content">
+        <div  class="content">
             <router-outlet></router-outlet>
         </div>
     </div>
