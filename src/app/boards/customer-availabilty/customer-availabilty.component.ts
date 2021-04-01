@@ -1,7 +1,9 @@
+import { TaskServiceService } from './../../services/task-service.service';
+import { AddTaskComponent } from './../../shared/add-task/add-task.component';
 import { Component, OnInit } from '@angular/core';
-import { from } from 'rxjs';
-import{FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AvailabilityServiceService} from '../../services/availability-service.service'
+import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-customer-availabilty',
@@ -9,19 +11,27 @@ import {AvailabilityServiceService} from '../../services/availability-service.se
   styleUrls: ['./customer-availabilty.component.css']
 })
 export class CustomerAvailabiltyComponent implements OnInit {
+  
   custId = '';
   availabilityForm: FormGroup;
   availabilities: any;
   displayAvailabilities: any;
+  tasks: any;
+  displayTasks: any;
+  minDate = new Date();
+
+
   constructor(
     private fb: FormBuilder,
-    private availabilityService: AvailabilityServiceService
-  ) {
-  }
+    private availabilityService: AvailabilityServiceService,
+    private dialog: MatDialog,
+    private TaskService: TaskServiceService
+  ) {}
 
   ngOnInit(): void {
     this.formInstaller();
     this.loadAvailability();
+    this.loadTask();
   }
   // tslint:disable-next-line:typedef
   loadAvailability() {
@@ -37,7 +47,18 @@ export class CustomerAvailabiltyComponent implements OnInit {
       );
   }
 
+  loadTask() {
+    this.TaskService.getAllTask()
+      .subscribe(
+        res => {
+          this.tasks = res.data;
+          this.displayTasks =  this.tasks;
+        },
+        error => {
 
+        }
+      );
+  }
 
   formInstaller(): void {
     this.availabilityForm = this.fb.group({
@@ -50,6 +71,7 @@ export class CustomerAvailabiltyComponent implements OnInit {
       task_duration: ['', Validators.required]
     });
   }
+  
   // tslint:disable-next-line:typedef
   onClickSubmit() {
     console.log(this.availabilityForm.value);
@@ -72,9 +94,23 @@ export class CustomerAvailabiltyComponent implements OnInit {
       this.displayAvailabilities = this.availabilities;
     } else {
       this.displayAvailabilities =  this.availabilities.filter((a) => {
-        return a.cust_id === term; 
+        if(a.cust_id.toLowerCase().indexOf(term.toLowerCase()) > -1) {
+          return a
+        } 
       });
     }
+  }
+
+  addTask(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig. width = "30%";
+    const dialogRef = this.dialog.open(AddTaskComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadTask()
+    })
+
   }
 
 

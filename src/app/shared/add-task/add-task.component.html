@@ -1,0 +1,36 @@
+
+<h1 class="text-center text-black-50">
+Add Task
+</h1>
+<button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabindex="-1" ><mat-icon>clear</mat-icon></button>
+<div>
+    <form [formGroup]='taskForm'  class="mt-5">
+
+        <div class="form-group col-md">
+            <label for="">Task Name</label>
+            <input formControlName="task_name" type="text" class="form-control" placeholder="">
+        </div>
+
+        <div class="form-group col-md">
+            <label for="">Estimated Task Duration</label>
+            <select class="custom-select" formControlName="task_duration">
+                <option selected >15 min</option>
+                <option >30 min</option>
+                <option >45 min</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md">
+            <label for="">Task Details</label>
+            <textarea formControlName="note" name="" id="" cols="30" rows="10" class="form-control"></textarea>
+        </div>
+
+        <div (click)="onAddTask()" class="btn btn-info float-right ml-2" style="background-color:#33B585" >
+            Add
+        </div>
+
+</form>
+
+
+
+</div>
