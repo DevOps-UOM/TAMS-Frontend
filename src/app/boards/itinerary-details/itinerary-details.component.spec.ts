@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ItineraryDetailsComponent } from './itinerary-details.component';
 
 describe('ItineraryDetailsComponent', () => {

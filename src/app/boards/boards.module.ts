@@ -1,3 +1,4 @@
+import { BrowserModule } from '@angular/platform-browser';
 // import { FormControllService } from './../services/form-controll.service';
 // import { TaAgentsTableComponent } from './../shared/ta-agents-table/ta-agents-table.component';
 // import { CaAgentsTableComponent} from './../shared/ca-agents-table/ca-agents-table.component';
@@ -20,10 +21,11 @@ import { CustomerAvailabiltyComponent } from './customer-availabilty/customer-av
 import { CaAgentsTableComponent } from '../shared/ca-agents-table/ca-agents-table.component';
 import { TaAgentsTableComponent } from '../shared/ta-agents-table/ta-agents-table.component';
 import { AssignComponent } from './assign/assign.component';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ItineraryDetailsComponent } from './itinerary-details/itinerary-details.component';
+
 
 const routes: Routes = [
   {
@@ -63,8 +65,7 @@ const routes: Routes = [
     component: AdminUserManagementComponent,
     children: [
       { path: 'ca-agents' , component: CaAgentsTableComponent},
-      { path: 'ta-agents' , component: TaAgentsTableComponent}
-    
+      { path: 'ta-agents' , component: TaAgentsTableComponent} 
     ]
   }
 ]
@@ -78,8 +79,8 @@ const routes: Routes = [
     LeaveComponent,
     AdminUserManagementComponent,
     CustomerAvailabiltyComponent,
-    ItineraryDetailsComponent,
-    AssignComponent
+    AssignComponent,
+    ItineraryDetailsComponent
     ],
   
   imports: [

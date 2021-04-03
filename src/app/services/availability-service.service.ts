@@ -12,7 +12,7 @@ export class AvailabilityServiceService {
   ) { }
   createAvailability(data: any): Observable<any> {
     return this.http.post('http://localhost:3000/availability', data);
-  }
+  } 
   getAllAvailability(): Observable<any> {
     return this.http.get('http://localhost:3000/availability');
   }

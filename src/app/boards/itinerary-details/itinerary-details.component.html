@@ -1,7 +1,18 @@
-<div class="d-flex justify-content-center mt-5">
-<div class="col-md-10 mt-5">
-    <div class="shadow-sm p-3 mb-2 bg-body rounded">Sample Itinerary<i class="fa fa-trash float-right"></i></div>
-    <div class="shadow-sm p-3 mb-2 bg-body rounded">Sample Itinerary<i class="fa fa-trash float-right"></i></div>
-    <div class="shadow-sm p-3 mb-2 bg-body rounded">Sample Itinerary<i class="fa fa-trash float-right"></i></div>
-</div>
-</div>
+
+    <table class="table  ">
+        <thead>
+          <tr>
+            <th scope="col">Itinerary ID</th>
+            <th scope="col">Agent ID</th>
+            <th scope="col">Agent Name</th>
+            <th scope="col">Date</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+            <div *ngFor="let t of Itineraries">
+                <th scope="row">{{t.travel_agent_id}} </th>
+            </div>
+        </tbody>
+     
+    </table>

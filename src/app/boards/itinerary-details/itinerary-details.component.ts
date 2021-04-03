@@ -1,4 +1,6 @@
+import { ItineraryService } from './../../services/itinerary/itinerary.service';
 import { Component, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-itinerary-details',
@@ -7,9 +9,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ItineraryDetailsComponent implements OnInit {
 
-  constructor() { }
+  Itineraries: any;
+  displayItineraries: any;
+
+  constructor(
+    private ItinerariesService: ItineraryService,
+
+  ) { }
 
   ngOnInit(): void {
+    this.loadItineraries();
+  }
+
+  loadItineraries(){
+    this.ItinerariesService.getItineraries().subscribe(
+      res => {
+        console.log(res.data);
+        this.Itineraries = res.data;
+        this.displayItineraries = this.Itineraries;
+      },
+      error => {
+
+      }
+      
+    );
+
   }
 
 }
