@@ -1,18 +1,23 @@
 
-    <table class="table  ">
+    <table class="table table-hover ">
         <thead>
           <tr>
-            <th scope="col">Itinerary ID</th>
-            <th scope="col">Agent ID</th>
-            <th scope="col">Agent Name</th>
-            <th scope="col">Date</th>
-            <th scope="col"></th>
+            <th scope="row">Itinerary ID</th>
+            <td>Agent ID</td>
+            <td>Agent Name</td>
+            <td>Date</td>
+            <td></td>
           </tr>
         </thead>
         <tbody>
-            <div *ngFor="let t of Itineraries">
-                <th scope="row">{{t.travel_agent_id}} </th>
-            </div>
+            <tr style="cursor: pointer;" *ngFor="let t of Itineraries">
+                <th scope="row">{{t._id}} </th>
+                <td>{{t.travel_agent_id}} </td>
+                <td>{{t.travel_agent_id}} </td>
+                <td>{{t.date | date:'shortDate' }} </td>
+                <td><i class="fa fa-trash zoom" style="cursor: pointer;" ></i></td>
+
+            </tr>
         </tbody>
      
     </table>

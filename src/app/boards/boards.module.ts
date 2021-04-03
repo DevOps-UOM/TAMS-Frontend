@@ -26,7 +26,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ItineraryDetailsComponent } from './itinerary-details/itinerary-details.component';
 
-
 const routes: Routes = [
   {
     path: '',
