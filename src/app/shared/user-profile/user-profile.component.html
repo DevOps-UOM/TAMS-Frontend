@@ -2,7 +2,7 @@
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 
 <body>
-  <div class="main-content">
+  <div *ngIf="user" class="main-content">
     <div class="container mt-7">
       <!-- Table -->
       <h2 class="mb-5">My Account</h2>
@@ -12,7 +12,7 @@
             <div class="card-header bg-white border-0">
               <div class="row align-items-center">
                 <div class="col-8">
-                  <h3 class="mb-0">TA001</h3>
+                  <h3 class="mb-0">{{user.userid}}</h3>
                 </div>
                 <div class="col-4 text-right">
                   <a href="#!" class="btn btn-sm btn-primary">Settings</a>
@@ -27,13 +27,13 @@
                     <div class="col-lg-6">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-userid">User ID</label>
-                        <input type="text" id="input-userid" class="form-control form-control-alternative" placeholder="Username" value="TA001" readonly>
+                        <input type="text" id="input-userid" class="form-control form-control-alternative" placeholder="Username" [value]="user.userid" readonly>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-email">Email address</label>
-                        <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="test1@test.com" readonly>
+                        <label class="form-control-label" for="input-email">Email</label>
+                        <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="{{user.email}}" readonly>
                       </div>
                     </div>
                   </div>
@@ -41,7 +41,7 @@
                     <div class="col-lg-6">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-first-name">First name</label>
-                        <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="First name" value="John">
+                        <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="First name" [value]="user.agentType">
                       </div>
                     </div>
                     <div class="col-lg-6">

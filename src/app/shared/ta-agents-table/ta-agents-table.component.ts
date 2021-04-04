@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControllService } from './../../services/form-controll.service';
 import { Grade } from './../../models/grade.model';
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class TaAgentsTableComponent implements OnInit {
   searchText: any;
   grades: Grade[] = this.formControllService.maxGrades;
 
-  constructor(private formControllService: FormControllService, private http: HttpClient) {
+  constructor(private formControllService: FormControllService, private http: HttpClient, private router: Router, private activatedRoute: ActivatedRoute,) {
     this.grades = this.formControllService.maxGrades;
    }
 
@@ -30,6 +31,10 @@ export class TaAgentsTableComponent implements OnInit {
     this.formControllService.updatedMaxgrade.subscribe((form: Grade) => {
       this.grades.push(form);
     });
+  }
+
+  navigateToProfile(userid) {
+    this.router.navigate(['./' + userid], {relativeTo: this.activatedRoute});
   }
 
   // getASingleUser(userid: String) {

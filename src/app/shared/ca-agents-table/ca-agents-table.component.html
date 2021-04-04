@@ -19,7 +19,7 @@
                 <!-- <tr *ngFor="let grade of grades | filter:searchText"> -->
                 <th scope="row">{{ grade.userid }}</th>
                 <td>{{ grade.email }}</td>
-                <td><button type="btn btn-small btn-secondary">View Profile</button></td>
+                <td><button type="btn btn-small btn-secondary" (click)="navigateToProfile(grade.userid)">View Profile</button></td>
                 <!--<td>{{ grade.sciMark }}</td>
           <td>{{ grade.engMark }}</td>
           <td>{{ grade.totMark }}</td>-->

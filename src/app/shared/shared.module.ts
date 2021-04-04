@@ -22,15 +22,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes} from '@angular/router';
 import { TaOnlyDetailFormComponent } from './ta-only-detail-form/ta-only-detail-form.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { CustomerDetailFormComponent } from './customer-detail-form/customer-detail-form.component';
 
 const admin_routes: Routes = [
   // { path: 'admin-user-management/ca-agents' , component: CaAgentsTableComponent},
   // { path: 'admin-user-management/ta-agents' , component: TaAgentsTableComponent}
-    { path: 'users/:userid' , component: UserProfileComponent }
+    { path: 'boards/admin-user-management/ta-agents/:userid' , component: UserProfileComponent },
+    { path: 'boards/admin-user-management/ca-agents/:userid' , component: UserProfileComponent },
+    { path: 'boards/ca-user-management/ta-agents/:userid' , component: UserProfileComponent }
 ];
 
 @NgModule({
-  declarations: [NavBarComponent, MapComponent, TaTaskCardComponent, SideBarComponent, ContainerComponent, DetailFormComponent, CaAgentsTableComponent, TaAgentsTableComponent, NavTablesComponent, TaOnlyDetailFormComponent, UserProfileComponent, CustomerTableComponent],
+  declarations: [NavBarComponent, MapComponent, TaTaskCardComponent, SideBarComponent, ContainerComponent, DetailFormComponent, CaAgentsTableComponent, TaAgentsTableComponent, NavTablesComponent, TaOnlyDetailFormComponent, UserProfileComponent, CustomerTableComponent, CustomerDetailFormComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -49,7 +52,7 @@ const admin_routes: Routes = [
     MatFormFieldModule
   ],
   exports: [
-    CaAgentsTableComponent, TaAgentsTableComponent, TaOnlyDetailFormComponent, CustomerTableComponent,
+    CaAgentsTableComponent, TaAgentsTableComponent, TaOnlyDetailFormComponent, CustomerTableComponent, CustomerDetailFormComponent,
     NavBarComponent, MapComponent,SideBarComponent,TaTaskCardComponent,FormsModule, ReactiveFormsModule, ContainerComponent, DetailFormComponent, NavTablesComponent, TaAgentsTableComponent, CaAgentsTableComponent
   ]
 })

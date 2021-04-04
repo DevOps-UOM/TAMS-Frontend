@@ -18,13 +18,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr *ngFor="let customer of customers">
                 <!-- <tr *ngFor="let grade of grades | filter:searchText"> -->
-                <th scope="row">C001</th>
-                <td>Jagath</td>
-                <td>Perera</td>
-                <td>0711234567</td>
-                <td>jagath@gmail.com</td>
+                <th scope="row">{{customer.cust_id}}</th>
+                <td>{{customer.first_name}}</td>
+                <td>{{customer.last_name}}</td>
+                <td>{{customer.mobile_number}}</td>
+                <td>{{customer.email}}</td>
                 <!-- <td>
                     <a class="action-btn" (click)="onDelete(grade.email)">
                     <i class="material-icons">delete</i>

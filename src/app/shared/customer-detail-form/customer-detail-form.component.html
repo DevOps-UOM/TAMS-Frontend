@@ -1,20 +1,26 @@
 <div class="form-group">
-    <form>
+    <form [formGroup]="customerForm" (ngSubmit)="OnSubmit()">
      
-      <label for="custid">Customer ID</label> &nbsp; &nbsp; &nbsp;
-      <input type="text" id="custid"  class="form-control" formControlName="custid">
+      
+      <label for="cust_id">Customer ID</label> &nbsp; &nbsp; &nbsp;
+      <input type="text" id="cust_id"  class="form-control" formControlName="cust_id">
       <br /> <br />
+      <div formGroupName="name">
+        <label for="first_name">First Name</label> &nbsp; &nbsp; &nbsp;
+        <input type="text" id="first_name"  class="form-control" formControlName="first_name">
+        <br /> <br />
+      
+        <label for="last_name">Last Name</label> &nbsp; &nbsp; &nbsp;
+        <input type="text" id="last_name"  class="form-control" formControlName="last_name">
+        <br /> <br />
+      </div>
 
-      <label for="fname">First Name</label> &nbsp; &nbsp; &nbsp;
-      <input type="text" id="fname"  class="form-control" formControlName="fname">
-      <br /> <br />
+      <!-- <label for="coordinates">Location</label> &nbsp; &nbsp; &nbsp;
+      <input type="text" id="coordinates"  class="form-control" formControlName="coordinates">
+      <br /> <br /> -->
 
-      <label for="lname">Last Name</label> &nbsp; &nbsp; &nbsp;
-      <input type="text" id="lname"  class="form-control" formControlName="lname">
-      <br /> <br />
-
-      <label for="location">Location</label> &nbsp; &nbsp; &nbsp;
-      <input type="text" id="location"  class="form-control" formControlName="location">
+      <label for="area">Area</label> &nbsp; &nbsp; &nbsp;
+      <input type="text" id="area"  class="form-control" formControlName="area">
       <br /> <br />
 
       <label for="nic">NIC</label> &nbsp; &nbsp; &nbsp;
@@ -29,8 +35,8 @@
         class="form-control"
       /><br /><br />
   
-      <label for="mobileno">Contact No.</label> &nbsp; &nbsp; &nbsp;
-      <input type="text" id="mobileno"  class="form-control" formControlName="mobileno">
+      <label for="mobile_number">Contact No.</label> &nbsp; &nbsp; &nbsp;
+      <input type="text" id="mobile_number"  class="form-control" formControlName="mobile_number">
       <br /> <br />
 
   <button type="submit" class="btn btn-info" style="background-color:#33B585 ; font-size:17px">Add Customer</button>
@@ -39,5 +45,55 @@
 </div> -->
     </form>
   </div>
+
+  <!-- <input type="file" class="upload" (change)="changeListener($event.target.files)"> -->
   
   
+  <div class="tables">
+
+    <!-- <div class="search-hero">
+      <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Start searching for an agent by User ID or Email">
+    </div> -->
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Cust ID</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <!-- <th scope="col">Location</th> -->
+                <th scope="col">Area</th>
+                <th scope="col">Contact No.</th>
+                <th scope="col">Email</th>
+                <th scope="col">NIC</th>
+                <!--<th scope="col">Science</th>
+          <th scope="col">English</th>
+          <th scope="col">Total Marks</th>-->
+            </tr>
+        </thead>
+        <tbody *ngIf="customers.length>0"  >
+            <tr   *ngFor="let customer of customers">
+                <!-- <tr *ngFor="let grade of grades | filter:searchText"> -->
+                <th scope="row">{{customer.cust_id}}</th>
+                <td>{{customer.name.first_name}}</td>
+                <td>{{customer.name.last_name}}</td>
+                <!-- <td>{{customer.location.coordinates | json}}</td> -->
+                <td>{{customer.area}}</td>
+                <td>{{customer.mobile_number}}</td>
+                <td>{{customer.email}}</td>
+                <td>{{customer.nic}}</td>
+                <!-- <td>
+                    <a class="action-btn" (click)="onDelete(grade.email)">
+                    <i class="material-icons">delete</i>
+                    </a>
+                </td> -->
+                <td><button type="btn btn-small btn-secondary">View Profile</button></td>
+                <!-- <td> <button (click) = "deleteRow(i)"><i class="fa fa-trash"></i></button></td> -->
+                <!--<td>{{ grade.sciMark }}</td>
+          <td>{{ grade.engMark }}</td>
+          <td class="special">{{ grade.totMark }}</td>-->
+            </tr>
+        </tbody>
+    </table>
+</div>
+

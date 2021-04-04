@@ -1,8 +1,8 @@
 <div class="tables">
 
-    <div class="search-hero">
+    <!-- <div class="search-hero">
       <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Start searching for an agent by User ID or Email">
-    </div>
+    </div> -->
 
     <table class="table">
         <thead>
@@ -19,7 +19,8 @@
                 <!-- <tr *ngFor="let grade of grades | filter:searchText"> -->
                 <th scope="row">{{ grade.userid }}</th>
                 <td>{{ grade.email }}</td>
-                <td><button type="btn btn-small btn-secondary">View Profile</button></td>
+                <td><button type="btn btn-small btn-secondary" (click)="navigateToProfile(grade.userid)">View Profile</button></td>
+                
                 <!--<td>{{ grade.sciMark }}</td>
           <td>{{ grade.engMark }}</td>
           <td class="special">{{ grade.totMark }}</td>-->

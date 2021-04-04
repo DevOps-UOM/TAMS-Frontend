@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControllService } from './../../services/form-controll.service';
 import { HttpClient } from '@angular/common/http';
 import { Grade } from './../../models/grade.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-ca-agents-table',
@@ -14,7 +15,7 @@ export class CaAgentsTableComponent implements OnInit {
   searchText: any;
   grades: Grade[] = this.formControllService.grades;
 
-  constructor(private formControllService: FormControllService, private http: HttpClient) { 
+  constructor(private formControllService: FormControllService, private http: HttpClient, private router: Router, private activatedRoute: ActivatedRoute) { 
     this.grades = this.formControllService.grades;
   }
 
@@ -30,6 +31,9 @@ export class CaAgentsTableComponent implements OnInit {
   
   }
 
+  navigateToProfile(userid) {
+    this.router.navigate(['./' + userid], {relativeTo: this.activatedRoute});
+  }
 }
 
  
