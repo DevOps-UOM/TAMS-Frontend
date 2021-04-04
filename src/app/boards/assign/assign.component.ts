@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AvailabilityServiceService } from 'src/app/services/availability-service.service';
-import * as moment from 'moment'
+import * as moment from 'moment';
+import {LeaveService} from '../../services/leave/leave.service';
+import { MatEndDate, MatStartDate } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-assign',
@@ -11,14 +13,18 @@ export class AssignComponent implements OnInit {
 
   availabilities: any;
   displayAvailabilities: any;
+  leaves: any;
+  displayleaves: any;
   
   constructor(
     private availabilityService: AvailabilityServiceService,
+    private leavesService: LeaveService
 
   ) { }
 
   ngOnInit(): void {
-    this.loadAvailability()
+    this.loadAvailability();
+    this.loadleaves();
   }
 
   loadAvailability() {
@@ -27,6 +33,19 @@ export class AssignComponent implements OnInit {
         res => {
           this.availabilities = res.data;
           this.displayAvailabilities =  this.availabilities;
+        },
+        error => {
+
+        }
+      );
+  }
+
+  loadleaves() {
+    this.leavesService.getAllleaves()
+      .subscribe(
+        res => {
+          this.leaves = res.data;
+          this.displayleaves =  this.leaves;
         },
         error => {
 
@@ -50,6 +69,20 @@ export class AssignComponent implements OnInit {
       });
     }
   }
+
+  onSearch2(term: any){
+    console.log(moment(term).format('YYYY-MM-DD'));
+    console.log(term);
+    if (term === ''||(term>=MatStartDate&& term<=MatEndDate)){
+      this.displayleaves =this.leaves;
+    }else{
+      this.displayleaves=this.leaves.filter((a) =>{
+        return moment(a.date).format('YYYY-MM-DD') === term
+      
+    });
+  }
+}
+
 
 
 }
