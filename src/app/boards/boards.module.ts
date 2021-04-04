@@ -20,6 +20,9 @@ import { CustomerAvailabiltyComponent } from './customer-availabilty/customer-av
 import { CaAgentsTableComponent } from '../shared/ca-agents-table/ca-agents-table.component';
 import { TaAgentsTableComponent } from '../shared/ta-agents-table/ta-agents-table.component';
 import { StatDashboardComponent } from './stat-dashboard/stat-dashboard.component';
+import { UserComponent } from './user/user.component';
+import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
+import { SignInComponent } from './user/sign-in/sign-in.component';
 
 const routes: Routes = [
   {
@@ -57,11 +60,15 @@ const routes: Routes = [
     path: 'stat-dashboard',
     component: StatDashboardComponent
   },
+  {
+    path: 'login', component: UserComponent,
+    children: [{ path: '', component: SignInComponent}]
+  }
 ]
 
 
 @NgModule({
-  declarations: [ TAItineraryMapComponent, TaTaskComponent,LeaveComponent,AdminUserManagementComponent,CustomerAvailabiltyComponent, StatDashboardComponent],
+  declarations: [ TAItineraryMapComponent, TaTaskComponent,LeaveComponent,AdminUserManagementComponent,CustomerAvailabiltyComponent, StatDashboardComponent, UserComponent, ResetPasswordComponent, SignInComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

@@ -1,4 +1,4 @@
-//import { BrowserModule } from '@angular/platform-browser';
+// import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -19,14 +19,24 @@ import { TaAgentsTableComponent } from './ta-agents-table/ta-agents-table.compon
 import { NavTablesComponent } from './nav-tables/nav-tables.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes} from '@angular/router';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserSharedComponent } from './user-shared/user-shared.component';
+import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthGuard } from './auth/auth.guard';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { UserService } from '../services/user/user.service';
 
 const admin_routes: Routes = [
   // { path: 'admin-user-management/ca-agents' , component: CaAgentsTableComponent},
   // { path: 'admin-user-management/ta-agents' , component: TaAgentsTableComponent}
+  {
+    path: 'userprofile', component: UserProfileComponent,canActivate:[AuthGuard]
+    
+  }
 ];
 
 @NgModule({
-  declarations: [NavBarComponent, MapComponent, TaTaskCardComponent, SideBarComponent, ContainerComponent, DetailFormComponent, CaAgentsTableComponent, TaAgentsTableComponent, NavTablesComponent],
+  declarations: [NavBarComponent, MapComponent, TaTaskCardComponent, SideBarComponent, ContainerComponent, DetailFormComponent, CaAgentsTableComponent, TaAgentsTableComponent, NavTablesComponent, UserProfileComponent, UserSharedComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -42,12 +52,18 @@ const admin_routes: Routes = [
     AgmSnazzyInfoWindowModule,
     MatIconModule,
     MatExpansionModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    HttpClientModule
   ],
   exports: [
     CaAgentsTableComponent, TaAgentsTableComponent, 
     NavBarComponent, MapComponent,SideBarComponent,TaTaskCardComponent,FormsModule, ReactiveFormsModule, ContainerComponent, DetailFormComponent, NavTablesComponent, TaAgentsTableComponent, CaAgentsTableComponent
-  ]
+  ],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  },AuthGuard,UserService]
 })
 export class SharedModule { }
 
