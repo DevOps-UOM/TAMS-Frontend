@@ -1,6 +1,6 @@
 import { ItineraryService } from './../../services/itinerary/itinerary.service';
 import { Component, OnInit } from '@angular/core';
-
+import * as moment from 'moment'
 
 @Component({
   selector: 'app-itinerary-details',
@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ItineraryDetailsComponent implements OnInit {
 
-  Itineraries: any;
+  itineraries: any;
   displayItineraries: any;
 
   constructor(
@@ -24,9 +24,8 @@ export class ItineraryDetailsComponent implements OnInit {
   loadItineraries(){
     this.ItinerariesService.getItineraries().subscribe(
       res => {
-        console.log(res.data);
-        this.Itineraries = res.data;
-        this.displayItineraries = this.Itineraries;
+        this.itineraries = res.data;
+        this.displayItineraries = this.itineraries;
       },
       error => {
 
@@ -36,5 +35,32 @@ export class ItineraryDetailsComponent implements OnInit {
 
   }
 
+  onClickReset(search) {
+    search.value = null
+      this.displayItineraries = this.itineraries;
+    }
+  
+    onSearch(term: any) {
+      console.log(moment(term).format('YYYY-MM-DD'));
+      console.log(term);
+      
+      if (term === '') {
+        this.displayItineraries = this.itineraries;
+      } else {
+        this.displayItineraries =  this.itineraries.filter((a) => {
+         return moment(a.date).format('YYYY-MM-DD') === term
+        });
+      }
+    }
+
+    onItiDelete(id:string , date: Date){
+      var delBtn = confirm(" Do you want to delete ?");
       if ( delBtn == true ) {
+      this.ItinerariesService.deleteItinerary(date, id).subscribe((res:any) => {
+        this.loadItineraries();
+        console.log(id, date);
+      } );
+    }
+  }
+
 }
