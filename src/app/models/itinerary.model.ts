@@ -1,4 +1,5 @@
 
+
 export interface IItinerary {
   taid: String,
   date: Date,

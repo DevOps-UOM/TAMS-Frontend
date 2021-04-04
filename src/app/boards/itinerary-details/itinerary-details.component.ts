@@ -36,4 +36,5 @@ export class ItineraryDetailsComponent implements OnInit {
 
   }
 
+      if ( delBtn == true ) {
 }
