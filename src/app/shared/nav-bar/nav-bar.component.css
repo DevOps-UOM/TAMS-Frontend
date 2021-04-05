@@ -1,4 +1,4 @@
-.container {
+/* .container {
     display: flex;
     width: 100%;
     height: auto;
@@ -10,7 +10,7 @@
     box-shadow: 0 8px 6px -6px rgb(168, 168, 168);
     padding: 20px 20px 10px 20px;
     z-index: 100;
-}
+} */
 
 .title {
     font-size: 20px;

@@ -6,7 +6,7 @@ import { HttpClient,HttpResponse,HttpClientModule } from '@angular/common/http';
 })
 export class CustomerService {
 
-  apiEndPoint = 'http://192.168.8.101:3000';
+  apiEndPoint = 'http://localhost:3000';
 
   constructor(private http: HttpClient) { }
 

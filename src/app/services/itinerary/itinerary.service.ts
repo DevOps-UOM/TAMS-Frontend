@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class ItineraryService {
 
-  apiEndPoint = 'http://192.168.8.101:3000';
+  apiEndPoint = 'http://localhost:3000';
 
 
   constructor(private http: HttpClient) { }

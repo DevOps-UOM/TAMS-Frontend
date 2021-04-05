@@ -3,10 +3,11 @@ import { AllocatedCustomers, Itinerary, modeSignalStatus } from 'src/app/models/
 import { ItineraryService } from '../../services/itinerary/itinerary.service'
 import{TaskAssignmentService} from '../../services/task-assignment/task-assignment.service'
 
-import { MapsAPILoader } from '@agm/core'
+import {MapsAPILoader } from '@agm/core'
 
 import { DataService } from '../../services/data/data.service'
 import { Subscription } from 'rxjs'
+
 
 
 @Component({
@@ -31,6 +32,8 @@ export class MapComponent implements OnInit, AfterViewInit {
   destNum: number;
 
   optimalRoute =[];
+
+  alert:any;
 
   public latitude: number = 7.928309;
   public longitude: number = 80.5;
@@ -93,7 +96,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       }
     } else if (this.modeSignal = modeSignalStatus.directionMode) {
       if (this.isShowSidebar) {
-        this.widthReduce = 70;
+        this.widthReduce = 300;
       } else {
         this.widthReduce = 5;
       }
@@ -126,7 +129,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       }
     } else if (this.modeSignal = modeSignalStatus.directionMode) {
       if (this.isShowSidebar) {
-        this.widthReduce = 70;
+        this.widthReduce = 300;
       } else {
         this.widthReduce = 5;
       }
@@ -173,9 +176,9 @@ export class MapComponent implements OnInit, AfterViewInit {
     //this.trackMe();
     this.subscription = this.data.currentMessage.subscribe(isShowSidebar => this.isShowSidebar = isShowSidebar)
 
-    this.initMap();
+    // this.initMap();
     //this.getSingleDirection();
-    this.setCurrentLocation()
+    
 
   
 
@@ -198,8 +201,10 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   }
 
-  getSingleDirection() {
+  async getSingleDirection() {
     // this.trackMe();
+    await this.setCurrentLocation(1)
+
     this.mapsAPILoader.load().then(() => {
       //this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
@@ -218,7 +223,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       console.log(this.currentLat + " " + this.currentLng);
     }, 2000);
 
-
+    this.initMap();
 
   }
 
@@ -258,6 +263,8 @@ export class MapComponent implements OnInit, AfterViewInit {
       };
     }
 
+    this.initMap();
+
     //console.log(this.origin);
     //console.log(this.destination);
   }
@@ -270,6 +277,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       });
     }
 
+    this.displayMarkers();
     //console.log(this.markers);
   }
 
@@ -285,24 +293,26 @@ export class MapComponent implements OnInit, AfterViewInit {
   //   }
   // }
 
-  private setCurrentLocation() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-
-        this.currentLat = position.coords.latitude;
-        this.currentLng = position.coords.longitude;
-
-
-        //this.zoom = 8;
-        //this.getAddress(this.currentLat, this.currentLng);
-      }, (err) => {
-        console.log("Current Location Error" + err);
+  setCurrentLocation(x) {
+    return new Promise(resolve => {
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition((position) => {
+  
+          this.currentLat = position.coords.latitude;
+          this.currentLng = position.coords.longitude;
+  
+          resolve(x);
+          //this.zoom = 8;
+          //this.getAddress(this.currentLat, this.currentLng);
+        }, (err) => {
+          console.log("Current Location Error" + err);
+        }
+        );
+      } else {
+        alert("Geo location is not supported");
       }
-      );
-    } else {
-      alert("Geo location is not supported");
-    }
-    console.log("Current Location "+this.currentLat + " " + this.currentLng);
+    })
+
   }
 
 
@@ -336,13 +346,41 @@ export class MapComponent implements OnInit, AfterViewInit {
     directionsRenderer.setMap(map);
 
     
-
     switch (this.modeSignal) {
       case "directionMode": this.calculateAndDisplayRoute(directionsService, directionsRenderer);; break;
       case "singlePathMode": this.displaySingleRoute(directionsService, directionsRenderer); break;
       default: console.log("default Case Triggered");
     }
 
+  }
+
+  displayMarkers(){
+
+    const map = new google.maps.Map(
+      document.getElementById("map") as HTMLElement,
+      {
+        zoom: 8,
+        center: { lat: 7.928309, lng: 80.5 },
+      }
+    );
+
+    const infoWindow = new google.maps.InfoWindow();
+    
+    for(var i=0;i<this.markers.length;i++){
+      const mark = new google.maps.Marker({
+        position:this.markers[i],
+        map,
+        title: this.markerList[i].name.first_name+" "+this.markerList[i].name.last_name,
+        label:(i+1+""),
+        optimized:false
+      })
+
+      mark.addListener("click",()=>{
+        infoWindow.close();
+        infoWindow.setContent(mark.getTitle());
+        infoWindow.open(mark.getMap(),mark);
+      })
+    }
   }
 
   displaySingleRoute(directionsService: google.maps.DirectionsService, directionsRenderer: google.maps.DirectionsRenderer) {
