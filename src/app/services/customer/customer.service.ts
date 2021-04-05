@@ -6,7 +6,7 @@ import { HttpClient,HttpResponse,HttpClientModule } from '@angular/common/http';
 })
 export class CustomerService {
 
-  apiEndPoint = 'http://localhost:3000';
+  apiEndPoint = 'https://tams-devops.herokuapp.com';
 
   constructor(private http: HttpClient) { }
 

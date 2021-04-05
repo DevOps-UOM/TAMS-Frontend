@@ -11,9 +11,9 @@ export class TaskServiceService {
     private http: HttpClient
   ) { }
   createTask(data: any): Observable<any> {
-    return this.http.post('http://localhost:3000/task', data);
+    return this.http.post('https://tams-devops.herokuapp.com/task', data);
   }
   getAllTask(): Observable<any> {
-    return this.http.get('http://localhost:3000/task');
+    return this.http.get('https://tams-devops.herokuapp.com/task');
   }
 }

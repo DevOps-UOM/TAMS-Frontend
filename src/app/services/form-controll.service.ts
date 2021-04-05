@@ -17,7 +17,7 @@ export class FormControllService {
   constructor(private http: HttpClient) { }
 
   uploadDetails(form: Grade){
-    this.http.post<{status: string, msg: string}>('http://localhost:3000/users', form).subscribe(
+    this.http.post<{status: string, msg: string}>('https://tams-devops.herokuapp.com/users', form).subscribe(
       (responseData) => {
         console.log(responseData['msg']);
         this.updatedgrade.next(form);

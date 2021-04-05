@@ -11,9 +11,9 @@ export class AvailabilityServiceService {
     private http: HttpClient
   ) { }
   createAvailability(data: any): Observable<any> {
-    return this.http.post('http://localhost:3000/availability', data);
+    return this.http.post('https://tams-devops.herokuapp.com/availability', data);
   }
   getAllAvailability(): Observable<any> {
-    return this.http.get('http://localhost:3000/availability');
+    return this.http.get('https://tams-devops.herokuapp.com/availability');
   }
 }

@@ -11,7 +11,7 @@ import {HttpClient} from '@angular/common/http';
 export class LeaveService {
 
  
-  readonly baseURL = 'http://localhost:3000/leaves';
+  readonly baseURL = 'https://tams-devops.herokuapp.com/leaves';
 
   constructor(
     private http: HttpClient

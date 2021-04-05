@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class ItineraryService {
 
-  apiEndPoint = 'http://localhost:3000';
+  apiEndPoint = 'https://tams-devops.herokuapp.com';
 
 
   constructor(private http: HttpClient) { }

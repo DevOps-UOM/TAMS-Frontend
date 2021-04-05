@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class TaskAssignmentService {
 
-  apiEndPoint = 'http://localhost:3000';
+  apiEndPoint = 'https://tams-devops.herokuapp.com';
 
 
   constructor(private http: HttpClient) { }
