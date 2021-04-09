@@ -23,7 +23,7 @@ import { AssignComponent } from './assign/assign.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import { ItineraryDetailsComponent } from './itinerary-details/itinerary-details.component';
 
 const routes: Routes = [
   {
@@ -35,6 +35,10 @@ const routes: Routes = [
   {
     path: 'itinerary-map',
     component: TAItineraryMapComponent
+  },
+  {
+    path: 'itinerary-details',
+    component: ItineraryDetailsComponent
   },
   {
     path: 'leave',
@@ -67,7 +71,17 @@ const routes: Routes = [
 
 
 @NgModule({
-  declarations: [ TAItineraryMapComponent, TaTaskComponent,LeaveComponent,AdminUserManagementComponent,CustomerAvailabiltyComponent, AssignComponent],
+
+  declarations: [
+    TAItineraryMapComponent, 
+    TaTaskComponent,
+    LeaveComponent,
+    AdminUserManagementComponent,
+    CustomerAvailabiltyComponent,
+    ItineraryDetailsComponent,
+    AssignComponent
+    ],
+  
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -85,5 +99,6 @@ const routes: Routes = [
   ],
   providers: [MatDatepickerModule]
 })
+
 export class BoardsModule { }
 

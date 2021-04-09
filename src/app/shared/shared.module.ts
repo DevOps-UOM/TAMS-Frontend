@@ -44,6 +44,7 @@ const admin_routes: Routes = [
     TaAgentsTableComponent, 
     NavTablesComponent, 
     AddTaskComponent
+
   ],
 
   imports: [
@@ -67,7 +68,9 @@ const admin_routes: Routes = [
   ],
 
   exports: [
-    CaAgentsTableComponent, TaAgentsTableComponent, 
+
+    CaAgentsTableComponent, 
+    TaAgentsTableComponent, 
     NavBarComponent, 
     MapComponent,
     SideBarComponent,
