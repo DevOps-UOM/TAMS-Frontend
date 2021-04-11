@@ -1,3 +1,5 @@
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { TaLiveLocationComponent } from './ta-live-location/ta-live-location.component';
 import { TaOnlyDetailFormComponent } from './../shared/ta-only-detail-form/ta-only-detail-form.component';
 import { CustomerDetailFormComponent } from './../shared/customer-detail-form/customer-detail-form.component';
 import { CustomerTableComponent } from './../shared/customer-table/customer-table.component';
@@ -62,7 +64,11 @@ const routes: Routes = [
       { path: 'customers-registration' , component: CustomerDetailFormComponent},
       { path: 'ta-agents-registration' , component: TaOnlyDetailFormComponent},
     ]
-  }
+  },
+  {
+    path: 'ta-live-location',
+    component: TaLiveLocationComponent
+  },
 ]
 
 
@@ -78,7 +84,8 @@ const routes: Routes = [
     HttpClientModule,
     MatButtonModule,
     MatSliderModule,
-    OverlayModule
+    OverlayModule,
+    Ng2SearchPipeModule
   ]
 })
 export class BoardsModule { }

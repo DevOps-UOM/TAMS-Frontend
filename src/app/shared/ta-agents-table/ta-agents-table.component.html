@@ -1,29 +1,26 @@
 <div class="tables">
 
-    <!-- <div class="search-hero">
-      <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Start searching for an agent by User ID or Email">
-    </div> -->
+    <div class="search-hero">
+      <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Start searching for an agent">
+    </div>
 
     <table class="table">
         <thead>
             <tr>
                 <th scope="col">User ID</th>
-                <th scope="col">Email</th>
-                <!--<th scope="col">Science</th>
-          <th scope="col">English</th>
-          <th scope="col">Total Marks</th>-->
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Mobile No.</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let grade of grades">
-                <!-- <tr *ngFor="let grade of grades | filter:searchText"> -->
+            <!-- <tr *ngFor="let grade of grades"> -->
+                <tr *ngFor="let grade of grades | filter:searchText">
                 <th scope="row">{{ grade.userid }}</th>
-                <td>{{ grade.email }}</td>
+                <td>{{ grade.first_name }}</td>
+                <td>{{ grade.last_name }}</td>
+                <td>{{ grade.mobile_number }}</td>
                 <td><button type="btn btn-small btn-secondary" (click)="navigateToProfile(grade.userid)">View Profile</button></td>
-                
-                <!--<td>{{ grade.sciMark }}</td>
-          <td>{{ grade.engMark }}</td>
-          <td class="special">{{ grade.totMark }}</td>-->
             </tr>
         </tbody>
     </table>

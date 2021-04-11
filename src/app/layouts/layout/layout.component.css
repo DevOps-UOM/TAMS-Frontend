@@ -1,24 +1,29 @@
 .content {
-    height: auto;
-    z-index: 1;
-    width: 100%;
+  height: auto;
+  z-index: 1;
+  width: 100%;
 }
 
 app-nav-bar {
-    z-index: 10;
-    width: 100%;
+  z-index: 10;
+  width: 100%;
 }
 
 .sidebar {
-    z-index: 10;
-    height: auto;
-    width: 300px;
+  z-index: 10;
+  height: auto;
+  width: 300px;
 }
 
 .boards {
-    width: 100%;
+  width: 100%;
+  overflow-y: scroll;
 }
 
 .navbar {
-    height: 10%;
+  height: 10%;
+}
+
+.container-row {
+  height: 100vh;
 }

@@ -3,6 +3,7 @@ import { CustomerService } from './../../services/customer/customer.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { FormControllService } from 'src/app/services/form-controll.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-customer-detail-form',
@@ -11,6 +12,7 @@ import { FormControllService } from 'src/app/services/form-controll.service';
 })
 export class CustomerDetailFormComponent {
 
+  searchText: any;
   customerId = '';
   customerForm: FormGroup;
   customers: AllocatedCustomers[] = [];
@@ -19,7 +21,9 @@ export class CustomerDetailFormComponent {
   constructor(
 
     private fb: FormBuilder,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private router: Router, 
+    private activatedRoute: ActivatedRoute,
 
   ) {}
 
@@ -53,6 +57,9 @@ export class CustomerDetailFormComponent {
         first_name: ['', Validators.required],
         last_name: ['', Validators.required],
       }),
+      // location: this.fb.group({
+      //   coordinates: ['', Validators.required],
+      // }),
       area: ['', Validators.required],
       mobile_number: ['', Validators.required],
       email: ['', Validators.required],
@@ -103,6 +110,10 @@ export class CustomerDetailFormComponent {
   //   }
   // }
   
+  navigateToProfile(cust_id) {
+    this.router.navigate(['./' + cust_id], {relativeTo: this.activatedRoute});
+  }
+
 
 }
 

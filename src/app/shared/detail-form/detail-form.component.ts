@@ -20,22 +20,16 @@ export class DetailFormComponent implements OnInit {
     this.form = new FormGroup({
       userid: new FormControl('', Validators.required),
       email: new FormControl('', Validators.required),
-        //Validators.min(0),
-        //Validators.max(100),
-      
-      //engMark: new FormControl('', [
-        //Validators.required,
-        //Validators.min(0),
-        //Validators.max(100),
-      //]),
-      //sciMark: new FormControl('', [
-        //Validators.required,
-        //Validators.min(0),
-        //Validators.max(100),
-      //]),
+      first_name: new FormControl(''),
+      last_name: new FormControl(''),
+      mobile_number: new FormControl(''),
+      city: new FormControl(''),
+      district: new FormControl(''),
+      province: new FormControl(''),
+      bio: new FormControl(''),
       agentType: new FormControl(''), //agenttype
     });
-    //this.formControllService.downloadDetails();
+    
   }
 
   OnSubmit() {
@@ -49,8 +43,13 @@ export class DetailFormComponent implements OnInit {
       const formData = {
         userid: this.form.value.userid,
         email: this.form.value.email,
-        //engMark: this.form.value.engMark,
-        //sciMark: this.form.value.sciMark,
+        first_name: this.form.value.first_name,
+        last_name: this.form.value.last_name,
+        mobile_number: this.form.value.mobile_number,
+        city: this.form.value.city,
+        district: this.form.value.district,
+        province: this.form.value.province,
+        bio: this.form.value.bio,
         agentType: this.form.value.agentType,
       };
 
@@ -63,8 +62,4 @@ export class DetailFormComponent implements OnInit {
     }
   }
 
-  //generateUUID(){
-  //this.uuidValue=UUID.UUID();
-  //return this.uuidValue;
-  //}
 }

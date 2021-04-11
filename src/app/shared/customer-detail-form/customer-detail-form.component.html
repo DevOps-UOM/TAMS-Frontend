@@ -15,9 +15,11 @@
         <br /> <br />
       </div>
 
-      <!-- <label for="coordinates">Location</label> &nbsp; &nbsp; &nbsp;
+      <!-- <div formGroupName="location">
+      <label for="coordinates">Location</label> &nbsp; &nbsp; &nbsp;
       <input type="text" id="coordinates"  class="form-control" formControlName="coordinates">
-      <br /> <br /> -->
+      <br /> <br />
+    </div> -->
 
       <label for="area">Area</label> &nbsp; &nbsp; &nbsp;
       <input type="text" id="area"  class="form-control" formControlName="area">
@@ -51,9 +53,9 @@
   
   <div class="tables">
 
-    <!-- <div class="search-hero">
-      <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Start searching for an agent by User ID or Email">
-    </div> -->
+    <div class="search-hero">
+      <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Start searching for a customer">
+    </div>
 
     <table class="table">
         <thead>
@@ -61,23 +63,20 @@
                 <th scope="col">Cust ID</th>
                 <th scope="col">First Name</th>
                 <th scope="col">Last Name</th>
-                <!-- <th scope="col">Location</th> -->
+                <th scope="col">Location</th>
                 <th scope="col">Area</th>
                 <th scope="col">Contact No.</th>
                 <th scope="col">Email</th>
                 <th scope="col">NIC</th>
-                <!--<th scope="col">Science</th>
-          <th scope="col">English</th>
-          <th scope="col">Total Marks</th>-->
             </tr>
         </thead>
         <tbody *ngIf="customers.length>0"  >
-            <tr   *ngFor="let customer of customers">
-                <!-- <tr *ngFor="let grade of grades | filter:searchText"> -->
+            <!-- <tr *ngFor="let customer of customers"> -->
+                <tr *ngFor="let customer of customers | filter:searchText">
                 <th scope="row">{{customer.cust_id}}</th>
                 <td>{{customer.name.first_name}}</td>
                 <td>{{customer.name.last_name}}</td>
-                <!-- <td>{{customer.location.coordinates | json}}</td> -->
+                <!-- <td>{{customer.location.coordinates}}</td> -->
                 <td>{{customer.area}}</td>
                 <td>{{customer.mobile_number}}</td>
                 <td>{{customer.email}}</td>
@@ -87,11 +86,9 @@
                     <i class="material-icons">delete</i>
                     </a>
                 </td> -->
-                <td><button type="btn btn-small btn-secondary">View Profile</button></td>
+                <!-- <td><button type="btn btn-small btn-secondary">View Profile</button></td> -->
+                <td><button type="btn btn-small btn-secondary" (click)="navigateToProfile(customer.cust_id)">View Profile</button></td>
                 <!-- <td> <button (click) = "deleteRow(i)"><i class="fa fa-trash"></i></button></td> -->
-                <!--<td>{{ grade.sciMark }}</td>
-          <td>{{ grade.engMark }}</td>
-          <td class="special">{{ grade.totMark }}</td>-->
             </tr>
         </tbody>
     </table>

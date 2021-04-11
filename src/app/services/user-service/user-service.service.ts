@@ -9,14 +9,16 @@ import { map } from 'rxjs/operators';
 })
 export class UserServiceService {
 
-  grades: Grade[];
-  maxGrades: Grade[];
+  users = 'http://localhost:3000/users';
 
   constructor(private http: HttpClient) { }
 
-  findOne(userid: string): Observable<Grade> {
-    return this.http.get('/api/users/' + userid).pipe(
-      map((user:Grade) => user)
-    )
+  findOne(userid: string) {
+    return this.http.get<any>( this.users + '/' + userid);
   }
+
+  
+  // updateAUser(userid: string) {
+  //   return this.http.get<any>( this.users + '/' + userid);
+  // }
 }

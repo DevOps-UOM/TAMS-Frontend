@@ -37,21 +37,6 @@ export class TaAgentsTableComponent implements OnInit {
     this.router.navigate(['./' + userid], {relativeTo: this.activatedRoute});
   }
 
-  // getASingleUser(userid: String) {
-  //   return this.http.get<{ status: string, msg: string, data: Grade[] }>('http://localhost:3000/ta-agents/:userid').subscribe((postData) => {
-  //     this.grades = postData['data'];
-  //   });
-
-  //   this.formControllService.updatedMaxgrade.subscribe((form: Grade) => {
-  //     this.grades.push(form);
-  //   });
-  // }
-
-  // findOne(userid: string){
-  //   return this.http.get('http://localhost:3000/ta-agents/:userid')
-  // }
-
-
 }
 
 
