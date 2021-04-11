@@ -65,10 +65,6 @@ const routes: Routes = [
       { path: 'ta-agents-registration' , component: TaOnlyDetailFormComponent},
     ]
   },
-  {
-    path: 'ta-live-location',
-    component: TaLiveLocationComponent
-  },
 ]
 
 
