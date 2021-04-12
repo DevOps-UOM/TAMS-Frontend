@@ -48,7 +48,7 @@ export class TaTaskCardComponent implements OnInit {
 
   @Input() selectedItinerary: Itinerary;
 
-  date: Date = new Date("2021-04-23");
+  date: Date = new Date("2021-04-05");
   taid: String = "TA001";
   modeSignal: string = modeSignalStatus.singlePathMode;
 
