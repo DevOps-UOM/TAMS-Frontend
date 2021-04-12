@@ -55,7 +55,8 @@ export class AllocatedCustomers implements IAllocatedCustomers {
     },
     public mobile_number: any,
     public name: {first_name:string,last_name:string},
-    public nic: string
+    public nic: string,
+    public default_agent_id: string
   ) { }
 }
 

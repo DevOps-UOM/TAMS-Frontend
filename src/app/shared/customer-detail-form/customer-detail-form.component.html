@@ -41,6 +41,10 @@
       <input type="text" id="mobile_number"  class="form-control" formControlName="mobile_number">
       <br /> <br />
 
+      <label for="default_agent_id">Assigned Travelling Agent</label> &nbsp; &nbsp; &nbsp;
+      <input type="text" id="default_agent_id"  class="form-control" formControlName="default_agent_id">
+      <br /> <br />
+
   <button type="submit" class="btn btn-info" style="background-color:#33B585 ; font-size:17px">Add Customer</button>
   <!-- <div (click)="onClickSubmit()" class="btn btn-info float-right ml-2" style="background-color:#33B585 ; font-size:20px">
     Add
@@ -63,11 +67,12 @@
                 <th scope="col">Cust ID</th>
                 <th scope="col">First Name</th>
                 <th scope="col">Last Name</th>
-                <th scope="col">Location</th>
+                <!-- <th scope="col">Location</th> -->
                 <th scope="col">Area</th>
                 <th scope="col">Contact No.</th>
                 <th scope="col">Email</th>
                 <th scope="col">NIC</th>
+                <th scope="col">Assigned Travelling Agent</th>
             </tr>
         </thead>
         <tbody *ngIf="customers.length>0"  >
@@ -81,6 +86,7 @@
                 <td>{{customer.mobile_number}}</td>
                 <td>{{customer.email}}</td>
                 <td>{{customer.nic}}</td>
+                <td>{{customer.default_agent_id}}</td>
                 <!-- <td>
                     <a class="action-btn" (click)="onDelete(grade.email)">
                     <i class="material-icons">delete</i>
