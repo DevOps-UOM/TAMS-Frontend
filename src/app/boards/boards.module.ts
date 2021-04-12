@@ -1,3 +1,5 @@
+import { Role } from './../models/role.model';
+import { AuthGuard } from './../shared/auth/auth.guard';
 // import { FormControllService } from './../services/form-controll.service';
 // import { TaAgentsTableComponent } from './../shared/ta-agents-table/ta-agents-table.component';
 // import { CaAgentsTableComponent} from './../shared/ca-agents-table/ca-agents-table.component';
@@ -58,7 +60,9 @@ const routes: Routes = [
   },
   {
     path: 'stat-dashboard',
-    component: StatDashboardComponent
+    component: StatDashboardComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] }
   },
   {
     path: 'login', component: UserComponent,

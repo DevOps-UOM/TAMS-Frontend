@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './../../services/user/user.service';
 import { Router } from "@angular/router";
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-user-profile',
@@ -13,8 +14,10 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getUserProfile().subscribe(
-      res => {
+      (res: any) => {
         this.userDetails = res['user'];
+        localStorage.setItem('user', JSON.stringify(res.user));
+        this.userService.observableUser.next(res.user as User);
       },
       err => { 
         console.log(err);

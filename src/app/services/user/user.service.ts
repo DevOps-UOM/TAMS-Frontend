@@ -1,8 +1,11 @@
+import { Role } from './../../models/role.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { environment } from './../../../environments/environment';
 import { User } from './../../models/user.model';
+import { of, Subject } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +13,15 @@ import { User } from './../../models/user.model';
 
 export class UserService {
   selectedUser: User = {
-    firstname: '',
+    id: '',
+    first_name: '',
+    last_name: '',
     email: '',
-    password: ''
+    password: '',
+    role: Role.User,
   };
+
+  observableUser = new Subject<User>();
 
   noAuthHeader = { headers: new HttpHeaders({ 'NoAuth': 'True' }) };
 
@@ -31,6 +39,10 @@ export class UserService {
 
   getUserProfile() {
     return this.http.get(environment.apiBaseUrl + '/userProfile');
+  }
+
+  getById(id: number) {
+    return this.http.get<User>(`${environment.apiBaseUrl}/users/${id}`);
   }
 
 
