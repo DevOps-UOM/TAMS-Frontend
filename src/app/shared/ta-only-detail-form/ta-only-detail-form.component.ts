@@ -29,7 +29,8 @@ export class TaOnlyDetailFormComponent implements OnInit {
       district: new FormControl(''),
       province: new FormControl(''),
       bio: new FormControl(''),
-      agentType: new FormControl(''), //agenttype
+      role: new FormControl(''), //role
+      password: new FormControl(''),
     });
   }
 
@@ -38,9 +39,9 @@ export class TaOnlyDetailFormComponent implements OnInit {
     if (this.form.valid) {
       this.formIsValid = false;
       this.recordSent = true;
-      const totalMark = this.form.value.agentType;
+      const totalMark = this.form.value.role;
 
-      this.form.patchValue({ agentType: totalMark });
+      this.form.patchValue({ role: totalMark });
 
       const formData = {
         userid: this.form.value.userid,
@@ -52,7 +53,8 @@ export class TaOnlyDetailFormComponent implements OnInit {
         district: this.form.value.district,
         province: this.form.value.province,
         bio: this.form.value.bio,
-        agentType: this.form.value.agentType,
+        role: this.form.value.role,
+        password: this.form.value.password,
       };
 
       this.formControllService.uploadDetails(formData);

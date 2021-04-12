@@ -13,13 +13,13 @@
         class="form-control"
       /><br /><br />
   
-      <label for="agenttype">Agent Type</label> &nbsp; &nbsp; &nbsp;
-      <select name="type" id="agenttype" formControlName="agentType" class="form-control">
+      <label for="role">Agent Type</label> &nbsp; &nbsp; &nbsp;
+      <select name="type" id="role" formControlName="role" class="form-control">
         <!-- <option value="ca" class="form-control">Call Centre Agent</option> -->
         <option value="ta" class="form-control" placeholder="Travelling Agent">Travelling Agent</option>
       </select><br /> <br />
 
-      <!-- <input type="text" name="type" id="agenttype" formControlName="agentType" value="ta" class="form-control" placeholder="Travelling Agent" readonly><br /> <br /> -->
+      <!-- <input type="text" name="type" id="role" formControlName="role" value="ta" class="form-control" placeholder="Travelling Agent" readonly><br /> <br /> -->
      
       <label for="first_name">First Name</label> &nbsp; &nbsp; &nbsp;
       <input type="text" id="first_name" class="form-control" formControlName="first_name">
@@ -47,6 +47,10 @@
 
       <label for="bio">Bio</label> &nbsp; &nbsp; &nbsp;
       <textarea type="text" rows="4" id="bio" class="form-control" formControlName="bio"></textarea>
+      <br /> <br />
+
+      <label for="password">Password</label> &nbsp; &nbsp; &nbsp;
+      <input type="password" id="password" class="form-control" formControlName="password">
       <br /> <br />
   
   <button type="submit" class="btn btn-secondary">Add</button>

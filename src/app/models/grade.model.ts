@@ -8,6 +8,7 @@ export interface Grade {
     district: string;
     province: string;
     bio: string;
-    agentType: string;
+    role: string;
+    password: string;
   }
   

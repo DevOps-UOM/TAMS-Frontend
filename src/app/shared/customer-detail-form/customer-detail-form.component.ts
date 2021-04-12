@@ -64,6 +64,7 @@ export class CustomerDetailFormComponent {
       mobile_number: ['', Validators.required],
       email: ['', Validators.required],
       nic: ['', Validators.required],
+      password: ['', Validators.required],
     });
   }
 
