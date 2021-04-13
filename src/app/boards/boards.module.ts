@@ -1,6 +1,7 @@
-// import { FormControllService } from './../services/form-controll.service';
-// import { TaAgentsTableComponent } from './../shared/ta-agents-table/ta-agents-table.component';
-// import { CaAgentsTableComponent} from './../shared/ca-agents-table/ca-agents-table.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { TaOnlyDetailFormComponent } from './../shared/ta-only-detail-form/ta-only-detail-form.component';
+import { CustomerDetailFormComponent } from './../shared/customer-detail-form/customer-detail-form.component';
+import { CustomerTableComponent } from './../shared/customer-table/customer-table.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router'
@@ -24,6 +25,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ItineraryDetailsComponent } from './itinerary-details/itinerary-details.component';
+import { CaUserManagementComponent } from './ca-user-management/ca-user-management.component';
 
 const routes: Routes = [
   {
@@ -66,7 +68,17 @@ const routes: Routes = [
       { path: 'ta-agents' , component: TaAgentsTableComponent}
     
     ]
-  }
+  },
+  {
+    path: 'ca-user-management',
+    component: CaUserManagementComponent,
+    children: [
+      { path: 'ta-agents' , component: TaAgentsTableComponent},
+      { path: 'customers' , component: CustomerTableComponent},
+      { path: 'customers-registration' , component: CustomerDetailFormComponent},
+      { path: 'ta-agents-registration' , component: TaOnlyDetailFormComponent},
+    ]
+  },
 ]
 
 
@@ -79,7 +91,8 @@ const routes: Routes = [
     AdminUserManagementComponent,
     CustomerAvailabiltyComponent,
     ItineraryDetailsComponent,
-    AssignComponent
+    AssignComponent,
+    CaUserManagementComponent
     ],
   
   imports: [
@@ -95,7 +108,8 @@ const routes: Routes = [
     OverlayModule,
     MatDialogModule, 
     MatDatepickerModule,
-    MatNativeDateModule 
+    MatNativeDateModule,
+    Ng2SearchPipeModule
   ],
   providers: [MatDatepickerModule]
 })

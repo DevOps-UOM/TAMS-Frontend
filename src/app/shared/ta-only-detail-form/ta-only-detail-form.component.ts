@@ -4,17 +4,19 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { FormControllService } from '../../services/form-controll.service';
 
 @Component({
-  selector: 'app-detail-form',
-  templateUrl: './detail-form.component.html',
-  styleUrls: ['./detail-form.component.css'],
+  selector: 'app-ta-only-detail-form',
+  templateUrl: './ta-only-detail-form.component.html',
+  styleUrls: ['./ta-only-detail-form.component.css']
 })
-export class DetailFormComponent implements OnInit {
+export class TaOnlyDetailFormComponent implements OnInit {
+
   form: FormGroup;
   formIsValid = false;
   recordSent = false;
   uuidValue: string;
 
-  constructor(private formControllService: FormControllService) {}
+
+  constructor(private formControllService: FormControllService) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -30,8 +32,8 @@ export class DetailFormComponent implements OnInit {
       role: new FormControl(''), //role
       password: new FormControl(''),
     });
-    
   }
+
 
   OnSubmit() {
     if (this.form.valid) {
@@ -64,4 +66,9 @@ export class DetailFormComponent implements OnInit {
     }
   }
 
+  //generateUUID(){
+  //this.uuidValue=UUID.UUID();
+  //return this.uuidValue;
+  //}
 }
+

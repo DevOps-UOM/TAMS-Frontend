@@ -10,10 +10,3 @@
 .form-control::placeholder {
   font-family: FontAwesome;
 }
-
-/* .tables {
-    margin: 50px;
-} */
-.tables {
-  max-width: 1000px;
-}
