@@ -26,6 +26,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ItineraryDetailsComponent } from './itinerary-details/itinerary-details.component';
 import { CaUserManagementComponent } from './ca-user-management/ca-user-management.component';
+import { MatIconModule } from '@angular/material/icon';
 
 const routes: Routes = [
   {
@@ -109,7 +110,8 @@ const routes: Routes = [
     MatDialogModule, 
     MatDatepickerModule,
     MatNativeDateModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    MatIconModule
   ],
   providers: [MatDatepickerModule]
 })

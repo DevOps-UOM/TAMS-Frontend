@@ -47,6 +47,7 @@ const admin_routes: Routes = [
   declarations: [NavBarComponent, MapComponent, TaTaskCardComponent, SideBarComponent, ContainerComponent, DetailFormComponent, CaAgentsTableComponent, TaAgentsTableComponent, NavTablesComponent, TaOnlyDetailFormComponent, UserProfileComponent, CustomerTableComponent, CustomerDetailFormComponent, CustomerProfileComponent],
   imports: [
     CommonModule,
+    MatIconModule,
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
@@ -58,7 +59,6 @@ const admin_routes: Routes = [
     RouterModule.forChild(admin_routes),
     AgmDirectionModule,
     AgmSnazzyInfoWindowModule,
-    MatIconModule,
     MatExpansionModule,
     MatFormFieldModule,
     MatDialogModule,
