@@ -44,7 +44,7 @@ const admin_routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [NavBarComponent, MapComponent, TaTaskCardComponent, SideBarComponent, ContainerComponent, DetailFormComponent, CaAgentsTableComponent, TaAgentsTableComponent, NavTablesComponent, TaOnlyDetailFormComponent, UserProfileComponent, CustomerTableComponent, CustomerDetailFormComponent, CustomerProfileComponent],
+  declarations: [NavBarComponent,AddTaskComponent, MapComponent, TaTaskCardComponent, SideBarComponent, ContainerComponent, DetailFormComponent, CaAgentsTableComponent, TaAgentsTableComponent, NavTablesComponent, TaOnlyDetailFormComponent, UserProfileComponent, CustomerTableComponent, CustomerDetailFormComponent, CustomerProfileComponent],
   imports: [
     CommonModule,
     MatIconModule,
@@ -69,7 +69,7 @@ const admin_routes: Routes = [
 
   exports: [
     CaAgentsTableComponent, TaAgentsTableComponent, TaOnlyDetailFormComponent, CustomerTableComponent, CustomerDetailFormComponent,
-    NavBarComponent, MapComponent,SideBarComponent,TaTaskCardComponent,FormsModule, ReactiveFormsModule, ContainerComponent, DetailFormComponent, NavTablesComponent
+    NavBarComponent, MapComponent,SideBarComponent,TaTaskCardComponent,FormsModule, ReactiveFormsModule, ContainerComponent, DetailFormComponent, NavTablesComponent,AddTaskComponent
   ]
 })
 
