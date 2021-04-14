@@ -21,21 +21,21 @@ import { NavTablesComponent } from './nav-tables/nav-tables.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes} from '@angular/router';
 import { TaOnlyDetailFormComponent } from './ta-only-detail-form/ta-only-detail-form.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
 import { CustomerDetailFormComponent } from './customer-detail-form/customer-detail-form.component';
 import { CustomerProfileComponent } from './customer-profile/customer-profile.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const admin_routes: Routes = [
   // { path: 'admin-user-management/ca-agents' , component: CaAgentsTableComponent},
   // { path: 'admin-user-management/ta-agents' , component: TaAgentsTableComponent}
-    { path: 'boards/admin-user-management/ta-agents/:userid' , component: UserProfileComponent },
-    { path: 'boards/admin-user-management/ca-agents/:userid' , component: UserProfileComponent },
-    { path: 'boards/ca-user-management/ta-agents/:userid' , component: UserProfileComponent },
+    { path: 'boards/admin-user-management/ta-agents/:userid' , component: ProfileComponent },
+    { path: 'boards/admin-user-management/ca-agents/:userid' , component: ProfileComponent },
+    { path: 'boards/ca-user-management/ta-agents/:userid' , component: ProfileComponent },
     { path: 'boards/ca-user-management/customers-registration/:cust_id' , component: CustomerProfileComponent}
 ];
 
 @NgModule({
-  declarations: [NavBarComponent, MapComponent, TaTaskCardComponent, SideBarComponent, ContainerComponent, DetailFormComponent, CaAgentsTableComponent, TaAgentsTableComponent, NavTablesComponent, TaOnlyDetailFormComponent, UserProfileComponent, CustomerTableComponent, CustomerDetailFormComponent, CustomerProfileComponent],
+  declarations: [NavBarComponent, MapComponent, TaTaskCardComponent, SideBarComponent, ContainerComponent, DetailFormComponent, CaAgentsTableComponent, TaAgentsTableComponent, NavTablesComponent, TaOnlyDetailFormComponent, CustomerTableComponent, CustomerDetailFormComponent, CustomerProfileComponent, ProfileComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,

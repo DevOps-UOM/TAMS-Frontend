@@ -1,8 +1,7 @@
 import { AllocatedCustomers } from './../../models/itinerary.model';
 import { CustomerService } from './../../services/customer/customer.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { FormControllService } from 'src/app/services/form-controll.service';
+import { FormControl, FormGroup, Validators, FormBuilder, ReactiveFormsModule, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -10,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './customer-detail-form.component.html',
   styleUrls: ['./customer-detail-form.component.css']
 })
+
 export class CustomerDetailFormComponent {
 
   searchText: any;
@@ -30,10 +30,11 @@ export class CustomerDetailFormComponent {
 
   ngOnInit(): void {
     this.formInstaller();
-    this.loadcustomers();
+      this.loadcustomers();
 
   }
-  // tslint:disable-next-line:typedef
+
+ 
   loadcustomers() {
     this.customerService.listAllCustomers()
       .subscribe(
@@ -68,21 +69,71 @@ export class CustomerDetailFormComponent {
     });
   }
 
-  // tslint:disable-next-line:typedef
+ 
   OnSubmit() {
     // console.log(this.customerForm.value);
+    
     this.customerService.addACustomer(this.customerForm.value)
       .subscribe(
         res => {
           console.log(res);
           this.loadcustomers();
+          //M.toast({ html: 'Saved successfully', classes: 'rounded' });
         }, error => {
           console.log(error);
         }
       );
-    this.customerForm.reset();
-
+      this.customerForm.reset();
   }
+
+  // OnSubmit() {
+  //   if (this.customerForm.value.cust_id == "") {
+  //     this.customerService.addACustomer(this.customerForm.value).subscribe(res => {
+  //       console.log(res);
+  //       this.customerForm.reset();
+  //       this.refreshCustomerList();
+  //       //M.toast({ html: 'Saved successfully', classes: 'rounded' });
+  //     });
+  //   }
+  //   else {
+  //     this.customerService.updateACustomer(this.customerForm.value).subscribe((res) => {
+  //       console.log(res);
+  //       this.customerForm.reset();
+  //       this.refreshCustomerList();
+  //       //M.toast({ html: 'Updated successfully', classes: 'rounded' });
+  //     });
+  //   }
+  // }
+
+  // OnSumbit() {
+  //       this.customerService.updateACustomer(this.customerForm.value).subscribe((res) => {
+  //         console.log(res);
+  //         this.customerForm.reset();
+  //         this.refreshCustomerList();
+  //         //M.toast({ html: 'Updated successfully', classes: 'rounded' });
+  //       });
+  //     }
+
+  refreshCustomerList() {
+    this.customerService.listAllCustomers().subscribe((res) => {
+      this.customerService.customers = res as AllocatedCustomers[];
+    });
+  }
+
+  onEdit(customer: AllocatedCustomers) {
+    this.customerService.selectedCustomer = customer;
+  }
+
+  onDelete(cust_id: string) {
+    if (confirm('Are you sure to delete this record ?') == true) {
+      this.customerService.deleteACustomer(cust_id).subscribe((res) => {
+        this.loadcustomers();
+        this.customerForm.reset();
+        //M.toast({ html: 'Deleted successfully', classes: 'rounded' });
+      });
+    }
+  }
+
 
   // public changeListener(files: FileList){
   //   console.log(files);
@@ -100,21 +151,9 @@ export class CustomerDetailFormComponent {
   //     }
   // }
 
-  // onSearch(term: any) {
-  //   console.log(term);
-  //   if (term === '') {
-  //     this.displaycustomers = this.customers;
-  //   } else {
-  //     this.displaycustomers =  this.customers.filter((a) => {
-  //       return a.ta_id === term; 
-  //     });
-  //   }
-  // }
   
   navigateToProfile(cust_id) {
     this.router.navigate(['./' + cust_id], {relativeTo: this.activatedRoute});
   }
-
-
 }
 

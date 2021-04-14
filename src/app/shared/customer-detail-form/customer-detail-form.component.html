@@ -1,7 +1,5 @@
 <div class="form-group">
     <form [formGroup]="customerForm" (ngSubmit)="OnSubmit()">
-     
-      
       <label for="cust_id">Customer ID</label> &nbsp; &nbsp; &nbsp;
       <input type="text" id="cust_id"  class="form-control" formControlName="cust_id">
       <br /> <br />
@@ -87,14 +85,15 @@
                 <td>{{customer.email}}</td>
                 <td>{{customer.nic}}</td>
                 <td>{{customer.default_agent_id}}</td>
-                <!-- <td>
-                    <a class="action-btn" (click)="onDelete(grade.email)">
+                <td>
+                  <a class="action-btn" (click)="onEdit(customer)">
+                    <i class="material-icons">edit</i>
+                  </a>
+                  <a class="action-btn" (click)="onDelete(customer.cust_id)">
                     <i class="material-icons">delete</i>
-                    </a>
-                </td> -->
-                <!-- <td><button type="btn btn-small btn-secondary">View Profile</button></td> -->
+                  </a>
+                </td>
                 <td><button type="btn btn-small btn-secondary" (click)="navigateToProfile(customer.cust_id)">View Profile</button></td>
-                <!-- <td> <button (click) = "deleteRow(i)"><i class="fa fa-trash"></i></button></td> -->
             </tr>
         </tbody>
     </table>
