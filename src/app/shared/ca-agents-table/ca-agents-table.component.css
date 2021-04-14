@@ -1,16 +1,19 @@
 .search-hero {
-    max-width: 300px;
-    padding-bottom: 50px;
+  max-width: 400px;
+  padding-bottom: 50px;
 }
 
 .form-control {
-    box-shadow: 0 10px 40px 0 #b0c1d9;
+  box-shadow: 0 10px 40px 0 #b0c1d9;
 }
 
 .form-control::placeholder {
-    font-family: FontAwesome;
+  font-family: FontAwesome;
 }
 
-.tables {
+/* .tables {
     margin: 50px;
+} */
+.tables {
+  max-width: 1000px;
 }

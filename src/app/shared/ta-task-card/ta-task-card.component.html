@@ -37,10 +37,14 @@
     </div>
     <div fxLayout="row " fxLayoutAlign="start center ">
         <div class="text-card-area ">
-            <mat-label class="label ">Task</mat-label>
+            <mat-label class="label ">Tasks&nbsp;: </mat-label>
         </div>
         <div>
-            <textarea [ngStyle]="{ 'width.px':text_width} " class="text-area " name=" " id=" "></textarea>
+            <mat-list role="list" class="text-area">
+                <mat-list-item role="listitem" *ngFor="let task of tasks;let i=index" [ngStyle]="{ 'width.px':text_width} ">{{i+1}}. {{task.task_name}}</mat-list-item>
+            </mat-list>
+
+            <!-- <p [ngStyle]="{ 'width.px':text_width} " class="text-area "></p> -->
         </div>
     </div>
     <div class="map " *ngIf="customer!=null && isShowMap ">

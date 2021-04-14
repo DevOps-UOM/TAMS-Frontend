@@ -51,6 +51,9 @@
 .text-area {
     margin-left: 45px;
     min-width: 190px;
+    font-size: 12px;
+    font-weight: 350;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .map {

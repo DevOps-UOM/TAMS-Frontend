@@ -20,38 +20,39 @@ export class DetailFormComponent implements OnInit {
     this.form = new FormGroup({
       userid: new FormControl('', Validators.required),
       email: new FormControl('', Validators.required),
-        //Validators.min(0),
-        //Validators.max(100),
-      
-      //engMark: new FormControl('', [
-        //Validators.required,
-        //Validators.min(0),
-        //Validators.max(100),
-      //]),
-      //sciMark: new FormControl('', [
-        //Validators.required,
-        //Validators.min(0),
-        //Validators.max(100),
-      //]),
-      agentType: new FormControl(''), //agenttype
+      first_name: new FormControl(''),
+      last_name: new FormControl(''),
+      mobile_number: new FormControl(''),
+      city: new FormControl(''),
+      district: new FormControl(''),
+      province: new FormControl(''),
+      bio: new FormControl(''),
+      role: new FormControl(''), //role
+      password: new FormControl(''),
     });
-    //this.formControllService.downloadDetails();
+    
   }
 
   OnSubmit() {
     if (this.form.valid) {
       this.formIsValid = false;
       this.recordSent = true;
-      const totalMark = this.form.value.agentType;
+      const totalMark = this.form.value.role;
 
-      this.form.patchValue({ agentType: totalMark });
+      this.form.patchValue({ role: totalMark });
 
       const formData = {
         userid: this.form.value.userid,
         email: this.form.value.email,
-        //engMark: this.form.value.engMark,
-        //sciMark: this.form.value.sciMark,
-        agentType: this.form.value.agentType,
+        first_name: this.form.value.first_name,
+        last_name: this.form.value.last_name,
+        mobile_number: this.form.value.mobile_number,
+        city: this.form.value.city,
+        district: this.form.value.district,
+        province: this.form.value.province,
+        bio: this.form.value.bio,
+        role: this.form.value.role,
+        password: this.form.value.password,
       };
 
       this.formControllService.uploadDetails(formData);
@@ -63,8 +64,4 @@ export class DetailFormComponent implements OnInit {
     }
   }
 
-  //generateUUID(){
-  //this.uuidValue=UUID.UUID();
-  //return this.uuidValue;
-  //}
 }

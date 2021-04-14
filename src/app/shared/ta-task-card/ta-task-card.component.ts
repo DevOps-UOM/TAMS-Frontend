@@ -48,13 +48,14 @@ export class TaTaskCardComponent implements OnInit {
 
   @Input() selectedItinerary: Itinerary;
 
-  date: Date = new Date("2012-04-23");
+  date: Date = new Date("2021-04-05");
   taid: String = "TA001";
   modeSignal: string = modeSignalStatus.singlePathMode;
 
   text_width: number;
 
   private currentStatus: string;
+  tasks:any;
 
   itinerary_id: String;
   cust_id: String;
@@ -90,9 +91,9 @@ export class TaTaskCardComponent implements OnInit {
 
   ngOnInit() {
     this.subscription = this.data.currentMessage.subscribe(isShowSidebar => this.isShowSidebar = isShowSidebar)
-    //console.log(this.selectedItinerary);
+    console.log(this.selectedItinerary);
 
-    
+    //console.log(this.customer);
     this.changeSize();
     this.checkStatus();
   }
@@ -121,7 +122,8 @@ export class TaTaskCardComponent implements OnInit {
 
         if(res.data && res.data[0] && res.data[0].status){
           this.currentStatus = res.data[0].status;
-          //console.log(this.currentStatus);
+          this.tasks = res.data[0].task;
+          console.log(this.tasks);
         }
 
         if (this.currentStatus == "Completed" || this.currentStatus == "Postponed") {

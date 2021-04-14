@@ -18,9 +18,14 @@ app-nav-bar {
 
 .boards {
     width: 100%;
+    overflow-y: scroll;
 }
 
 .navbar {
     height: 10%;
     padding: 0px;
+}
+
+.container-row {
+    height: 100vh;
 }
