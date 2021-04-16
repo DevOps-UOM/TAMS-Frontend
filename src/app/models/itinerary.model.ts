@@ -64,7 +64,8 @@ export class AllocatedCustomers implements IAllocatedCustomers {
 export enum modeSignalStatus{
   directionMode="directionMode",
   markerMode="markerMode",
-  singlePathMode="singlePathMode"
+  singlePathMode="singlePathMode",
+  liveMode="liveMode"
 }
 
 

@@ -1,5 +1,6 @@
 import { LayoutsModule } from './../layouts/layouts.module';
 import { from } from 'rxjs';
+import {environment} from '../../environments/environment'
 //import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -26,6 +27,9 @@ import { AddTaskComponent } from './add-task/add-task.component';
 
 import {MatButtonModule} from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
+
+import {AngularFireModule} from '@angular/fire'
+export const firebaseConfig = environment.firebaseConfig;
 
 
 const admin_routes: Routes = [
@@ -55,8 +59,9 @@ const admin_routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     //BrowserModule,
+    AngularFireModule.initializeApp(firebaseConfig),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyA9rPesD1LpqsLTVFeHEpxvjnl5FNLDbS0',
+      apiKey: environment.googleMapsKeys,
       libraries:['places']
     }),
     RouterModule.forChild(admin_routes),

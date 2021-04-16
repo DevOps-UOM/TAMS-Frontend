@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TAItineraryMapComponent } from './ta-itinerary-map/ta-itinerary-map.component';
 import { LeaveComponent } from './leave/leave.component';
+import { TaMapComponent } from './ta-map/ta-map.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminUserManagementComponent } from './admin-user-management/admin-user-management.component';
@@ -37,6 +38,10 @@ const routes: Routes = [
     component: TAItineraryMapComponent
   },
   {
+    path: 'ta-map',
+    component: TaMapComponent
+  },
+  {
     path: 'itinerary-details',
     component: ItineraryDetailsComponent
   },
@@ -52,12 +57,10 @@ const routes: Routes = [
     path: 'customer-availability',
     component: CustomerAvailabiltyComponent
   },
-
   {
     path: 'assign',
     component: AssignComponent
   },
-
   {
     path: 'admin-user-management',
     component: AdminUserManagementComponent,
@@ -79,7 +82,8 @@ const routes: Routes = [
     AdminUserManagementComponent,
     CustomerAvailabiltyComponent,
     ItineraryDetailsComponent,
-    AssignComponent
+    AssignComponent,
+    TaMapComponent
     ],
   
   imports: [
