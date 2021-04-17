@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder, ReactiveFormsModule, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
+declare var M: any;
+
 @Component({
   selector: 'app-customer-detail-form',
   templateUrl: './customer-detail-form.component.html',
@@ -78,7 +80,7 @@ export class CustomerDetailFormComponent {
         res => {
           console.log(res);
           this.loadcustomers();
-          //M.toast({ html: 'Saved successfully', classes: 'rounded' });
+          M.toast({ html: 'Saved successfully', classes: 'rounded' });
         }, error => {
           console.log(error);
         }
@@ -87,23 +89,43 @@ export class CustomerDetailFormComponent {
   }
 
   // OnSubmit() {
-  //   if (this.customerForm.value.cust_id == "") {
   //     this.customerService.addACustomer(this.customerForm.value).subscribe(res => {
   //       console.log(res);
   //       this.customerForm.reset();
   //       this.refreshCustomerList();
+  //       this.loadcustomers();
   //       //M.toast({ html: 'Saved successfully', classes: 'rounded' });
   //     });
-  //   }
-  //   else {
+    
+      
   //     this.customerService.updateACustomer(this.customerForm.value).subscribe((res) => {
   //       console.log(res);
   //       this.customerForm.reset();
   //       this.refreshCustomerList();
+  //       this.loadcustomers();
   //       //M.toast({ html: 'Updated successfully', classes: 'rounded' });
   //     });
-  //   }
+    
   // }
+
+// onSubmit(form: NgForm) {
+//     if (form.value.cust_id == "") {
+//       this.customerService.addACustomer(form.value).subscribe((res) => {
+//         this.customerForm.reset();
+//         this.refreshCustomerList();
+//         this.loadcustomers();
+//         //M.toast({ html: 'Saved successfully', classes: 'rounded' });
+//       });
+//     }
+//     else {
+//       this.customerService.updateACustomer(form.value).subscribe((res) => {
+//         this.customerForm.reset();
+//         this.refreshCustomerList();
+//         this.loadcustomers();
+//         M.toast({ html: 'Updated successfully', classes: 'rounded' });
+//       });
+//     }
+//   }
 
   // OnSumbit() {
   //       this.customerService.updateACustomer(this.customerForm.value).subscribe((res) => {
@@ -121,7 +143,9 @@ export class CustomerDetailFormComponent {
   }
 
   onEdit(customer: AllocatedCustomers) {
+    if (confirm('Are you sure to update this record ?') == true) {
     this.customerService.selectedCustomer = customer;
+    }
   }
 
   onDelete(cust_id: string) {
@@ -129,7 +153,7 @@ export class CustomerDetailFormComponent {
       this.customerService.deleteACustomer(cust_id).subscribe((res) => {
         this.loadcustomers();
         this.customerForm.reset();
-        //M.toast({ html: 'Deleted successfully', classes: 'rounded' });
+        M.toast({ html: 'Deleted successfully', classes: 'rounded' });
       });
     }
   }
