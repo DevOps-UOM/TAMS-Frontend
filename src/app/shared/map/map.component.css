@@ -1,6 +1,4 @@
 .outer-wrapper {
-    height: 100%;
-    width: 100%;
     padding: 0;
     margin: 20px 20px 20px 20px;
 }
@@ -19,6 +17,5 @@ agm-map {
 #map {
     height: 100%;
     float: left;
-    width: 70%;
-    height: 100%;
+    width: 100%;
 }
