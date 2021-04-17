@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router'
 import { SharedModule } from '../shared/shared.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { TAItineraryMapComponent } from './ta-itinerary-map/ta-itinerary-map.component';
 import { LeaveComponent } from './leave/leave.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -36,6 +37,10 @@ import { StatDashboardComponent } from './stat-dashboard/stat-dashboard.componen
 import { UserComponent } from './user/user.component';
 import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
+
+import { CustomerAvailabilityComponent } from './customer-availability/customer-availability.component';
+
+
 
 const routes: Routes = [
   {
@@ -104,6 +109,7 @@ const routes: Routes = [
 
 @NgModule({
 
+
   declarations: [
     TAItineraryMapComponent, 
     TaTaskComponent,
@@ -119,6 +125,9 @@ const routes: Routes = [
     SignInComponent
     ],
   
+
+neraryMapComponent, CustomerAvailabilityComponent],
+
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
