@@ -1,0 +1,56 @@
+.task-container {
+    width: 100%;
+    height: auto;
+}
+
+.button {
+    margin: 10px 40px 10px 10px;
+    background-color: #298E69;
+    color: white;
+    border-radius: 10px;
+    padding: 7px 10px 0px 10px;
+}
+
+.button:hover {
+    background-color: #39C892;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.title {
+    line-height: 30px;
+    margin: 0px 0px 0px 50px;
+    color: #298E69;
+    font-weight: 700;
+    font-size: xx-large;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.refresh {
+    margin-top: -5px;
+    background-image: url("../../../assets/images/ic_refresh_button.png");
+    height: 30px;
+    width: 30px;
+    background-repeat: no-repeat;
+    background-position-y: center;
+    background-position-x: center;
+    display: inline-block;
+    background-size: contain;
+}
+
+.ref_btn {
+    border-radius: 30px;
+}
+
+.Complete_btn {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    font-size: large;
+}
+
+.header {
+    margin-top: 30px;
+}

@@ -1,0 +1,95 @@
+<div class="bd">
+    <div class="row mt-5">
+        <div class="col text-center">
+            <h1 class="text-black-50">
+                {{'Travel Agents Leaves' | uppercase}}
+            </h1>
+        </div>
+    </div>
+    <form [formGroup]="leaveForm" class="mt-5">
+        <div class="form-row">
+            <div class="form-group col-md">
+                <label for="">Travel Agent's ID</label>
+                <input formControlName="ta_id" type="text" class="form-control" placeholder="">
+            </div>
+            <div class="form-group col-md">
+                <label for="">Travel Agent's Name</label>
+                <input formControlName="ta_name" type="text" class="form-control" placeholder="">
+            </div>
+            <!-- <div class="form-group col-md">
+                <label for="">Leave Date</label>
+                <input formControlName="leave_date" type="date" class="form-control">
+            </div> -->
+
+            <div class="row">
+                <div class="col-md-12" formGroupName="leave_date">
+                    <!-- <mat-form-field appearance="fill"> -->
+                        <!-- <mat-label>Enter a date range</mat-label> -->
+                        <mat-date-range-input [rangePicker]="picker" [min]="minDate">
+                          <input matStartDate formControlName="start_date" placeholder="Start date" >
+                          <input matEndDate formControlName="end_date" placeholder="End date">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                      
+                        <!-- <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error> -->
+                        <!-- <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error> -->
+                      <!-- </mat-form-field> -->
+                </div>
+            </div>  
+
+            <div class="form-group col-md">
+                <label for="">Part Of The Day</label>
+                <select class="custom-select" formControlName="pod">
+             <option selected >Morning</option>
+             <option >Evening</option>
+             <option >Full Day</option>
+           </select>
+            </div>
+
+        </div>
+        <div class="form-row">
+
+            <div class="form-group col-md">
+                <label for="">Special Notes</label>
+                <textarea formControlName="note" name="" id="" cols="30" rows="10" class="form-control"></textarea>
+            </div>
+        </div>
+
+        <div (click)="onClickSubmit()" class="btn btn-info float-right ml-2" style="background-color:#33B585 ; font-size:20px">
+            Submit Leave
+        </div>
+        <input type="reset" value="Clear" class="btn btn-info float-right" style="background-color:#33B585 ; font-size:20px">
+    </form>
+
+
+    <br><br><br>
+    <div class="col-md-3">
+        <input placeholder="Search" #search type="text" class="form-control" (input)="onSearch(search.value)">
+    </div>
+    <br><br>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">TA Id</th>
+                <th scope="col">TA Name</th>
+                <th scope="col">Leave Date</th>
+                <th scope="col">POD</th>
+                <th scope="col">Special Notes</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let lv of displayleaves">
+                <th scope="row">{{lv.ta_id}}</th>
+                <td>{{lv.ta_name}}</td>
+                <td>{{lv.leave_date.start_date | date:'shortDate' }} - {{lv.leave_date.end_date | date:'shortDate' }}</td>
+                <td>{{lv.pod}}</td>
+                <td>{{lv.note}}</td>
+                <td> <button (click) = "deleteRow(i)"><i class="fa fa-trash"></i></button></td>
+
+            </tr>
+        </tbody>
+    </table>
+
+</div>

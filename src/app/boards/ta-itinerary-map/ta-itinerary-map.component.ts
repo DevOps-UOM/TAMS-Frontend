@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,OnDestroy} from '@angular/core';
 import { AllocatedCustomers, modeSignalStatus } from 'src/app/models/itinerary.model';
-import { ItineraryService } from '../../services/itinerary.service';
-import { Observable } from 'rxjs';
+import { ItineraryService } from '../../services/itinerary/itinerary.service';
+import { Overlay } from '@angular/cdk/overlay';
+import { ContentObserver } from '@angular/cdk/observers';
+
 
 @Component({
   selector: 'app-ta-itinerary-map',
@@ -11,11 +13,11 @@ import { Observable } from 'rxjs';
 export class TAItineraryMapComponent implements OnInit {
 
   private loading: boolean = false;
-   customerList: AllocatedCustomers[] = [];
+  customerList: AllocatedCustomers[] = [];
 
   selectedItinerary: any;
 
-  date: Date = new Date("2012-04-23");
+  date: Date = new Date("2021-04-05");
   taid: String = "TA001";
   modeSignal:string= modeSignalStatus.directionMode;
 
@@ -24,23 +26,33 @@ export class TAItineraryMapComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.getCustomers()
+    this.getCustomers();
+    this.getItineraryDet();
   }
 
-  
-
+ getItineraryDet(){
+   try{
+    this.itineraryService.getASingleItinerary(this.date, this.taid).subscribe((res)=>{
+      this.selectedItinerary=res.data[0]._id;
+      console.log(res);
+    })
+   }catch(error){
+    alert("Error in getting Itinerary Details")
+   }
+ }
 
   getCustomers() {
     this.loading = true;
    try {
-    this.itineraryService.getAllocatedCustomers(this.date, this.taid).subscribe((res) => {
+    this.itineraryService.getAllocatedPendingCustomers(this.date, this.taid).subscribe((res) => {
       this.loading = false;
+      console.log(res);
      (res.body.data && res.body.data.length>0)? this.customerList = res.body.data : this.customerList=[];
       //console.log("Dataaaa"+JSON.stringify(this.customerList));
     })
      
    } catch (exception) {
-     
+     console.log("Recieved Empty Customer List!");
    }
   }
 
