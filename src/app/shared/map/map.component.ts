@@ -101,9 +101,11 @@ export class MapComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     if (this.modeSignal = modeSignalStatus.singlePathMode) {
       if (this.isShowSidebar) {
-        this.widthReduce = 400;
+        console.log(this.modeSignal)
+
+        this.widthReduce = 420;
       } else {
-        this.widthReduce = 150;
+        this.widthReduce = 175;
       }
     } else if (this.modeSignal = modeSignalStatus.directionMode) {
       if (this.isShowSidebar) {
@@ -134,9 +136,11 @@ export class MapComponent implements OnInit, AfterViewInit {
     // resize the container for the google map
     if (this.modeSignal = modeSignalStatus.singlePathMode) {
       if (this.isShowSidebar) {
-        this.widthReduce = 400;
+        this.widthReduce = 420;
+        console.log(this.modeSignal)
+
       } else {
-        this.widthReduce = 150;
+        this.widthReduce = 175;
       }
     } else if (this.modeSignal = modeSignalStatus.directionMode) {
       if (this.isShowSidebar) {
@@ -364,9 +368,8 @@ export class MapComponent implements OnInit, AfterViewInit {
     );
     directionsRenderer.setMap(map);
 
-
     switch (this.modeSignal) {
-      case "directionMode": this.calculateAndDisplayRoute(directionsService, directionsRenderer);; break;
+      case "directionMode": this.calculateAndDisplayRoute(directionsService, directionsRenderer); break;
       case "singlePathMode": this.displaySingleRoute(directionsService, directionsRenderer); break;
       // case "liveMode": this.showTrackingPosition();break;
       default: console.log("default Case Triggered");

@@ -1,3 +1,9 @@
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { TaOnlyDetailFormComponent } from './../shared/ta-only-detail-form/ta-only-detail-form.component';
+import { CustomerDetailFormComponent } from './../shared/customer-detail-form/customer-detail-form.component';
+import { CustomerTableComponent } from './../shared/customer-table/customer-table.component';
+import { Role } from './../models/role.model';
+import { AuthGuard } from './../shared/auth/auth.guard';
 // import { FormControllService } from './../services/form-controll.service';
 // import { TaAgentsTableComponent } from './../shared/ta-agents-table/ta-agents-table.component';
 // import { CaAgentsTableComponent} from './../shared/ca-agents-table/ca-agents-table.component';
@@ -25,6 +31,12 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ItineraryDetailsComponent } from './itinerary-details/itinerary-details.component';
+import { CaUserManagementComponent } from './ca-user-management/ca-user-management.component';
+import { MatIconModule } from '@angular/material/icon';
+import { StatDashboardComponent } from './stat-dashboard/stat-dashboard.component';
+import { UserComponent } from './user/user.component';
+import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
+import { SignInComponent } from './user/sign-in/sign-in.component';
 
 const routes: Routes = [
   {
@@ -69,6 +81,26 @@ const routes: Routes = [
       { path: 'ta-agents' , component: TaAgentsTableComponent}
     
     ]
+  },
+  {
+    path: 'ca-user-management',
+    component: CaUserManagementComponent,
+    children: [
+      { path: 'ta-agents' , component: TaAgentsTableComponent},
+      { path: 'customers' , component: CustomerTableComponent},
+      { path: 'customers-registration' , component: CustomerDetailFormComponent},
+      { path: 'ta-agents-registration' , component: TaOnlyDetailFormComponent},
+    ]
+  },
+  {  
+    path: 'stat-dashboard',
+    component: StatDashboardComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] }
+  },
+  {
+    path: 'login', component: UserComponent,
+    children: [{ path: '', component: SignInComponent}]
   }
 ]
 
@@ -83,7 +115,12 @@ const routes: Routes = [
     CustomerAvailabiltyComponent,
     ItineraryDetailsComponent,
     AssignComponent,
-    TaMapComponent
+    TaMapComponent,
+    CaUserManagementComponent,
+    StatDashboardComponent, 
+    UserComponent, 
+    ResetPasswordComponent, 
+    SignInComponent
     ],
   
   imports: [
@@ -99,7 +136,9 @@ const routes: Routes = [
     OverlayModule,
     MatDialogModule, 
     MatDatepickerModule,
-    MatNativeDateModule 
+    MatNativeDateModule,
+    Ng2SearchPipeModule,
+    MatIconModule
   ],
   providers: [MatDatepickerModule]
 })

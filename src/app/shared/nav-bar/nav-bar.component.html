@@ -9,7 +9,7 @@
         <div class="flex-container row-reverse">
             <div id="user-det" class="user-btn" (click)="userMenu()"></div>
             <div class="user-name-div">
-                <p class="title">John Doe</p>
+                <p class="title" *ngIf="userDetails">{{userDetails.first_name}}</p>
 
             </div>
         </div>

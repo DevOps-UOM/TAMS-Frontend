@@ -9,30 +9,30 @@ import { Router } from '@angular/router';
   selector: 'app-side-bar',
   templateUrl: './side-bar.component.html',
   styleUrls: ['./side-bar.component.css'],
-  animations:[
-    trigger('fade',[
+  animations: [
+    trigger('fade', [
       //state(),
-      transition('void => *',[
-        style({opacity:0.3,transform:'translateX(-50px)'}),
-        animate(500,style({opacity:1,transform:'translateX(0px)'}))
-      ] )
+      transition('void => *', [
+        style({ opacity: 0.3, transform: 'translateX(-50px)' }),
+        animate(500, style({ opacity: 1, transform: 'translateX(0px)' }))
+      ])
     ])
   ]
 })
 export class SideBarComponent implements OnInit {
 
-  TAButton:boolean=false;
+  TAButton: boolean = false;
   panelOpenState = false;
 
   constructor(private router: Router) {
-   }
+  }
 
   ngOnInit(): void {
   }
   callScreen(screenName) {
     console.log("called here" + screenName);
     switch (screenName) {
-      
+
       case 'Itinerary Map':
         this.router.navigate(['/boards/itinerary-map']);
         break;
@@ -54,10 +54,15 @@ export class SideBarComponent implements OnInit {
       case 'User Management':
         this.router.navigate(["/boards/admin-user-management"])
         break;
-
-        case 'Assign':
-          this.router.navigate(['/boards/assign']);
-          break;
+      case 'Assign':
+        this.router.navigate(['/boards/assign']);
+        break;
+      case 'CA User Management':
+        this.router.navigate(["/boards/ca-user-management"])
+        break;
+      case 'Statistical Dashboard':
+        this.router.navigate(["/boards/stat-dashboard"])
+        break;
 
       default:
         this.router.navigate(['/boards/home']);
@@ -66,16 +71,16 @@ export class SideBarComponent implements OnInit {
 
   }
 
-  CollapseChange(buttonName){
-    switch(buttonName){
+  CollapseChange(buttonName) {
+    switch (buttonName) {
       case 'TA':
-        
+
         console.log("sdsds");
         break;
     }
   }
 
-  
+
 }
 
 
