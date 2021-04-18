@@ -1,33 +1,68 @@
 import { Injectable } from '@angular/core';
 
-import { AngularFireDatabase } from '@angular/fire/database'
+import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/database'
 import * as  GeoFire from 'geofire'
 import { BehaviorSubject, Observable } from 'rxjs'
+import {Coordinates,LocationModel} from '../../models/realtimedb.model'
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeoService {
 
-  dbRef: any;
-  geoFire: any;
-  liveLocations:Observable<any[]>;
-  hits = new BehaviorSubject([]);
+  // dbRef: any;
+  // geoFire: any;
+  // liveLocations:Observable<any[]>;
+  // hits = new BehaviorSubject([]);
+
+  private dbPath='/locations';
+
+  locationsRef:AngularFireList <LocationModel>;
 
   constructor(private db: AngularFireDatabase) {
+
+    this.locationsRef = db.list(this.dbPath);
+
    // console.log("Geo called")
-    this.dbRef = this.db.list('locations');
-    this.geoFire = new GeoFire.GeoFire(this.dbRef).ref();      
-    this.liveLocations = this.dbRef.valueChanges();  
+    // this.dbRef = this.db.list('locations');
+    // this.geoFire = new GeoFire.GeoFire(this.dbRef).ref();      
+    // this.liveLocations = this.dbRef.valueChanges();  
 
   }
 
-  setLocation(key: string, coords: Array<number>) {
-    console.log(key)
-    this.geoFire.set(key, coords)
-      .then(_ => console.log('location updated'))
-      .catch(err => console.log("Location setting Error : " + err))
+  getAll(): AngularFireList<LocationModel> {
+    return this.locationsRef;
   }
+
+  create(location: LocationModel): any {
+    return this.locationsRef.push(location);
+  }
+
+  update(key: string, value: any): Promise<void> {
+    return this.locationsRef.update(key, value);
+  }
+
+  delete(key: string): Promise<void> {
+    return this.locationsRef.remove(key);
+  }
+
+  deleteAll(): Promise<void> {
+    return this.locationsRef.remove();
+  }
+
+  get(key:string):AngularFireObject<LocationModel>{
+    return this.db.object('/locations/'+key);
+  }
+
+  // setLocation(key: string, coords: Array<number>) {
+
+  //   console.log(key)
+  //   this.geoFire.set(key, coords)
+  //     .then(_ => console.log('location updated'))
+  //     .catch(err => console.log("Location setting Error : " + err))
+  // }
+
+  
 
   // getLocations()  {
   //   this.liveLocations.subscribe(res=>{
@@ -52,3 +87,4 @@ export class GeoService {
   // }
 
 }
+

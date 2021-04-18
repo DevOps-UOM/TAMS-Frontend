@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnInit, OnChanges, ViewChild, ElementRef, AfterViewInit, Renderer2, NgZone } from '@angular/core';
+import { Component, HostListener, Input, OnInit, OnChanges, ViewChild, ElementRef, AfterViewInit, Renderer2, NgZone, OnDestroy } from '@angular/core';
 import { AllocatedCustomers, Itinerary, modeSignalStatus } from 'src/app/models/itinerary.model';
 import { ItineraryService } from '../../services/itinerary/itinerary.service'
 import { TaskAssignmentService } from '../../services/task-assignment/task-assignment.service'
@@ -9,6 +9,8 @@ import { DataService } from '../../services/data/data.service'
 import { Subscription } from 'rxjs'
 
 import { GeoService } from '../../services/geo/geo.service'
+
+import { Coordinates, LocationModel } from '../../models/realtimedb.model'
 
 @Component({
   selector: 'app-map',
@@ -76,7 +78,12 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   liveLat: number;
   liveLng: number;
-  liveMarkers: any;
+  liveMarkers: google.maps.Marker[] = [];
+
+  liveLocation: LocationModel = new LocationModel();
+  userId: string = "TA003";
+  userName: string = "yasitha";
+  //submitted = false;
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -189,7 +196,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     this.trackMe();
 
-    this.geo.hits.subscribe(hits => this.liveMarkers = hits);
+    //this.geo.hits.subscribe(hits => this.liveMarkers = hits);
 
     console.log(this.modeSignal);
     switch (this.modeSignal) {
@@ -210,6 +217,8 @@ export class MapComponent implements OnInit, AfterViewInit {
     //this.test();
 
   }
+
+
 
   async getSingleDirection() {
     // this.trackMe();
@@ -582,7 +591,26 @@ export class MapComponent implements OnInit, AfterViewInit {
         this.liveLat = position.coords.latitude;
         this.liveLng = position.coords.longitude;
 
-        this.geo.setLocation("User-C", [this.liveLat, this.liveLng])
+
+        this.geo.get(this.userId).valueChanges().subscribe(res => {
+          console.log(res);
+          if (res) {
+            var angle = Math.atan2(this.liveLat - res.coordinates.lat, this.liveLng - res.coordinates.lng) * 180 / Math.PI
+            console.log(angle);
+            this.geo.update(this.userId, { userName: this.userName, coordinates: { lat: this.liveLat, lng: this.liveLng }, angle: angle });
+
+          } else {
+            console.log("creating")
+            this.liveLocation = {
+              userName: this.userName,
+              coordinates: { lat: this.liveLat, lng: this.liveLng },
+              angle: 0
+            }
+            this.geo.update(this.userId, this.liveLocation);
+          }
+        })
+
+
         console.log(position);
         //this.showTrackingPosition(position);
       });
@@ -627,34 +655,49 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     console.log("tracking position")
 
-    var icon = { // car icon
-      path: 'M29.395,0H17.636c-3.117,0-5.643,3.467-5.643,6.584v34.804c0,3.116,2.526,5.644,5.643,5.644h11.759   c3.116,0,5.644-2.527,5.644-5.644V6.584C35.037,3.467,32.511,0,29.395,0z M34.05,14.188v11.665l-2.729,0.351v-4.806L34.05,14.188z    M32.618,10.773c-1.016,3.9-2.219,8.51-2.219,8.51H16.631l-2.222-8.51C14.41,10.773,23.293,7.755,32.618,10.773z M15.741,21.713   v4.492l-2.73-0.349V14.502L15.741,21.713z M13.011,37.938V27.579l2.73,0.343v8.196L13.011,37.938z M14.568,40.882l2.218-3.336   h13.771l2.219,3.336H14.568z M31.321,35.805v-7.872l2.729-0.355v10.048L31.321,35.805',
-      scale: 0.4,
-      fillColor: "#427af4", //<-- Car Color
-      fillOpacity: 1,
-      strokeWeight: 1,
-      anchor: new google.maps.Point(0, 5)
-  };
 
-    this.geo.liveLocations.subscribe(res => {
+
+    this.geo.getAll().valueChanges().subscribe(res => {
       console.log(res);
+      if (this.liveMarkers) {
+        for (var i = 0; i < this.liveMarkers.length; i++) {
+          this.liveMarkers[i].setMap(null);
+        }
+        //this.liveMarkers=[];
+      }
 
       for (var i = 0; i < res.length; i++) {
-        const mark = new google.maps.Marker({
-          position: {lat:res[i][0],lng:res[i][1]},
-          map,
-          icon:icon,
-          title:(i+1)+"",
-          label: (i + 1 + ""),
-          optimized: false
-        })
+        var icon = { // car icon
+          path: 'M29.395,0H17.636c-3.117,0-5.643,3.467-5.643,6.584v34.804c0,3.116,2.526,5.644,5.643,5.644h11.759   c3.116,0,5.644-2.527,5.644-5.644V6.584C35.037,3.467,32.511,0,29.395,0z M34.05,14.188v11.665l-2.729,0.351v-4.806L34.05,14.188z    M32.618,10.773c-1.016,3.9-2.219,8.51-2.219,8.51H16.631l-2.222-8.51C14.41,10.773,23.293,7.755,32.618,10.773z M15.741,21.713   v4.492l-2.73-0.349V14.502L15.741,21.713z M13.011,37.938V27.579l2.73,0.343v8.196L13.011,37.938z M14.568,40.882l2.218-3.336   h13.771l2.219,3.336H14.568z M31.321,35.805v-7.872l2.729-0.355v10.048L31.321,35.805',
+          scale: 0.4,
+          fillColor: "#427af4", //<-- Car Color
+          fillOpacity: 1,
+          rotation: res[i].angle,
+          strokeWeight: 1,
+          anchor: new google.maps.Point(0, 5),
+        };
+        this.liveMarkers.push(
+          new google.maps.Marker({
+            position: { lat: res[i].coordinates.lat, lng: res[i].coordinates.lng },
+            map,
+            icon: icon,
+            title: res[i].userName,
+            optimized: false
+          })
+        )
 
-        mark.addListener("click", () => {
-          infoWindow.close();
-          infoWindow.setContent(mark.getTitle());
-          infoWindow.open(mark.getMap(), mark);
-        })
+        // 
+        //this.liveMarkers.push(mark);
+        //console.log(this.liveMarkers[i]);
+
+        // this.liveMarkers[i].addListener("click", () => {
+        //   infoWindow.close();
+        //   infoWindow.setContent("hello");
+        //   infoWindow.open(map, this.liveMarkers[i]);
+        // })
+
       }
+
     });
   }
 
