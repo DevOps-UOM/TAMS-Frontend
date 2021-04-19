@@ -11,7 +11,8 @@ import{BrowserAnimationsModule} from '@angular/platform-browser/animations'
 
 import * as Hammer from 'hammerjs';
 
-import {AngularFireModule} from '@angular/fire'
+import {AngularFireModule} from '@angular/fire';
+import { ServiceWorkerModule } from '@angular/service-worker'
 export const firebaseConfig = environment.firebaseConfig;
 
 export class MyHammerConfig extends HammerGestureConfig{
@@ -31,7 +32,8 @@ export class MyHammerConfig extends HammerGestureConfig{
     HttpClientModule,
     AlertsModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [{
     provide:HAMMER_GESTURE_CONFIG,

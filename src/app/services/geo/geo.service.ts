@@ -54,6 +54,9 @@ export class GeoService {
     return this.db.object('/locations/'+key);
   }
 
+  updateOnDisconnect(key:string): Promise<void>{
+    return this.db.object('/locations/'+key).query.ref.onDisconnect().remove()
+  }
   // setLocation(key: string, coords: Array<number>) {
 
   //   console.log(key)

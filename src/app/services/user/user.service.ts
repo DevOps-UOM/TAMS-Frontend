@@ -34,15 +34,15 @@ export class UserService {
   // }
 
   login(authCredentials) {
-    return this.http.post(environment.apiBaseUrl + '/authenticate', authCredentials,this.noAuthHeader);
+    return this.http.post(environment.apiBaseUrl + '/api/authenticate', authCredentials,this.noAuthHeader);
   }
 
   getUserProfile() {
-    return this.http.get(environment.apiBaseUrl + '/userProfile');
+    return this.http.get(environment.apiBaseUrl + '/api/userProfile');
   }
 
   getById(id: number) {
-    return this.http.get<User>(`${environment.apiBaseUrl}/users/${id}`);
+    return this.http.get<User>(`${environment.apiBaseUrl}/api/users/${id}`);
   }
 
 

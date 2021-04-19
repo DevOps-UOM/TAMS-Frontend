@@ -96,6 +96,8 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    // this.geo.delete(this.userId);
+    // console.log("Destroyed")
   }
 
   ngAfterViewInit() {
@@ -184,6 +186,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   constructor(private itineraryService: ItineraryService, private renderer: Renderer2, private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone, private data: DataService, private taskAssignmentService: TaskAssignmentService, private geo: GeoService) {
     //this.trackMe();
+    this.geo.updateOnDisconnect(this.userId)
   }
 
   ngOnInit(): void {
@@ -621,7 +624,6 @@ export class MapComponent implements OnInit, AfterViewInit {
       alert("Geolocation is not supported by this browser.");
     }
   }
-
 
 
   // showTrackingPosition(position) {
