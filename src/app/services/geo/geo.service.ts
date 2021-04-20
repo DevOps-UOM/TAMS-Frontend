@@ -50,8 +50,12 @@ export class GeoService {
     return this.locationsRef.remove();
   }
 
-  get(key:string):AngularFireObject<LocationModel>{
-    return this.db.object('/locations/'+key);
+  get(key:string){
+    return this.db.database.ref('/locations/'+key)
+      .once('value')
+      .then(snapshot=>{
+        return snapshot.val();
+      })
   }
 
   updateOnDisconnect(key:string): Promise<void>{

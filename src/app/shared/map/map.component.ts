@@ -11,6 +11,8 @@ import { Subscription } from 'rxjs'
 import { GeoService } from '../../services/geo/geo.service'
 
 import { Coordinates, LocationModel } from '../../models/realtimedb.model'
+import { UserService } from 'src/app/services/user/user.service';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-map',
@@ -81,8 +83,9 @@ export class MapComponent implements OnInit, AfterViewInit {
   liveMarkers: google.maps.Marker[] = [];
 
   liveLocation: LocationModel = new LocationModel();
-  userId: string = "TA003";
-  userName: string = "yasitha";
+  // userId: string;
+  // userName: string = "yasitha";
+  user:User;
   //submitted = false;
 
   @ViewChild('search')
@@ -136,7 +139,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       if (this.isShowSidebar) {
         this.widthReduce = 340;
       } else {
-        this.widthReduce = 5;
+        this.widthReduce = 50;
       }
     }
 
@@ -167,9 +170,11 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   constructor(private itineraryService: ItineraryService, private renderer: Renderer2, private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone, private data: DataService, private taskAssignmentService: TaskAssignmentService, private geo: GeoService) {
+    private ngZone: NgZone, private data: DataService, private taskAssignmentService: TaskAssignmentService, private geo: GeoService,public userService: UserService) {
     //this.trackMe();
-    this.geo.updateOnDisconnect(this.userId)
+
+    this.user=userService.getUserPayload()
+    this.geo.updateOnDisconnect(this.user.userid.toString())
   }
 
   ngOnInit(): void {
@@ -590,24 +595,32 @@ export class MapComponent implements OnInit, AfterViewInit {
         this.liveLat = position.coords.latitude;
         this.liveLng = position.coords.longitude;
 
-
-        this.geo.get(this.userId).valueChanges().subscribe(res => {
+        //var locData;
+        this.geo.get(this.user.userid.toString()).then(res=>{
           console.log(res);
           if (res) {
-            var angle = Math.atan2(this.liveLat - res.coordinates.lat, this.liveLng - res.coordinates.lng) * 180 / Math.PI
+            var angle;
+            if(this.liveLat === res.coordinates.lat && this.liveLng === res.coordinates.lng){
+              angle=res.angle;
+            }else{
+              angle = Math.atan2( this.liveLng - res.coordinates.lng,this.liveLat - res.coordinates.lat) * 180 / Math.PI
+            }
             console.log(angle);
-            this.geo.update(this.userId, { userName: this.userName, coordinates: { lat: this.liveLat, lng: this.liveLng }, angle: angle });
+            this.geo.update(this.user.userid.toString(), { userName: this.user.first_name.toString(), coordinates: { lat: this.liveLat, lng: this.liveLng }, angle: angle });
 
           } else {
             console.log("creating")
             this.liveLocation = {
-              userName: this.userName,
+              userName: this.user.first_name.toString(),
               coordinates: { lat: this.liveLat, lng: this.liveLng },
               angle: 0
             }
-            this.geo.update(this.userId, this.liveLocation);
+            this.geo.update(this.user.userid.toString(), this.liveLocation);
           }
         })
+        
+         
+        
 
 
         console.log(position);

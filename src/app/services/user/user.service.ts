@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 
 export class UserService {
   selectedUser: User = {
-    id: '',
+    userid: '',
     first_name: '',
     last_name: '',
     email: '',
