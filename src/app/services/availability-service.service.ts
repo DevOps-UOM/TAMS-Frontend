@@ -12,13 +12,8 @@ export class AvailabilityServiceService {
     private http: HttpClient
   ) { }
   createAvailability(data: any): Observable<any> {
-<<<<<<< HEAD
     return this.http.post(environment.apiBaseUrl+'/availability', data);
   }
-=======
-    return this.http.post('http://localhost:3000/availability', data);
-  } 
->>>>>>> fff03c199f0cf243f3249783120112657256a5d2
   getAllAvailability(): Observable<any> {
     return this.http.get(environment.apiBaseUrl+'/availability');
   }

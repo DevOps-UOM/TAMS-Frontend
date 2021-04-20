@@ -48,42 +48,6 @@ import { SignInComponent } from './user/sign-in/sign-in.component';
 //     pathMatch: 'full'
 //   },
 
-<<<<<<< HEAD
-  {
-    path: 'itinerary-map',
-    component: TAItineraryMapComponent
-  },
-  {
-    path: 'ta-map',
-    component: TaMapComponent
-  },
-  {
-    path: 'itinerary-details',
-    component: ItineraryDetailsComponent
-  },
-  {
-    path: 'leave',
-    component: LeaveComponent
-  },
-  {
-    path: 'itinerary-task',
-    component: TaTaskComponent
-  },
-  {
-    path: 'customer-availability',
-    component: CustomerAvailabiltyComponent
-  },
-  {
-    path: 'assign',
-    component: AssignComponent
-  },
-  {
-    path: 'admin-user-management',
-    component: AdminUserManagementComponent,
-    children: [
-      { path: 'ca-agents' , component: CaAgentsTableComponent},
-      { path: 'ta-agents' , component: TaAgentsTableComponent}
-=======
 //   {
 //     path: 'itinerary-map',
 //     component: TAItineraryMapComponent
@@ -116,7 +80,6 @@ import { SignInComponent } from './user/sign-in/sign-in.component';
 //     children: [
 //       { path: 'ca-agents' , component: CaAgentsTableComponent},
 //       { path: 'ta-agents' , component: TaAgentsTableComponent}
->>>>>>> fff03c199f0cf243f3249783120112657256a5d2
     
 //     ]
 //   },
@@ -152,12 +115,9 @@ import { SignInComponent } from './user/sign-in/sign-in.component';
     AdminUserManagementComponent,
     CustomerAvailabiltyComponent,
     AssignComponent,
-<<<<<<< HEAD
     TaMapComponent,
-=======
     ItineraryDetailsComponent,
     
->>>>>>> fff03c199f0cf243f3249783120112657256a5d2
     CaUserManagementComponent,
     StatDashboardComponent, 
     UserComponent, 

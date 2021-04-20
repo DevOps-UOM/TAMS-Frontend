@@ -55,15 +55,11 @@ export class UserService {
   }
 
   getById(id: number) {
-<<<<<<< HEAD
-    return this.http.get<User>(`${environment.apiBaseUrl}/api/users/${id}`);
-=======
-    return this.http.get<User>(`${environment.apiBaseUrl}/users/${id}`, {
+    return this.http.get<User>(`${environment.apiBaseUrl}/api/users/${id}`, {
       headers: {
         'Authorization': `Bearer ${this.getToken()}`
       }
     });
->>>>>>> fff03c199f0cf243f3249783120112657256a5d2
   }
 
 
