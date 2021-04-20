@@ -2,6 +2,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user';
 
 
 
@@ -24,7 +25,10 @@ export class SideBarComponent implements OnInit {
   TAButton: boolean = false;
   panelOpenState = false;
 
-  constructor(private router: Router) {
+  constructor(
+    public userService: UserService,
+    private router: Router
+    ) {
   }
 
   ngOnInit(): void {

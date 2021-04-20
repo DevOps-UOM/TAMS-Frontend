@@ -22,4 +22,5 @@ describe('CustomerAvailabiltyComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

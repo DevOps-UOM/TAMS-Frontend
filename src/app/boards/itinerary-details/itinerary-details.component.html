@@ -1,27 +1,34 @@
-<div class="ItDetailsComponent">
-    <div class="row mt-5">
-        <div class="col text-center">
-            <h1 class="text-black-50">
-                Itinerary Details
-            </h1>
-        </div>
-    </div>
+<div class="row mt-4 ml-4 ">
+  <div class="">
+      <input placeholder="Search" #search type="date" class="form-control float-right" (input)="onSearch(search.value)">
+  </div>
+  <!-- <div class="">
+    <input placeholder="IdSearch" #idsearch type="" class="form-control float-right" (input)="onIdSearch(idsearch.value)">
+</div> -->
 
-    <div class="mt-5">
-            <input placeholder="Search" #search type="text" class="form-control">
-    </div>
-
-    <form class="mt-5">
-      
-            <div class="form-group col-md">
-                <label for="">Travelling Agent ID</label>
-                <input formControlName="cust_id" type="text" class="form-control" placeholder="">
-            </div>  
-       
-            <div class="form-group col-md">
-                <label for="">Itinerary ID</label>
-                <input formControlName="cust_id" type="text" class="form-control" placeholder="">
-            </div>
-    </form>
-
+  <div class="col-md-2 mb-8">
+      <i (click)="onClickReset(search)" class="fa fa-refresh zoom" style="cursor: pointer; "></i>
+  </div>
 </div>
+    <table class="table table-hover mt-5">
+        <thead>
+          <tr>
+            <th scope="row">Itinerary ID</th>
+            <td>Agent ID</td>
+            <td>Agent Name</td>
+            <td>Date</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let t of displayItineraries" >
+                <td scope="row" style="cursor: pointer;"  routerLink="/boards/itinerary-details/print-iti-details">{{t._id}} </td>
+                <td>{{t.travel_agent_id}} </td>
+                <td> </td>
+                <td>{{t.date | date:'shortDate' }} </td>
+                <td><i class="fa fa-trash zoom" style="cursor: pointer;" (click)="onItiDelete(t.travel_agent_id, t.date) " ></i></td>
+
+            </tr>
+        </tbody>
+     
+    </table>

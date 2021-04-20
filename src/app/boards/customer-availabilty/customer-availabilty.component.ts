@@ -64,8 +64,6 @@ export class CustomerAvailabiltyComponent implements OnInit {
     this.availabilityForm = this.fb.group({
       cust_id: ['', Validators.required],
       date: ['', Validators.required],
-      time_from: ['', Validators.required],
-      time_to: ['', Validators.required],
       note: ['', Validators.required],
       task: ['', Validators.required],
       task_duration: ['', Validators.required]
@@ -85,7 +83,6 @@ export class CustomerAvailabiltyComponent implements OnInit {
         }
       );
     this.availabilityForm.reset();
-
   }
 
   onSearch(term: any) {
@@ -112,6 +109,8 @@ export class CustomerAvailabiltyComponent implements OnInit {
     })
 
   }
+
+
 
 
 

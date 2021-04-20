@@ -4,7 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { environment } from './../../../environments/environment';
 import { User } from './../../models/user.model';
-import { of, Subject } from 'rxjs';
+import { of, Subject, Observable, BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -21,11 +22,17 @@ export class UserService {
     role: Role.User,
   };
 
-  observableUser = new Subject<User>();
-
+  observableUser = new BehaviorSubject<User>(null);
   noAuthHeader = { headers: new HttpHeaders({ 'NoAuth': 'True' }) };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) {
+    if (this.isLoggedIn()) {
+      console.log(this.getUserPayload(), 1);
+      this.observableUser.next(this.getUserPayload())
+    } else {
+      this.observableUser.next(null);
+    }
+  }
 
   //HttpMethods
 
@@ -37,12 +44,26 @@ export class UserService {
     return this.http.post(environment.apiBaseUrl + '/api/authenticate', authCredentials,this.noAuthHeader);
   }
 
+  logout() {
+    this.observableUser.next(null);
+    this.deleteToken();
+    this.router.navigate(['/boards/login']);
+  }
+
   getUserProfile() {
     return this.http.get(environment.apiBaseUrl + '/api/userProfile');
   }
 
   getById(id: number) {
+<<<<<<< HEAD
     return this.http.get<User>(`${environment.apiBaseUrl}/api/users/${id}`);
+=======
+    return this.http.get<User>(`${environment.apiBaseUrl}/users/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${this.getToken()}`
+      }
+    });
+>>>>>>> fff03c199f0cf243f3249783120112657256a5d2
   }
 
 
@@ -54,6 +75,11 @@ export class UserService {
 
   getToken() {
     return localStorage.getItem('token');
+  }
+
+  setObservableUser() {
+    console.log('called', this.getUserPayload());
+    this.observableUser.next(null);
   }
 
   deleteToken() {

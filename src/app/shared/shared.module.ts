@@ -1,3 +1,4 @@
+import { SharedRoutingModule } from './shared-routing.module';
 import { LayoutsModule } from './../layouts/layouts.module';
 import { from } from 'rxjs';
 import {environment} from '../../environments/environment'
@@ -44,15 +45,15 @@ import { AuthGuard } from './auth/auth.guard';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { UserService } from '../services/user/user.service';
 
-const admin_routes: Routes = [
-  // { path: 'admin-user-management/ca-agents' , component: CaAgentsTableComponent},
-  // { path: 'admin-user-management/ta-agents' , component: TaAgentsTableComponent}
-    { path: 'boards/admin-user-management/ta-agents/:userid' , component: UserProfileComponent },
-    { path: 'boards/admin-user-management/ca-agents/:userid' , component: UserProfileComponent },
-    { path: 'boards/ca-user-management/ta-agents/:userid' , component: UserProfileComponent },
-    { path: 'boards/ca-user-management/customers-registration/:cust_id' , component: CustomerProfileComponent},
-    { path: 'userprofile', component: UserProfileComponent,canActivate:[AuthGuard]}
-];
+// const admin_routes: Routes = [
+//   // { path: 'admin-user-management/ca-agents' , component: CaAgentsTableComponent},
+//   // { path: 'admin-user-management/ta-agents' , component: TaAgentsTableComponent}
+//     { path: 'boards/admin-user-management/ta-agents/:userid' , component: UserProfileComponent },
+//     { path: 'boards/admin-user-management/ca-agents/:userid' , component: UserProfileComponent },
+//     { path: 'boards/ca-user-management/ta-agents/:userid' , component: UserProfileComponent },
+//     { path: 'boards/ca-user-management/customers-registration/:cust_id' , component: CustomerProfileComponent},
+//     { path: 'userprofile', component: UserProfileComponent,canActivate:[AuthGuard]}
+// ];
 
 @NgModule({
   declarations: [NavBarComponent,AddTaskComponent, MapComponent, TaTaskCardComponent, SideBarComponent, ContainerComponent, DetailFormComponent, CaAgentsTableComponent, TaAgentsTableComponent, NavTablesComponent, TaOnlyDetailFormComponent, UserProfileComponent, CustomerTableComponent, CustomerDetailFormComponent, CustomerProfileComponent,UserSharedComponent],
@@ -68,7 +69,6 @@ const admin_routes: Routes = [
       apiKey: environment.googleMapsKeys,
       libraries:['places']
     }),
-    RouterModule.forChild(admin_routes),
     AgmDirectionModule,
     AgmSnazzyInfoWindowModule,
     MatExpansionModule,
@@ -77,7 +77,8 @@ const admin_routes: Routes = [
     MatButtonModule,
     MatListModule,
     Ng2SearchPipeModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedRoutingModule
   ],
 
   exports: [

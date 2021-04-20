@@ -13,22 +13,11 @@ export class UserProfileComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
-    this.userService.getUserProfile().subscribe(
-      (res: any) => {
-        this.userDetails = res['user'];
-        localStorage.setItem('user', JSON.stringify(res.user));
-        this.userService.observableUser.next(res.user as User);
-      },
-      err => { 
-        console.log(err);
-        
-      }
-    );
+    this.userDetails = this.userService.getUserPayload();
   }
 
   onLogout(){
-    this.userService.deleteToken();
-    this.router.navigate(['/boards/login']);
+    this.userService.logout();
   }
 
 }
