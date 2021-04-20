@@ -1,4 +1,4 @@
-<div class="sidebar" @fade>
+<div class="sidebar" @fade *ngIf="userService.getUserPayload()">
     <div class="topic" fxLayoutAlign="center center">
         <div>
             <p class="title">TAMS SYSTEM</p>
@@ -60,6 +60,6 @@
         <div class="log-button" style="cursor: pointer;">
             <p class="label">Logout</p>
         </div>
-    </div> -->
+    </div>
 
 </div>

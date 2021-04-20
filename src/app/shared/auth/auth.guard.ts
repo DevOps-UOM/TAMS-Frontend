@@ -19,16 +19,17 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
-    const user = this.authenticationService.userValue;
       if(!this.userService.isLoggedIn()) {
+        this.router.navigate(['/boards/login']);
         return false;
       }
 
-      if (next.data.roles && next.data.roles.indexOf(user.role) === -1) {
-        this.router.navigateByUrl('/login');
-        this.userService.deleteToken();
+      console.log(next.data.roles);
+      if (next.data.roles && next.data.roles.indexOf(this.userService.getUserPayload().role) === -1) {
+        this.router.navigate(['/boards/itinerary-map']);
         return false;
       }
+
       return true;
   }
 }

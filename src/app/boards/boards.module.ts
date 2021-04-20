@@ -1,3 +1,4 @@
+import { BoardsRoutingModule } from './boards-routing.module';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { TaOnlyDetailFormComponent } from './../shared/ta-only-detail-form/ta-only-detail-form.component';
 import { CustomerDetailFormComponent } from './../shared/customer-detail-form/customer-detail-form.component';
@@ -39,74 +40,69 @@ import { UserComponent } from './user/user.component';
 import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
 
+// const routes: Routes = [
+//   {
+//     path: '',
+//     redirectTo: '/boards/itinerary-map  ',
+//     pathMatch: 'full'
+//   },
 
+//   {
+//     path: 'itinerary-map',
+//     component: TAItineraryMapComponent
+//   },
+//   {
+//     path: 'itinerary-details',
+//     component: ItineraryDetailsComponent
+//   },
+//   {
+//     path: 'leave',
+//     component: LeaveComponent
+//   },
+//   {
+//     path: 'itinerary-task',
+//     component: TaTaskComponent
+//   },
+//   {
+//     path: 'customer-availability',
+//     component: CustomerAvailabiltyComponent
+//   },
 
-const routes: Routes = [
-  {
-    path: '',
-    redirectTo: '/boards/itinerary-map  ',
-    pathMatch: 'full'
-  },
+//   {
+//     path: 'assign',
+//     component: AssignComponent
+//   },
 
-  {
-    path: 'itinerary-map',
-    component: TAItineraryMapComponent
-  },
-  {
-    path: 'itinerary-details',
-    component: ItineraryDetailsComponent
-  },
-  {
-    path: 'itinerary-details/print-iti-details',
-    component: PrintItiDetailsComponent
-  },
-  {
-    path: 'leave',
-    component: LeaveComponent
-  },
-  {
-    path: 'itinerary-task',
-    component: TaTaskComponent
-  },
-  {
-    path: 'customer-availability',
-    component: CustomerAvailabiltyComponent
-  },
-
-  {
-    path: 'assign',
-    component: AssignComponent
-  },
-
-  {
-    path: 'admin-user-management',
-    component: AdminUserManagementComponent,
-    children: [
-      { path: 'ca-agents' , component: CaAgentsTableComponent},
-      { path: 'ta-agents' , component: TaAgentsTableComponent} 
-    ]
-  },
-  {
-    path: 'ca-user-management',
-    component: CaUserManagementComponent,
-    children: [
-      { path: 'ta-agents' , component: TaAgentsTableComponent},
-      { path: 'customers' , component: CustomerTableComponent},
-      { path: 'customers-registration' , component: CustomerDetailFormComponent},
-      { path: 'ta-agents-registration' , component: TaOnlyDetailFormComponent},
-    ]
-  },
-  {  
-    path: 'stat-dashboard',
-    component: StatDashboardComponent,
-    canActivate: [AuthGuard],
-    data: { roles: [Role.Admin] }
-  },
-  {
-    path: 'login', component: UserComponent,
-    children: [{ path: '', component: SignInComponent}]
-  }
-]
+//   {
+//     path: 'admin-user-management',
+//     component: AdminUserManagementComponent,
+//     children: [
+//       { path: 'ca-agents' , component: CaAgentsTableComponent},
+//       { path: 'ta-agents' , component: TaAgentsTableComponent}
+    
+//     ]
+//   },
+//   {
+//     path: 'ca-user-management',
+//     component: CaUserManagementComponent,
+//     children: [
+//       { path: 'ta-agents' , component: TaAgentsTableComponent},
+//       { path: 'customers' , component: CustomerTableComponent},
+//       { path: 'customers-registration' , component: CustomerDetailFormComponent},
+//       { path: 'ta-agents-registration' , component: TaOnlyDetailFormComponent},
+//     ]
+//   },
+//   {  
+//     path: 'stat-dashboard',
+//     component: StatDashboardComponent,
+//     canActivate: [AuthGuard],
+//     data: { roles: [Role.Admin] }
+//   },
+//   {
+//     path: 'login', component: UserComponent,
+//     children: [{ path: '', component: SignInComponent}]
+//   }
+// ]
 
 
 @NgModule({
@@ -130,7 +126,7 @@ const routes: Routes = [
   
   imports: [
     CommonModule,
-    RouterModule.forChild(routes),
+    // RouterModule.forChild(routes),
     SharedModule,
     FlexLayoutModule,
     FormsModule,
@@ -143,7 +139,8 @@ const routes: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
     Ng2SearchPipeModule,
-    MatIconModule
+    MatIconModule,
+    BoardsRoutingModule
   ],
   providers: [MatDatepickerModule]
 })

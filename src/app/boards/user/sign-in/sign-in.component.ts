@@ -24,20 +24,22 @@ export class SignInComponent implements OnInit {
 
   ngOnInit() {
     if(this.userService.isLoggedIn())
-    this.router.navigateByUrl('/userprofile');
+      this.router.navigate(['/boards/itinerary-map']);
   }
 
   onSubmit(form : NgForm){
     this.userService.login(form.value).subscribe(
       res => {
         this.userService.setToken(res['token']);
+        this.userService.setObservableUser();
         this.router.navigateByUrl('/userprofile');
       },
       err => {
         this.serverErrorMessages = err.error.message;
-        
       }
     );
+    // console.log('clicked')
+    // this.userService.observableUser.next(null);
   }
 
 }
