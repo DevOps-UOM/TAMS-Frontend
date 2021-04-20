@@ -1,8 +1,14 @@
 export interface Grade {
     userid: string;
     email: string;
-    //engMark: number;
-    //sciMark: number;
-    agentType: string;
+    first_name: string;
+    last_name: string;
+    mobile_number: number;
+    city: string;
+    district: string;
+    province: string;
+    bio: string;
+    role: string;
+    password: string;
   }
   

@@ -1,7 +1,9 @@
+import { User } from './../../models/user.model';
 
-import { Component, OnInit,HostListener, Input } from '@angular/core';
+import { Component, OnInit,HostListener, Input,EventEmitter, Output } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -19,9 +21,13 @@ import { Router } from '@angular/router';
 })
 export class NavBarComponent implements OnInit {
 
-  @Input() burger:boolean;
+ // @Input() burger:boolean;
+
+  @Output() burgerBooleanEmitter: EventEmitter<boolean> = new EventEmitter()
+  burgerBoolean:boolean=false;
 
   constructor(
+    public userService: UserService,
     private router: Router
   ) { }
 
@@ -64,6 +70,11 @@ export class NavBarComponent implements OnInit {
         }
       }
     }
+  }
+
+  BurgerClick(){
+    this.burgerBoolean=!this.burgerBoolean;
+    this.burgerBooleanEmitter.emit(this.burgerBoolean);
   }
 }
 

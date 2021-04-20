@@ -1,3 +1,4 @@
+import { CustomerService } from './../../services/customer/customer.service';
 import { TaskServiceService } from './../../services/task-service.service';
 import { AddTaskComponent } from './../../shared/add-task/add-task.component';
 import { Component, OnInit } from '@angular/core';
@@ -19,21 +20,38 @@ export class CustomerAvailabiltyComponent implements OnInit {
   tasks: any;
   displayTasks: any;
   minDate = new Date();
+  customers: any;
+  displaycustomers: any;
 
 
   constructor(
     private fb: FormBuilder,
     private availabilityService: AvailabilityServiceService,
     private dialog: MatDialog,
-    private TaskService: TaskServiceService
+    private TaskService: TaskServiceService,
+    private customerService: CustomerService,
   ) {}
 
   ngOnInit(): void {
     this.formInstaller();
     this.loadAvailability();
     this.loadTask();
+    this.loadcustomers();
   }
   // tslint:disable-next-line:typedef
+  loadcustomers() {
+    this.customerService.listAllCustomers()
+      .subscribe(
+        res => {
+          this.customers = res.data;
+          console.log(res.data)
+        },
+        error => {
+
+        }
+      );
+  }
+
   loadAvailability() {
     this.availabilityService.getAllAvailability()
       .subscribe(
@@ -91,7 +109,7 @@ export class CustomerAvailabiltyComponent implements OnInit {
       this.displayAvailabilities = this.availabilities;
     } else {
       this.displayAvailabilities =  this.availabilities.filter((a) => {
-        if(a.cust_id.toLowerCase().indexOf(term.toLowerCase()) > -1) {
+        if(a.cust_id.cust_id.toLowerCase().indexOf(term.toLowerCase()) > -1) {
           return a
         } 
       });
@@ -109,6 +127,7 @@ export class CustomerAvailabiltyComponent implements OnInit {
     })
 
   }
+  
 
 
 

@@ -1,5 +1,5 @@
-import { AddTaskComponent } from './shared/add-task/add-task.component';
-import { BrowserModule } from '@angular/platform-browser';
+import { BoardsRoutingModule } from './boards/boards-routing.module';
+import { BrowserModule,HammerGestureConfig,HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -8,6 +8,14 @@ import { LayoutsModule } from './layouts/layouts.module';
 import {HttpClientModule} from '@angular/common/http';
 import { AlertsModule } from 'angular-alert-module';
 import{BrowserAnimationsModule} from '@angular/platform-browser/animations'
+
+import * as Hammer from 'hammerjs';
+
+export class MyHammerConfig extends HammerGestureConfig{
+  overrides = <any>{
+    'swipe': {direction:Hammer.DIRECTION_ALL}
+  }
+}
 
 @NgModule({
   declarations: [
@@ -20,9 +28,11 @@ import{BrowserAnimationsModule} from '@angular/platform-browser/animations'
     HttpClientModule,
     AlertsModule,
     BrowserAnimationsModule
-    ],
-  providers: [],
-  bootstrap: [AppComponent],
-  entryComponents:[AddTaskComponent]
+  ],
+  providers: [{
+    provide:HAMMER_GESTURE_CONFIG,
+    useClass:MyHammerConfig
+  }],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

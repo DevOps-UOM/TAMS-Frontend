@@ -14,20 +14,20 @@
         <table class="table table-striped w-full">
             <thead>
                 <tr>
-                    <th scope="col">Customer Id</th>
+                    <th scope="col">Customer</th>
                     <th scope="col">Date</th>
-                    <th scope="col">Available Time</th>
-                    <th scope="col">Assigned TA ID</th>
+                    <th scope="col">Customer Area</th>
                     <th scope="col">Assingend TA Name</th>
-                    
+
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let v of displayAvailabilities">
-                    <th scope="row">{{v.cust_id}}</th>
+                    <th scope="row">{{v.cust_id.cust_id}}- {{v.cust_id.name.first_name}}</th>
                     <td>{{v.date | date:'shortDate' }}</td>
-                    <td>{{v.time_from }} - {{v.time_to}}</td>
-                   
+                    <td>{{v.cust_id.area}}</td>
+                    <td>{{v.cust_id.default_agent_id.first_name}} {{v.cust_id.default_agent_id.last_name}}</td>
+
                 </tr>
             </tbody>
         </table>

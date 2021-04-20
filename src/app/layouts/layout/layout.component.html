@@ -1,12 +1,12 @@
 <div fxLayout="row">
-    <div *ngIf="isDesktop || isTablet" fxLayout="column" class="sidebar">
+    <div *ngIf="isShowSidebar" fxLayout="column" class="sidebar">
         <app-side-bar></app-side-bar>
     </div>
     <div fxLayout="column" class="boards">
         <div fxLayout="row" class="">
-            <app-nav-bar [burger]="!(isDesktop || isTablet)"></app-nav-bar>
+            <app-nav-bar (burgerBooleanEmitter)="showSideBar($event)"></app-nav-bar>
         </div>
-        <div  class="content">
+        <div class="content">
             <router-outlet></router-outlet>
         </div>
     </div>
