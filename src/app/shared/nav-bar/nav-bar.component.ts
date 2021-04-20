@@ -26,25 +26,12 @@ export class NavBarComponent implements OnInit {
   @Output() burgerBooleanEmitter: EventEmitter<boolean> = new EventEmitter()
   burgerBoolean:boolean=false;
 
-  userDetails;
   constructor(
-    private userService: UserService,
+    public userService: UserService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    const userDetails = localStorage.getItem('user');
-
-    if (userDetails) {
-      this.userDetails = JSON.parse(userDetails);
-    } else {
-      this.userService.observableUser.subscribe({
-        next: (data) => {
-          this.userDetails = data;
-        },
-        error: (err) => console.log(err)
-      });
-    }
   }
 
   callScreen(screenName) {

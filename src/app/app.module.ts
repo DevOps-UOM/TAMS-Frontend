@@ -1,3 +1,4 @@
+import { BoardsRoutingModule } from './boards/boards-routing.module';
 import { BrowserModule,HammerGestureConfig,HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
