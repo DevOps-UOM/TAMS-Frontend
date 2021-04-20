@@ -2,6 +2,10 @@
   <div class="">
       <input placeholder="Search" #search type="date" class="form-control float-right" (input)="onSearch(search.value)">
   </div>
+  <!-- <div class="">
+    <input placeholder="IdSearch" #idsearch type="" class="form-control float-right" (input)="onIdSearch(idsearch.value)">
+</div> -->
+
   <div class="col-md-2 mb-8">
       <i (click)="onClickReset(search)" class="fa fa-refresh zoom" style="cursor: pointer; "></i>
   </div>
@@ -17,10 +21,10 @@
           </tr>
         </thead>
         <tbody>
-            <tr style="cursor: pointer;" *ngFor="let t of displayItineraries">
-                <td scope="row">{{t._id}} </td>
+            <tr *ngFor="let t of displayItineraries" >
+                <td scope="row" style="cursor: pointer;"  routerLink="/boards/itinerary-details/print-iti-details">{{t._id}} </td>
                 <td>{{t.travel_agent_id}} </td>
-                <td>{{t.travel_agent_id}} </td>
+                <td> </td>
                 <td>{{t.date | date:'shortDate' }} </td>
                 <td><i class="fa fa-trash zoom" style="cursor: pointer;" (click)="onItiDelete(t.travel_agent_id, t.date) " ></i></td>
 

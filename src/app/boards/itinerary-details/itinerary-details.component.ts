@@ -53,6 +53,18 @@ export class ItineraryDetailsComponent implements OnInit {
       }
     }
 
+    // onIdSearch(term: any){
+    //   console.log(moment(term));
+    //   if(term===""){
+    //     this.displayItineraries = this.itineraries;
+    //   }
+    //   else{
+    //     this.displayItineraries= this.itineraries.filter((b) => {
+    //       return moment(b.travel_agent_id)===term
+    //     } )
+    //   }
+    // }
+
     onItiDelete(id:string , date: Date){
       var delBtn = confirm(" Do you want to delete ?");
       if ( delBtn == true ) {
@@ -60,7 +72,7 @@ export class ItineraryDetailsComponent implements OnInit {
         this.loadItineraries();
         console.log(id, date);
       } );
+      }
     }
-  }
 
 }

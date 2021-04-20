@@ -30,7 +30,7 @@ export class AddTaskComponent implements OnInit {
     this.taskForm = this.fb.group({
       note: ['', Validators.required],
       task_name: ['', Validators.required],
-      task_duration: ['', Validators.required]
+      // task_duration: ['', Validators.required]
     });
   }
 

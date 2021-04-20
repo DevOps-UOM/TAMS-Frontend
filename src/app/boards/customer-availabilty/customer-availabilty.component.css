@@ -1,3 +1,17 @@
 .CustAvailComponent {
     margin: 50px;
 }
+
+
+i:hover {
+    color: red ;
+  }
+
+.zoom {
+ 
+    transition: transform .2s; 
+    margin: 0 auto;
+  }
+.zoom:hover {
+    transform: scale(1.5); 
+  }

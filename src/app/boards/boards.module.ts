@@ -24,7 +24,9 @@ import { AssignComponent } from './assign/assign.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { PrintItiDetailsComponent } from './print-iti-details/print-iti-details.component';
 import { ItineraryDetailsComponent } from './itinerary-details/itinerary-details.component';
+
 
 
 const routes: Routes = [
@@ -41,6 +43,10 @@ const routes: Routes = [
   {
     path: 'itinerary-details',
     component: ItineraryDetailsComponent
+  },
+  {
+    path: 'itinerary-details/print-iti-details',
+    component: PrintItiDetailsComponent
   },
   {
     path: 'leave',
@@ -80,7 +86,8 @@ const routes: Routes = [
     AdminUserManagementComponent,
     CustomerAvailabiltyComponent,
     AssignComponent,
-    ItineraryDetailsComponent
+    ItineraryDetailsComponent,
+    PrintItiDetailsComponent
     ],
   
   imports: [
