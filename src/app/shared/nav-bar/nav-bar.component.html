@@ -1,15 +1,15 @@
-<div class="flex-container shadow-sm p-3 m-0" fxLayoutAlign="space-between center" @fade>
-    <div class="burger_btn_area">
+<div class="flex-container shadow-sm p-3 m-0" fxLayoutAlign="space-between center" @fade *ngIf="userService.getUserPayload()">
+    <div class="burger_btn_area" *ngIf="userService.getUserPayload()">
         <div class="burger_btn" (click)="BurgerClick()">
 
         </div>
     </div>
     <div></div>
-    <div class="user">
+    <div class="user" *ngIf="userService.getUserPayload()">
         <div class="flex-container row-reverse">
             <div id="user-det" class="user-btn" (click)="userMenu()"></div>
             <div class="user-name-div">
-                <p class="title" *ngIf="userDetails">{{userDetails.first_name}}</p>
+                <p class="title">{{ userService.getUserPayload().first_name }}</p>
 
             </div>
         </div>
