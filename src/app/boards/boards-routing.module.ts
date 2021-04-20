@@ -18,6 +18,7 @@ import { TAItineraryMapComponent } from './ta-itinerary-map/ta-itinerary-map.com
 import { TaTaskComponent } from './ta-task/ta-task.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
 import { UserComponent } from './user/user.component';
+import {TaMapComponent} from './ta-map/ta-map.component'
 
 const routes: Routes = [
     {
@@ -33,6 +34,10 @@ const routes: Routes = [
     {
       path: 'itinerary-details',
       component: ItineraryDetailsComponent
+    },
+    {
+      path: 'ta-map',
+      component: TaMapComponent
     },
     {
       path: 'leave',
