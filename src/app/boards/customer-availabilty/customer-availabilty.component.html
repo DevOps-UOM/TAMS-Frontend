@@ -2,15 +2,20 @@
     <div class="row mt-5">
         <div class="col text-center">
             <b class="text-black-50">
-                {{'Customer Availabilty' | uppercase}}
+                {{'Customer Availabilty' }}
             </b>
         </div>
     </div>
     <form [formGroup]="availabilityForm" class="mt-5">
         <div class="form-row">
             <div class="form-group col-md">
-                <label for="">Customer ID</label>
-                <input required formControlName="cust_id" type="text" class="form-control" placeholder="">
+                <label for="">Customer</label>
+                <select required formControlName="cust_id" class="form-control" searchable="Search here..">
+                    <!-- <option value="" disabled selected>Choose agent</option> -->
+                    <option *ngFor="let customer of customers" [value]="customer._id" >{{customer.cust_id}}- {{customer.name.first_name}} {{customer.name.last_name}}</option>
+                  </select>
+
+                <!-- <input required formControlName="cust_id" type="text" class="form-control" placeholder=""> -->
             </div>
             <div class="form-group col-md">
                 <label for="">Estimated Duration</label>
@@ -59,7 +64,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">Customer Id</th>
+                <th scope="col">Customer</th>
                 <th scope="col">Date</th>
                 <th scope="col">Note</th>
                 <th scope="col">Task</th>
@@ -68,7 +73,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let v of displayAvailabilities">
-                <th scope="row">{{v.cust_id}}</th>
+                <th scope="row">{{v.cust_id.cust_id}}- {{v.cust_id.name.first_name}} {{v.cust_id.name.last_name}}</th>
                 <td>{{v.date | date:'shortDate' }}</td>
                 <td>{{v.note}}</td>
                 <td>

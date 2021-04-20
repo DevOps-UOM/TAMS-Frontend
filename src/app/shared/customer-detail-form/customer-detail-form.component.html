@@ -42,10 +42,15 @@
       <br /> <br />
 
       <label for="default_agent_id">Assigned Travelling Agent</label> &nbsp; &nbsp; &nbsp;
-      <input type="text" id="default_agent_id"  class="form-control" formControlName="default_agent_id">
+      <!-- <input type="text" id="default_agent_id"  class="form-control" formControlName="default_agent_id"> -->
       <br /> <br />
 
-  <button type="submit" class="btn btn-info" style="background-color:#33B585 ; font-size:17px">Add Customer</button>
+      <select formControlName="default_agent_id" class="form-control" searchable="Search here..">
+        <!-- <option value="" disabled selected>Choose agent</option> -->
+        <option *ngFor="let agent of travelAgents" [value]="agent._id" >{{agent.first_name}}</option>
+      </select>
+
+  <button type="submit" class="btn btn-info mt-8" style="background-color:#33B585 ; font-size:17px">Add Customer</button>
   <!-- <div (click)="onClickSubmit()" class="btn btn-info float-right ml-2" style="background-color:#33B585 ; font-size:20px">
     Add
 </div> -->
@@ -86,7 +91,7 @@
                 <td>{{customer.mobile_number}}</td>
                 <td>{{customer.email}}</td>
                 <td>{{customer.nic}}</td>
-                <td>{{customer.default_agent_id}}</td>
+                <td>{{customer.default_agent_id.first_name}} {{customer.default_agent_id.last_name}}</td>
                 <!-- <td>
                     <a class="action-btn" (click)="onDelete(grade.email)">
                     <i class="material-icons">delete</i>

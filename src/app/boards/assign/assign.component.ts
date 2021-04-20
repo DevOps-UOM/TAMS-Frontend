@@ -1,6 +1,7 @@
+import { PrintItiDetailsComponent } from './../print-iti-details/print-iti-details.component';
 import { Component, OnInit } from '@angular/core';
 import { AvailabilityServiceService } from 'src/app/services/availability-service.service';
-import * as moment from 'moment'
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-assign',
@@ -11,6 +12,7 @@ export class AssignComponent implements OnInit {
 
   availabilities: any;
   displayAvailabilities: any;
+  
   
   constructor(
     private availabilityService: AvailabilityServiceService,
