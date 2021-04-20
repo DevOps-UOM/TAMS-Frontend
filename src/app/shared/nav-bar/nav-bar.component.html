@@ -9,7 +9,7 @@
         <div class="flex-container row-reverse">
             <div id="user-det" class="user-btn" (click)="userMenu()"></div>
             <div class="user-name-div">
-                <p class="title">{{ userService.getUserPayload().first_name }}</p>
+                <p class="title">{{ userService.getUserPayload().first_name }} {{userService.getUserPayload().last_name}}</p>
 
             </div>
         </div>

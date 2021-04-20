@@ -1,10 +1,14 @@
 import { Role } from "./role.model";
 
 export class User {
-    id: String;
+    userid: String;
     first_name: String;
     last_name: String;
     email: String;
     password: String;
+    city: String;
+    district: String;
+    province: String;
+    bio: String;
     role: Role;
 }
