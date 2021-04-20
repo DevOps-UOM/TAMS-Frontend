@@ -101,29 +101,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if (this.modeSignal = modeSignalStatus.singlePathMode) {
-      if (this.isShowSidebar) {
-        console.log(this.modeSignal)
-
-        this.widthReduce = 420;
-      } else {
-        this.widthReduce = 175;
-      }
-    } else if (this.modeSignal = modeSignalStatus.directionMode) {
-      if (this.isShowSidebar) {
-        this.widthReduce = 300;
-      } else {
-        this.widthReduce = 5;
-      }
-    }
-    this.renderer.setStyle(
-      this.wrapper.nativeElement, 'width',
-      (window.innerWidth - this.widthReduce) + 'px'
-    );
-    this.renderer.setStyle(
-      this.wrapper.nativeElement, 'height',
-      (window.innerHeight - this.heightReduce) + 'px'
-    );
+    this.resizeMap();
 
     // this.agmMap.triggerResize().then(() =>
     //   this.agmMap._mapsWrapper.setCenter({ lat: this.centerLat, lng: this.centerLng }));
@@ -136,7 +114,17 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   onResize() {
     // resize the container for the google map
-    if (this.modeSignal = modeSignalStatus.singlePathMode) {
+   
+    // recenters the map to the resized area.
+    // this.agmMap.triggerResize().then(() =>
+    //   this.agmMap._mapsWrapper.setCenter({ lat: this.centerLat, lng: this.centerLng }));
+
+    this.resizeMap();
+  }
+
+
+  resizeMap(){
+    if (this.modeSignal === modeSignalStatus.singlePathMode) {
       if (this.isShowSidebar) {
         this.widthReduce = 420;
         console.log(this.modeSignal)
@@ -144,9 +132,9 @@ export class MapComponent implements OnInit, AfterViewInit {
       } else {
         this.widthReduce = 175;
       }
-    } else if (this.modeSignal = modeSignalStatus.directionMode) {
+    } else if (this.modeSignal === modeSignalStatus.directionMode  || this.modeSignal === modeSignalStatus.liveMode) {
       if (this.isShowSidebar) {
-        this.widthReduce = 300;
+        this.widthReduce = 340;
       } else {
         this.widthReduce = 5;
       }
@@ -160,11 +148,6 @@ export class MapComponent implements OnInit, AfterViewInit {
       this.wrapper.nativeElement, 'height',
       (window.innerHeight - this.heightReduce) + 'px'
     );
-    // recenters the map to the resized area.
-    // this.agmMap.triggerResize().then(() =>
-    //   this.agmMap._mapsWrapper.setCenter({ lat: this.centerLat, lng: this.centerLng }));
-
-
   }
 
   // idle fires after paning or zooming is done. 
@@ -190,20 +173,16 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    //console.log("marker list"+JSON.stringify(this.markerList));
-    //this.trackMe();
+    
     console.log("Called")
+
+
 
     this.subscription = this.data.currentMessage.subscribe(isShowSidebar => this.isShowSidebar = isShowSidebar)
 
-    // this.initMap();
-    //this.getSingleDirection();
-
-    //this.geo.setLocation("test-1",[80,50]);
 
     this.trackMe();
 
-    //this.geo.hits.subscribe(hits => this.liveMarkers = hits);
 
     console.log(this.modeSignal);
     switch (this.modeSignal) {
@@ -255,21 +234,25 @@ export class MapComponent implements OnInit, AfterViewInit {
 
 
 
-  getDirections() {
+  async getDirections() {
+
+    await this.setCurrentLocation(1)
+
+    
     var loc: Loc;
     var i: number;
 
     if (this.markerList && this.markerList[0] && this.markerList[0].location && this.markerList[0].location.coordinates) {
 
-      // this.origin = {
-      //   lat: this.currentLat,
-      //   lng: this.currentLng
-      // };
-
       this.origin = {
-        lat: 6.879277,
-        lng: 79.918083
+        lat: this.currentLat,
+        lng: this.currentLng
       };
+
+      // this.origin = {
+      //   lat: 6.879277,
+      //   lng: 79.918083
+      // };
 
 
       for (i = 0; i < this.markerList.length - 1; i++) {
@@ -320,13 +303,22 @@ export class MapComponent implements OnInit, AfterViewInit {
   // }
 
   setCurrentLocation(x) {
+    
     return new Promise(resolve => {
+      
       if ('geolocation' in navigator) {
+        console.log(this.modeSignal)
         navigator.geolocation.getCurrentPosition((position) => {
 
           this.currentLat = position.coords.latitude;
           this.currentLng = position.coords.longitude;
 
+          // this.origin = {
+          //   lat: this.currentLat,
+          //   lng: this.currentLng
+          // };
+          
+          console.log(this.origin);
           resolve(x);
           //this.zoom = 8;
           //this.getAddress(this.currentLat, this.currentLng);
@@ -360,6 +352,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   initMap(): void {
+    console.log("init map")
     const directionsService = new google.maps.DirectionsService();
     const directionsRenderer = new google.maps.DirectionsRenderer();
     const map = new google.maps.Map(
@@ -370,7 +363,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       }
     );
     directionsRenderer.setMap(map);
-
+    //console.log(this.modeSignal);
     switch (this.modeSignal) {
       case "directionMode": this.calculateAndDisplayRoute(directionsService, directionsRenderer); break;
       case "singlePathMode": this.displaySingleRoute(directionsService, directionsRenderer); break;
