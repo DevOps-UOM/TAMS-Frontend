@@ -1,7 +1,9 @@
+import { User } from './../../models/user.model';
 
 import { Component, OnInit,HostListener, Input,EventEmitter, Output } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -24,11 +26,25 @@ export class NavBarComponent implements OnInit {
   @Output() burgerBooleanEmitter: EventEmitter<boolean> = new EventEmitter()
   burgerBoolean:boolean=false;
 
+  userDetails;
   constructor(
+    private userService: UserService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
+    const userDetails = localStorage.getItem('user');
+
+    if (userDetails) {
+      this.userDetails = JSON.parse(userDetails);
+    } else {
+      this.userService.observableUser.subscribe({
+        next: (data) => {
+          this.userDetails = data;
+        },
+        error: (err) => console.log(err)
+      });
+    }
   }
 
   callScreen(screenName) {

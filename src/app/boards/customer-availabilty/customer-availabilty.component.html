@@ -1,9 +1,9 @@
 <div class="CustAvailComponent">
     <div class="row mt-5">
         <div class="col text-center">
-            <h1 class="text-black-50">
+            <b class="text-black-50">
                 {{'Customer Availabilty' | uppercase}}
-            </h1>
+            </b>
         </div>
     </div>
     <form [formGroup]="availabilityForm" class="mt-5">
@@ -12,28 +12,21 @@
                 <label for="">Customer ID</label>
                 <input required formControlName="cust_id" type="text" class="form-control" placeholder="">
             </div>
-            
             <div class="form-group col-md">
-                <label for="">Date</label>
-                <input formControlName="date" type="date" class="form-control">
-            </div>
-            <div class="form-group col-md">
-                <label for="">From</label>
-                <input formControlName="time_from" type="time" class="form-control">
-            </div>
-            <div class="form-group col-md">
-                <label for="">To</label>
-                <input formControlName="time_to" type="time" class="form-control">
-            </div>
-            <div class="form-group col-md">
-                <label for="">Estimated Task Duration</label>
+                <label for="">Estimated Duration</label>
                 <select class="custom-select" formControlName="task_duration">
-           <option selected >15 min</option>
-           <option >30 min</option>
-           <option >45 min</option>
-         </select>
+                    <option selected >15 min</option>
+                    <option >30 min</option>
+                    <option >45 min</option>
+                </select>
             </div>
-
+            <div class="form-group col-md">
+                <label for="">Date</label><br>
+                <input matInput [matDatepicker]="picker" [min]="minDate" formControlName="date" class="form-date"> 
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </div>
+            
         </div>
         <div class="form-row">
             <div class="form-group col-md">
@@ -47,6 +40,9 @@
                 <textarea formControlName="note" name="" id="" cols="30" rows="10" class="form-control"></textarea>
             </div>
         </div>
+       
+            
+       
         <div class="btn btn-info" style="background-color:#33B585" (click)="addTask()" >Add Task</div>
         <div (click)="onClickSubmit()" class="btn btn-info float-right ml-2" style="background-color:#33B585">
             Add Availabilty
@@ -65,7 +61,6 @@
             <tr>
                 <th scope="col">Customer Id</th>
                 <th scope="col">Date</th>
-                <th scope="col">Available Time</th>
                 <th scope="col">Note</th>
                 <th scope="col">Task</th>
                 <th scope="col">Duration</th>
@@ -75,7 +70,6 @@
             <tr *ngFor="let v of displayAvailabilities">
                 <th scope="row">{{v.cust_id}}</th>
                 <td>{{v.date | date:'shortDate' }}</td>
-                <td>{{v.time_from }} - {{v.time_to}}</td>
                 <td>{{v.note}}</td>
                 <td>
                     <div *ngFor="let single_task of v.task">
@@ -87,3 +81,4 @@
         </tbody>
     </table>
 </div>
+

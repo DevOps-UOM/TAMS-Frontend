@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { StatDashboardComponent } from './boards/stat-dashboard/stat-dashboard.component';
+import { Role } from './models/role.model';
+import { AuthGuard } from './shared/auth/auth.guard';
 
 const routes: Routes = [{
     path: '',

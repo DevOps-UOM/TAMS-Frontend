@@ -34,17 +34,24 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { CustomerDetailFormComponent } from './customer-detail-form/customer-detail-form.component';
 import { CustomerProfileComponent } from './customer-profile/customer-profile.component';
 
+import { UserSharedComponent } from './user-shared/user-shared.component';
+import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthGuard } from './auth/auth.guard';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { UserService } from '../services/user/user.service';
+
 const admin_routes: Routes = [
   // { path: 'admin-user-management/ca-agents' , component: CaAgentsTableComponent},
   // { path: 'admin-user-management/ta-agents' , component: TaAgentsTableComponent}
     { path: 'boards/admin-user-management/ta-agents/:userid' , component: UserProfileComponent },
     { path: 'boards/admin-user-management/ca-agents/:userid' , component: UserProfileComponent },
     { path: 'boards/ca-user-management/ta-agents/:userid' , component: UserProfileComponent },
-    { path: 'boards/ca-user-management/customers-registration/:cust_id' , component: CustomerProfileComponent}
+    { path: 'boards/ca-user-management/customers-registration/:cust_id' , component: CustomerProfileComponent},
+    { path: 'userprofile', component: UserProfileComponent,canActivate:[AuthGuard]}
 ];
 
 @NgModule({
-  declarations: [NavBarComponent, MapComponent, TaTaskCardComponent, SideBarComponent, ContainerComponent, DetailFormComponent, CaAgentsTableComponent, TaAgentsTableComponent, NavTablesComponent, TaOnlyDetailFormComponent, UserProfileComponent, CustomerTableComponent, CustomerDetailFormComponent, CustomerProfileComponent,AddTaskComponent],
+  declarations: [NavBarComponent,AddTaskComponent, MapComponent, TaTaskCardComponent, SideBarComponent, ContainerComponent, DetailFormComponent, CaAgentsTableComponent, TaAgentsTableComponent, NavTablesComponent, TaOnlyDetailFormComponent, UserProfileComponent, CustomerTableComponent, CustomerDetailFormComponent, CustomerProfileComponent,UserSharedComponent],
   imports: [
     CommonModule,
     MatIconModule,
@@ -64,13 +71,19 @@ const admin_routes: Routes = [
     MatDialogModule,
     MatButtonModule,
     MatListModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    HttpClientModule
   ],
 
   exports: [
     CaAgentsTableComponent, TaAgentsTableComponent, TaOnlyDetailFormComponent, CustomerTableComponent, CustomerDetailFormComponent,
     NavBarComponent, MapComponent,SideBarComponent,TaTaskCardComponent,FormsModule, ReactiveFormsModule, ContainerComponent, DetailFormComponent, NavTablesComponent,AddTaskComponent
-  ]
+  ],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  },AuthGuard,UserService]
 })
 
 export class SharedModule { }

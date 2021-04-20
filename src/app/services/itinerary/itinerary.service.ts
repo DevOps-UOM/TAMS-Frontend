@@ -16,7 +16,7 @@ export class ItineraryService {
 
   constructor(private http: HttpClient) { }
 
-  getItineraries() {
+  getItineraries():Observable<any>{
     return this.http.get(this.apiEndPoint + '/itineraries');
   }
   addItinerary(newItinerary: any) {
