@@ -46,11 +46,11 @@ export class LeaveComponent implements OnInit {
       ta_id: ['', Validators.required],
       ta_name: ['', Validators.required],
       leave_date: this.fb.group({
-        start_date: ['', Validators.required],
-        end_date: ['', Validators.required],
+      start_date: ['', Validators.required],
+      end_date: ['', Validators.required],
       }),
       pod: ['', Validators.required],
-      note: ['', Validators.required]
+      note:['', Validators.required]
     });
   }
   // tslint:disable-next-line:typedef
