@@ -20,24 +20,24 @@
             <div class="form-group col-md">
                 <label for="">Estimated Duration</label>
                 <select class="custom-select" formControlName="task_duration">
-                    <option selected >15 min</option>
+                    <option selected="selected" >15 min</option>
                     <option >30 min</option>
                     <option >45 min</option>
                 </select>
             </div>
             <div class="form-group col-md">
                 <label for="">Date</label><br>
-                <input matInput [matDatepicker]="picker" [min]="minDate" formControlName="date" class="form-date"> 
+                <input matInput [matDatepicker]="picker" [min]="minDate" formControlName="date" class="form-date">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </div>
-            
+
         </div>
         <div class="form-row">
             <div class="form-group col-md">
                 <label for="">Select Task</label>
                 <select multiple=true class="form-control" formControlName="task" size="11" >
-                    <option [ngValue]="t._id" *ngFor="let t of displayTasks">{{t.task_name}}</option> 
+                    <option [ngValue]="t._id" *ngFor="let t of displayTasks">{{t.task_name}}</option>
                 </select>
             </div>
             <div class="form-group col-md">
@@ -45,9 +45,9 @@
                 <textarea formControlName="note" name="" id="" cols="30" rows="10" class="form-control"></textarea>
             </div>
         </div>
-       
-            
-       
+
+
+
         <div class="btn btn-info" style="background-color:#33B585" (click)="addTask()" >Add Task</div>
         <div (click)="onClickSubmit()" class="btn btn-info float-right ml-2" style="background-color:#33B585">
             Add Availabilty
