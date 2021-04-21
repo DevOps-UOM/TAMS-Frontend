@@ -12,7 +12,7 @@ import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog
   styleUrls: ['./customer-availabilty.component.css']
 })
 export class CustomerAvailabiltyComponent implements OnInit {
-  
+
   custId = '';
   availabilityForm: FormGroup;
   availabilities: any;
@@ -87,7 +87,7 @@ export class CustomerAvailabiltyComponent implements OnInit {
       task_duration: ['', Validators.required]
     });
   }
-  
+
   // tslint:disable-next-line:typedef
   onClickSubmit() {
     console.log(this.availabilityForm.value);
@@ -111,7 +111,7 @@ export class CustomerAvailabiltyComponent implements OnInit {
       this.displayAvailabilities =  this.availabilities.filter((a) => {
         if(a.cust_id.cust_id.toLowerCase().indexOf(term.toLowerCase()) > -1) {
           return a
-        } 
+        }
       });
     }
   }
@@ -127,7 +127,7 @@ export class CustomerAvailabiltyComponent implements OnInit {
     })
 
   }
-  
+
 
 
 

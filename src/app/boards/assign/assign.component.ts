@@ -1,7 +1,7 @@
-import { PrintItiDetailsComponent } from './../print-iti-details/print-iti-details.component';
 import { Component, OnInit } from '@angular/core';
 import { AvailabilityServiceService } from 'src/app/services/availability-service.service';
 import * as moment from 'moment';
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-assign',
@@ -12,14 +12,17 @@ export class AssignComponent implements OnInit {
 
   availabilities: any;
   displayAvailabilities: any;
-  
-  
+
+
+
   constructor(
+    private http: HttpClient,
     private availabilityService: AvailabilityServiceService,
 
   ) { }
 
   ngOnInit(): void {
+
     this.loadAvailability()
   }
 
@@ -43,7 +46,7 @@ export class AssignComponent implements OnInit {
   onSearch(term: any) {
     console.log(moment(term).format('YYYY-MM-DD'));
     console.log(term);
-    
+
     if (term === '') {
       this.displayAvailabilities = this.availabilities;
     } else {
@@ -52,6 +55,8 @@ export class AssignComponent implements OnInit {
       });
     }
   }
+
+
 
 
 }
