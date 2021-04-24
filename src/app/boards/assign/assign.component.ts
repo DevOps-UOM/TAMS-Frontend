@@ -16,7 +16,7 @@ export class AssignComponent implements OnInit {
   displayAvailabilities: any;
   searchTerm: any;
   travelAgents = [];
-
+  date;
 
   constructor(
     private http: HttpClient,
@@ -34,6 +34,7 @@ export class AssignComponent implements OnInit {
     this.availabilityService.getAllAvailability()
       .subscribe(
         res => {
+          console.log(res.data);
           this.availabilities = res.data;
           this.displayAvailabilities =  this.availabilities;
         },
@@ -56,6 +57,7 @@ export class AssignComponent implements OnInit {
       this.displayAvailabilities = this.availabilities;
     } else {
       this.displayAvailabilities =  this.availabilities.filter((a) => {
+        this.date=term;
        return moment(a.date).format('YYYY-MM-DD') === term
       });
     }
@@ -63,19 +65,24 @@ export class AssignComponent implements OnInit {
   }
 
   onAssign(){
-    let payload = this.displayAvailabilities.forEach((m) => {
-      let obj =  {customer: m.cust_id._id, travel_agent: m.cust_id.default_agent_id._id, iti_date: m.date};
-      this.assignService.createAssign(obj)
-        .subscribe(
-          res => {
-            console.log(res)
-          },
-          error => {
-
-          }
-        );
-    })
-
+    if(this.date){
+      let dataArr=[];
+      let payload = this.displayAvailabilities.forEach((m) => {
+        let obj =  {customer: m.cust_id._id, travel_agent: m.cust_id.default_agent_id._id, iti_date: m.date};
+        dataArr.push(obj);
+      })
+      this.assignService.createAssign(dataArr)
+          .subscribe(
+            res => {
+              console.log(res)
+            },
+            error => {
+  
+            }
+          );
+    }else{
+      alert('select a date first');
+    }
 
   }
 
