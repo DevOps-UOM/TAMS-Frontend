@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -11,7 +12,7 @@ import {HttpClient} from '@angular/common/http';
 export class LeaveService {
 
  
-  readonly baseURL = 'http://localhost:3000/leaves';
+  readonly baseURL = environment.apiBaseUrl+'/leaves';
 
   constructor(
     private http: HttpClient

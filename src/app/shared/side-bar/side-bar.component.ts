@@ -40,6 +40,9 @@ export class SideBarComponent implements OnInit {
       case 'Itinerary Map':
         this.router.navigate(['/boards/itinerary-map']);
         break;
+      case 'TA Map':
+        this.router.navigate(['/boards/ta-map']);
+        break;
       case 'Itinerary Details':
         this.router.navigate(['/boards/itinerary-details']);
         break;

@@ -64,6 +64,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.detectScreenSize();
+    //console.log("layout called")
     this.showSideBar(this.isTablet|| this.isDesktop);
   }
 

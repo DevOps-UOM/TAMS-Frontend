@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpResponse,HttpClientModule } from '@angular/common/http';
 import { AllocatedCustomers } from '../../models/itinerary.model'
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class TaskAssignmentService {
 
-  apiEndPoint = 'http://localhost:3000';
+  apiEndPoint = environment.apiBaseUrl;
 
 
   constructor(private http: HttpClient) { }
