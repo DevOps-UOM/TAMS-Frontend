@@ -26,6 +26,7 @@ export class TAItineraryMapComponent implements OnInit {
   }
 
   ngOnInit(){
+    //console.log("called")
     this.getCustomers();
     this.getItineraryDet();
   }

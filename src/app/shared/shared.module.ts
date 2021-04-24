@@ -1,6 +1,7 @@
 import { SharedRoutingModule } from './shared-routing.module';
 import { LayoutsModule } from './../layouts/layouts.module';
 import { from } from 'rxjs';
+import {environment} from '../../environments/environment'
 //import { BrowserModule } from '@angular/platform-browser';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { CustomerTableComponent } from './customer-table/customer-table.component';
@@ -29,6 +30,9 @@ import { AddTaskComponent } from './add-task/add-task.component';
 
 import {MatButtonModule} from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
+
+import {AngularFireModule} from '@angular/fire'
+export const firebaseConfig = environment.firebaseConfig;
 
 import { TaOnlyDetailFormComponent } from './ta-only-detail-form/ta-only-detail-form.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
@@ -60,8 +64,9 @@ import { UserService } from '../services/user/user.service';
     FormsModule,
     ReactiveFormsModule,
     //BrowserModule,
+    AngularFireModule.initializeApp(firebaseConfig),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyA9rPesD1LpqsLTVFeHEpxvjnl5FNLDbS0',
+      apiKey: environment.googleMapsKeys,
       libraries:['places']
     }),
     AgmDirectionModule,
