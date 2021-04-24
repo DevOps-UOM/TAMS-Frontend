@@ -55,15 +55,23 @@ export class LeaveComponent implements OnInit {
 
 
 
+  // formInstaller(): void {
+  //   this.leaveForm = this.fb.group({
+  //     travel_agent: ['', Validators.required],
+  //     // ta_name: ['', Validators.required],
+  //     leave_date: this.fb.group({
+  //     start_date: ['', Validators.required],
+  //     end_date: ['', Validators.required],
+  //     }),
+  //     // pod: ['', Validators.required],
+  //     note:['', Validators.required]
+  //   });
+  // }
   formInstaller(): void {
     this.leaveForm = this.fb.group({
       travel_agent: ['', Validators.required],
-      // ta_name: ['', Validators.required],
-      leave_date: this.fb.group({
       start_date: ['', Validators.required],
       end_date: ['', Validators.required],
-      }),
-      // pod: ['', Validators.required],
       note:['', Validators.required]
     });
   }
