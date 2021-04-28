@@ -29,4 +29,8 @@ export class TaskAssignmentService {
     return this.http.put(this.apiEndPoint + '/taskAssignment/' + data.itinerary_id + '/' + data.cust_id, data);
   }
 
+  shareLocation(data:any){
+    return this.http.put(this.apiEndPoint + '/taskAssignment/rating/' + data.itinerary_id + '/' + data.cust_id, data)
+  }
+
 }

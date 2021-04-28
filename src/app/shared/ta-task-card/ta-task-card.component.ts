@@ -180,6 +180,19 @@ export class TaTaskCardComponent implements OnInit {
       window.open(url, "_blank");
   }
 
+
+  shareLocation(){
+    let data= {
+      itinerary_id:this.selectedItinerary._id,
+      cust_id:this.customer.cust_id
+    };
+
+    this.taskAssignmentService.shareLocation(data).subscribe(res=>{
+      console.log("Sharing location activated");
+      console.log(data);
+    })
+  }
+
   //   let newStudent={
   //     _id:this._id,
   //     stuId:this.stuId,
