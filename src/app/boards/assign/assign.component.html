@@ -35,7 +35,7 @@
                     <td>
                       <select [(ngModel)]="v.cust_id.default_agent_id._id" class="form-control" >
 <!--                       <option  [value]="v.cust_id.default_agent_id._id"   disabled selected="selected">{{v.cust_id.default_agent_id.first_name}}</option>-->
-                      <option *ngFor="let agent of travelAgents" [value]="agent._id" >{{agent.first_name}} {{agent.last_name}}</option>
+                      <option *ngFor="let agent of travelAgents" [value]="agent._id" >{{agent.userid}}- {{agent.first_name}} {{agent.last_name}}</option>
                     </select>
                     </td>
 

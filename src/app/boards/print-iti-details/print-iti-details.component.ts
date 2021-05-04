@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {MatDialogRef} from "@angular/material/dialog";
+import { CustomerService } from './../../services/customer/customer.service';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import {MatDialogRef, MAT_DIALOG_DATA} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-print-iti-details',
@@ -7,12 +8,49 @@ import {MatDialogRef} from "@angular/material/dialog";
   styleUrls: ['./print-iti-details.component.css']
 })
 export class PrintItiDetailsComponent implements OnInit {
+  
+   details: any;
+   customers : any;
 
   constructor(
-    public dialogRef: MatDialogRef<PrintItiDetailsComponent>
-  ) {}
+    public dialogRef: MatDialogRef<PrintItiDetailsComponent>,@Inject(MAT_DIALOG_DATA)
+    public data: any,
+    private customerService : CustomerService,
+  ) {
+    console.log("nirosh");
+    
+    this.details = data;
+    console.log(this.details);
+    
+ 
+  }
 
   ngOnInit(): void {
+// cust_id.forEach(element => {
+//   //var x = await  get (c001)
+//   .subscribe(
+//     data =>{
+//       this.Custers.push(data);
+    // }
+  // );
+
+// });
+this.loadItineraries("C001")
+  }
+
+  loadItineraries(id: "C001"){
+    this.customerService.findOne(id).subscribe(
+      res => {
+        this.customers = res.data;
+        console.log("customers");
+        
+      },
+      error => {
+
+      }
+
+    );
+
   }
 
   toPrint(){

@@ -11,7 +11,7 @@
             <div class="form-group col-md">
                 <label for="">Customer</label>
                 <select required formControlName="cust_id" class="form-control" searchable="Search here..">
-                    <!-- <option value="" disabled selected>Choose agent</option> -->
+                    <option value="" disabled selected>Choose Customer</option>
                     <option *ngFor="let customer of customers" [value]="customer._id" >{{customer.cust_id}}- {{customer.name.first_name}} {{customer.name.last_name}}</option>
                   </select>
 
@@ -20,6 +20,7 @@
             <div class="form-group col-md">
                 <label for="">Estimated Duration</label>
                 <select class="custom-select" formControlName="task_duration">
+                    <option value="" disabled selected>Choose Duration</option>
                     <option selected="selected" >15 min</option>
                     <option >30 min</option>
                     <option >45 min</option>
@@ -68,7 +69,7 @@
                 <th scope="col">Date</th>
                 <th scope="col">Note</th>
                 <th scope="col">Task</th>
-                <th scope="col">Duration</th>
+                <th scope="col">Est. Duration</th>
             </tr>
         </thead>
         <tbody>

@@ -20,6 +20,7 @@ export class ItineraryService {
   getItineraries():Observable<any>{
     return this.http.get(this.apiEndPoint + '/itineraries');
   }
+  
   addItinerary(newItinerary: any) {
     return this.http.post(this.apiEndPoint + '/itineraries', newItinerary);
   }

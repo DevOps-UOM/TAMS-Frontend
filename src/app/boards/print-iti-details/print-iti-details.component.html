@@ -6,7 +6,9 @@
     <div class=" shadow-sm col-md-4 p-4 m-3">
         <div class="h5">Itinerary Details</div> <hr class="solid">
         <div>
-            <div class="mt-3" >Customers</div>
+            <div class="mt-3" >Travel Agent</div>
+            <div *ngFor="let details of details;let i= index "></div>
+            <h1> {{details.travel_agent_id}} </h1>
         </div>
     </div>
 

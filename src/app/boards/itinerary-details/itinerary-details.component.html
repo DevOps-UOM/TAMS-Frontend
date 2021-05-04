@@ -24,10 +24,10 @@
             <tr *ngFor="let t of displayItineraries;let i= index " >
                 <td scope="row" style="cursor: pointer;" >{{i+1}} </td>
                 <td>{{t.travel_agent_id}} </td>
-                <td> </td>
+                <td>  </td>
                 <td>{{t.date | date:'shortDate' }} </td>
                 <td><i class="fa fa-trash zoom" style="cursor: pointer;" (click)="onItiDelete(t.travel_agent_id, t.date) " ></i></td>
-                <div class="btn btn-info" style="background-color:#33B585" (click)="printIti()" >Print</div>
+                <div class="btn btn-info" style="background-color:#33B585" (click)="printIti(i)" >Print</div>
 
             </tr>
         </tbody>

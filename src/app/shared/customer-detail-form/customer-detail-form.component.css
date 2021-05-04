@@ -1,10 +1,7 @@
-.search-hero {
-  max-width: 400px;
-  padding-bottom: 50px;
-}
+
 
 .form-control {
-  box-shadow: 0 10px 40px 0 #b0c1d9;
+  box-shadow: 0 5px 6px 0 #e9f2ff;
 }
 
 .form-control::placeholder {

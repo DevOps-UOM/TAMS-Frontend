@@ -19,7 +19,7 @@
       <label for="coordinates">Location</label> &nbsp; &nbsp; &nbsp;
       <input type="text" id="coordinates"  class="form-control" formControlName="coordinates">
       <br /> <br />
-    </div> -->
+       </div> -->
 
       <label for="area">Area</label> &nbsp; &nbsp; &nbsp;
       <input type="text" id="area"  class="form-control" formControlName="area">
@@ -34,8 +34,10 @@
         type="email"
         id="email"
         formControlName="email"
-        class="form-control"
-      /><br /><br />
+        class="form-control"/>
+
+      <br/>
+      <br/>
   
       <label for="mobile_number">Contact No.</label> &nbsp; &nbsp; &nbsp;
       <input type="text" id="mobile_number"  class="form-control" formControlName="mobile_number">
@@ -46,23 +48,26 @@
       <br /> <br />
 
       <select formControlName="default_agent_id" class="form-control" searchable="Search here..">
-        <!-- <option value="" disabled selected>Choose agent</option> -->
-        <option *ngFor="let agent of travelAgents" [value]="agent._id" >{{agent.first_name}}</option>
+        <option value="" disabled selected>Choose Default Agent</option>
+        <option *ngFor="let agent of travelAgents" [value]="agent._id" >{{agent.userid}}- {{agent.first_name}} {{agent.last_name}}</option>
       </select>
-
-  <button type="submit" class="btn btn-info mt-8" style="background-color:#33B585 ; font-size:17px">Add Customer</button>
-  <!-- <div (click)="onClickSubmit()" class="btn btn-info float-right ml-2" style="background-color:#33B585 ; font-size:20px">
-    Add
-</div> -->
+     
+      <button type="submit" class="btn btn-info col-md mt-5" style="background-color:#33B585 ; font-size:17px">Add Customer</button>
+      <!-- <div (click)="onClickSubmit()" class="btn btn-info float-right ml-2" style="background-color:#33B585 ; font-size:20px">
+        Add
+      </div> -->
+  
+      <br>  
+      <br>
+      <br>
     </form>
   </div>
-
+  
   <!-- <input type="file" class="upload" (change)="changeListener($event.target.files)"> -->
-  
-  
-  <div class="tables">
 
-    <div class="search-hero">
+  <div class="tables">
+  
+    <div class="search-hero mt-8 ">
       <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Start searching for a customer">
     </div>
 
