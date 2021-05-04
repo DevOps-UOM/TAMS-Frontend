@@ -174,7 +174,10 @@ export class MapComponent implements OnInit, AfterViewInit {
     //this.trackMe();
 
     this.user=userService.getUserPayload()
-    this.geo.updateOnDisconnect(this.user.userid.toString())
+    if(this.user!=null && this.user.userid!=null){
+      this.geo.updateOnDisconnect(this.user.userid.toString())
+    }
+    
   }
 
   ngOnInit(): void {
@@ -596,28 +599,31 @@ export class MapComponent implements OnInit, AfterViewInit {
         this.liveLng = position.coords.longitude;
 
         //var locData;
-        this.geo.get(this.user.userid.toString()).then(res=>{
-          console.log(res);
-          if (res) {
-            var angle;
-            if(this.liveLat === res.coordinates.lat && this.liveLng === res.coordinates.lng){
-              angle=res.angle;
-            }else{
-              angle = Math.atan2( this.liveLng - res.coordinates.lng,this.liveLat - res.coordinates.lat) * 180 / Math.PI
+        
+        if(this.user && this.user.userid){
+          this.geo.get(this.user.userid.toString()).then(res=>{
+            console.log(res);
+            if (res) {
+              var angle;
+              if(this.liveLat === res.coordinates.lat && this.liveLng === res.coordinates.lng){
+                angle=res.angle;
+              }else{
+                angle = Math.atan2( this.liveLng - res.coordinates.lng,this.liveLat - res.coordinates.lat) * 180 / Math.PI
+              }
+              console.log(angle);
+              this.geo.update(this.user.userid.toString(), { userName: this.user.first_name.toString(), coordinates: { lat: this.liveLat, lng: this.liveLng }, angle: angle });
+  
+            } else {
+              console.log("creating")
+              this.liveLocation = {
+                userName: this.user.first_name.toString(),
+                coordinates: { lat: this.liveLat, lng: this.liveLng },
+                angle: 0
+              }
+              this.geo.update(this.user.userid.toString(), this.liveLocation);
             }
-            console.log(angle);
-            this.geo.update(this.user.userid.toString(), { userName: this.user.first_name.toString(), coordinates: { lat: this.liveLat, lng: this.liveLng }, angle: angle });
-
-          } else {
-            console.log("creating")
-            this.liveLocation = {
-              userName: this.user.first_name.toString(),
-              coordinates: { lat: this.liveLat, lng: this.liveLng },
-              angle: 0
-            }
-            this.geo.update(this.user.userid.toString(), this.liveLocation);
-          }
-        })
+          })
+        }
         
          
         

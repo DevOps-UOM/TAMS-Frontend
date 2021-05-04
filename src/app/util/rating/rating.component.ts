@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { LayoutConfig } from 'src/app/models/layout.config';
+import { AgentLocationService } from 'src/app/services/agent-location/agent-location.service';
+import { LayoutConfigService } from 'src/app/services/layout-service/layout.service';
 
 //Calling share location from the travel agent
 //import{} from '../../shared/ta-task-card/ta-task-card.component'
@@ -16,10 +20,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RatingComponent implements OnInit {
 
-  constructor() { }
+  public uniqueKey: string;
+
+  constructor(
+    private _activatedRoute: ActivatedRoute,
+    private _agentLocationService: AgentLocationService,
+    private configService: LayoutConfigService
+  ) {
+    this.configService.setConfig(new LayoutConfig(false,false));
+   }
 
   ngOnInit(): void {
+    this._activatedRoute.params.subscribe(parameter => {
+      this.uniqueKey = parameter.randomKey
+      alert("Key :"+this.uniqueKey)
+      this.getAgentDetails(this.uniqueKey)
+    })
   }
+
+  getAgentDetails(key){
+    this._agentLocationService.getAgentLocation(key).subscribe(res=>{
+      if(res){
+        alert("response"+JSON.stringify(res))
+      }
+    },err=>{
+      alert("error in getting agent details"+JSON.stringify(err))
+    })
+  }
+
 
 }
 

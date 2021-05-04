@@ -14,6 +14,7 @@ import * as Hammer from 'hammerjs';
 
 import {AngularFireModule} from '@angular/fire';
 import { ServiceWorkerModule } from '@angular/service-worker'
+import { RatingComponent } from './util/rating/rating.component';
 export const firebaseConfig = environment.firebaseConfig;
 
 export class MyHammerConfig extends HammerGestureConfig{
@@ -24,7 +25,8 @@ export class MyHammerConfig extends HammerGestureConfig{
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RatingComponent
   ],
   imports: [
     BrowserModule,
