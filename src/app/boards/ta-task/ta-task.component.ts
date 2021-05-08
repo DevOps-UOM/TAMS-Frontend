@@ -5,6 +5,8 @@ import { trigger, style, transition, animate, keyframes, query, stagger } from '
 import { emitWarning } from 'process';
 import { TaTaskCardComponent } from "../../shared/ta-task-card/ta-task-card.component";
 import { TaskAssignmentService } from "../../services/task-assignment/task-assignment.service"
+import { UserService } from 'src/app/services/user';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-ta-task',
@@ -69,12 +71,14 @@ export class TaTaskComponent implements OnInit {
   selectedItinerary: Itinerary;
 
   date: Date = new Date("2021-04-05");
-  taid: String = "TA001";
+  taid: String;
   modeSignal: string = modeSignalStatus.markerMode;
 
+  user: User;
 
-
-  constructor(private itineraryService: ItineraryService, private taskAssignmentService: TaskAssignmentService) {
+  constructor(private itineraryService: ItineraryService, private taskAssignmentService: TaskAssignmentService,private userService:UserService) {
+    this.user=userService.getUserPayload()
+    this.taid=this.user.userid
   }
 
   async ngOnInit() {

@@ -13,6 +13,8 @@ import { GeoService } from '../../services/geo/geo.service'
 import { Coordinates, LocationModel } from '../../models/realtimedb.model'
 import { UserService } from 'src/app/services/user/user.service';
 import { User } from 'src/app/models/user.model';
+import { AssignService } from 'src/app/services/assign/assign.service';
+import { AgentLocationService } from 'src/app/services/agent-location/agent-location.service';
 
 @Component({
   selector: 'app-map',
@@ -88,6 +90,9 @@ export class MapComponent implements OnInit, AfterViewInit {
   user:User;
   //submitted = false;
 
+  @Input() TAAgent:string;
+  @Input() uniqueKey:string;
+
   @ViewChild('search')
   public searchElementRef: ElementRef;
 
@@ -141,6 +146,8 @@ export class MapComponent implements OnInit, AfterViewInit {
       } else {
         this.widthReduce = 50;
       }
+    } else if(this.modeSignal === modeSignalStatus.singleLiveMode){
+      this.widthReduce = 50;
     }
 
     this.renderer.setStyle(
@@ -170,7 +177,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   constructor(private itineraryService: ItineraryService, private renderer: Renderer2, private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone, private data: DataService, private taskAssignmentService: TaskAssignmentService, private geo: GeoService,public userService: UserService) {
+    private ngZone: NgZone, private data: DataService, private taskAssignmentService: TaskAssignmentService, private geo: GeoService,public userService: UserService,private agentLocationService:AgentLocationService) {
     //this.trackMe();
 
     this.user=userService.getUserPayload()
@@ -181,23 +188,20 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    
-    console.log("Called")
-
-
 
     this.subscription = this.data.currentMessage.subscribe(isShowSidebar => this.isShowSidebar = isShowSidebar)
 
 
-    this.trackMe();
+    
 
 
     console.log(this.modeSignal);
     switch (this.modeSignal) {
-      case "directionMode": this.getDirections(); break;
+      case "directionMode":this.trackMe(); this.getDirections(); break;
       case "markerMode": this.getMarkers(); break;
-      case "singlePathMode": this.getSingleDirection(); break;
+      case "singlePathMode":this.trackMe(); this.getSingleDirection(); break;
       case "liveMode": this.showTrackingPosition(); break;
+      case "singleLiveMode" :this.showTALocation();break;
       default: console.log("default Case Triggered");
     }
 
@@ -212,7 +216,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   }
 
-
+ 
 
   async getSingleDirection() {
     // this.trackMe();
@@ -717,6 +721,68 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     });
   }
+
+  showTALocation(){
+    const map = new google.maps.Map(
+      document.getElementById("map") as HTMLElement,
+      {
+        zoom: 8,
+        center: { lat: 7.928309, lng: 80.5 },
+      }
+    );
+
+    
+      var temp = new google.maps.Marker;
+      var isNotExpired:boolean=false;
+     
+
+      this.geo.getLoc(this.TAAgent).valueChanges().subscribe(res=>{
+
+      
+        temp.setMap(null);
+
+        this.agentLocationService.getAgentLocation(this.uniqueKey).subscribe(res2=>{
+          console.log(res2);
+          isNotExpired=res2.status;
+
+          if(!isNotExpired){
+            alert("Live location is expired...!");
+            return;
+          }
+        })
+
+        
+        if(!res){
+          alert(this.TAAgent+" Travel Agent is Offline");
+          return;
+        }
+
+        var icon = { // car icon
+          path: 'M29.395,0H17.636c-3.117,0-5.643,3.467-5.643,6.584v34.804c0,3.116,2.526,5.644,5.643,5.644h11.759   c3.116,0,5.644-2.527,5.644-5.644V6.584C35.037,3.467,32.511,0,29.395,0z M34.05,14.188v11.665l-2.729,0.351v-4.806L34.05,14.188z    M32.618,10.773c-1.016,3.9-2.219,8.51-2.219,8.51H16.631l-2.222-8.51C14.41,10.773,23.293,7.755,32.618,10.773z M15.741,21.713   v4.492l-2.73-0.349V14.502L15.741,21.713z M13.011,37.938V27.579l2.73,0.343v8.196L13.011,37.938z M14.568,40.882l2.218-3.336   h13.771l2.219,3.336H14.568z M31.321,35.805v-7.872l2.729-0.355v10.048L31.321,35.805',
+          scale: 0.4,
+          fillColor: "#427af4", //<-- Car Color
+          fillOpacity: 1,
+          rotation: res.angle,
+          strokeWeight: 1,
+          anchor: new google.maps.Point(0, 5),
+        };
+  
+        temp=new google.maps.Marker({
+          position: { lat: res.coordinates.lat, lng: res.coordinates.lng },
+          map,
+          icon: icon,
+          title: res.userName,
+          optimized: false
+        })
+      })
+    // this.geo.get(this.user.userid.toString()).then(res=>{
+     
+
+    // });
+
+  }
+
+
 
 }
 

@@ -15,6 +15,8 @@ import * as Hammer from 'hammerjs';
 import {AngularFireModule} from '@angular/fire';
 import { ServiceWorkerModule } from '@angular/service-worker'
 import { RatingComponent } from './util/rating/rating.component';
+import {SharedModule} from './shared/shared.module'
+
 export const firebaseConfig = environment.firebaseConfig;
 
 export class MyHammerConfig extends HammerGestureConfig{
@@ -30,13 +32,14 @@ export class MyHammerConfig extends HammerGestureConfig{
   ],
   imports: [
     BrowserModule,
+    SharedModule,
     AppRoutingModule,
     LayoutsModule,
     HttpClientModule,
     AlertsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     BrowserAnimationsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [{
     provide:HAMMER_GESTURE_CONFIG,

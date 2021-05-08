@@ -3,6 +3,8 @@ import { AllocatedCustomers, modeSignalStatus } from 'src/app/models/itinerary.m
 import { ItineraryService } from '../../services/itinerary/itinerary.service';
 import { Overlay } from '@angular/cdk/overlay';
 import { ContentObserver } from '@angular/cdk/observers';
+import { UserService } from 'src/app/services/user';
+import { User } from 'src/app/models/user.model';
 
 
 @Component({
@@ -18,11 +20,14 @@ export class TAItineraryMapComponent implements OnInit {
   selectedItinerary: any;
 
   date: Date = new Date("2021-04-05");
-  taid: String = "TA001";
+  taid: String;
   modeSignal:string= modeSignalStatus.directionMode;
 
-  constructor(private itineraryService: ItineraryService) {
+  user:User
 
+  constructor(private itineraryService: ItineraryService,private userService : UserService) {
+    this.user=userService.getUserPayload()
+    this.taid=this.user.userid
   }
 
   ngOnInit(){

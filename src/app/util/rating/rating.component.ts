@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LayoutConfig } from 'src/app/models/layout.config';
 import { AgentLocationService } from 'src/app/services/agent-location/agent-location.service';
 import { LayoutConfigService } from 'src/app/services/layout-service/layout.service';
+import{modeSignalStatus}from '../../models/itinerary.model'
 
 //Calling share location from the travel agent
 //import{} from '../../shared/ta-task-card/ta-task-card.component'
@@ -21,7 +22,8 @@ import { LayoutConfigService } from 'src/app/services/layout-service/layout.serv
 export class RatingComponent implements OnInit {
 
   public uniqueKey: string;
-
+  modeSignal:string=modeSignalStatus.singleLiveMode;
+  TAAgent:string;
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _agentLocationService: AgentLocationService,
@@ -33,7 +35,7 @@ export class RatingComponent implements OnInit {
   ngOnInit(): void {
     this._activatedRoute.params.subscribe(parameter => {
       this.uniqueKey = parameter.randomKey
-      alert("Key :"+this.uniqueKey)
+      //alert("Key :"+this.uniqueKey)
       this.getAgentDetails(this.uniqueKey)
     })
   }
@@ -41,7 +43,9 @@ export class RatingComponent implements OnInit {
   getAgentDetails(key){
     this._agentLocationService.getAgentLocation(key).subscribe(res=>{
       if(res){
-        alert("response"+JSON.stringify(res))
+        //alert("response"+JSON.stringify(res))
+        //console.log(res);
+        this.TAAgent=res.agent_id;
       }
     },err=>{
       alert("error in getting agent details"+JSON.stringify(err))
