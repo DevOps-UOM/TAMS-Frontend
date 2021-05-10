@@ -4,7 +4,7 @@ import { LayoutConfig } from 'src/app/models/layout.config';
 import { AgentLocationService } from 'src/app/services/agent-location/agent-location.service';
 import { LayoutConfigService } from 'src/app/services/layout-service/layout.service';
 import{modeSignalStatus}from '../../models/itinerary.model'
-
+import {FormControl, Validators} from '@angular/forms';
 
 //Calling share location from the travel agent
 //import{} from '../../shared/ta-task-card/ta-task-card.component'
@@ -27,6 +27,7 @@ export class RatingComponent implements OnInit {
   TAAgent:string;
 
   currentRate = 0;
+  ctrl = new FormControl(null, Validators.required);
 
   constructor(
     private _activatedRoute: ActivatedRoute,
@@ -42,6 +43,7 @@ export class RatingComponent implements OnInit {
       //alert("Key :"+this.uniqueKey)
       this.getAgentDetails(this.uniqueKey)
     })
+
   }
 
   getAgentDetails(key){
@@ -56,7 +58,16 @@ export class RatingComponent implements OnInit {
     })
   }
 
-  
+  rateAgent(){
+    var data = {
+      uniqueKey:this.uniqueKey,
+      rate:this.currentRate
+    }
+    this._agentLocationService.rateAgent(data).subscribe(res=>{
+      console.log("Rating completed");
+    })
+  }
+
 
 }
 

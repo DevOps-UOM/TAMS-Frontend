@@ -17,5 +17,9 @@ export class AgentLocationService {
     return this.http.get(environment.apiBaseUrl + '/isExpired/' + data.agent_id+'/'+data.cust_id);
   }
 
+  rateAgent(data:any):Observable<any>{
+    return this.http.put(environment.apiBaseUrl + '/rating',data)
+  }
+
 }
 

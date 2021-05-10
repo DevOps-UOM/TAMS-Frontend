@@ -1,12 +1,12 @@
 <div>
-    <div class="rating">
-        <h3>How was your agent :
-            <ngb-rating [(rate)]="currentRate">
-                <ng-template let-fill="fill" let-index="index">
-                    <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3">&#9733;</span>
-                </ng-template>
-            </ngb-rating>
-        </h3>
+    <div class="form-group rating">
+        <h3>How was your agent : </h3>
+        <ngb-rating *ngIf="ctrl.invalid" [formControl]="ctrl" [(rate)]="currentRate" (rateChange)="rateAgent()">
+            <ng-template let-fill="fill" let-index="index">
+                <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3">&#9733;</span>
+            </ng-template>
+        </ngb-rating>
+        <div *ngIf="ctrl.valid" class="text-success">Thank You!</div>
     </div>
     <hr>
     <app-map *ngIf="TAAgent && uniqueKey" [uniqueKey]="uniqueKey" [modeSignal]="modeSignal" [TAAgent]='TAAgent'>
