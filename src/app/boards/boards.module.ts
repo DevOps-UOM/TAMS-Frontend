@@ -36,6 +36,8 @@ import { StatDashboardComponent } from './stat-dashboard/stat-dashboard.componen
 import { UserComponent } from './user/user.component';
 import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
+import { RequestResetComponent } from './user/request-reset/request-reset.component';
+import { ResponseResetComponent } from './user/response-reset/response-reset.component';
 
 const routes: Routes = [
   {
@@ -91,13 +93,21 @@ const routes: Routes = [
   },
   {  
     path: 'stat-dashboard',
-    component: StatDashboardComponent,
-    canActivate: [AuthGuard],
-    data: { roles: [Role.Admin] }
+    component: StatDashboardComponent
+    // canActivate: [AuthGuard],
+    // data: { roles: [Role.Admin] }
   },
   {
     path: 'login', component: UserComponent,
     children: [{ path: '', component: SignInComponent}]
+  },
+  {
+    path: 'request-reset-password',
+    component: RequestResetComponent,
+  },
+  {
+      path: 'response-reset-password/:token',
+      component: ResponseResetComponent
   }
 ]
 
@@ -116,7 +126,9 @@ const routes: Routes = [
     StatDashboardComponent, 
     UserComponent, 
     ResetPasswordComponent, 
-    SignInComponent
+    SignInComponent,
+    RequestResetComponent,
+    ResponseResetComponent
     ],
   
   imports: [

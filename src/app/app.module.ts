@@ -10,6 +10,7 @@ import{BrowserAnimationsModule} from '@angular/platform-browser/animations'
 
 import * as Hammer from 'hammerjs';
 
+
 export class MyHammerConfig extends HammerGestureConfig{
   overrides = <any>{
     'swipe': {direction:Hammer.DIRECTION_ALL}

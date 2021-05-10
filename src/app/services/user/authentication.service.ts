@@ -40,4 +40,17 @@ export class AuthenticationService {
         this.userSubject.next(null);
         this.router.navigate(['/login']);
     }
+
+    requestReset(body): Observable<any> {
+        return this.http.post(`${environment.apiBaseUrl}/req-reset-password`, body);
+      }
+    
+    newPassword(body): Observable<any> {
+        return this.http.post(`${environment.apiBaseUrl}/new-password`, body);
+      }
+    
+    ValidPasswordToken(body): Observable<any> {
+        return this.http.post(`${environment.apiBaseUrl}/valid-password-token`, body);
+      }
+    
 }
