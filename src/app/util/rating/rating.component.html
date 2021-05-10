@@ -1,4 +1,14 @@
 <div>
+    <div class="rating">
+        <h3>How was your agent :
+            <ngb-rating [(rate)]="currentRate">
+                <ng-template let-fill="fill" let-index="index">
+                    <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3">&#9733;</span>
+                </ng-template>
+            </ngb-rating>
+        </h3>
+    </div>
+    <hr>
     <app-map *ngIf="TAAgent && uniqueKey" [uniqueKey]="uniqueKey" [modeSignal]="modeSignal" [TAAgent]='TAAgent'>
 
     </app-map>

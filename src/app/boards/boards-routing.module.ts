@@ -91,10 +91,6 @@ const routes: Routes = [
       component: StatDashboardComponent,
       canActivate: [AuthGuard],
       data: { roles: [Role.Admin] }
-    },
-    {
-      path: 'login', component: UserComponent,
-      children: [{ path: '', component: SignInComponent}]
     }
   ];
 
