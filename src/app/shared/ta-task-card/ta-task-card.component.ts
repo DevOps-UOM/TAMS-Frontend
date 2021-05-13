@@ -14,7 +14,7 @@ import { MapComponent } from "../../shared/map/map.component"
 import { AgentLocationService } from 'src/app/services/agent-location/agent-location.service';
 import { UserService } from 'src/app/services/user';
 import { User } from 'src/app/models/user.model';
-
+import * as moment from 'moment'
 
 
 @Component({
@@ -51,7 +51,7 @@ export class TaTaskCardComponent implements OnInit {
 
   @Input() selectedItinerary: Itinerary;
 
-  date: Date = new Date("2021-04-05");                                          //------------------Change with Today--------------------
+  date: any = moment(moment().format("YYYY-MM-DD")).toDate();                                       //------------------Change with Today--------------------
   taid: String;
 
   modeSignal: string = modeSignalStatus.singlePathMode;

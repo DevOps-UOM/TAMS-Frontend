@@ -5,6 +5,7 @@ import { Overlay } from '@angular/cdk/overlay';
 import { ContentObserver } from '@angular/cdk/observers';
 import { UserService } from 'src/app/services/user';
 import { User } from 'src/app/models/user.model';
+import * as moment from 'moment'
 
 
 @Component({
@@ -19,7 +20,7 @@ export class TAItineraryMapComponent implements OnInit {
 
   selectedItinerary: any;
 
-  date: Date = new Date("2021-04-05");
+  date: any = moment(moment().format("YYYY-MM-DD")).toDate();
   taid: String;
   modeSignal:string= modeSignalStatus.directionMode;
 
@@ -38,6 +39,10 @@ export class TAItineraryMapComponent implements OnInit {
 
  getItineraryDet(){
    try{
+
+    console.log(this.date);
+    console.log(this.taid);
+
     this.itineraryService.getASingleItinerary(this.date, this.taid).subscribe((res)=>{
       this.selectedItinerary=res.data[0]._id;
       console.log(res);
@@ -50,6 +55,10 @@ export class TAItineraryMapComponent implements OnInit {
   getCustomers() {
     this.loading = true;
    try {
+
+    console.log(this.date);
+    console.log(this.taid);
+
     this.itineraryService.getAllocatedPendingCustomers(this.date, this.taid).subscribe((res) => {
       this.loading = false;
       console.log(res);

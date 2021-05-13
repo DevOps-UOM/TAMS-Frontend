@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import {HttpClient} from "@angular/common/http";
 import {AssignService} from "../../services/assign/assign.service";
 import {Grade} from "../../models/grade.model";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-assign',
@@ -87,7 +88,7 @@ export class AssignComponent implements OnInit {
   }
 
   loadAgents(){
-    this.http.get<{ status: string, msg: string, data: Grade[] }>('http://localhost:3000/ta-agents').subscribe((postData) => {
+    this.http.get<{ status: string, msg: string, data: Grade[] }>(environment.apiBaseUrl+'/ta-agents').subscribe((postData) => {
       this.travelAgents = postData['data'];
       console.log(this.travelAgents);
 

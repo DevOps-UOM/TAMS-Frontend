@@ -7,6 +7,7 @@ import { TaTaskCardComponent } from "../../shared/ta-task-card/ta-task-card.comp
 import { TaskAssignmentService } from "../../services/task-assignment/task-assignment.service"
 import { UserService } from 'src/app/services/user';
 import { User } from 'src/app/models/user.model';
+import * as moment from 'moment'
 
 @Component({
   selector: 'app-ta-task',
@@ -70,7 +71,7 @@ export class TaTaskComponent implements OnInit {
 
   selectedItinerary: Itinerary;
 
-  date: Date = new Date("2021-04-05");
+  date: any = moment(moment().format("YYYY-MM-DD")).toDate();
   taid: String;
   modeSignal: string = modeSignalStatus.markerMode;
 

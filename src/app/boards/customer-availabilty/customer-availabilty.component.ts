@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AvailabilityServiceService} from '../../services/availability-service.service'
 import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-customer-availabilty',
@@ -19,7 +20,7 @@ export class CustomerAvailabiltyComponent implements OnInit {
   displayAvailabilities: any;
   tasks: any;
   displayTasks: any;
-  minDate = new Date();
+  minDate = moment(moment().format("YYYY-MM-DD")).toDate();
   customers: any;
   displaycustomers: any;
 
@@ -53,6 +54,7 @@ export class CustomerAvailabiltyComponent implements OnInit {
   }
 
   loadAvailability() {
+    console.log(this.minDate)
     this.availabilityService.getAllAvailability()
       .subscribe(
         res => {
