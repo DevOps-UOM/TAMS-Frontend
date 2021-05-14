@@ -10,7 +10,7 @@ import { User } from 'src/app/models/user.model';
 })
 export class UserProfileComponent implements OnInit {
   userDetails;
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(public userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.userDetails = this.userService.getUserPayload();

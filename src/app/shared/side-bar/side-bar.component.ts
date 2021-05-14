@@ -84,6 +84,9 @@ export class SideBarComponent implements OnInit {
     }
   }
 
+onLogout(){
+    this.userService.logout();
+  }
 
 }
 

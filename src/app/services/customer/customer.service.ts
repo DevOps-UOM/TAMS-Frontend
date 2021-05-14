@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpResponse,HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AllocatedCustomers } from 'src/app/models/itinerary.model';
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService {
 
   //apiEndPoint = 'http://localhost:3000';
+
+  selectedCustomer: AllocatedCustomers;
+  customers: AllocatedCustomers[];
 
   constructor(private http: HttpClient) { }
 
@@ -28,6 +32,13 @@ export class CustomerService {
     return this.http.get<any>( environment.apiBaseUrl + '/customers/' + cust_id);
   }
 
+  deleteACustomer(cust_id: string) {
+    return this.http.delete( environment.apiBaseUrl + '/customers/' + cust_id);
+  }
+
+  updateACustomer(customers: AllocatedCustomers) {
+    return this.http.put(`${environment.apiBaseUrl}/customers/${(customers as any).cust_id}`, customers);
+  }
 
 }
 

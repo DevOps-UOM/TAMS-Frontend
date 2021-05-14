@@ -1,4 +1,4 @@
-<!---------------------------------------------------------------------------------------------------------------->
+<!-- ------------------------------------------------------------------------------------------------------------
 <table *ngIf="userDetails" class="table-fill">
     <thead>
         <tr>
@@ -24,4 +24,155 @@
             </td>
         </tr>
     </tbody>
-</table>
+</table> -->
+
+<!---------------------------------------------------------------------------------------------------------------->
+<!-- <table *ngIf="userDetails" class="table-fill">
+    <thead>
+        <tr>
+            <th colspan="2" class="text-center">User Profile</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>First Name</td>
+            <td>{{userDetails.first_name}}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{userDetails.email}}</td>
+        </tr>
+        <tr>
+            <td colspan="2" class="text-center">
+                <input type="button" (click)="onLogout()" value="Logout" />
+            </td>
+
+            <td colspan="2" class="text-center">
+                <input type="button" (click)="onLogout()" value="Reset Password" />
+            </td>
+        </tr>
+    </tbody>
+</table> -->
+
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
+<body>
+  <div *ngIf="userService.getUserPayload()" class="main-content">
+    <div class="container mt-7">
+      <!-- Table -->
+      <h2 class="mb-5">My Account</h2>
+      <div class="row">
+        <div class="col-xl-8 m-auto order-xl-1">
+          <div class="card bg-secondary shadow">
+            <div class="card-header bg-white border-0">
+              <div class="row align-items-center">
+                <div class="col-8">
+                  <h3 class="mb-0">{{userService.getUserPayload().userid}}</h3>
+                </div>
+                <!-- <div class="col-4 text-right">
+                  <a href="#!" class="btn btn-sm btn-primary">Settings</a>
+                </div> -->
+              </div>
+            </div>
+            <div class="card-body">
+              <form>
+                <h6 class="heading-small text-muted mb-4">User information</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-userid">User ID</label>
+                        <input type="text" id="input-userid" class="form-control form-control-alternative" placeholder="Username" [value]="userService.getUserPayload().userid" readonly>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Email</label>
+                        <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="Email" [value]="userService.getUserPayload().email" readonly>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-first-name">First name</label>
+                        <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="First name" [value]="userService.getUserPayload().first_name" readonly>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-last-name">Last name</label>
+                        <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="Last name" [value]="userService.getUserPayload().last_name" readonly>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4">
+                <!-- Address -->
+                <h6 class="heading-small text-muted mb-4">Contact information</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-address">Mobile No.</label>
+                        <input id="input-address" class="form-control form-control-alternative" placeholder="Mobile Number" type="text" [value]="userService.getUserPayload().mobile_number" readonly>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-district">City</label>
+                        <input type="text" id="input-district" class="form-control form-control-alternative" placeholder="City" [value]="userService.getUserPayload().city" readonly>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-province">District</label>
+                        <input type="text" id="input-province" class="form-control form-control-alternative" placeholder="District" [value]="userService.getUserPayload().district" readonly>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-mobileno">Province</label>
+                        <input type="text" id="input-mobileno" class="form-control form-control-alternative" placeholder="Province" [value]="userService.getUserPayload().province" readonly>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4">
+                <!-- Description -->
+                <h6 class="heading-small text-muted mb-4">Bio</h6>
+                <div class="pl-lg-4">
+                  <div class="form-group focused">
+                    <label>About Me</label>
+                    <textarea rows="4" class="form-control form-control-alternative" placeholder="A few words about you ...">{{userService.getUserPayload().bio}}</textarea>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer">
+    <div class="row align-items-center justify-content-xl-between">
+      <div class="col-xl-6 m-auto text-center">
+        <!-- <div class="copyright">
+          <p>Made with <a href="https://www.creative-tim.com/product/argon-dashboard" target="_blank">Argon Dashboard</a> by Creative Tim</p>
+        </div> -->
+      </div>
+    </div>
+  </footer>
+
+  <button (click)="onLogout()" value="Logout" class="btn btn-info float-left ml-2" style="background-color:#33B585 ; font-size:17px">
+    Logout
+  </button>
+
+  <button type="button" (click)="onLogout()" value="Reset Password" class="btn btn-info float-left ml-2" style="background-color:#33B585 ; font-size:17px">
+    Reset Password
+  </button>
+
+</body>
+

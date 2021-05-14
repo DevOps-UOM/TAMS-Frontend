@@ -38,6 +38,7 @@
         "ng2-search-filter": "^0.5.1",
         "popper.js": "^1.16.1",
         "rxjs": "^6.6.7",
+        "rxjs-compat": "^6.6.7",
         "snazzy-info-window": "^1.1.0",
         "tslib": "^2.0.0",
         "web-animations-js": "^2.3.2",

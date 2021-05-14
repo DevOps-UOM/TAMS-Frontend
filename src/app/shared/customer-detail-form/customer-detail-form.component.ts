@@ -34,6 +34,7 @@ export class CustomerDetailFormComponent {
   ngOnInit(): void {
     this.formInstaller();
     this.loadcustomers();
+    this.refreshCustomerList();
     this.loadAgents();
 
   }
@@ -56,10 +57,16 @@ export class CustomerDetailFormComponent {
 
   formInstaller(): void {
     this.customerForm = this.fb.group({
+      _id: [''],
       cust_id: ['', Validators.required],
       name: this.fb.group({
         first_name: ['', Validators.required],
         last_name: ['', Validators.required],
+      }),
+      address: this.fb.group({
+        address_line_1: ['', Validators.required],
+        address_line_2: ['', Validators.required],
+        city: ['', Validators.required],
       }),
       // location: this.fb.group({
       //   coordinates: ['', Validators.required],
@@ -73,20 +80,76 @@ export class CustomerDetailFormComponent {
   }
 
   // tslint:disable-next-line:typedef
-  OnSubmit() {
-    // console.log(this.customerForm.value);
-    this.customerService.addACustomer(this.customerForm.value)
-      .subscribe(
-        res => {
-          console.log(res);
-          this.loadcustomers();
-        }, error => {
-          console.log(error);
-        }
-      );
-    this.customerForm.reset();
+  // OnSubmit() {
+  //   // console.log(this.customerForm.value);
+  //   this.customerService.addACustomer(this.customerForm.value)
+  //     .subscribe(
+  //       res => {
+  //         console.log(res);
+  //         this.loadcustomers();
+  //       }, error => {
+  //         console.log(error);
+  //       }
+  //     );
+  //   this.customerForm.reset();
 
+  // }
+
+  OnSubmit() {
+    {
+     this.customerService.addACustomer(this.customerForm.value).subscribe((res) => {
+       this.customerForm.reset();
+       this.refreshCustomerList();
+       this.loadcustomers();
+       //M.toast({ html: 'Saved successfully', classes: 'rounded' });
+     });
+   }
+
+   {
+     this.customerService.updateACustomer(this.customerForm.value).subscribe((res) => {
+       this.customerForm.reset();
+       this.refreshCustomerList();
+       this.loadcustomers();
+       //M.toast({ html: 'Updated successfully', classes: 'rounded' });
+     });
+   }
+ }
+
+ refreshCustomerList() {
+   this.customerService.listAllCustomers().subscribe((res) => {
+     this.customerService.customers = res as AllocatedCustomers[];
+   });
+ }
+
+ onEdit(customer: AllocatedCustomers) {
+   if (confirm('Are you sure to update this record ?') == true){
+   const c = {};
+   const keysToDrop = ['is_deleted', 'location', '__v']
+   Object.keys(customer).forEach(e => {
+     if(!keysToDrop.includes(e)) {
+       if (typeof customer[e] === 'object' && customer[e]._id) {
+         const { _id, ...rest } = customer[e]
+         c[e] = rest;
+       } else {
+         c[e] = customer[e];
+       }
+     }
+   })
+   console.log(c);
+   this.customerForm.setValue(c);
+ }
+}
+
+onDelete(cust_id: string) {
+  if (confirm('Are you sure to delete this record ?') == true) {
+    this.customerService.deleteACustomer(cust_id).subscribe((res) => {
+      this.loadcustomers();
+      this.customerForm.reset();
+      //M.toast({ html: 'Deleted successfully', classes: 'rounded' });
+    });
   }
+}
+
 
   loadAgents(){
     this.http.get<{ status: string, msg: string, data: Grade[] }>('http://localhost:3000/ta-agents').subscribe((postData) => {
