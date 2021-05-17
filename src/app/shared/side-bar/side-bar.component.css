@@ -1,91 +1,92 @@
 .sidebar {
-  background-color: #298e69;
-  height: 100vh;
-  width: 100%;
-  min-width: 240px;
+    background-color: #298e69;
+    height: 100vh;
+    width: 100%;
+    min-width: 240px;
 }
 
 .title {
-  font-size: 28px;
-  font-weight: 700;
-  color: rgb(255, 255, 255);
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: rgb(255, 255, 255);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .topic {
-  padding-top: 34px;
-  padding-bottom: 34px;
+    padding-top: 34px;
+    padding-bottom: 34px;
 }
 
 .label {
-  font-size: 16px;
-  font-weight: 350;
-  color: rgb(255, 255, 255);
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    font-weight: 350;
+    color: rgb(255, 255, 255);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .buttons {
-  height: 78vh;
-  overflow-y: scroll;
+    height: 78vh;
+    overflow-y: scroll;
 }
 
 .button {
-  padding: 5px;
-  padding-left: 20%;
-  padding-top: 13px;
+    cursor: pointer;
+    padding: 5px;
+    padding-left: 20%;
+    padding-top: 13px;
 }
 
 .log-button:hover {
-  background-color: #39c892;
+    background-color: #39c892;
 }
 
 .button:hover {
-  background-color: #39c892;
+    background-color: #39c892;
 }
 
 .log-button {
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 30%);
-  padding-left: 33px;
-  padding-right: 33px;
-  padding-top: 7px;
-  padding-bottom: 4px;
-  vertical-align: middle;
-  border-radius: 30px;
-  background-color: #298e69;
-  width: fit-content;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 30%);
+    padding-left: 33px;
+    padding-right: 33px;
+    padding-top: 7px;
+    padding-bottom: 4px;
+    vertical-align: middle;
+    border-radius: 30px;
+    background-color: #298e69;
+    width: fit-content;
 }
 
 .sidebar-log-area {
-  position: relative;
-  top: 2px;
+    position: relative;
+    top: 2px;
 }
 
 .center {
-  margin: auto;
-  width: fit-content;
+    margin: auto;
+    width: fit-content;
 }
 
 .sub-button {
-  padding: 3px;
-  padding-left: 30%;
-  padding-top: 11px;
+    padding: 3px;
+    padding-left: 30%;
+    padding-top: 11px;
 }
 
 .collaspe-icon {
-  padding-right: 15px;
-  padding-bottom: 8px;
+    padding-right: 15px;
+    padding-bottom: 8px;
 }
 
 .collapse-button {
-  padding: 5px;
-  padding-left: 7%;
-  padding-top: 13px;
+    padding: 5px;
+    padding-left: 7%;
+    padding-top: 13px;
 }
 
 .collapse-button:hover {
-  background-color: #39c892;
+    background-color: #39c892;
 }
 
 .sub-button:hover {
-  background-color: #39c892;
+    background-color: #39c892;
 }
