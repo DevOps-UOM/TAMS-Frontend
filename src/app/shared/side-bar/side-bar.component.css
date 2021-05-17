@@ -18,10 +18,15 @@
 }
 
 .label {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 350;
   color: rgb(255, 255, 255);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.buttons {
+  height: 78vh;
+  overflow-y: scroll;
 }
 
 .button {
@@ -52,7 +57,7 @@
 
 .sidebar-log-area {
   position: relative;
-  top: 200px;
+  top: 2px;
 }
 
 .center {
