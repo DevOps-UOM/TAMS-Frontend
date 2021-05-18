@@ -11,6 +11,9 @@
         <div class="button" (click)="callScreen('TA Map')">
             <p class="label">Travel Agent Map</p>
         </div>
+        <div class="button" (click)="callScreen('Pin Customer')">
+            <p class="label">Temp Pin Customer</p>
+        </div>
         <div class="button" (click)="callScreen('Itinerary Details')">
             <p class="label">Itinerary Details</p>
         </div>
@@ -59,7 +62,7 @@
         </div> -->
     </div>
     <div class="sidebar-log-area center">
-        <div class="log-button" style="cursor: pointer;">
+        <div class="log-button" style="cursor: pointer;" (click)="onLogout()">
             <p class="label">Logout</p>
         </div>
     </div>

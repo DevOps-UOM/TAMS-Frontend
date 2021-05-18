@@ -47,7 +47,7 @@ export class UserService {
   logout() {
     this.observableUser.next(null);
     this.deleteToken();
-    this.router.navigate(['/boards/login']);
+    this.router.navigate(['/login']);
   }
 
   getUserProfile() {

@@ -156,6 +156,11 @@ export class TaTaskComponent implements OnInit {
 
         (res.body.data && res.body.data.length > 0) ? this.pendingList = res.body.data : this.pendingList = [];
 
+        if(!res.body.status){
+          alert("Today, There are no allocated customers for you");
+          return;
+        }
+  
         console.log(res);
         resolve(x);
       }, (err) => {

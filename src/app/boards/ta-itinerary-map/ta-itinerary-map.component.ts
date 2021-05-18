@@ -62,10 +62,19 @@ export class TAItineraryMapComponent implements OnInit {
     this.itineraryService.getAllocatedPendingCustomers(this.date, this.taid).subscribe((res) => {
       this.loading = false;
       console.log(res);
+
+      if(!res.body.status){
+        alert("Today, There are no allocated customers for you");
+        return;
+      }
+
      (res.body.data && res.body.data.length>0)? this.customerList = res.body.data : this.customerList=[];
       //console.log("Dataaaa"+JSON.stringify(this.customerList));
+
+      
     })
      
+
    } catch (exception) {
      console.log("Recieved Empty Customer List!");
    }

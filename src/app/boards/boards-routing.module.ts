@@ -19,7 +19,8 @@ import { TaTaskComponent } from './ta-task/ta-task.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
 import { UserComponent } from './user/user.component';
 import {PrintItiDetailsComponent} from "./print-iti-details/print-iti-details.component";
-import {TaMapComponent} from './ta-map/ta-map.component'
+import {TaMapComponent} from './ta-map/ta-map.component';
+import { TempPinLocationComponent } from './temp-pin-location/temp-pin-location.component';
 
 const routes: Routes = [
     {
@@ -63,6 +64,10 @@ const routes: Routes = [
       path: 'assign',
       component: AssignComponent,
       canActivate: [AuthGuard],
+    },
+    {
+      path: 'pin-customer',
+      component: TempPinLocationComponent,
     },
 
     {

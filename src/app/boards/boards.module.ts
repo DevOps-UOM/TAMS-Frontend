@@ -40,6 +40,7 @@ import { StatDashboardComponent } from './stat-dashboard/stat-dashboard.componen
 import { UserComponent } from './user/user.component';
 import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
+import { TempPinLocationComponent } from './temp-pin-location/temp-pin-location.component';
 
 
 // const routes: Routes = [
@@ -124,7 +125,8 @@ import { SignInComponent } from './user/sign-in/sign-in.component';
     UserComponent, 
     ResetPasswordComponent, 
     SignInComponent,
-    PrintItiDetailsComponent
+    PrintItiDetailsComponent,
+    TempPinLocationComponent
     ],
   
   imports: [

@@ -68,7 +68,8 @@ export enum modeSignalStatus{
   markerMode="markerMode",
   singlePathMode="singlePathMode",
   liveMode="liveMode",
-  singleLiveMode="singleLiveMode"
+  singleLiveMode="singleLiveMode",
+  pinningMode="pinningMode"
 }
 
 
