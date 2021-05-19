@@ -28,6 +28,7 @@
                             "node_modules/bootstrap/dist/css/bootstrap.min.css",
                             "src/custom-theme.scss",
                             "src/styles.css",
+                            "node_modules/ngx-toastr/toastr.css",
                             "node_modules/snazzy-info-window/dist/snazzy-info-window.css"
                         ],
                         "scripts": [

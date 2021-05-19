@@ -1,11 +1,13 @@
+import { Coordinates } from './../../models/realtimedb.model';
 import { HttpClient } from '@angular/common/http';
 import { AllocatedCustomers } from './../../models/itinerary.model';
 import { CustomerService } from './../../services/customer/customer.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormArray, FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { FormControllService } from 'src/app/services/form-controll.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Grade } from 'src/app/models/grade.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-customer-detail-form',
@@ -25,10 +27,11 @@ export class CustomerDetailFormComponent {
     private http: HttpClient,
     private fb: FormBuilder,
     private customerService: CustomerService,
-    private router: Router, 
+    private router: Router,
     private activatedRoute: ActivatedRoute,
+    private toastr: ToastrService,
 
-  ) {}
+  ) { }
 
 
   ngOnInit(): void {
@@ -44,7 +47,7 @@ export class CustomerDetailFormComponent {
       .subscribe(
         res => {
           this.customers = res.data;
-          this.displaycustomers =  this.customers;
+          this.displaycustomers = this.customers;
           console.log(res.data)
         },
         error => {
@@ -68,9 +71,10 @@ export class CustomerDetailFormComponent {
         address_line_2: ['', Validators.required],
         city: ['', Validators.required],
       }),
-      // location: this.fb.group({
-      //   coordinates: ['', Validators.required],
-      // }),
+      location: this.fb.group({
+        coordinates: this.fb.array([]),
+        type: [''],
+      }),
       area: ['', Validators.required],
       mobile_number: ['', Validators.required],
       email: ['', Validators.required],
@@ -78,6 +82,26 @@ export class CustomerDetailFormComponent {
       default_agent_id: ['', Validators.required],
     });
   }
+
+
+
+  coordinates(): FormArray {
+    return this.customerForm.get("coordinates") as FormArray
+  }
+
+  newCoordinates(): FormGroup {
+    return this.fb.group({
+      coordinates: this.fb.array([]),
+      //x: '',
+      //y: ''
+    })
+  }
+
+
+  addCoordinates() {
+    this.coordinates().push(this.newCoordinates());
+  }
+
 
   // tslint:disable-next-line:typedef
   // OnSubmit() {
@@ -96,66 +120,82 @@ export class CustomerDetailFormComponent {
   // }
 
   OnSubmit() {
+
     {
-     this.customerService.addACustomer(this.customerForm.value).subscribe((res) => {
-       this.customerForm.reset();
-       this.refreshCustomerList();
-       this.loadcustomers();
-       //M.toast({ html: 'Saved successfully', classes: 'rounded' });
-     });
-   }
+      this.customerService.addACustomer(this.customerForm.value).subscribe((res) => {
+        this.customerForm.reset();
+        this.loadcustomers();
+        this.showAdd();
+      });
+    }
 
-   {
-     this.customerService.updateACustomer(this.customerForm.value).subscribe((res) => {
-       this.customerForm.reset();
-       this.refreshCustomerList();
-       this.loadcustomers();
-       //M.toast({ html: 'Updated successfully', classes: 'rounded' });
-     });
-   }
- }
+    {
+      this.customerService.updateACustomer(this.customerForm.value).subscribe((res) => {
+        this.customerForm.reset();
+        this.loadcustomers();
+        this.showSuccess();
+      });
+    }
+  }
 
- refreshCustomerList() {
-   this.customerService.listAllCustomers().subscribe((res) => {
-     this.customerService.customers = res as AllocatedCustomers[];
-   });
- }
+  // OnSubmit() {
+  //   if (this.customerForm.value.cust_id == "") {
+  //     this.customerService.updateACustomer(this.customerForm.value).subscribe((res) => {
+  //       this.customerForm.reset();
+  //       this.loadcustomers();
+  //       this.showSuccess();
+  //     });
+  //   }
+  //   else{
+  //     this.customerService.addACustomer(this.customerForm.value).subscribe((res) => {
+  //       this.customerForm.reset();
+  //       this.loadcustomers();
+  //       this.showAdd();
+  //     });
+  //   }
+  // }
 
- onEdit(customer: AllocatedCustomers) {
-   if (confirm('Are you sure to update this record ?') == true){
-   const c = {};
-   const keysToDrop = ['is_deleted', 'location', '__v']
-   Object.keys(customer).forEach(e => {
-     if(!keysToDrop.includes(e)) {
-       if (typeof customer[e] === 'object' && customer[e]._id) {
-         const { _id, ...rest } = customer[e]
-         c[e] = rest;
-       } else {
-         c[e] = customer[e];
-       }
-     }
-   })
-   console.log(c);
-   this.customerForm.setValue(c);
- }
-}
-
-onDelete(cust_id: string) {
-  if (confirm('Are you sure to delete this record ?') == true) {
-    this.customerService.deleteACustomer(cust_id).subscribe((res) => {
-      this.loadcustomers();
-      this.customerForm.reset();
-      //M.toast({ html: 'Deleted successfully', classes: 'rounded' });
+  refreshCustomerList() {
+    this.customerService.listAllCustomers().subscribe((res) => {
+      this.customerService.customers = res as AllocatedCustomers[];
     });
   }
-}
+
+  onEdit(customer: AllocatedCustomers) {
+    if (confirm('Are you sure to update this record ?') == true) {
+      const c = {};
+      const keysToDrop = ['is_deleted', '__v']
+      Object.keys(customer).forEach(e => {
+        if (!keysToDrop.includes(e)) {
+          if (typeof customer[e] === 'object' && customer[e]._id) {
+            const { _id, ...rest } = customer[e]
+            c[e] = rest;
+          } else {
+            c[e] = customer[e];
+          }
+        }
+      })
+      console.log(c);
+      this.customerForm.setValue(c);
+    }
+  }
+
+  onDelete(cust_id: string) {
+    if (confirm('Are you sure to delete this record ?') == true) {
+      this.customerService.deleteACustomer(cust_id).subscribe((res) => {
+        this.loadcustomers();
+        this.customerForm.reset();
+        this.showDelete();
+      });
+    }
+  }
 
 
-  loadAgents(){
+  loadAgents() {
     this.http.get<{ status: string, msg: string, data: Grade[] }>('http://localhost:3000/ta-agents').subscribe((postData) => {
       this.travelAgents = postData['data'];
       console.log(this.travelAgents);
-      
+
     });
 
   }
@@ -176,19 +216,21 @@ onDelete(cust_id: string) {
   //     }
   // }
 
-  // onSearch(term: any) {
-  //   console.log(term);
-  //   if (term === '') {
-  //     this.displaycustomers = this.customers;
-  //   } else {
-  //     this.displaycustomers =  this.customers.filter((a) => {
-  //       return a.ta_id === term; 
-  //     });
-  //   }
-  // }
-  
+
   navigateToProfile(cust_id) {
-    this.router.navigate(['./' + cust_id], {relativeTo: this.activatedRoute});
+    this.router.navigate(['./' + cust_id], { relativeTo: this.activatedRoute });
+  }
+
+  showSuccess() {
+    this.toastr.info('', 'Updated successfully!');
+  }
+
+  showAdd() {
+    this.toastr.success('', 'Saved successfully!');
+  }
+
+  showDelete() {
+    this.toastr.error('', 'Deleted successfully!');
   }
 
 
