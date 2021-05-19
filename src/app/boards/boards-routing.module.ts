@@ -18,91 +18,103 @@ import { TAItineraryMapComponent } from './ta-itinerary-map/ta-itinerary-map.com
 import { TaTaskComponent } from './ta-task/ta-task.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
 import { UserComponent } from './user/user.component';
-import {PrintItiDetailsComponent} from "./print-iti-details/print-iti-details.component";
-import {TaMapComponent} from './ta-map/ta-map.component'
+import { PrintItiDetailsComponent } from "./print-iti-details/print-iti-details.component";
+import { TaMapComponent } from './ta-map/ta-map.component'
 
 const routes: Routes = [
-    {
-      path: '',
-      redirectTo: '/boards/itinerary-map',
-      pathMatch: 'full'
-    },
+  {
+    path: '',
+    redirectTo: '/boards/itinerary-map',
+    pathMatch: 'full'
+  },
 
-    {
-      path: 'itinerary-map',
-      component: TAItineraryMapComponent
-    },
-    {
-      path: 'itinerary-details',
-      component: ItineraryDetailsComponent
-    },
+  {
+    path: 'itinerary-map',
+    component: TAItineraryMapComponent
+  },
+  {
+    path: 'itinerary-details',
+    component: ItineraryDetailsComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.ca, Role.Admin] },
+  },
   {
     path: 'itinerary-details/print-iti-details',
-    component: PrintItiDetailsComponent
+    component: PrintItiDetailsComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.ca, Role.Admin] },
   },
-    {
-      path: 'ta-map',
-      component: TaMapComponent
-    },
-    {
-      path: 'leave',
-      component: LeaveComponent
-    },
-    {
-      path: 'itinerary-task',
-      component: TaTaskComponent,
+  {
+    path: 'ta-map',
+    component: TaMapComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.ca, Role.Admin] },
+  },
+  {
+    path: 'leave',
+    component: LeaveComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.ca, Role.Admin] },
+  },
+  {
+    path: 'itinerary-task',
+    component: TaTaskComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.ta] },
 
-    },
-    {
-      path: 'customer-availability',
-      component: CustomerAvailabiltyComponent,
-      canActivate: [AuthGuard],
-    },
+  },
+  {
+    path: 'customer-availability',
+    component: CustomerAvailabiltyComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.ca] },
+  },
 
-    {
-      path: 'assign',
-      component: AssignComponent,
-      canActivate: [AuthGuard],
-    },
+  {
+    path: 'assign',
+    component: AssignComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.ca, Role.Admin] },
+  },
 
-    {
-      path: 'admin-user-management',
-      component: AdminUserManagementComponent,
-      canActivate: [AuthGuard],
-      data: { roles: [Role.Admin] },
-      children: [
-        { path: 'ca-agents' , component: CaAgentsTableComponent},
-        { path: 'ta-agents' , component: TaAgentsTableComponent}
+  {
+    path: 'admin-user-management',
+    component: AdminUserManagementComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] },
+    children: [
+      { path: 'ca-agents', component: CaAgentsTableComponent },
+      { path: 'ta-agents', component: TaAgentsTableComponent }
 
-      ]
-    },
-    {
-      path: 'ca-user-management',
-      component: CaUserManagementComponent,
-      canActivate: [AuthGuard],
-      data: { roles: [Role.ca] },
-      children: [
-        { path: 'ta-agents' , component: TaAgentsTableComponent},
-        { path: 'customers' , component: CustomerTableComponent},
-        { path: 'customers-registration' , component: CustomerDetailFormComponent},
-        { path: 'ta-agents-registration' , component: TaOnlyDetailFormComponent},
-      ]
-    },
-    {
-      path: 'stat-dashboard',
-      component: StatDashboardComponent,
-      canActivate: [AuthGuard],
-      data: { roles: [Role.Admin] }
-    },
-    {
-      path: 'login', component: UserComponent,
-      children: [{ path: '', component: SignInComponent}]
-    }
-  ];
+    ]
+  },
+  {
+    path: 'ca-user-management',
+    component: CaUserManagementComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.ca] },
+    children: [
+      { path: 'ta-agents', component: TaAgentsTableComponent },
+      { path: 'customers', component: CustomerTableComponent },
+      { path: 'customers-registration', component: CustomerDetailFormComponent },
+      { path: 'ta-agents-registration', component: TaOnlyDetailFormComponent },
+    ]
+  },
+  {
+    path: 'stat-dashboard',
+    component: StatDashboardComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] }
+  },
+  {
+    path: 'login', component: UserComponent,
+    children: [{ path: '', component: SignInComponent }]
+  }
+];
 
-  @NgModule({
-      imports: [RouterModule.forChild(routes)],
-      exports: [RouterModule]
-  })
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
 
-  export class BoardsRoutingModule { }
+export class BoardsRoutingModule { }

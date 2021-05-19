@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
+import { ToastrService } from 'ngx-toastr';
 import { FormControllService } from '../../services/form-controll.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class DetailFormComponent implements OnInit {
   recordSent = false;
   uuidValue: string;
 
-  constructor(private formControllService: FormControllService) {}
+  constructor(private formControllService: FormControllService, private toastr: ToastrService,) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -30,7 +30,7 @@ export class DetailFormComponent implements OnInit {
       role: new FormControl(''), //role
       password: new FormControl(''),
     });
-    
+
   }
 
   OnSubmit() {
@@ -57,11 +57,24 @@ export class DetailFormComponent implements OnInit {
 
       this.formControllService.uploadDetails(formData);
       this.form.reset();
+      this.showAdd();
     } else {
       this.formIsValid = true;
       this.recordSent = false;
       return;
     }
+  }
+
+  showSuccess() {
+    this.toastr.info('', 'Updated successfully!');
+  }
+
+  showAdd() {
+    this.toastr.success('', 'Saved successfully!');
+  }
+
+  showDelete() {
+    this.toastr.error('', 'Deleted successfully!');
   }
 
 }
