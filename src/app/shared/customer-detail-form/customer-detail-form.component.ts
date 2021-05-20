@@ -6,6 +6,7 @@ import { FormControl, FormGroup, Validators, FormBuilder, ReactiveFormsModule } 
 import { FormControllService } from 'src/app/services/form-controll.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Grade } from 'src/app/models/grade.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-customer-detail-form',
@@ -89,7 +90,7 @@ export class CustomerDetailFormComponent {
   }
 
   loadAgents(){
-    this.http.get<{ status: string, msg: string, data: Grade[] }>('http://localhost:3000/ta-agents').subscribe((postData) => {
+    this.http.get<{ status: string, msg: string, data: Grade[] }>(environment.apiBaseUrl+'/ta-agents').subscribe((postData) => {
       this.travelAgents = postData['data'];
       console.log(this.travelAgents);
       

@@ -4,6 +4,7 @@ import { FormControllService } from './../../services/form-controll.service';
 import { HttpClient } from '@angular/common/http';
 import { Grade } from './../../models/grade.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-ca-agents-table',
@@ -20,7 +21,7 @@ export class CaAgentsTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.get<{status: string, msg: string, data: Grade[]}>('http://localhost:3000/ca-agents').subscribe((postData) => {
+    this.http.get<{status: string, msg: string, data: Grade[]}>(environment.apiBaseUrl+'/ca-agents').subscribe((postData) => {
     this.grades = postData['data'];
     });
 

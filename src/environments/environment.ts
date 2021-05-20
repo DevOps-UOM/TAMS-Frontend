@@ -15,7 +15,7 @@ export const environment = {
     measurementId: "G-2RMZVS81PN"
   },
   googleMapsKeys:'AIzaSyA9rPesD1LpqsLTVFeHEpxvjnl5FNLDbS0',
-  apiBaseUrl: 'http://localhost:3000'
+  apiBaseUrl: 'https://rattle-rattle-jumpsuit.glitch.me'
 };
 
 /*
