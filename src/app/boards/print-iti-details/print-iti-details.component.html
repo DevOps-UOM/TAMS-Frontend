@@ -10,6 +10,12 @@
             <div *ngFor="let details of details;let i= index "></div>
             <h1> {{details.travel_agent_id}} </h1>
         </div>
+        <hr class="solid">
+        <div>
+          <div>Customers</div>
+          <div *ngFor= "let customers of customers; let i = index" ></div>
+          <h1>{{customers}} </h1>
+        </div>
     </div>
 
     <div class="shadow-sm p-4 m-3 col-md">

@@ -8,7 +8,7 @@ import {MatDialogRef, MAT_DIALOG_DATA} from "@angular/material/dialog";
   styleUrls: ['./print-iti-details.component.css']
 })
 export class PrintItiDetailsComponent implements OnInit {
-  
+
    details: any;
    customers : any;
 
@@ -17,12 +17,9 @@ export class PrintItiDetailsComponent implements OnInit {
     public data: any,
     private customerService : CustomerService,
   ) {
-    console.log("nirosh");
-    
     this.details = data;
-    console.log(this.details);
-    
- 
+    console.log(this.details.assigned_customer_id);
+    this.customers = this.details.assigned_customer_id;
   }
 
   ngOnInit(): void {
@@ -35,23 +32,23 @@ export class PrintItiDetailsComponent implements OnInit {
   // );
 
 // });
-this.loadItineraries("C001")
+// this.loadItineraries("C001")
   }
 
-  loadItineraries(id: "C001"){
-    this.customerService.findOne(id).subscribe(
-      res => {
-        this.customers = res.data;
-        console.log("customers");
-        
-      },
-      error => {
+  // loadItineraries(id: "C001"){
+  //   this.customerService.findOne(id).subscribe(
+  //     res => {
+  //       this.customers = res.data;
+  //       console.log("customers");
 
-      }
+  //     },
+  //     error => {
 
-    );
+  //     }
 
-  }
+  //   );
+
+  // }
 
   toPrint(){
     window.print();

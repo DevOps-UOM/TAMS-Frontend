@@ -66,6 +66,7 @@
         <thead>
             <tr>
                 <th scope="col">Customer</th>
+                <th scope="col">Default Agent</th>
                 <th scope="col">Date</th>
                 <th scope="col">Note</th>
                 <th scope="col">Task</th>
@@ -75,6 +76,7 @@
         <tbody>
             <tr *ngFor="let v of displayAvailabilities">
                 <th scope="row">{{v.cust_id.cust_id}}- {{v.cust_id.name.first_name}} {{v.cust_id.name.last_name}}</th>
+                <th>{{v.cust_id.default_agent_id.first_name}} {{v.cust_id.default_agent_id.last_name}}</th>
                 <td>{{v.date | date:'shortDate' }}</td>
                 <td>{{v.note}}</td>
                 <td>
