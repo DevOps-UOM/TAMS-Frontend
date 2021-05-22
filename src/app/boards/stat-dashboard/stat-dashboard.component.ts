@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AllocatedCustomers, modeSignalStatus } from 'src/app/models/itinerary.model';
 import { ItineraryService } from '../../services/itinerary/itinerary.service';
 import { Overlay } from '@angular/cdk/overlay';
+import { StatDashboardService } from 'src/app/services/stat-dashboard/stat-dashboard.service';
 
 @Component({
   selector: 'app-ta-itinerary-map',
@@ -12,6 +13,9 @@ import { Overlay } from '@angular/cdk/overlay';
 
 export class StatDashboardComponent implements OnInit {
 
+  bestagents: any;
+  displaybestagents: any;
+
   private loading: boolean = false;
    customerList: AllocatedCustomers[] = [];
 
@@ -21,10 +25,24 @@ export class StatDashboardComponent implements OnInit {
   taid: String = "TA001";
   modeSignal:string= modeSignalStatus.markerMode;
 
-  constructor(private itineraryService: ItineraryService) { }
+  constructor(private statDashboardService: StatDashboardService, private itineraryService: ItineraryService) { }
 
   ngOnInit(){
     this.getCustomers();
+    this.loadBestAgents();
+  }
+
+  loadBestAgents() {
+    this.statDashboardService.listAllAgents()
+      .subscribe(
+        res => {
+          this.bestagents = res.data;
+          this.displaybestagents =  this.bestagents;
+        },
+        error => {
+
+        }
+      );
   }
 
   getCustomers() {
