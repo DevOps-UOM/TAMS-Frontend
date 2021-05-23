@@ -128,6 +128,17 @@ export class CustomerAvailabiltyComponent implements OnInit {
 
   }
 
+  onDelete(id:string , date: Date){
+    var delBtn = confirm(" Do you want to delete ?");
+    if ( delBtn == true ) {
+      this.availabilityService.deleteAvailability(date, id).subscribe((res:any) => {
+      this.loadAvailability();
+      console.log(id, date);
+    } );
+    }
+
+  }
+
 
 
 
