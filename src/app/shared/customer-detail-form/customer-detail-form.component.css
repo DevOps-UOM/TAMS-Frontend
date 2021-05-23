@@ -10,3 +10,7 @@
 .form-control::placeholder {
   font-family: FontAwesome;
 }
+
+.cordinate {
+  width: 100px;
+}

@@ -10,4 +10,5 @@ export interface Grade {
   bio: string;
   role: string;
   password: string;
+  rate: number;
 }

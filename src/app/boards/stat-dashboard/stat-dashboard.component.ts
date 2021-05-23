@@ -53,7 +53,7 @@ export class StatDashboardComponent implements OnInit {
         res => {
           this.bestagents = res.data;
           this.displaybestagents = this.bestagents;
-          console.log(this.bestagents);
+          console.log(this.displaybestagents);
         },
         error => {
 

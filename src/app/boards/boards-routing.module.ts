@@ -67,7 +67,7 @@ const routes: Routes = [
     path: 'customer-availability',
     component: CustomerAvailabiltyComponent,
     canActivate: [AuthGuard],
-    data: { roles: [Role.ca] },
+    data: { roles: [Role.ca, Role.Admin] },
   },
 
   {

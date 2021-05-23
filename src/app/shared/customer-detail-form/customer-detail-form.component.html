@@ -7,34 +7,35 @@
         <label for="cust_id">Customer ID</label> &nbsp; &nbsp; &nbsp;
         <input type="text" id="cust_id" class="form-control" formControlName="cust_id">
         <br /> <br />
-        <div formGroupName="name">
-          <label for="first_name">First Name</label> &nbsp; &nbsp; &nbsp;
-          <input type="text" id="first_name" class="form-control" formControlName="first_name">
-          <br /> <br />
+        <!-- <div formGroupName="name"> -->
+        <label for="first_name">First Name</label> &nbsp; &nbsp; &nbsp;
+        <input type="text" id="first_name" class="form-control" formControlName="first_name">
+        <br /> <br />
 
-          <label for="last_name">Last Name</label> &nbsp; &nbsp; &nbsp;
-          <input type="text" id="last_name" class="form-control" formControlName="last_name">
-          <br /> <br />
-        </div>
+        <label for="last_name">Last Name</label> &nbsp; &nbsp; &nbsp;
+        <input type="text" id="last_name" class="form-control" formControlName="last_name">
+        <br /> <br />
+        <!-- </div> -->
 
-        <div formGroupName="location">
+        <div>
 
 
-          <div formArrayName="coordinates">
+          <div>
 
-            <div *ngFor="let coordinate of coordinates().controls; let empIndex=index">
+            <div fxlayout="row" class='cordinates'>
 
-              {{empIndex}}
-              x :
-              <input type="text" formControlName="x">
-              y:
-              <input type="text" formControlName="y">
+
+              <div> x : <input class="cordinate" type="text" formControlName="x"></div>
+              <div>
+                y:
+                <input class="cordinate" type="text" formControlName="y">
+              </div>
             </div>
 
-            <button type="button" (click)="addCoordinates()">Add Coordinates</button>
+            <!-- <button type="button" (click)="addCoordinates()">Add Coordinates</button> -->
           </div>
           <label for="coordinates">Location</label> &nbsp; &nbsp; &nbsp;
-          <input type="text" id="coordinates" class="form-control" formControlName="coordinates">
+
           <br /> <br />
 
           <label for="type">Location Type</label> &nbsp; &nbsp; &nbsp;

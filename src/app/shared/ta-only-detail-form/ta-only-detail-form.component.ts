@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormControlName } from '@angular/forms';
 
 import { FormControllService } from '../../services/form-controll.service';
 
@@ -31,6 +31,7 @@ export class TaOnlyDetailFormComponent implements OnInit {
       bio: new FormControl(''),
       role: new FormControl(''), //role
       password: new FormControl(''),
+      rate: new FormControl(''),
     });
   }
 
@@ -55,6 +56,7 @@ export class TaOnlyDetailFormComponent implements OnInit {
         bio: this.form.value.bio,
         role: this.form.value.role,
         password: this.form.value.password,
+        rate: this.form.value.rate,
       };
 
       this.formControllService.uploadDetails(formData);
