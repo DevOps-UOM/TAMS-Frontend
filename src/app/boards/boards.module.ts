@@ -17,6 +17,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { TAItineraryMapComponent } from './ta-itinerary-map/ta-itinerary-map.component';
 import { LeaveComponent } from './leave/leave.component';
+import { TaMapComponent } from './ta-map/ta-map.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminUserManagementComponent } from './admin-user-management/admin-user-management.component';
@@ -40,6 +41,8 @@ import { StatDashboardComponent } from './stat-dashboard/stat-dashboard.componen
 import { UserComponent } from './user/user.component';
 import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
+import { TempPinLocationComponent } from './temp-pin-location/temp-pin-location.component';
+
 
 // const routes: Routes = [
 //   {
@@ -115,6 +118,7 @@ import { SignInComponent } from './user/sign-in/sign-in.component';
     AdminUserManagementComponent,
     CustomerAvailabiltyComponent,
     AssignComponent,
+    TaMapComponent,
     ItineraryDetailsComponent,
     
     CaUserManagementComponent,
@@ -122,7 +126,8 @@ import { SignInComponent } from './user/sign-in/sign-in.component';
     UserComponent, 
     ResetPasswordComponent, 
     SignInComponent,
-    PrintItiDetailsComponent
+    PrintItiDetailsComponent,
+    TempPinLocationComponent
     ],
   
   imports: [

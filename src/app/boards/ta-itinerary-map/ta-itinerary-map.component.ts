@@ -3,6 +3,9 @@ import { AllocatedCustomers, modeSignalStatus } from 'src/app/models/itinerary.m
 import { ItineraryService } from '../../services/itinerary/itinerary.service';
 import { Overlay } from '@angular/cdk/overlay';
 import { ContentObserver } from '@angular/cdk/observers';
+import { UserService } from 'src/app/services/user';
+import { User } from 'src/app/models/user.model';
+import * as moment from 'moment'
 
 
 @Component({
@@ -17,21 +20,29 @@ export class TAItineraryMapComponent implements OnInit {
 
   selectedItinerary: any;
 
-  date: Date = new Date("2021-04-05");
-  taid: String = "TA001";
+  date: any = moment(moment().format("YYYY-MM-DD")).toDate();
+  taid: String;
   modeSignal:string= modeSignalStatus.directionMode;
 
-  constructor(private itineraryService: ItineraryService) {
+  user:User
 
+  constructor(private itineraryService: ItineraryService,private userService : UserService) {
+    this.user=userService.getUserPayload()
+    this.taid=this.user.userid
   }
 
   ngOnInit(){
+    //console.log("called")
     this.getCustomers();
     this.getItineraryDet();
   }
 
  getItineraryDet(){
    try{
+
+    console.log(this.date);
+    console.log(this.taid);
+
     this.itineraryService.getASingleItinerary(this.date, this.taid).subscribe((res)=>{
       this.selectedItinerary=res.data[0]._id;
       console.log(res);
@@ -44,13 +55,26 @@ export class TAItineraryMapComponent implements OnInit {
   getCustomers() {
     this.loading = true;
    try {
+
+    console.log(this.date);
+    console.log(this.taid);
+
     this.itineraryService.getAllocatedPendingCustomers(this.date, this.taid).subscribe((res) => {
       this.loading = false;
       console.log(res);
+
+      if(!res.body.status){
+        alert("Today, There are no allocated customers for you");
+        return;
+      }
+
      (res.body.data && res.body.data.length>0)? this.customerList = res.body.data : this.customerList=[];
       //console.log("Dataaaa"+JSON.stringify(this.customerList));
+
+      
     })
      
+
    } catch (exception) {
      console.log("Recieved Empty Customer List!");
    }

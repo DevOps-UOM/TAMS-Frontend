@@ -14,22 +14,37 @@
         <table class="table table-striped w-full">
             <thead>
                 <tr>
-                    <th scope="col">Customer Id</th>
+                    <th scope="col">Customer</th>
                     <th scope="col">Date</th>
-                    <th scope="col">Available Time</th>
-                    <th scope="col">Assigned TA ID</th>
+                    <th scope="col">Customer Area</th>
+                    <th scope="col">To do task</th>
                     <th scope="col">Assingend TA Name</th>
-                    
+
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let v of displayAvailabilities">
-                    <th scope="row">{{v.cust_id}}</th>
+                    <th scope="row">{{v.cust_id.cust_id}}- {{v.cust_id.name.first_name}}</th>
                     <td>{{v.date | date:'shortDate' }}</td>
-                    <td>{{v.time_from }} - {{v.time_to}}</td>
-                   
+                    <td>{{v.cust_id.area}}</td>
+                  <td>
+                    <div *ngFor="let single_task of v.task; let i = index">
+                      {{i+1}} - {{single_task.task_name}}
+                    </div>
+                  </td>
+                    <td>
+                      <select [(ngModel)]="v.cust_id.default_agent_id._id" class="form-control" >
+<!--                       <option  [value]="v.cust_id.default_agent_id._id"   disabled selected="selected">{{v.cust_id.default_agent_id.first_name}}</option>-->
+                      <option *ngFor="let agent of travelAgents" [value]="agent._id" >{{agent.first_name}}</option>
+                    </select>
+                    </td>
+
                 </tr>
             </tbody>
         </table>
     </div>
+  <div class="col-md">
+    <button class="btn-light float-right" (click)="onAssign()">Assign</button>
+  </div>
 </div>
+

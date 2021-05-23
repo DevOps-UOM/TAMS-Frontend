@@ -40,6 +40,9 @@ export class SideBarComponent implements OnInit {
       case 'Itinerary Map':
         this.router.navigate(['/boards/itinerary-map']);
         break;
+      case 'TA Map':
+        this.router.navigate(['/boards/ta-map']);
+        break;
       case 'Itinerary Details':
         this.router.navigate(['/boards/itinerary-details']);
         break;
@@ -64,6 +67,9 @@ export class SideBarComponent implements OnInit {
       case 'Statistical Dashboard':
         this.router.navigate(["/boards/stat-dashboard"])
         break;
+      case 'Pin Customer':
+        this.router.navigate(["/boards/pin-customer"])
+        break;
 
       default:
         this.router.navigate(['/boards/home']);
@@ -79,6 +85,10 @@ export class SideBarComponent implements OnInit {
         console.log("sdsds");
         break;
     }
+  }
+
+  onLogout(){
+    this.userService.logout();
   }
 
 

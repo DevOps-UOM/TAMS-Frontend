@@ -18,6 +18,9 @@ import { TAItineraryMapComponent } from './ta-itinerary-map/ta-itinerary-map.com
 import { TaTaskComponent } from './ta-task/ta-task.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
 import { UserComponent } from './user/user.component';
+import {PrintItiDetailsComponent} from "./print-iti-details/print-iti-details.component";
+import {TaMapComponent} from './ta-map/ta-map.component';
+import { TempPinLocationComponent } from './temp-pin-location/temp-pin-location.component';
 
 const routes: Routes = [
     {
@@ -25,7 +28,7 @@ const routes: Routes = [
       redirectTo: '/boards/itinerary-map',
       pathMatch: 'full'
     },
-  
+
     {
       path: 'itinerary-map',
       component: TAItineraryMapComponent
@@ -34,6 +37,14 @@ const routes: Routes = [
       path: 'itinerary-details',
       component: ItineraryDetailsComponent
     },
+  {
+    path: 'itinerary-details/print-iti-details',
+    component: PrintItiDetailsComponent
+  },
+    {
+      path: 'ta-map',
+      component: TaMapComponent
+    },
     {
       path: 'leave',
       component: LeaveComponent
@@ -41,20 +52,24 @@ const routes: Routes = [
     {
       path: 'itinerary-task',
       component: TaTaskComponent,
-      
+
     },
     {
       path: 'customer-availability',
       component: CustomerAvailabiltyComponent,
       canActivate: [AuthGuard],
     },
-  
+
     {
       path: 'assign',
       component: AssignComponent,
       canActivate: [AuthGuard],
     },
-  
+    {
+      path: 'pin-customer',
+      component: TempPinLocationComponent,
+    },
+
     {
       path: 'admin-user-management',
       component: AdminUserManagementComponent,
@@ -62,7 +77,7 @@ const routes: Routes = [
       children: [
         { path: 'ca-agents' , component: CaAgentsTableComponent},
         { path: 'ta-agents' , component: TaAgentsTableComponent}
-      
+
       ]
     },
     {
@@ -76,15 +91,11 @@ const routes: Routes = [
         { path: 'ta-agents-registration' , component: TaOnlyDetailFormComponent},
       ]
     },
-    {  
+    {
       path: 'stat-dashboard',
       component: StatDashboardComponent,
       canActivate: [AuthGuard],
       data: { roles: [Role.Admin] }
-    },
-    {
-      path: 'login', component: UserComponent,
-      children: [{ path: '', component: SignInComponent}]
     }
   ];
 

@@ -1,9 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { AllocatedCustomers } from './../../models/itinerary.model';
 import { CustomerService } from './../../services/customer/customer.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { FormControllService } from 'src/app/services/form-controll.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Grade } from 'src/app/models/grade.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-customer-detail-form',
@@ -17,9 +20,10 @@ export class CustomerDetailFormComponent {
   customerForm: FormGroup;
   customers: AllocatedCustomers[] = [];
   displaycustomers: any;
+  travelAgents = [];
 
   constructor(
-
+    private http: HttpClient,
     private fb: FormBuilder,
     private customerService: CustomerService,
     private router: Router, 
@@ -31,6 +35,7 @@ export class CustomerDetailFormComponent {
   ngOnInit(): void {
     this.formInstaller();
     this.loadcustomers();
+    this.loadAgents();
 
   }
   // tslint:disable-next-line:typedef
@@ -81,6 +86,15 @@ export class CustomerDetailFormComponent {
         }
       );
     this.customerForm.reset();
+
+  }
+
+  loadAgents(){
+    this.http.get<{ status: string, msg: string, data: Grade[] }>(environment.apiBaseUrl+'/ta-agents').subscribe((postData) => {
+      this.travelAgents = postData['data'];
+      console.log(this.travelAgents);
+      
+    });
 
   }
 

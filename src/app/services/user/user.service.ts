@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 
 export class UserService {
   selectedUser: User = {
-    id: '',
+    userid: '',
     first_name: '',
     last_name: '',
     email: '',
@@ -41,21 +41,21 @@ export class UserService {
   // }
 
   login(authCredentials) {
-    return this.http.post(environment.apiBaseUrl + '/authenticate', authCredentials,this.noAuthHeader);
+    return this.http.post(environment.apiBaseUrl + '/api/authenticate', authCredentials,this.noAuthHeader);
   }
 
   logout() {
     this.observableUser.next(null);
     this.deleteToken();
-    this.router.navigate(['/boards/login']);
+    this.router.navigate(['/login']);
   }
 
   getUserProfile() {
-    return this.http.get(environment.apiBaseUrl + '/userProfile');
+    return this.http.get(environment.apiBaseUrl + '/api/userProfile');
   }
 
   getById(id: number) {
-    return this.http.get<User>(`${environment.apiBaseUrl}/users/${id}`, {
+    return this.http.get<User>(`${environment.apiBaseUrl}/api/users/${id}`, {
       headers: {
         'Authorization': `Bearer ${this.getToken()}`
       }

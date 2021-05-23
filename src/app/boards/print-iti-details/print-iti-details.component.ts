@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-print-iti-details',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PrintItiDetailsComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public dialogRef: MatDialogRef<PrintItiDetailsComponent>
+  ) {}
 
   ngOnInit(): void {
   }
@@ -16,4 +19,7 @@ export class PrintItiDetailsComponent implements OnInit {
     window.print();
   }
 
+  onClose(){
+    this.dialogRef.close();
+  }
 }

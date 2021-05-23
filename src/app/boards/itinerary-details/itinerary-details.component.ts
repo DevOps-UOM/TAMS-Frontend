@@ -1,6 +1,9 @@
 import { ItineraryService } from './../../services/itinerary/itinerary.service';
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment'
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {AddTaskComponent} from "../../shared/add-task/add-task.component";
+import {PrintItiDetailsComponent} from "../print-iti-details/print-iti-details.component";
 
 @Component({
   selector: 'app-itinerary-details',
@@ -13,6 +16,7 @@ export class ItineraryDetailsComponent implements OnInit {
   displayItineraries: any;
 
   constructor(
+    private dialog: MatDialog,
     private ItinerariesService: ItineraryService,
 
   ) { }
@@ -30,8 +34,19 @@ export class ItineraryDetailsComponent implements OnInit {
       error => {
 
       }
-      
+
     );
+
+  }
+  printIti(){
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig. width = "100%";
+    const dialogRef = this.dialog.open(PrintItiDetailsComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+    })
 
   }
 
@@ -39,11 +54,11 @@ export class ItineraryDetailsComponent implements OnInit {
     search.value = null
       this.displayItineraries = this.itineraries;
     }
-  
+
     onSearch(term: any) {
       console.log(moment(term).format('YYYY-MM-DD'));
       console.log(term);
-      
+
       if (term === '') {
         this.displayItineraries = this.itineraries;
       } else {

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpResponse,HttpClientModule } from '@angular/common/http';
 import { AllocatedCustomers } from '../../models/itinerary.model'
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -11,7 +12,7 @@ import { Observable } from 'rxjs';
 })
 export class ItineraryService {
 
-  apiEndPoint = 'http://localhost:3000';
+  apiEndPoint = environment.apiBaseUrl;
 
 
   constructor(private http: HttpClient) { }
@@ -31,17 +32,17 @@ export class ItineraryService {
     return this.http.delete(this.apiEndPoint + '/itineraries/' + date + '/' + taid);
   }
 
-  getASingleItinerary(date: Date, taid: String) : Observable<any>  {
+  getASingleItinerary(date: any, taid: String) : Observable<any>  {
     return this.http.get(this.apiEndPoint + '/itineraries/' + date + '/' + taid);
   }
 
-  getAllocatedCustomers(date: Date, taid: String): Observable<HttpResponse<any>> {
+  getAllocatedCustomers(date: any, taid: String): Observable<HttpResponse<any>> {
     //console.log("1");
     return this.http.get<any>(`${this.apiEndPoint}/itineraries/allocated_customers/${date}/${taid}`, {observe : 'response'});
         
   }
 
-  getAllocatedPendingCustomers(date: Date, taid: String): Observable<HttpResponse<any>> {
+  getAllocatedPendingCustomers(date: any, taid: String): Observable<HttpResponse<any>> {
     //console.log("1");
     return this.http.get<any>(`${this.apiEndPoint}/itineraries/allocated_pending_customers/${date}/${taid}`, {observe : 'response'});
         

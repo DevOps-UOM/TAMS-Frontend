@@ -1,9 +1,11 @@
+import { CustomerService } from './../../services/customer/customer.service';
 import { TaskServiceService } from './../../services/task-service.service';
 import { AddTaskComponent } from './../../shared/add-task/add-task.component';
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AvailabilityServiceService} from '../../services/availability-service.service'
 import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-customer-availabilty',
@@ -11,30 +13,48 @@ import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog
   styleUrls: ['./customer-availabilty.component.css']
 })
 export class CustomerAvailabiltyComponent implements OnInit {
-  
+
   custId = '';
   availabilityForm: FormGroup;
   availabilities: any;
   displayAvailabilities: any;
   tasks: any;
   displayTasks: any;
-  minDate = new Date();
+  minDate = moment(moment().format("YYYY-MM-DD")).toDate();
+  customers: any;
+  displaycustomers: any;
 
 
   constructor(
     private fb: FormBuilder,
     private availabilityService: AvailabilityServiceService,
     private dialog: MatDialog,
-    private TaskService: TaskServiceService
+    private TaskService: TaskServiceService,
+    private customerService: CustomerService,
   ) {}
 
   ngOnInit(): void {
     this.formInstaller();
     this.loadAvailability();
     this.loadTask();
+    this.loadcustomers();
   }
   // tslint:disable-next-line:typedef
+  loadcustomers() {
+    this.customerService.listAllCustomers()
+      .subscribe(
+        res => {
+          this.customers = res.data;
+          console.log(res.data)
+        },
+        error => {
+
+        }
+      );
+  }
+
   loadAvailability() {
+    console.log(this.minDate)
     this.availabilityService.getAllAvailability()
       .subscribe(
         res => {
@@ -69,7 +89,7 @@ export class CustomerAvailabiltyComponent implements OnInit {
       task_duration: ['', Validators.required]
     });
   }
-  
+
   // tslint:disable-next-line:typedef
   onClickSubmit() {
     console.log(this.availabilityForm.value);
@@ -91,9 +111,9 @@ export class CustomerAvailabiltyComponent implements OnInit {
       this.displayAvailabilities = this.availabilities;
     } else {
       this.displayAvailabilities =  this.availabilities.filter((a) => {
-        if(a.cust_id.toLowerCase().indexOf(term.toLowerCase()) > -1) {
+        if(a.cust_id.cust_id.toLowerCase().indexOf(term.toLowerCase()) > -1) {
           return a
-        } 
+        }
       });
     }
   }
@@ -109,6 +129,7 @@ export class CustomerAvailabiltyComponent implements OnInit {
     })
 
   }
+
 
 
 

@@ -1,9 +1,9 @@
 <div fxLayout="row">
-    <div *ngIf="isShowSidebar" fxLayout="column" class="sidebar">
+    <div *ngIf="isShowSidebar && config.sideNav" fxLayout="column" class="sidebar">
         <app-side-bar></app-side-bar>
     </div>
     <div fxLayout="column" class="boards">
-        <div fxLayout="row" class="">
+        <div fxLayout="row" class="" *ngIf="config.toolBar">
             <app-nav-bar (burgerBooleanEmitter)="showSideBar($event)"></app-nav-bar>
         </div>
         <div class="content">
