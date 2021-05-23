@@ -22,6 +22,9 @@ import {PrintItiDetailsComponent} from "./print-iti-details/print-iti-details.co
 import {TaMapComponent} from './ta-map/ta-map.component';
 import { TempPinLocationComponent } from './temp-pin-location/temp-pin-location.component';
 
+import { RequestResetComponent } from './user/request-reset/request-reset.component';
+import { ResponseResetComponent } from './user/response-reset/response-reset.component';
+
 const routes: Routes = [
     {
       path: '',
@@ -96,7 +99,15 @@ const routes: Routes = [
       component: StatDashboardComponent,
       canActivate: [AuthGuard],
       data: { roles: [Role.Admin] }
-    }
+    },
+      {
+        path: 'request-reset-password',
+        component: RequestResetComponent,
+      },
+      {
+          path: 'response-reset-password/:token',
+          component: ResponseResetComponent
+      }
   ];
 
   @NgModule({

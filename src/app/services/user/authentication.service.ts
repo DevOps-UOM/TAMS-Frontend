@@ -33,10 +33,23 @@ export class AuthenticationService {
     //         }));
     // }
 
-    // logout() {
-    //     // remove user from local storage to log user out
-    //     localStorage.removeItem('user');
-    //     this.userSubject.next(null);
-    //     this.router.navigate(['/login']);
-    // }
+    logout() {
+        // remove user from local storage to log user out
+        localStorage.removeItem('user');
+        this.userSubject.next(null);
+        this.router.navigate(['/login']);
+    }
+
+    requestReset(body): Observable<any> {
+        return this.http.post(`${environment.apiBaseUrl}/req-reset-password`, body);
+      }
+    
+    newPassword(body): Observable<any> {
+        return this.http.post(`${environment.apiBaseUrl}/new-password`, body);
+      }
+    
+    ValidPasswordToken(body): Observable<any> {
+        return this.http.post(`${environment.apiBaseUrl}/valid-password-token`, body);
+      }
+    
 }
