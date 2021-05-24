@@ -12,17 +12,18 @@
                 <label for="">Customer</label>
                 <select required formControlName="cust_id" class="form-control" searchable="Search here..">
                     <!-- <option value="" disabled selected>Choose agent</option> -->
-                    <option *ngFor="let customer of customers" [value]="customer._id" >{{customer.cust_id}}- {{customer.name.first_name}} {{customer.name.last_name}}</option>
-                  </select>
+                    <option *ngFor="let customer of customers" [value]="customer._id">{{customer.cust_id}}-
+                        {{customer.name.first_name}} {{customer.name.last_name}}</option>
+                </select>
 
                 <!-- <input required formControlName="cust_id" type="text" class="form-control" placeholder=""> -->
             </div>
             <div class="form-group col-md">
                 <label for="">Estimated Duration</label>
                 <select class="custom-select" formControlName="task_duration">
-                    <option selected="selected" >15 min</option>
-                    <option >30 min</option>
-                    <option >45 min</option>
+                    <option selected="selected">15 min</option>
+                    <option>30 min</option>
+                    <option>45 min</option>
                 </select>
             </div>
             <div class="form-group col-md">
@@ -36,7 +37,7 @@
         <div class="form-row">
             <div class="form-group col-md">
                 <label for="">Select Task</label>
-                <select multiple=true class="form-control" formControlName="task" size="11" >
+                <select multiple=true class="form-control" formControlName="task" size="11">
                     <option [ngValue]="t._id" *ngFor="let t of displayTasks">{{t.task_name}}</option>
                 </select>
             </div>
@@ -48,7 +49,7 @@
 
 
 
-        <div class="btn btn-info" style="background-color:#33B585" (click)="addTask()" >Add Task</div>
+        <div class="btn btn-info" style="background-color:#33B585" (click)="addTask()">Add Task</div>
         <div (click)="onClickSubmit()" class="btn btn-info float-right ml-2" style="background-color:#33B585">
             Add Availabilty
         </div>
@@ -86,4 +87,3 @@
         </tbody>
     </table>
 </div>
-
