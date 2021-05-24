@@ -140,7 +140,7 @@ export class CustomerDetailFormComponent {
 
     if (this.selectedCustomer) {
       // todo :: include this after cust id is getting auto generated
-      // this.savingCustomer.cust_id = this.selectedCustomer.cust_id;  
+      this.savingCustomer.cust_id = this.selectedCustomer.cust_id;
       this.savingCustomer.is_deleted = this.selectedCustomer.is_deleted;
     }
 
@@ -175,7 +175,6 @@ export class CustomerDetailFormComponent {
     console.log(JSON.stringify(this.savingCustomer))
 
     if (this.selectedCustomer) {
-      console.log("savinggggggg")
       console.log(this.savingCustomer)
       this.customerService.updateACustomer(this.savingCustomer).subscribe((res) => {
         console.log("inside");

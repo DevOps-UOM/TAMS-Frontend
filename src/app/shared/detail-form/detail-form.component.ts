@@ -40,7 +40,7 @@ export class DetailFormComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      userid: ['', Validators.required],
+      // userid: [''],
       email: ['', Validators.required],
       first_name: [''],
       last_name: [''],
@@ -90,7 +90,7 @@ export class DetailFormComponent implements OnInit {
       };
 
       this.formControllService.uploadDetails(formData);
-      //this.form.reset();
+      this.form.reset();
       this.showAdd();
     } else {
       this.formIsValid = true;

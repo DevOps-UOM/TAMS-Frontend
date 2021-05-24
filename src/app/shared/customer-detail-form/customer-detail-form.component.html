@@ -4,9 +4,9 @@
       <form [formGroup]="customerForm" (ngSubmit)="OnSubmit()">
         <!-- <input type="hidden" id="_id"  class="form-control" formControlName="_id"> -->
 
-        <label for="cust_id">Customer ID</label> &nbsp; &nbsp; &nbsp;
+        <!-- <label for="cust_id">Customer ID</label> &nbsp; &nbsp; &nbsp;
         <input type="text" id="cust_id" class="form-control" formControlName="cust_id">
-        <br /> <br />
+        <br /> <br /> -->
         <!-- <div formGroupName="name"> -->
         <label for="first_name">First Name</label> &nbsp; &nbsp; &nbsp;
         <input type="text" id="first_name" class="form-control" formControlName="first_name">
@@ -21,26 +21,23 @@
 
 
           <div>
+            <label for="coordinates">Location</label>
+
 
             <div fxlayout="row" class='cordinates'>
-
-
-              <div> x : <input class="cordinate" type="text" formControlName="x"></div>
-              <div>
-                y:
-                <input class="cordinate" type="text" formControlName="y">
-              </div>
+              <div> x : <input class="cordinate form-control" type="text" formControlName="x"></div>
+              <div> y: <input class="cordinate form-control" type="text" formControlName="y"></div>
             </div>
+            <br />
 
-            <!-- <button type="button" (click)="addCoordinates()">Add Coordinates</button> -->
+            <button class="btn btn-info" style="background-color:#33B585 ; font-size:15px">Pin Customer</button>
           </div>
-          <label for="coordinates">Location</label> &nbsp; &nbsp; &nbsp;
 
           <br /> <br />
 
-          <label for="type">Location Type</label> &nbsp; &nbsp; &nbsp;
-          <input type="text" id="type" class="form-control" formControlName="type">
-          <br /> <br />
+          <!-- <label for="type">Location Type</label> &nbsp; &nbsp; &nbsp; -->
+          <input type="text" id="type" class="form-control" formControlName="type" value="Point" hidden>
+          <!-- <br /> <br /> -->
         </div>
 
         <div formGroupName="address">
@@ -100,7 +97,7 @@
     <div class="tables">
 
       <div class="search-hero">
-        <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
+        <input class="form-controls form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
           placeholder="Start searching for a customer">
       </div>
 
