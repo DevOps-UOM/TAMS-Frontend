@@ -1,107 +1,142 @@
-<div class="form-group">
-    <form [formGroup]="customerForm" (ngSubmit)="OnSubmit()">
-     
-      
-      <label for="cust_id">Customer ID</label> &nbsp; &nbsp; &nbsp;
-      <input type="text" id="cust_id"  class="form-control" formControlName="cust_id">
-      <br /> <br />
-      <div formGroupName="name">
-        <label for="first_name">First Name</label> &nbsp; &nbsp; &nbsp;
-        <input type="text" id="first_name"  class="form-control" formControlName="first_name">
-        <br /> <br />
-      
-        <label for="last_name">Last Name</label> &nbsp; &nbsp; &nbsp;
-        <input type="text" id="last_name"  class="form-control" formControlName="last_name">
-        <br /> <br />
-      </div>
+<div class="row">
+    <div class=col-lg-7>
+        <div class="form-group">
+            <form [formGroup]="customerForm" (ngSubmit)="OnSubmit()">
+                <!-- <input type="hidden" id="_id"  class="form-control" formControlName="_id"> -->
 
-      <!-- <div formGroupName="location">
-      <label for="coordinates">Location</label> &nbsp; &nbsp; &nbsp;
-      <input type="text" id="coordinates"  class="form-control" formControlName="coordinates">
-      <br /> <br />
-    </div> -->
+                <!-- <label for="cust_id">Customer ID</label> &nbsp; &nbsp; &nbsp;
+        <input type="text" id="cust_id" class="form-control" formControlName="cust_id">
+        <br /> <br /> -->
+                <!-- <div formGroupName="name"> -->
+                <label for="first_name">First Name</label> &nbsp; &nbsp; &nbsp;
+                <input type="text" id="first_name" class="form-control" formControlName="first_name">
+                <br /> <br />
 
-      <label for="area">Area</label> &nbsp; &nbsp; &nbsp;
-      <input type="text" id="area"  class="form-control" formControlName="area">
-      <br /> <br />
+                <label for="last_name">Last Name</label> &nbsp; &nbsp; &nbsp;
+                <input type="text" id="last_name" class="form-control" formControlName="last_name">
+                <br /> <br />
+                <!-- </div> -->
 
-      <label for="nic">NIC</label> &nbsp; &nbsp; &nbsp;
-      <input type="text" id="nic"  class="form-control" formControlName="nic">
-      <br /> <br />
+                <div>
 
-      <label for="email">E-mail</label>
-      <input
-        type="email"
-        id="email"
-        formControlName="email"
-        class="form-control"
-      /><br /><br />
-  
-      <label for="mobile_number">Contact No.</label> &nbsp; &nbsp; &nbsp;
-      <input type="text" id="mobile_number"  class="form-control" formControlName="mobile_number">
-      <br /> <br />
 
-      <label for="default_agent_id">Assigned Travelling Agent</label> &nbsp; &nbsp; &nbsp;
-      <!-- <input type="text" id="default_agent_id"  class="form-control" formControlName="default_agent_id"> -->
-      <br /> <br />
+                    <div>
+                        <label for="coordinates">Location</label>
 
-      <select formControlName="default_agent_id" class="form-control" searchable="Search here..">
-        <!-- <option value="" disabled selected>Choose agent</option> -->
-        <option *ngFor="let agent of travelAgents" [value]="agent._id" >{{agent.first_name}}</option>
-      </select>
 
-  <button type="submit" class="btn btn-info mt-8" style="background-color:#33B585 ; font-size:17px">Add Customer</button>
-  <!-- <div (click)="onClickSubmit()" class="btn btn-info float-right ml-2" style="background-color:#33B585 ; font-size:20px">
-    Add
-</div> -->
-    </form>
-  </div>
+                        <div fxlayout="row" class='cordinates'>
+                            <div> x : <input class="cordinate form-control" type="text" formControlName="x"></div>
+                            <div> y: <input class="cordinate form-control" type="text" formControlName="y"></div>
+                        </div>
+                        <br />
 
-  <!-- <input type="file" class="upload" (change)="changeListener($event.target.files)"> -->
-  
-  
-  <div class="tables">
+                        <button class="btn btn-info" style="background-color:#33B585 ; font-size:15px" (click)="pinCustomer()">Pin Customer</button>
+                    </div>
 
-    <div class="search-hero">
-      <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Start searching for a customer">
+                    <br /> <br />
+
+                    <!-- <label for="type">Location Type</label> &nbsp; &nbsp; &nbsp; -->
+                    <input type="text" id="type" class="form-control" formControlName="type" value="Point" hidden>
+                    <!-- <br /> <br /> -->
+                </div>
+
+                <div formGroupName="address">
+                    <label for="address_line_1">Address Line 1</label> &nbsp; &nbsp; &nbsp;
+                    <input type="text" id="address_line_1" class="form-control" formControlName="address_line_1">
+                    <br /> <br />
+
+                    <label for="address_line_2">Address Line 2</label> &nbsp; &nbsp; &nbsp;
+                    <input type="text" id="address_line_2" class="form-control" formControlName="address_line_2">
+                    <br /> <br />
+
+                    <label for="city">City</label> &nbsp; &nbsp; &nbsp;
+                    <input type="text" id="city" class="form-control" formControlName="city">
+                    <br /> <br />
+                </div>
+
+                <label for="area">Area</label> &nbsp; &nbsp; &nbsp;
+                <input type="text" id="area" class="form-control" formControlName="area">
+                <br /> <br />
+
+                <label for="nic">NIC</label> &nbsp; &nbsp; &nbsp;
+                <input type="text" id="nic" class="form-control" formControlName="nic">
+                <br /> <br />
+
+                <label for="email">E-mail</label>
+                <input type="email" id="email" formControlName="email" class="form-control" /><br /><br />
+
+                <label for="mobile_number">Contact No.</label> &nbsp; &nbsp; &nbsp;
+                <input type="text" id="mobile_number" class="form-control" formControlName="mobile_number">
+                <br /> <br />
+
+                <label for="default_agent_id">Assigned Travelling Agent</label> &nbsp; &nbsp; &nbsp;
+                <!-- <input type="text" id="default_agent_id"  class="form-control" formControlName="default_agent_id"> -->
+                <br /> <br />
+
+                <select formControlName="default_agent_id" class="form-control" searchable="Search here..">
+          <!-- <option value="" disabled selected>Choose agent</option> -->
+          <option *ngFor="let agent of travelAgents" [value]="agent._id">{{agent.first_name}} {{agent.last_name}}
+          </option>
+        </select>
+                <br /> <br />
+
+                <button (click)="customerForm.reset()" class="btn btn-info float-left ml-2" style="background-color:#33B585 ; font-size:17px">
+          Reset
+        </button>
+
+                <button type="submit" class="btn btn-info float-right ml-2" style="background-color:#33B585 ; font-size:17px">Submit</button>
+            </form> <br> <br>
+        </div>
     </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Cust ID</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
-                <!-- <th scope="col">Location</th> -->
-                <th scope="col">Area</th>
-                <th scope="col">Contact No.</th>
-                <th scope="col">Email</th>
-                <th scope="col">NIC</th>
-                <th scope="col">Assigned Travelling Agent</th>
-            </tr>
-        </thead>
-        <tbody *ngIf="customers.length>0"  >
-            <!-- <tr *ngFor="let customer of customers"> -->
-                <tr *ngFor="let customer of customers | filter:searchText">
-                <th scope="row">{{customer.cust_id}}</th>
-                <td>{{customer.name.first_name}}</td>
-                <td>{{customer.name.last_name}}</td>
-                <!-- <td>{{customer.location.coordinates}}</td> -->
-                <td>{{customer.area}}</td>
-                <td>{{customer.mobile_number}}</td>
-                <td>{{customer.email}}</td>
-                <td>{{customer.nic}}</td>
-                <td>{{customer.default_agent_id.first_name}} {{customer.default_agent_id.last_name}}</td>
-                <!-- <td>
-                    <a class="action-btn" (click)="onDelete(grade.email)">
-                    <i class="material-icons">delete</i>
-                    </a>
-                </td> -->
-                <!-- <td><button type="btn btn-small btn-secondary">View Profile</button></td> -->
-                <td><button type="btn btn-small btn-secondary" (click)="navigateToProfile(customer.cust_id)">View Profile</button></td>
-                <!-- <td> <button (click) = "deleteRow(i)"><i class="fa fa-trash"></i></button></td> -->
-            </tr>
-        </tbody>
-    </table>
-</div>
+    <!-- <input type="file" class="upload" (change)="changeListener($event.target.files)"> -->
 
+    <div class="col-lg-5">
+        <div class="tables">
+
+            <div class="search-hero">
+                <input class="form-controls form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Start searching for a customer">
+            </div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Customer ID</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <!-- <th scope="col">Location</th> -->
+                        <th scope="col">Area</th>
+                        <th scope="col">Contact No.</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">NIC</th>
+                        <th scope="col">Assigned Travelling Agent</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="customers.length>0">
+                    <!-- <tr *ngFor="let customer of customers"> -->
+                    <tr *ngFor="let customer of customers | filter:searchText">
+                        <th scope="row">{{customer.cust_id}}</th>
+                        <td>{{customer.name.first_name}}</td>
+                        <td>{{customer.name.last_name}}</td>
+                        <!-- <td>{{customer.location.coordinates}}</td> -->
+                        <td>{{customer.area}}</td>
+                        <td>{{customer.mobile_number}}</td>
+                        <td>{{customer.email}}</td>
+                        <td>{{customer.nic}}</td>
+                        <td>{{customer.default_agent_id.first_name}} {{customer.default_agent_id.last_name}}</td>
+                        <td>
+                            <a class="action-btn" (click)="onEdit(customer)">
+                                <i class="material-icons">edit</i>
+                            </a>
+                            <a class="action-btn" (click)="onDelete(customer.cust_id)">
+                                <i class="material-icons">delete</i>
+                            </a>
+                        </td>
+                        <td><button type="btn btn-small btn-secondary" (click)="navigateToProfile(customer.cust_id)" class="btn btn-info float-right ml-2" style="background-color:#33B585 ; font-size:17px">View
+                Profile</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

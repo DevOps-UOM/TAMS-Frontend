@@ -3,10 +3,14 @@
   padding-bottom: 50px;
 }
 
-.form-control {
+.form-controls {
   box-shadow: 0 10px 40px 0 #b0c1d9;
 }
 
 .form-control::placeholder {
   font-family: FontAwesome;
+}
+
+.cordinate {
+  width: 100px;
 }

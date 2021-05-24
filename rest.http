@@ -1,2 +1,4 @@
-GET http://localhost:3000/ta-agents/TA001
+GET http://localhost:3000/customers/C001
+
+
 

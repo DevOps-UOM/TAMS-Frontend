@@ -45,6 +45,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { UserService } from '../services/user/user.service';
 import { PinCustomerComponent } from './pin-customer/pin-customer.component';
+import { ProfileComponent } from './profile/profile.component';
 
 // const admin_routes: Routes = [
 //   // { path: 'admin-user-management/ca-agents' , component: CaAgentsTableComponent},
@@ -57,7 +58,7 @@ import { PinCustomerComponent } from './pin-customer/pin-customer.component';
 // ];
 
 @NgModule({
-  declarations: [NavBarComponent,AddTaskComponent, MapComponent, TaTaskCardComponent, SideBarComponent, ContainerComponent, DetailFormComponent, CaAgentsTableComponent, TaAgentsTableComponent, NavTablesComponent, TaOnlyDetailFormComponent, UserProfileComponent, CustomerTableComponent, CustomerDetailFormComponent, CustomerProfileComponent,UserSharedComponent, PinCustomerComponent],
+  declarations: [NavBarComponent,AddTaskComponent, MapComponent, TaTaskCardComponent, SideBarComponent, ContainerComponent, DetailFormComponent, CaAgentsTableComponent, TaAgentsTableComponent, NavTablesComponent, TaOnlyDetailFormComponent, UserProfileComponent, CustomerTableComponent, CustomerDetailFormComponent, CustomerProfileComponent,UserSharedComponent, PinCustomerComponent,ProfileComponent],
   imports: [
     CommonModule,
     MatIconModule,

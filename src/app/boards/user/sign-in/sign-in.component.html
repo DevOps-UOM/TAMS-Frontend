@@ -2,27 +2,31 @@
     <img src="assets/img/login-avatar.png" id="icon" alt="user-icon"/>
 </div> -->
 
-<div class="card" style="width: 18rem;">
+<div class="md-10" style="width: 23rem; height: 12rem; margin: 20% 50% 20% 33%;">
+
   <form #signInForm="ngForm" (ngSubmit)="signInForm.valid && onSubmit(signInForm)">
+    <label class="form-label">Email</label>
     <input type="text" name="email" #email="ngModel" [(ngModel)]="model.email" placeholder="Email" [pattern]="emailRegex" required
-      [ngClass]="{'invalid-textbox' :signInForm.submitted && !email.valid }" class="form-control">
+      [ngClass]="{'invalid-textbox' :signInForm.submitted && !email.valid }" class="form-control"> <br>
     <div *ngIf="signInForm.submitted && email.errors?.pattern">
       <label class="validation-message">Invalid email address.</label>
     </div>
+    <label class="form-label">Password</label>
     <input type="password" name="password" #password="ngModel" [(ngModel)]="model.password" placeholder="Password" required minlength="4"
-      [ngClass]="{'invalid-textbox' :signInForm.submitted && !password.valid }" class="form-control">
-    <div *ngIf="signInForm.submitted && password.errors?.minlength">
+      [ngClass]="{'invalid-textbox' :signInForm.submitted && !password.valid }" class="form-control"> <br>
+    <div *ngIf="signInForm.submitted && password.errors?.minlength"> 
       <label class="validation-message">Minimum 4 characters.</label>
     </div>
-    <input type="submit" value="Login" class="btn btn-primary">
+    <input type="submit" value="Login" class="btn btn-info" style="background-color:#33B585">
     <!-- <button [disabled]="loading" class="btn btn-primary">
       <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
       Login
   </button> -->
   </form>
   <!-- Error message -->
-<div class="alert" *ngIf="serverErrorMessages">
+  <div class="alert" *ngIf="serverErrorMessages">
     {{serverErrorMessages}}
-</div>
+  </div>
+
 </div>
 

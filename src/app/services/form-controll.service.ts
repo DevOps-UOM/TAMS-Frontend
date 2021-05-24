@@ -17,11 +17,12 @@ export class FormControllService {
 
   constructor(private http: HttpClient) { }
 
-  uploadDetails(form: Grade){
-    this.http.post<{status: string, msg: string}>(environment.apiBaseUrl+'/users', form).subscribe(
+  uploadDetails(form: Grade) {
+    this.http.post<{ status: string, msg: string }>(environment.apiBaseUrl + '/users', form).subscribe(
       (responseData) => {
         console.log(responseData['msg']);
         this.updatedgrade.next(form);
+        this.updatedMaxgrade.next(form);
 
         // if (form.totMark == "Travelling Agent"){
         //   this.updatedMaxgrade.next(form);

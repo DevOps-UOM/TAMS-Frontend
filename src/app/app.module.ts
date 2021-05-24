@@ -8,7 +8,8 @@ import { AppComponent } from './app.component';
 import { LayoutsModule } from './layouts/layouts.module';
 import {HttpClientModule} from '@angular/common/http';
 import { AlertsModule } from 'angular-alert-module';
-import{BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import{BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 import * as Hammer from 'hammerjs';
 
@@ -42,6 +43,7 @@ export class MyHammerConfig extends HammerGestureConfig{
     AngularFireModule.initializeApp(firebaseConfig),
     BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ToastrModule.forRoot(),
     NgbModule
   ],
   providers: [{

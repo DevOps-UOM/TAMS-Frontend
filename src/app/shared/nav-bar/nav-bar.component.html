@@ -16,7 +16,7 @@
         <div id="userMenuDropdown" class="dropdown-content">
             <div class="agent-type"><label>{{userService.getUserPayload().role}}</label></div>
             <hr>
-            <a href="#home">Profile</a>
+            <a (click)="profile()">Profile</a>
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
         </div>

@@ -85,5 +85,9 @@ export class NavBarComponent implements OnInit {
     this.burgerBoolean=!this.burgerBoolean;
     this.burgerBooleanEmitter.emit(this.burgerBoolean);
   }
+
+  profile(){
+    this.router.navigate(['/userprofile']);
+  }
 }
 
