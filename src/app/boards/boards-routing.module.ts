@@ -20,7 +20,6 @@ import { SignInComponent } from './user/sign-in/sign-in.component';
 import { UserComponent } from './user/user.component';
 import { PrintItiDetailsComponent } from "./print-iti-details/print-iti-details.component";
 import { TaMapComponent } from './ta-map/ta-map.component';
-import { TempPinLocationComponent } from './temp-pin-location/temp-pin-location.component';
 
 import { RequestResetComponent } from './user/request-reset/request-reset.component';
 import { ResponseResetComponent } from './user/response-reset/response-reset.component';
@@ -33,7 +32,9 @@ const routes: Routes = [
 
   {
     path: 'itinerary-map',
-    component: TAItineraryMapComponent
+    component: TAItineraryMapComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.ta] },
   },
   {
     path: 'itinerary-details',
@@ -79,10 +80,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: [Role.ca, Role.Admin] },
   },
-  {
-    path: 'pin-customer',
-    component: TempPinLocationComponent,
-  },
 
   {
     path: 'admin-user-management',
@@ -99,6 +96,7 @@ const routes: Routes = [
     path: 'ca-user-management',
     component: CaUserManagementComponent,
     canActivate: [AuthGuard],
+    data: { roles: [Role.ca, Role.Admin] },
     children: [
       { path: 'ta-agents', component: TaAgentsTableComponent },
       { path: 'customers', component: CustomerTableComponent },

@@ -9,16 +9,18 @@
         <div class="flex-container row-reverse">
             <div id="user-det" class="user-btn" (click)="userMenu()"></div>
             <div class="user-name-div">
-                <p class="title">{{ userService.getUserPayload().first_name }}</p>
+                <p class="title">{{ user.first_name }}</p>
 
             </div>
         </div>
         <div id="userMenuDropdown" class="dropdown-content">
-            <div class="agent-type"><label>{{userService.getUserPayload().role}}</label></div>
+            <div class="agent-type"><label>{{role}}</label></div>
             <hr>
             <a (click)="profile()">Profile</a>
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
+            <hr>
+            <a (click)="onLogout()">Logout</a>
         </div>
     </div>
 </div>

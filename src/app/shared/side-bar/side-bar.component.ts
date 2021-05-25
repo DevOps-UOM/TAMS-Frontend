@@ -2,6 +2,8 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Role } from 'src/app/models/role.model';
+import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user';
 
 
@@ -24,11 +26,15 @@ export class SideBarComponent implements OnInit {
 
   TAButton: boolean = false;
   panelOpenState = false;
+  user: User;
+  role:Role;
 
   constructor(
     public userService: UserService,
     private router: Router
-    ) {
+  ) {
+    this.user = userService.getUserPayload();
+    this.role=this.user.role
   }
 
   ngOnInit(): void {
@@ -67,9 +73,7 @@ export class SideBarComponent implements OnInit {
       case 'Statistical Dashboard':
         this.router.navigate(["/boards/stat-dashboard"])
         break;
-      case 'Pin Customer':
-        this.router.navigate(["/boards/pin-customer"])
-        break;
+
 
       default:
         this.router.navigate(['/boards/home']);
@@ -87,7 +91,7 @@ export class SideBarComponent implements OnInit {
     }
   }
 
-  onLogout(){
+  onLogout() {
     this.userService.logout();
   }
 

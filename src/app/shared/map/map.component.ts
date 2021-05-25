@@ -203,9 +203,9 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     console.log(this.modeSignal);
     switch (this.modeSignal) {
-      case "directionMode": this.trackMe(); this.getDirections(); break;
+      case "directionMode":  this.getDirections(); break;
       case "markerMode": this.getMarkers(); break;
-      case "singlePathMode": this.trackMe(); this.getSingleDirection(); break;
+      case "singlePathMode": this.getSingleDirection(); break;
       case "liveMode": this.showTrackingPosition(); break;
       case "singleLiveMode": this.showTALocation(); break;
       case "pinningMode": this.pinLocation(); break;
@@ -332,10 +332,10 @@ export class MapComponent implements OnInit, AfterViewInit {
           this.currentLat = position.coords.latitude;
           this.currentLng = position.coords.longitude;
 
-          // this.origin = {
-          //   lat: this.currentLat,
-          //   lng: this.currentLng
-          // };
+          this.origin = {
+            lat: this.currentLat,
+            lng: this.currentLng
+          };
 
           console.log(this.origin);
           resolve(x);
@@ -457,6 +457,8 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     var loc: Loc;
     const directionsService = new google.maps.DirectionsService();
+    console.log("----------------------Origin---------------------");
+    console.log(this.origin);
     let tempOrigin = this.origin;
     for (var i = 0; i < this.markerList.length; i++) {
       const tempWaypoints: google.maps.DirectionsWaypoint[] = [];
@@ -602,51 +604,51 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
 
-  trackMe() {
-    if (navigator.geolocation) {
-      this.isTracking = true;
-      navigator.geolocation.watchPosition((position) => {
-        this.liveLat = position.coords.latitude;
-        this.liveLng = position.coords.longitude;
+  // trackMe() {
+  //   if (navigator.geolocation) {
+  //     this.isTracking = true;
+  //     navigator.geolocation.watchPosition((position) => {
+  //       this.liveLat = position.coords.latitude;
+  //       this.liveLng = position.coords.longitude;
 
-        //var locData;
+  //       //var locData;
 
-        if (this.user && this.user.userid) {
-          this.geo.get(this.user.userid.toString()).then(res => {
-            console.log(res);
-            if (res) {
-              var angle;
-              if (this.liveLat === res.coordinates.lat && this.liveLng === res.coordinates.lng) {
-                angle = res.angle;
-              } else {
-                angle = Math.atan2(this.liveLng - res.coordinates.lng, this.liveLat - res.coordinates.lat) * 180 / Math.PI
-              }
-              console.log(angle);
-              this.geo.update(this.user.userid.toString(), { userName: this.user.first_name.toString(), coordinates: { lat: this.liveLat, lng: this.liveLng }, angle: angle });
+  //       if (this.user && this.user.userid) {
+  //         this.geo.get(this.user.userid.toString()).then(res => {
+  //           console.log(res);
+  //           if (res) {
+  //             var angle;
+  //             if (this.liveLat === res.coordinates.lat && this.liveLng === res.coordinates.lng) {
+  //               angle = res.angle;
+  //             } else {
+  //               angle = Math.atan2(this.liveLng - res.coordinates.lng, this.liveLat - res.coordinates.lat) * 180 / Math.PI
+  //             }
+  //             console.log(angle);
+  //             this.geo.update(this.user.userid.toString(), { userName: this.user.first_name.toString(), coordinates: { lat: this.liveLat, lng: this.liveLng }, angle: angle });
 
-            } else {
-              console.log("creating")
-              this.liveLocation = {
-                userName: this.user.first_name.toString(),
-                coordinates: { lat: this.liveLat, lng: this.liveLng },
-                angle: 0
-              }
-              this.geo.update(this.user.userid.toString(), this.liveLocation);
-            }
-          })
-        }
-
-
+  //           } else {
+  //             console.log("creating")
+  //             this.liveLocation = {
+  //               userName: this.user.first_name.toString(),
+  //               coordinates: { lat: this.liveLat, lng: this.liveLng },
+  //               angle: 0
+  //             }
+  //             this.geo.update(this.user.userid.toString(), this.liveLocation);
+  //           }
+  //         })
+  //       }
 
 
 
-        console.log(position);
-        //this.showTrackingPosition(position);
-      });
-    } else {
-      alert("Geolocation is not supported by this browser.");
-    }
-  }
+
+
+  //       console.log(position);
+  //       //this.showTrackingPosition(position);
+  //     });
+  //   } else {
+  //     alert("Geolocation is not supported by this browser.");
+  //   }
+  // }
 
 
   // showTrackingPosition(position) {

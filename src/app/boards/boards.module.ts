@@ -40,7 +40,6 @@ import { StatDashboardComponent } from './stat-dashboard/stat-dashboard.componen
 import { UserComponent } from './user/user.component';
 import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
-import { TempPinLocationComponent } from './temp-pin-location/temp-pin-location.component';
 
 import { RequestResetComponent } from './user/request-reset/request-reset.component';
 import { ResponseResetComponent } from './user/response-reset/response-reset.component';
@@ -155,7 +154,6 @@ import { ResponseResetComponent } from './user/response-reset/response-reset.com
     ResetPasswordComponent, 
     SignInComponent,
     PrintItiDetailsComponent,
-    TempPinLocationComponent,
     RequestResetComponent,
     ResponseResetComponent
     ],
