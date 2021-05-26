@@ -13,7 +13,7 @@ import { Customer, ICustomer } from 'src/app/models/DTO/customer.model';
 import { Address } from 'src/app/models/DTO/address.model';
 import { Location } from 'src/app/models/DTO/location.model';
 import { Name } from 'src/app/models/DTO/name.model';
-import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { PinCustomerComponent } from 'src/app/shared/pin-customer/pin-customer.component';
 
 @Component({
@@ -33,7 +33,8 @@ export class CustomerDetailFormComponent {
   selectedCustomer: any;
   savingCustomer: ICustomer;
 
-  formCust: any
+  formCust: any;
+  childData: string;
 
   constructor(
     private http: HttpClient,
@@ -330,17 +331,21 @@ export class CustomerDetailFormComponent {
     this.toastr.error('', 'Deleted successfully!');
   }
 
-  pinCustomer(){
+  pinCustomer() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-    dialogConfig. width = "50%";
+    dialogConfig.width = "50%";
     const dialogRef = this.dialog.open(PinCustomerComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe(data=>{
+    dialogRef.afterClosed().subscribe(data => {
       console.log(data)
     })
 
+  }
+
+  parentMethod(data) {
+    this.childData = data;
   }
 
 }

@@ -99,6 +99,7 @@ const routes: Routes = [
     path: 'ca-user-management',
     component: CaUserManagementComponent,
     canActivate: [AuthGuard],
+    data: { roles: [Role.ca, Role.Admin] },
     children: [
       { path: 'ta-agents', component: TaAgentsTableComponent },
       { path: 'customers', component: CustomerTableComponent },

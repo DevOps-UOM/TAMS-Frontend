@@ -21,6 +21,11 @@
                 <td>{{ grade.first_name }}</td>
                 <td>{{ grade.last_name }}</td>
                 <td>{{ grade.mobile_number }}</td>
+                <td>
+                    <a class="action-btn" (click)="onDelete(grade.userid)">
+                        <i class="material-icons">delete</i>
+                    </a>
+                </td>
                 <td><button type="btn btn-small btn-secondary" (click)="navigateToProfile(grade.userid)"
                         class="btn btn-info float-right ml-2" style="background-color:#33B585 ; font-size:17px">View
                         Profile</button></td>
