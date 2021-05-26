@@ -14,12 +14,14 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router'
 import { SharedModule } from '../shared/shared.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { TAItineraryMapComponent } from './ta-itinerary-map/ta-itinerary-map.component';
 import { LeaveComponent } from './leave/leave.component';
 import { TaMapComponent } from './ta-map/ta-map.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminUserManagementComponent } from './admin-user-management/admin-user-management.component';
+
 
 import { TaTaskComponent } from './ta-task/ta-task.component';
 import {MatButtonModule} from '@angular/material/button';
@@ -139,6 +141,7 @@ import { ResponseResetComponent } from './user/response-reset/response-reset.com
 
 @NgModule({
 
+
   declarations: [
     TAItineraryMapComponent, 
     TaTaskComponent,
@@ -159,7 +162,7 @@ import { ResponseResetComponent } from './user/response-reset/response-reset.com
     RequestResetComponent,
     ResponseResetComponent
     ],
-  
+
   imports: [
     CommonModule,
     // RouterModule.forChild(routes),

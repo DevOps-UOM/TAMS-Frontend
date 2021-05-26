@@ -1,9 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { ItineraryService } from './../../services/itinerary/itinerary.service';
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment'
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
-import {AddTaskComponent} from "../../shared/add-task/add-task.component";
 import {PrintItiDetailsComponent} from "../print-iti-details/print-iti-details.component";
+import {UserServiceService} from '../../services/user-service/user-service.service'
+import {Grade} from "../../models/grade.model";
 
 @Component({
   selector: 'app-itinerary-details',
@@ -14,15 +16,19 @@ export class ItineraryDetailsComponent implements OnInit {
 
   itineraries: any;
   displayItineraries: any;
+  travelAgents: any;
 
   constructor(
     private dialog: MatDialog,
     private ItinerariesService: ItineraryService,
+    private UserServiceService: UserServiceService,
+    private http: HttpClient,
 
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.loadItineraries();
+    this.loadAgents();
   }
 
   loadItineraries(){
@@ -33,18 +39,35 @@ export class ItineraryDetailsComponent implements OnInit {
       },
       error => {
 
-      }
+       });
+  }
 
-    );
+  matchIdtoAgent(){
+    let agetDetails = [];
+     agetDetails = JSON.parse(this.itineraries);
+      agetDetails.findIndex
 
   }
-  printIti(){
+
+
+
+  loadAgents(){
+    this.http.get<{ status: string, msg: string, data: Grade[] }>('http://localhost:3000/ta-agents').subscribe((postData) => {
+      this.travelAgents = postData['data'];
+      console.log(this.travelAgents);
+
+    });
+
+  }
+
+  printIti(i : number ){
+    this.itineraries[i];
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig. width = "100%";
-    const dialogRef = this.dialog.open(PrintItiDetailsComponent, dialogConfig);
+    const dialogRef = this.dialog.open(PrintItiDetailsComponent, { width:"100%", autoFocus:true, disableClose:true, data: this.itineraries[i] });
     dialogRef.afterClosed().subscribe(result => {
     })
 
