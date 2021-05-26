@@ -1,0 +1,35 @@
+<div class="row mt-4 ml-4 ">
+  <div class="">
+      <input placeholder="Search" #search type="date" class="form-control float-right" (input)="onSearch(search.value)">
+  </div>
+  <!-- <div class="">
+    <input placeholder="IdSearch" #idsearch type="" class="form-control float-right" (input)="onIdSearch(idsearch.value)">
+</div> -->
+
+  <div class="col-md-2 mb-8">
+      <i (click)="onClickReset(search)" class="fa fa-refresh zoom" style="cursor: pointer; "></i>
+  </div>
+</div>
+    <table class="table table-hover mt-5">
+        <thead>
+          <tr>
+            <th scope="row">Itinerary No.</th>
+            <th>Agent ID</th>
+            <th>Agent Name</th>
+            <th>Date</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let t of displayItineraries;let i= index " >
+                <td scope="row" style="cursor: pointer;" >{{i+1}} </td>
+                <td>{{t.travel_agent_id}} </td>
+                <td>  </td>
+                <td>{{t.date | date:'shortDate' }} </td>
+                <td><i class="fa fa-trash zoom" style="cursor: pointer;" (click)="onItiDelete(t.travel_agent_id, t.date) " ></i></td>
+                <div class="btn btn-info" style="background-color:#33B585" (click)="printIti(i)" >Print</div>
+
+            </tr>
+        </tbody>
+
+    </table>

@@ -1,4 +1,13 @@
-<app-nav-bar></app-nav-bar>
-<div class="content">
-    <router-outlet></router-outlet>
+<div fxLayout="row">
+    <div *ngIf="isShowSidebar" fxLayout="column" class="sidebar">
+        <app-side-bar></app-side-bar>
+    </div>
+    <div fxLayout="column" class="boards">
+        <div fxLayout="row" class="">
+            <app-nav-bar (burgerBooleanEmitter)="showSideBar($event)"></app-nav-bar>
+        </div>
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
 </div>
