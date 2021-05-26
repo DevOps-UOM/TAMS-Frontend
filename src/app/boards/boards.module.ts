@@ -117,7 +117,6 @@ import { SignInComponent } from './user/sign-in/sign-in.component';
     AssignComponent,
     TaMapComponent,
     ItineraryDetailsComponent,
-    
     CaUserManagementComponent,
     StatDashboardComponent, 
     UserComponent, 

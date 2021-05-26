@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AllocatedCustomers, modeSignalStatus } from 'src/app/models/itinerary.model';
 import { ItineraryService } from '../../services/itinerary/itinerary.service';
 import { Overlay } from '@angular/cdk/overlay';
+import { ICustomer } from 'src/app/models/DTO/customer.model';
 
 @Component({
   selector: 'app-ta-itinerary-map',
@@ -16,6 +17,15 @@ export class StatDashboardComponent implements OnInit {
 
   bestagents: any;
   displaybestagents: any;
+
+  mostvisitedcustomers: any;
+  displaymostvisitedcustomers: any;
+
+  mostefficientdays: any;
+  displaymostefficientdays: any;
+
+  leastefficientdays: any;
+  displayleastefficientdays: any;
 
   private loading: boolean = false;
   customerList: AllocatedCustomers[] = [];
@@ -31,6 +41,9 @@ export class StatDashboardComponent implements OnInit {
   ngOnInit() {
     this.getCustomers();
     this.loadBestAgents();
+    this.loadMostVisitedCustomers();
+    this.loadMostEfficientDays();
+    this.loadLeastEfficientDays();
 
     //   this.sub = this.activatedRoute.params.subscribe(params => {
     //     const userId = params['userid'];
@@ -60,6 +73,49 @@ export class StatDashboardComponent implements OnInit {
         }
       );
   }
+
+  loadMostVisitedCustomers() {
+    this.statDashboardService.listMostVisitedCustomers()
+      .subscribe(
+        res => {
+          this.mostvisitedcustomers = res.data;
+          this.displaymostvisitedcustomers = this.mostvisitedcustomers;
+          console.log(this.displaymostvisitedcustomers);
+        },
+        error => {
+
+        }
+      );
+  }
+
+  loadMostEfficientDays() {
+    this.statDashboardService.listMostEfficientDays()
+      .subscribe(
+        res => {
+          this.mostefficientdays = res.data;
+          this.displaymostefficientdays = this.mostefficientdays;
+          console.log(this.displaymostefficientdays);
+        },
+        error => {
+
+        }
+      );
+  }
+
+  loadLeastEfficientDays() {
+    this.statDashboardService.listLeastEfficientDays()
+      .subscribe(
+        res => {
+          this.leastefficientdays = res.data;
+          this.displaymostefficientdays = this.leastefficientdays;
+          console.log(this.displayleastefficientdays);
+        },
+        error => {
+
+        }
+      );
+  }
+
 
 
 

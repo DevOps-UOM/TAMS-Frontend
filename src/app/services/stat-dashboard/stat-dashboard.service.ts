@@ -14,7 +14,17 @@ export class StatDashboardService {
     return this.http.get('http://localhost:3000/best-agents');
   }
 
+  listMostVisitedCustomers(): Observable<any> {
+    return this.http.get('http://localhost:3000/most-visited-customers');
+  }
 
+  listMostEfficientDays(): Observable<any> {
+    return this.http.get('http://localhost:3000/most-efficient-days');
+  }
+
+  listLeastEfficientDays(): Observable<any> {
+    return this.http.get('http://localhost:3000/least-efficient-days');
+  }
 }
 
 
