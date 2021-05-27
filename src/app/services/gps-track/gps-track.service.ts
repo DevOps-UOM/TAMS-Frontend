@@ -4,11 +4,14 @@ import { LocationModel } from 'src/app/models/realtimedb.model';
 import { User } from 'src/app/models/user.model';
 import { GeoService } from '../geo/geo.service';
 import { UserService } from '../user';
+import { HttpClient, HttpBackend } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GpsTrackService {
+
+  private httpClient: HttpClient;
 
   liveLat: number;
   liveLng: number;
@@ -17,7 +20,10 @@ export class GpsTrackService {
 
   liveLocation: LocationModel = new LocationModel();
 
-  constructor(public userService: UserService,private geo: GeoService) {
+  constructor(public userService: UserService,private geo: GeoService, handler: HttpBackend) {
+
+    this.httpClient = new HttpClient(handler);
+
     this.user = userService.getUserPayload()
     if (this.user != null && this.user.userid != null) {
       this.geo.updateOnDisconnect(this.user.userid.toString())

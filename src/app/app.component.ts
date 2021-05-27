@@ -11,6 +11,8 @@ import { UserService } from './services/user';
 })
 export class AppComponent {
 
+
+
   user: User;
   title = 'TAMSFrontend';
 

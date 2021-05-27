@@ -5,6 +5,7 @@ import {HttpClient} from "@angular/common/http";
 import {AssignService} from "../../services/assign/assign.service";
 import {Grade} from "../../models/grade.model";
 import { environment } from 'src/environments/environment';
+import { LoadingSpinnerService } from 'src/app/services/loading-spinner/loading-spinner.service';
 
 @Component({
   selector: 'app-assign',
@@ -22,7 +23,8 @@ export class AssignComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private availabilityService: AvailabilityServiceService,
-    private assignService: AssignService
+    private assignService: AssignService,
+    private spinnerService:LoadingSpinnerService
 
   ) { }
 
@@ -67,6 +69,7 @@ export class AssignComponent implements OnInit {
 
   onAssign(){
     if(this.date){
+      this.spinnerService.requestStarted()
       let dataArr=[];
       let payload = this.displayAvailabilities.forEach((m) => {
         let obj =  {customer: m.cust_id._id, travel_agent: m.cust_id.default_agent_id._id, iti_date: m.date};
@@ -75,10 +78,11 @@ export class AssignComponent implements OnInit {
       this.assignService.createAssign(dataArr)
           .subscribe(
             res => {
+              this.spinnerService.requestEnd()
               console.log(res)
             },
             error => {
-  
+              this.spinnerService.resetSpinner()
             }
           );
     }else{

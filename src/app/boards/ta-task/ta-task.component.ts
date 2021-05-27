@@ -10,6 +10,10 @@ import { User } from 'src/app/models/user.model';
 import * as moment from 'moment'
 import { GpsTrackService } from 'src/app/services/gps-track/gps-track.service';
 import { LocationModel } from 'src/app/models/realtimedb.model';
+import { ThemePalette } from '@angular/material/core';
+import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
+import { LoadingSpinnerService } from 'src/app/services/loading-spinner/loading-spinner.service';
+
 
 @Component({
   selector: 'app-ta-task',
@@ -54,6 +58,8 @@ import { LocationModel } from 'src/app/models/realtimedb.model';
 export class TaTaskComponent implements OnInit {
 
   //@ViewChildren(TaTaskCardComponent) parent: QueryList<TaTaskCardComponent>;
+
+ 
 
   private loading: boolean = false;
   customerList: AllocatedCustomers[] = [];
@@ -104,17 +110,19 @@ export class TaTaskComponent implements OnInit {
       console.log(this.origin)
     }
 
+    await this.getItineraryDetails().then(() => {
+      this.getItinerary();
+    }).then(() => {
+      this.getAllocatedPendingustomers();
+    }).then(() => {
+      this.getDirections();
+    })
 
 
 
 
-    await this.getItineraryDetails();
 
-    await this.getItinerary();
 
-    const value = <number>await this.getAllocatedPendingustomers(1);
-
-    await this.getDirections();
 
 
 
@@ -149,10 +157,10 @@ export class TaTaskComponent implements OnInit {
   }
 
   async getItineraryDetails() {
-    this.loading = true;
+
 
     this.itineraryService.getAllocatedCustomers(this.date, this.taid).subscribe((res) => {
-      this.loading = false;
+      
       (res.body.data && res.body.data.length > 0) ? this.customerList = res.body.data : this.customerList = [];
       //console.log("Dataaaa"+JSON.stringify(this.customerList));
       //console.log(res);
@@ -177,35 +185,33 @@ export class TaTaskComponent implements OnInit {
 
   }
 
-  getAllocatedPendingustomers(x) {
+  async getAllocatedPendingustomers() {
 
-    return new Promise(resolve => {
-      this.itineraryService.getAllocatedPendingCustomers(this.date, this.taid).subscribe((res) => {
+    this.itineraryService.getAllocatedPendingCustomers(this.date, this.taid).subscribe((res) => {
 
-        (res.body.data && res.body.data.length > 0) ? this.pendingList = res.body.data : this.pendingList = [];
+      (res.body.data && res.body.data.length > 0) ? this.pendingList = res.body.data : this.pendingList = [];
 
-        if (!res.body.status) {
-          alert("Today, There are no allocated customers for you");
-          return;
-        }
+      if (!res.body.status) {
+        alert("Today, There are no allocated customers for you");
+        return;
+      }
 
-        console.log(res);
-        resolve(x);
-      }, (err) => {
-        this.alert.class = 'alert alert-danger';
-        if (err.status === 401) {
-          this.alert.message = err.error.message;
-          setTimeout(() => {
-            localStorage.clear();
-          }, 3000);
-        } else if (err.status) {
-          this.alert.class = err.error.message;
-        } else {
-          this.alert.message = 'Error! either server is down or no internet connection';
-        }
-        throw err;
-      })
+      console.log(res);
+    }, (err) => {
+      this.alert.class = 'alert alert-danger';
+      if (err.status === 401) {
+        this.alert.message = err.error.message;
+        setTimeout(() => {
+          localStorage.clear();
+        }, 3000);
+      } else if (err.status) {
+        this.alert.class = err.error.message;
+      } else {
+        this.alert.message = 'Error! either server is down or no internet connection';
+      }
+      throw err;
     })
+
 
 
 
@@ -217,7 +223,7 @@ export class TaTaskComponent implements OnInit {
     //this.getItinerary();
     // this.parent.forEach((p)=>p.child.calculateRoute());
     this.liveLocation = await this.gpsTrackService.getLocation();
-    const value = <number>await this.getAllocatedPendingustomers(1)
+    this.getAllocatedPendingustomers()
       .then(() => {
         this.getDirections();
       })

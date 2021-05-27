@@ -6,7 +6,7 @@ import {environment} from '../environments/environment'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutsModule } from './layouts/layouts.module';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AlertsModule } from 'angular-alert-module';
 import{BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -18,7 +18,10 @@ import { ServiceWorkerModule } from '@angular/service-worker'
 import { RatingComponent } from './util/rating/rating.component';
 import {SharedModule} from './shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { InterceptorService } from './services/interceptor/interceptor.service';
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -31,7 +34,8 @@ export class MyHammerConfig extends HammerGestureConfig{
 @NgModule({
   declarations: [
     AppComponent,
-    RatingComponent
+    RatingComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -44,11 +48,16 @@ export class MyHammerConfig extends HammerGestureConfig{
     BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ToastrModule.forRoot(),
-    NgbModule
+    NgbModule,
+    MatProgressSpinnerModule
   ],
   providers: [{
     provide:HAMMER_GESTURE_CONFIG,
     useClass:MyHammerConfig
+  },{
+    provide:HTTP_INTERCEPTORS,
+    useClass:InterceptorService,
+    multi:true
   }],
   bootstrap: [AppComponent]
 })

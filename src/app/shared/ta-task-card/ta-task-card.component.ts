@@ -138,7 +138,11 @@ export class TaTaskCardComponent implements OnInit {
       }
 
       this.agentLocationService.getAgentLocationValidity(data).subscribe(res=>{
+        if(!res.status){
+          
+        }
         this.isLocationShare=res.status;
+        console.log(res);
       })
     }catch{
       console.log("Checking Live location status Error");
