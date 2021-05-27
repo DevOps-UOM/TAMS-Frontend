@@ -34,14 +34,7 @@
                 </div>
             </div>
 
-<!--            <div class="form-group col-md">-->
-<!--                <label for="">Part Of The Day</label>-->
-<!--                <select class="custom-select" formControlName="pod">-->
-<!--             <option selected >Morning</option>-->
-<!--             <option >Evening</option>-->
-<!--             <option >Full Day</option>-->
-<!--           </select>-->
-<!--            </div>-->
+
 
         </div>
         <div class="form-row">
@@ -80,9 +73,10 @@
                 <th scope="row">{{lv.travel_agent.userid}}</th>
                 <td>{{lv.travel_agent.first_name}} {{lv.travel_agent.last_name}}</td>
                 <td>{{lv.start_date | date:'dd/MM' }} - {{lv.end_date | date:'dd/MM' }}</td>
-<!--                <td>{{lv.pod}}</td>-->
+
                 <td>{{lv.note}}</td>
-                <td> <button (click) = "deleteRow(i)"><i class="fa fa-trash"></i></button></td>
+
+                <td><i class="fa fa-trash zoom" style="cursor: pointer;" (click)="onDelete(lv._id)"  ></i></td>
 
             </tr>
         </tbody>

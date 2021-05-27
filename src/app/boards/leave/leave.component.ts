@@ -104,18 +104,23 @@ export class LeaveComponent implements OnInit {
     }
   }
 
-  deleteRow(x){
-    var delBtn = confirm(" Do you want to delete ?");
-    if ( delBtn == true ) {
-      this.leaves.splice(x, 1 );
-    }
-  }
+ 
   range = new FormGroup({
     start: new FormControl(),
     end: new FormControl()
   });
 
 
+  onDelete(id:string){
+    var delBtn = confirm(" Do you want to delete ?");
+    if ( delBtn == true ) {
+      this.leavesService.deleteLeaves(id).subscribe((res:any) => {
+      this.loadleaves();
+      console.log(id);
+    } );
+    }
+
+  }
 
 
 

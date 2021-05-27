@@ -24,6 +24,9 @@ export class LeaveService {
     return this.http.get(this.baseURL);
   }
 
+  deleteLeaves(id: String) {
+    return this.http.delete(environment.apiBaseUrl+ '/leaves/' + id);
+  }
   
 
 

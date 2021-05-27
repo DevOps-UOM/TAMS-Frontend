@@ -47,6 +47,7 @@ export class CustomerAvailabiltyComponent implements OnInit {
           console.log(res.data)
         },
         error => {
+
         }
       );
   }
@@ -135,10 +136,6 @@ export class CustomerAvailabiltyComponent implements OnInit {
       console.log(id, date);
     } );
     }
-
-  }
-
-  onEdit(id:string){
 
   }
 

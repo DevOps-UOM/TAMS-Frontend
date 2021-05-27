@@ -43,6 +43,21 @@
             </tbody>
         </table>
     </div>
+
+
+    <br><br>
+
+    <div class="row mt-4 ml-5">
+      <div class="col-md-10 mb-8">
+          <input placeholder="Search" #search type="date" class="form-control" (input)="onSearch(search.value)">
+      </div>
+      <div class="col-md-2 mb-8">
+          <button (click)="onClickReset(search)" class="btn btn-danger"> reset</button>
+      </div>
+  </div>
+
+
+
   <div class="col-md">
     <button class="btn-light float-right" (click)="onAssign()">Assign</button>
   </div>
