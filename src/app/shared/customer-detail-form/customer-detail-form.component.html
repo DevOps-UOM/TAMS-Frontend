@@ -2,7 +2,7 @@
 <div class="row">
     <div class=col-lg-7>
         <div class="form-group">
-            <form [formGroup]="customerForm" (ngSubmit)="OnSubmit()">
+            <form [formGroup]="customerForm">
                 <!-- <input type="hidden" id="_id"  class="form-control" formControlName="_id"> -->
 
                 <!-- <label for="cust_id">Customer ID</label> &nbsp; &nbsp; &nbsp;
@@ -31,7 +31,8 @@
                         </div>
                         <br />
 
-                        <button class="btn btn-info" style="background-color:#33B585 ; font-size:15px" (click)="pinCustomer()">Pin Customer</button>
+                        <button class="btn btn-info" style="background-color:#33B585 ; font-size:15px"
+                            (click)="pinCustomer()">Pin Customer</button>
                     </div>
 
                     <br /> <br />
@@ -75,17 +76,20 @@
                 <br /> <br />
 
                 <select formControlName="default_agent_id" class="form-control" searchable="Search here..">
-          <!-- <option value="" disabled selected>Choose agent</option> -->
-          <option *ngFor="let agent of travelAgents" [value]="agent._id">{{agent.first_name}} {{agent.last_name}}
-          </option>
-        </select>
+                    <!-- <option value="" disabled selected>Choose agent</option> -->
+                    <option *ngFor="let agent of travelAgents" [value]="agent._id">{{agent.first_name}}
+                        {{agent.last_name}}
+                    </option>
+                </select>
                 <br /> <br />
 
-                <button (click)="customerForm.reset()" class="btn btn-info float-left ml-2" style="background-color:#33B585 ; font-size:17px">
-          Reset
-        </button>
+                <button (click)="customerForm.reset()" class="btn btn-info float-left ml-2"
+                    style="background-color:#33B585 ; font-size:17px">
+                    Reset
+                </button>
 
-                <button type="submit" class="btn btn-info float-right ml-2" style="background-color:#33B585 ; font-size:17px">Submit</button>
+                <button (click)="OnSubmit()" class="btn btn-info float-right ml-2"
+                    style="background-color:#33B585 ; font-size:17px">Submit</button>
             </form> <br> <br>
         </div>
     </div>
@@ -96,7 +100,8 @@
         <div class="tables">
 
             <div class="search-hero">
-                <input class="form-controls form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Start searching for a customer">
+                <input class="form-controls form-control" type="text" name="search" [(ngModel)]="searchText"
+                    autocomplete="off" placeholder="Start searching for a customer">
             </div>
 
             <table class="table">
@@ -133,8 +138,10 @@
                                 <i class="material-icons">delete</i>
                             </a>
                         </td>
-                        <td><button type="btn btn-small btn-secondary" (click)="navigateToProfile(customer.cust_id)" class="btn btn-info float-right ml-2" style="background-color:#33B585 ; font-size:17px">View
-                Profile</button></td>
+                        <td><button type="btn btn-small btn-secondary" (click)="navigateToProfile(customer.cust_id)"
+                                class="btn btn-info float-right ml-2"
+                                style="background-color:#33B585 ; font-size:17px">View
+                                Profile</button></td>
                     </tr>
                 </tbody>
             </table>

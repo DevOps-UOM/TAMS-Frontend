@@ -1,5 +1,5 @@
 <div>
     <app-map [modeSignal]="modeSignal" (newItemEvent)="pinLocation($event)"></app-map>
     <div>Latitude : {{pinnedLocation.lat}} , Longitude : {{pinnedLocation.lng}}</div>
-    <div class="btn btn-info" style="background-color:#33B585" (click)="onClose()">Pin</div>
+    <div class="btn btn-info" style="background-color:#33B585" (click)="onClose(); passData()">Pin</div>
 </div>

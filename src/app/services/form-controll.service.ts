@@ -34,7 +34,9 @@ export class FormControllService {
   //  findOne(userid: string){
   //   return this.http.get('http://localhost:3000/ta-agents/:userid')
   // }
-
+  deleteAnAgent(userid: string) {
+    return this.http.delete(environment.apiBaseUrl + '/users/' + userid);
+  }
 
 
 }

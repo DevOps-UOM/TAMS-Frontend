@@ -37,7 +37,7 @@
         <div class="form-row">
             <div class="form-group col-md">
                 <label for="">Select Task</label>
-                <select multiple=true class="form-control" formControlName="task" size="11" >
+                <select multiple=true class="form-control" formControlName="task" size="11">
                     <option [ngValue]="t._id" *ngFor="let t of displayTasks">{{t.task_name}}</option>
                 </select>
             </div>
@@ -49,7 +49,7 @@
 
 
 
-        <div class="btn btn-info" style="background-color:#33B585" (click)="addTask()" >Add Task</div>
+        <div class="btn btn-info" style="background-color:#33B585" (click)="addTask()">Add Task</div>
         <div (click)="onClickSubmit()" class="btn btn-info float-right ml-2" style="background-color:#33B585">
             Add Availabilty
         </div>
@@ -85,10 +85,9 @@
                     </div>
                 </td>
                 <td>{{v.task_duration}}</td>
-                <td><i class="fa fa-trash zoom" style="cursor: pointer;" (click)="onDelete(v._id, v.date)"  ></i></td>
-                <td><i class="fa fa-edit zoom" style="cursor: pointer;" (click)="onEdit(v._id)"  ></i></td>
+                <td><i class="fa fa-trash zoom" style="cursor: pointer;" (click)="onDelete(v._id, v.date)"></i></td>
+                <td><i class="fa fa-edit zoom" style="cursor: pointer;" (click)="onEdit(v._id)"></i></td>
             </tr>
         </tbody>
     </table>
 </div>
-
