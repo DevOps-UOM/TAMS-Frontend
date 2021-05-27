@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {LeaveService} from '../../services/leave/leave.service';
 import {Grade} from "../../models/grade.model";
 import {HttpClient} from "@angular/common/http";
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -49,7 +50,7 @@ export class LeaveComponent implements OnInit {
   }
 
   loadAgents(){
-    this.http.get<{ status: string, msg: string, data: Grade[] }>('http://localhost:3000/ta-agents').subscribe((postData) => {
+    this.http.get<{ status: string, msg: string, data: Grade[] }>(environment.apiBaseUrl+'/ta-agents').subscribe((postData) => {
       this.travelAgents = postData['data'];
       console.log(this.travelAgents);
 
