@@ -45,28 +45,6 @@ export class NavBarComponent implements OnInit {
     
   }
 
-
-
-  callScreen(screenName) {
-    console.log("called here" + screenName);
-    switch (screenName) {
-      case 'Itinerary Map':
-        this.router.navigate(['/boards/itinerary-map']);
-        break;
-      case 'Leaves':
-        this.router.navigate(['/boards/leave']);
-        break;
-      case 'Itinerary Task':
-        this.router.navigate(['/boards/itinerary-task']);
-        break;
-      
-
-      default:
-        this.router.navigate(['/boards/home']);
-        break;
-    }
-
-  }
   userMenu() {
     document.getElementById("userMenuDropdown").classList.toggle("show");
   }
