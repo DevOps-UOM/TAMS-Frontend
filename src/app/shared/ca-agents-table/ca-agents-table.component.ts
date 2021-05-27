@@ -16,7 +16,7 @@ export class CaAgentsTableComponent implements OnInit {
   searchText: any;
   grades: Grade[] = this.formControllService.grades;
 
-  constructor(private formControllService: FormControllService, private http: HttpClient, private router: Router, private activatedRoute: ActivatedRoute) { 
+  constructor(private formControllService: FormControllService, private http: HttpClient, private router: Router, private activatedRoute: ActivatedRoute) {
     this.grades = this.formControllService.grades;
   }
 
@@ -29,13 +29,13 @@ export class CaAgentsTableComponent implements OnInit {
     this.formControllService.updatedgrade.subscribe((form: Grade) => {
       this.grades.push(form);
     });
-  
+
   }
 
   navigateToProfile(userid) {
-    this.router.navigate(['./' + userid], {relativeTo: this.activatedRoute});
+    this.router.navigate(['./' + userid], { relativeTo: this.activatedRoute });
   }
 }
 
- 
- 
+
+

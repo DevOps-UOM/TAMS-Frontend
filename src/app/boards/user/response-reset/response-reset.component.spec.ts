@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TempPinLocationComponent } from './temp-pin-location.component';
+import { ResponseResetComponent } from './response-reset.component';
 
-describe('TempPinLocationComponent', () => {
-  let component: TempPinLocationComponent;
-  let fixture: ComponentFixture<TempPinLocationComponent>;
+describe('ResponseResetComponent', () => {
+  let component: ResponseResetComponent;
+  let fixture: ComponentFixture<ResponseResetComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TempPinLocationComponent ]
+      declarations: [ ResponseResetComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TempPinLocationComponent);
+    fixture = TestBed.createComponent(ResponseResetComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -26,15 +26,19 @@ export class NavBarComponent implements OnInit {
 
   @Output() burgerBooleanEmitter: EventEmitter<boolean> = new EventEmitter()
   burgerBoolean:boolean=false;
-  
-  
+  user:User;
+  role:string;
 
   constructor(
     public userService: UserService,
     private router: Router
   ) { 
-    
-
+    this.user = userService.getUserPayload();
+    switch(this.user.role){
+      case Role.ca : this.role="Call Center Agent";break;
+      case Role.ta : this.role="Travel Agent";break;
+      case Role.Admin : this.role="Admin";break;
+    }
   }
 
   ngOnInit(): void {
@@ -84,6 +88,14 @@ export class NavBarComponent implements OnInit {
   BurgerClick(){
     this.burgerBoolean=!this.burgerBoolean;
     this.burgerBooleanEmitter.emit(this.burgerBoolean);
+  }
+
+  profile(){
+    this.router.navigate(['/userprofile']);
+  }
+
+  onLogout(){
+    this.userService.logout();
   }
 }
 

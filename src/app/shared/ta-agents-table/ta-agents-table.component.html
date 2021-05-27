@@ -1,7 +1,8 @@
 <div class="tables">
 
     <div class="search-hero">
-      <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Start searching for an agent">
+        <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
+            placeholder="Start searching for an agent">
     </div>
 
     <table class="table">
@@ -15,12 +16,14 @@
         </thead>
         <tbody>
             <!-- <tr *ngFor="let grade of grades"> -->
-                <tr *ngFor="let grade of grades | filter:searchText">
+            <tr *ngFor="let grade of grades | filter:searchText">
                 <th scope="row">{{ grade.userid }}</th>
                 <td>{{ grade.first_name }}</td>
                 <td>{{ grade.last_name }}</td>
                 <td>{{ grade.mobile_number }}</td>
-                <td><button type="btn btn-small btn-secondary" (click)="navigateToProfile(grade.userid)">View Profile</button></td>
+                <td><button type="btn btn-small btn-secondary" (click)="navigateToProfile(grade.userid)"
+                        class="btn btn-info float-right ml-2" style="background-color:#33B585 ; font-size:17px">View
+                        Profile</button></td>
             </tr>
         </tbody>
     </table>

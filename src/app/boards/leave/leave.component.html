@@ -8,28 +8,17 @@
     </div>
     <form [formGroup]="leaveForm" class="mt-5">
         <div class="form-row">
-<!--            <div class="form-group col-md">-->
-<!--                <label for="">Travel Agent</label>-->
-<!--                <input formControlName="ta_id" type="text" class="form-control" placeholder="">-->
-<!--            </div>-->
+            
           <div class="form-group col-md">
             <label for="">Travel Agent</label>
             <select formControlName="travel_agent" class="form-control" type="text" searchable="Search here..">
-              <!-- <option value="" disabled selected>Choose agent</option> -->
+              <option value="" disabled selected>Choose agent</option>
               <option *ngFor="let agent of travelAgents" [value]="agent._id" >{{agent.userid}}- {{agent.first_name}} {{agent.last_name}}</option>
             </select>
           </div>
-<!--            <div class="form-group col-md">-->
-<!--                <label for="">Travel Agent's Name</label>-->
-<!--                <input formControlName="ta_name" type="text" class="form-control" placeholder="">-->
-<!--            </div>-->
-            <!-- <div class="form-group col-md">
-                <label for="">Leave Date</label>
-                <input formControlName="leave_date" type="date" class="form-control">
-            </div> -->
 
             <div class="row">
-                <div class="col-md-12" formGroupName="leave_date">
+                <div class="col-md-12" >
                     <!-- <mat-form-field appearance="fill"> -->
                         <!-- <mat-label>Enter a date range</mat-label> -->
                         <mat-date-range-input [rangePicker]="picker" [min]="minDate">
@@ -90,7 +79,7 @@
             <tr *ngFor="let lv of displayleaves">
                 <th scope="row">{{lv.travel_agent.userid}}</th>
                 <td>{{lv.travel_agent.first_name}} {{lv.travel_agent.last_name}}</td>
-                <td>{{lv.leave_date.start_date | date:'shortDate' }} - {{lv.leave_date.end_date | date:'shortDate' }}</td>
+                <td>{{lv.start_date | date:'dd/MM' }} - {{lv.end_date | date:'dd/MM' }}</td>
 <!--                <td>{{lv.pod}}</td>-->
                 <td>{{lv.note}}</td>
                 <td> <button (click) = "deleteRow(i)"><i class="fa fa-trash"></i></button></td>

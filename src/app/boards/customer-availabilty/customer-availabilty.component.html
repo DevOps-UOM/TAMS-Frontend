@@ -11,7 +11,7 @@
             <div class="form-group col-md">
                 <label for="">Customer</label>
                 <select required formControlName="cust_id" class="form-control" searchable="Search here..">
-                    <!-- <option value="" disabled selected>Choose agent</option> -->
+                    <option value="" disabled selected>Choose Customer</option>
                     <option *ngFor="let customer of customers" [value]="customer._id" >{{customer.cust_id}}- {{customer.name.first_name}} {{customer.name.last_name}}</option>
                   </select>
 
@@ -20,6 +20,7 @@
             <div class="form-group col-md">
                 <label for="">Estimated Duration</label>
                 <select class="custom-select" formControlName="task_duration">
+                    <option value="" disabled selected>Choose Duration</option>
                     <option selected="selected" >15 min</option>
                     <option >30 min</option>
                     <option >45 min</option>
@@ -65,15 +66,17 @@
         <thead>
             <tr>
                 <th scope="col">Customer</th>
+                <th scope="col">Default Agent</th>
                 <th scope="col">Date</th>
                 <th scope="col">Note</th>
                 <th scope="col">Task</th>
-                <th scope="col">Duration</th>
+                <th scope="col">Est. Duration</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let v of displayAvailabilities">
                 <th scope="row">{{v.cust_id.cust_id}}- {{v.cust_id.name.first_name}} {{v.cust_id.name.last_name}}</th>
+                <th>{{v.cust_id.default_agent_id.first_name}} {{v.cust_id.default_agent_id.last_name}}</th>
                 <td>{{v.date | date:'shortDate' }}</td>
                 <td>{{v.note}}</td>
                 <td>
@@ -82,6 +85,8 @@
                     </div>
                 </td>
                 <td>{{v.task_duration}}</td>
+                <td><i class="fa fa-trash zoom" style="cursor: pointer;" (click)="onDelete(v._id, v.date)"  ></i></td>
+                <td><i class="fa fa-edit zoom" style="cursor: pointer;" (click)="onEdit(v._id)"  ></i></td>
             </tr>
         </tbody>
     </table>

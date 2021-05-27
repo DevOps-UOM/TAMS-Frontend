@@ -8,6 +8,12 @@ import { TaskAssignmentService } from "../../services/task-assignment/task-assig
 import { UserService } from 'src/app/services/user';
 import { User } from 'src/app/models/user.model';
 import * as moment from 'moment'
+import { GpsTrackService } from 'src/app/services/gps-track/gps-track.service';
+import { LocationModel } from 'src/app/models/realtimedb.model';
+import { ThemePalette } from '@angular/material/core';
+import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
+import { LoadingSpinnerService } from 'src/app/services/loading-spinner/loading-spinner.service';
+
 
 @Component({
   selector: 'app-ta-task',
@@ -53,6 +59,8 @@ export class TaTaskComponent implements OnInit {
 
   //@ViewChildren(TaTaskCardComponent) parent: QueryList<TaTaskCardComponent>;
 
+ 
+
   private loading: boolean = false;
   customerList: AllocatedCustomers[] = [];
   pendingList: AllocatedCustomers[] = [];
@@ -77,16 +85,44 @@ export class TaTaskComponent implements OnInit {
 
   user: User;
 
-  constructor(private itineraryService: ItineraryService, private taskAssignmentService: TaskAssignmentService,private userService:UserService) {
-    this.user=userService.getUserPayload()
-    this.taid=this.user.userid
+  liveLocation: PointLoc;
+
+  constructor(private itineraryService: ItineraryService, private taskAssignmentService: TaskAssignmentService, private userService: UserService, private gpsTrackService: GpsTrackService) {
+    this.user = userService.getUserPayload()
+    this.taid = this.user.userid
+
+
+
   }
 
   async ngOnInit() {
-    await this.getItineraryDetails();
-    await this.getItinerary();
-    const value = <number> await this.getAllocatedPendingustomers(1);
-    await this.getDirections();
+
+    //this.gpsTrackService.trackMe()
+
+
+    console.log("----------Location----------")
+    if (this.liveLocation) {
+      this.origin = {
+        lat: this.liveLocation.lat,
+        lng: this.liveLocation.lng
+      };
+      console.log(this.liveLocation);
+      console.log(this.origin)
+    }
+
+    await this.getItineraryDetails().then(() => {
+      this.getItinerary();
+    }).then(() => {
+      this.getAllocatedPendingustomers();
+    }).then(() => {
+      this.getDirections();
+    })
+
+
+
+
+
+
 
 
 
@@ -121,10 +157,10 @@ export class TaTaskComponent implements OnInit {
   }
 
   async getItineraryDetails() {
-    this.loading = true;
+
 
     this.itineraryService.getAllocatedCustomers(this.date, this.taid).subscribe((res) => {
-      this.loading = false;
+      
       (res.body.data && res.body.data.length > 0) ? this.customerList = res.body.data : this.customerList = [];
       //console.log("Dataaaa"+JSON.stringify(this.customerList));
       //console.log(res);
@@ -149,35 +185,33 @@ export class TaTaskComponent implements OnInit {
 
   }
 
-  getAllocatedPendingustomers(x) {
+  async getAllocatedPendingustomers() {
 
-    return new Promise(resolve => {
-      this.itineraryService.getAllocatedPendingCustomers(this.date, this.taid).subscribe((res) => {
+    this.itineraryService.getAllocatedPendingCustomers(this.date, this.taid).subscribe((res) => {
 
-        (res.body.data && res.body.data.length > 0) ? this.pendingList = res.body.data : this.pendingList = [];
+      (res.body.data && res.body.data.length > 0) ? this.pendingList = res.body.data : this.pendingList = [];
 
-        if(!res.body.status){
-          alert("Today, There are no allocated customers for you");
-          return;
-        }
-  
-        console.log(res);
-        resolve(x);
-      }, (err) => {
-        this.alert.class = 'alert alert-danger';
-        if (err.status === 401) {
-          this.alert.message = err.error.message;
-          setTimeout(() => {
-            localStorage.clear();
-          }, 3000);
-        } else if (err.status) {
-          this.alert.class = err.error.message;
-        } else {
-          this.alert.message = 'Error! either server is down or no internet connection';
-        }
-        throw err;
-      })
+      if (!res.body.status) {
+        alert("Today, There are no allocated customers for you");
+        return;
+      }
+
+      console.log(res);
+    }, (err) => {
+      this.alert.class = 'alert alert-danger';
+      if (err.status === 401) {
+        this.alert.message = err.error.message;
+        setTimeout(() => {
+          localStorage.clear();
+        }, 3000);
+      } else if (err.status) {
+        this.alert.class = err.error.message;
+      } else {
+        this.alert.message = 'Error! either server is down or no internet connection';
+      }
+      throw err;
     })
+
 
 
 
@@ -188,26 +222,41 @@ export class TaTaskComponent implements OnInit {
   async refresh() {
     //this.getItinerary();
     // this.parent.forEach((p)=>p.child.calculateRoute());
-
-    const value = <number> await this.getAllocatedPendingustomers(1);
-    await this.getDirections();
-    await this.getItineraryDetails();
-    await this.calculateRoute();
-    await this.getDirections();
-
-
+    this.liveLocation = await this.gpsTrackService.getLocation();
+    this.getAllocatedPendingustomers()
+      .then(() => {
+        this.getDirections();
+      })
+      .then(() => {
+        this.getItineraryDetails();
+      })
+      .then(() => {
+        this.calculateRoute();
+      })
+      .then(() => {
+        this.getDirections();
+      })
 
   }
 
   async calculateRoute() {
 
     //this.getItineraryDetails();
+    if (this.liveLocation) {
+      this.origin = {
+        lat: this.liveLocation.lat,
+        lng: this.liveLocation.lng
+      };
+      console.log(this.liveLocation);
+      console.log(this.origin)
+    }
 
     console.log(this.origin);
     var count = 0;
 
     var loc: Loc;
     const directionsService = new google.maps.DirectionsService();
+
     let tempOrigin = this.origin;
 
     this.minTime = null;
@@ -257,11 +306,12 @@ export class TaTaskComponent implements OnInit {
         (response, status) => {
           if (status === "OK" && response) {
 
-            //console.log(response);
+            console.log("----------------------response---------------------")
+            console.log(response);
             route = response.routes[0];
 
             let tempTime = 0;
-            //console.log(route);
+            console.log(route.waypoint_order);
             for (var k = 0; k < route.legs.length; k++) {
               tempTime += route.legs[k].duration.value;
             }
@@ -306,7 +356,7 @@ export class TaTaskComponent implements OnInit {
 
       this.updateQueueNumber();
       this.getItinerary();
-    }, 2000);
+    }, 2500);
     return true;
   }
 
@@ -337,19 +387,16 @@ export class TaTaskComponent implements OnInit {
 
     this.waypoints = [];
 
-    if (this.customerList && this.customerList[0] && this.customerList[0].location && this.customerList[0].location.coordinates) {
+    if (this.liveLocation && this.customerList && this.customerList[0] && this.customerList[0].location && this.customerList[0].location.coordinates) {
 
       // this.origin = {
       //   lat: this.currentLat,
       //   lng: this.currentLng
       // };
 
-      this.origin = {
-        lat: 6.879277,
-        lng: 79.918083
-      };
 
-      console.log(this.origin);
+      console.log("----------------Customer list--------------")
+      console.log(this.customerList);
       for (i = 0; i < this.customerList.length - 1; i++) {
         loc = {
           location: {
@@ -376,4 +423,10 @@ export class TaTaskComponent implements OnInit {
 class Loc {
   location: any;
   stopover: boolean;
+}
+
+
+class PointLoc {
+  public lat: number;
+  public lng: number;
 }

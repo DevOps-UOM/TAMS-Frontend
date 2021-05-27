@@ -22,6 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminUserManagementComponent } from './admin-user-management/admin-user-management.component';
 
+
 import { TaTaskComponent } from './ta-task/ta-task.component';
 import {MatButtonModule} from '@angular/material/button';
 import { MatSliderModule } from '@angular/material/slider';
@@ -41,7 +42,9 @@ import { StatDashboardComponent } from './stat-dashboard/stat-dashboard.componen
 import { UserComponent } from './user/user.component';
 import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
-import { TempPinLocationComponent } from './temp-pin-location/temp-pin-location.component';
+
+import { RequestResetComponent } from './user/request-reset/request-reset.component';
+import { ResponseResetComponent } from './user/response-reset/response-reset.component';
 
 
 // const routes: Routes = [
@@ -107,9 +110,37 @@ import { TempPinLocationComponent } from './temp-pin-location/temp-pin-location.
 //     children: [{ path: '', component: SignInComponent}]
 //   }
 // ]
+//     ]
+//   },
+
+
+
+
+//   {
+//     path: 'ca-user-management',
+//     component: CaUserManagementComponent,
+//     children: [
+//       { path: 'ta-agents' , component: TaAgentsTableComponent},
+//       { path: 'customers' , component: CustomerTableComponent},
+//       { path: 'customers-registration' , component: CustomerDetailFormComponent},
+//       { path: 'ta-agents-registration' , component: TaOnlyDetailFormComponent},
+//     ]
+//   },
+//   {  
+//     path: 'stat-dashboard',
+//     component: StatDashboardComponent
+//     // canActivate: [AuthGuard],
+//     // data: { roles: [Role.Admin] }
+//   },
+//   {
+//     path: 'login', component: UserComponent,
+//     children: [{ path: '', component: SignInComponent}]
+//   }
+// ]
 
 
 @NgModule({
+
 
   declarations: [
     TAItineraryMapComponent, 
@@ -127,9 +158,10 @@ import { TempPinLocationComponent } from './temp-pin-location/temp-pin-location.
     ResetPasswordComponent, 
     SignInComponent,
     PrintItiDetailsComponent,
-    TempPinLocationComponent
+    RequestResetComponent,
+    ResponseResetComponent
     ],
-  
+
   imports: [
     CommonModule,
     // RouterModule.forChild(routes),
@@ -148,7 +180,8 @@ import { TempPinLocationComponent } from './temp-pin-location/temp-pin-location.
     MatIconModule,
     BoardsRoutingModule
   ],
-  providers: [MatDatepickerModule]
+  providers: [MatDatepickerModule],
+  
 })
 
 export class BoardsModule { }

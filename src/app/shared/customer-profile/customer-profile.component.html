@@ -3,9 +3,10 @@
 
 <body>
   <div *ngIf="customer" class="main-content">
-    <div class="container mt-7">
+    <div class="container">
       <!-- Table -->
-      <h2 class="mb-5">Customer Account</h2>
+      <br>
+      <h2 class=""><b>Customer Account</b></h2>
       <div class="row">
         <div class="col-xl-8 m-auto order-xl-1">
           <div class="card bg-secondary shadow">
@@ -27,13 +28,15 @@
                     <div class="col-lg-6">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-userid">User ID</label>
-                        <input type="text" id="input-userid" class="form-control form-control-alternative" placeholder="Username" [value]="customer.cust_id" readonly>
+                        <input type="text" id="input-userid" class="form-control form-control-alternative"
+                          placeholder="Username" [value]="customer.cust_id" readonly>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-email">Email</label>
-                        <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="Email" [value]="customer.email" readonly>
+                        <input type="email" id="input-email" class="form-control form-control-alternative"
+                          placeholder="Email" [value]="customer.email" readonly>
                       </div>
                     </div>
                   </div>
@@ -41,26 +44,29 @@
                     <div class="col-lg-6">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-first-name">First name</label>
-                        <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="First name" [value]="customer.name.first_name" readonly>
+                        <input type="text" id="input-first-name" class="form-control form-control-alternative"
+                          placeholder="First name" [value]="customer.name.first_name" readonly>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-last-name">Last name</label>
-                        <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="Last name" [value]="customer.name.last_name" readonly>
+                        <input type="text" id="input-last-name" class="form-control form-control-alternative"
+                          placeholder="Last name" [value]="customer.name.last_name" readonly>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-nic">NIC</label>
-                        <input type="text" id="input-nic" class="form-control form-control-alternative" placeholder="NIC" [value]="customer.nic" readonly>
+                        <input type="text" id="input-nic" class="form-control form-control-alternative"
+                          placeholder="NIC" [value]="customer.nic" readonly>
                       </div>
                     </div>
                     <div class="col-lg-6">
-                      <div class="form-group focused">
+                      <!-- <div class="form-group focused">
                         <label class="form-control-label" for="input-default_agent_id">Assigned Travelling Agent</label>
-                        <input type="text" id="input-default_agent_id" class="form-control form-control-alternative" placeholder="Assigned Travelling Agent" [value]="customer.default_agent_id" readonly>
-                      </div>
+                        <input type="text" id="input-default_agent_id" class="form-control form-control-alternative" placeholder="Assigned Travelling Agent" [value]="customer.default_agent_id.first_name" readonly>
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -72,21 +78,24 @@
                     <div class="col-md-12">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-address">Mobile No.</label>
-                        <input id="input-address" class="form-control form-control-alternative" placeholder="Mobile Number" type="text" [value]="customer.mobile_number" readonly>
+                        <input id="input-address" class="form-control form-control-alternative"
+                          placeholder="Mobile Number" type="text" [value]="customer.mobile_number" readonly>
                       </div>
                     </div>
                   </div>
                   <div class="row">
-                    <!-- <div class="col-lg-4">
+                    <div class="col-lg-4">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-location">Location</label>
-                        <input type="text" id="input-location" class="form-control form-control-alternative" placeholder="Location" [value]="customer.location.coordinates" readonly>
+                        <input type="text" id="input-location" class="form-control form-control-alternative"
+                          placeholder="Location" [value]="customer.location.coordinates" readonly>
                       </div>
-                    </div> -->
+                    </div>
                     <div class="col-lg-4">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-province">Area</label>
-                        <input type="text" id="input-area" class="form-control form-control-alternative" placeholder="Area" [value]="customer.area" readonly>
+                        <input type="text" id="input-area" class="form-control form-control-alternative"
+                          placeholder="Area" [value]="customer.area" readonly>
                       </div>
                     </div>
                     <!-- <div class="col-lg-4">

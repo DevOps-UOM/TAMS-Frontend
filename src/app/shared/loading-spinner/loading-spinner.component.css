@@ -1,0 +1,18 @@
+.page-overlay-wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 1009;
+    background: cornflowerblue;
+    opacity: 0.3;
+}
+
+.loading-spinner {
+    width: 20%;
+    height: 20%;
+    position: fixed;
+    top: 40%;
+    z-index: 100;
+    left: 50%;
+}

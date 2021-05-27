@@ -12,7 +12,7 @@ import { LayoutConfig } from 'src/app/models/layout.config';
 })
 export class UserProfileComponent implements OnInit {
   userDetails;
-  constructor(private userService: UserService, private router: Router,private configService: LayoutConfigService) { }
+  constructor(public userService: UserService, private router: Router,private configService: LayoutConfigService) { }
 
   ngOnInit() {
     this.configService.setConfig(new LayoutConfig(true,true));

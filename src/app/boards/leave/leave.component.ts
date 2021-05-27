@@ -1,8 +1,10 @@
+
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {LeaveService} from '../../services/leave/leave.service';
 import {Grade} from "../../models/grade.model";
 import {HttpClient} from "@angular/common/http";
+
 
 @Component({
   selector: 'app-leave',
@@ -10,6 +12,7 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./leave.component.css']
 })
 export class LeaveComponent implements OnInit {
+
   leaveId = '';
   leaveForm: FormGroup;
   travelAgents: any;
@@ -55,15 +58,23 @@ export class LeaveComponent implements OnInit {
 
 
 
+  // formInstaller(): void {
+  //   this.leaveForm = this.fb.group({
+  //     travel_agent: ['', Validators.required],
+  //     // ta_name: ['', Validators.required],
+  //     leave_date: this.fb.group({
+  //     start_date: ['', Validators.required],
+  //     end_date: ['', Validators.required],
+  //     }),
+  //     // pod: ['', Validators.required],
+  //     note:['', Validators.required]
+  //   });
+  // }
   formInstaller(): void {
     this.leaveForm = this.fb.group({
       travel_agent: ['', Validators.required],
-      // ta_name: ['', Validators.required],
-      leave_date: this.fb.group({
       start_date: ['', Validators.required],
       end_date: ['', Validators.required],
-      }),
-      // pod: ['', Validators.required],
       note:['', Validators.required]
     });
   }
@@ -106,6 +117,7 @@ export class LeaveComponent implements OnInit {
     start: new FormControl(),
     end: new FormControl()
   });
+
 
 
 

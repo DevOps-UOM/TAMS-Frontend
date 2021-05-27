@@ -48,7 +48,6 @@ export class CustomerAvailabiltyComponent implements OnInit {
           console.log(res.data)
         },
         error => {
-
         }
       );
   }
@@ -127,6 +126,21 @@ export class CustomerAvailabiltyComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.loadTask()
     })
+
+  }
+
+  onDelete(id:string , date: Date){
+    var delBtn = confirm(" Do you want to delete ?");
+    if ( delBtn == true ) {
+      this.availabilityService.deleteAvailability(date, id).subscribe((res:any) => {
+      this.loadAvailability();
+      console.log(id, date);
+    } );
+    }
+
+  }
+
+  onEdit(id:string){
 
   }
 
