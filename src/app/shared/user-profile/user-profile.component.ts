@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from './../../services/user/user.service';
 import { Router } from "@angular/router";
 import { User } from 'src/app/models/user.model';
+import { LayoutConfigService } from 'src/app/services/layout-service/layout.service';
+import { LayoutConfig } from 'src/app/models/layout.config';
 
 @Component({
   selector: 'app-user-profile',
@@ -10,9 +12,10 @@ import { User } from 'src/app/models/user.model';
 })
 export class UserProfileComponent implements OnInit {
   userDetails;
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(public userService: UserService, private router: Router,private configService: LayoutConfigService) { }
 
   ngOnInit() {
+    this.configService.setConfig(new LayoutConfig(true,true));
     this.userDetails = this.userService.getUserPayload();
   }
 

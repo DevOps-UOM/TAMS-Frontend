@@ -1,6 +1,7 @@
 import { Role } from './../../models/role.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+// import { BehaviorSubject, Observable } from 'rxjs';
 
 import { environment } from './../../../environments/environment';
 import { User } from './../../models/user.model';
@@ -47,7 +48,7 @@ export class UserService {
   logout() {
     this.observableUser.next(null);
     this.deleteToken();
-    this.router.navigate(['/boards/login']);
+    this.router.navigate(['/login']);
   }
 
   getUserProfile() {
@@ -61,7 +62,6 @@ export class UserService {
       }
     });
   }
-
 
   //Helper Methods
 

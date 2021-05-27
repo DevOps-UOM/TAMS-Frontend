@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LayoutConfig } from 'src/app/models/layout.config';
+import { LayoutConfigService } from 'src/app/services/layout-service/layout.service';
 
 @Component({
   selector: 'app-user',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserComponent implements OnInit {
 
-  constructor() { }
+  constructor(private configService: LayoutConfigService) { 
+    this.configService.setConfig(new LayoutConfig(false,false));
+  }
 
   ngOnInit(): void {
   }

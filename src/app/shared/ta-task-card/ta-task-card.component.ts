@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, HostListener, ChangeDetectorRef,AfterViewInit,ViewChild, Output, EventEmitter  } from '@angular/core';
+import { Component, Input, OnInit, HostListener, ChangeDetectorRef, AfterViewInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { AllocatedCustomers, modeSignalStatus, Itinerary } from 'src/app/models/itinerary.model';
 import { ItineraryService } from '../../services/itinerary/itinerary.service';
 import { TaskAssignmentService } from '../../services/task-assignment/task-assignment.service'
@@ -10,8 +10,11 @@ import { DataService } from '../../services/data/data.service'
 import { Subscription } from 'rxjs'
 import { getQueryPredicate } from '@angular/compiler/src/render3/view/util';
 
-import {MapComponent} from "../../shared/map/map.component"
-
+import { MapComponent } from "../../shared/map/map.component"
+import { AgentLocationService } from 'src/app/services/agent-location/agent-location.service';
+import { UserService } from 'src/app/services/user';
+import { User } from 'src/app/models/user.model';
+import * as moment from 'moment'
 
 
 @Component({
@@ -31,7 +34,7 @@ export class TaTaskCardComponent implements OnInit {
 
   @Input() customer: AllocatedCustomers;
 
-  @Output("refresh") refresh:EventEmitter<any>=new EventEmitter();
+  @Output("refresh") refresh: EventEmitter<any> = new EventEmitter();
 
   color: String;
 
@@ -48,17 +51,22 @@ export class TaTaskCardComponent implements OnInit {
 
   @Input() selectedItinerary: Itinerary;
 
-  date: Date = new Date("2021-04-05");
-  taid: String = "TA001";
+  date: any = moment(moment().format("YYYY-MM-DD")).toDate();                                       //------------------Change with Today--------------------
+  taid: String;
+
   modeSignal: string = modeSignalStatus.singlePathMode;
 
   text_width: number;
 
   private currentStatus: string;
-  tasks:any;
+  tasks: any;
 
   itinerary_id: String;
   cust_id: String;
+
+  isLocationShare: boolean = false;
+
+  user:User;
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
@@ -80,14 +88,18 @@ export class TaTaskCardComponent implements OnInit {
   }
 
 
-  constructor(private cd: ChangeDetectorRef, private itineraryService: ItineraryService, private data: DataService, private taskAssignmentService: TaskAssignmentService) {
+  constructor(private cd: ChangeDetectorRef,public userService: UserService, private itineraryService: ItineraryService, private data: DataService, private taskAssignmentService: TaskAssignmentService,private agentLocationService:AgentLocationService) {
+    this.user=userService.getUserPayload()
+    this.taid=this.user.userid
 
+    
+    //console.log(new Date());
   }
 
 
-  
 
-  
+
+
 
   ngOnInit() {
     this.subscription = this.data.currentMessage.subscribe(isShowSidebar => this.isShowSidebar = isShowSidebar)
@@ -100,11 +112,11 @@ export class TaTaskCardComponent implements OnInit {
 
   toggle() {
     this.isShowMap = !this.isShowMap;
-    
+
   }
 
 
- 
+
 
   startAnimation(state) {
     if (!this.animationState) {
@@ -117,10 +129,25 @@ export class TaTaskCardComponent implements OnInit {
   }
 
   checkStatus() {
+
+    
+    try{
+      var data = {
+        agent_id: this.selectedItinerary.travel_agent_id,
+        cust_id: this.customer.cust_id
+      }
+
+      this.agentLocationService.getAgentLocationValidity(data).subscribe(res=>{
+        this.isLocationShare=res.status;
+      })
+    }catch{
+      console.log("Checking Live location status Error");
+    }
+
     try {
       this.taskAssignmentService.getTaskStatus(this.selectedItinerary._id, this.customer.cust_id).subscribe((res) => {
 
-        if(res.data && res.data[0] && res.data[0].status){
+        if (res.data && res.data[0] && res.data[0].status) {
           this.currentStatus = res.data[0].status;
           this.tasks = res.data[0].task;
           console.log(this.tasks);
@@ -128,10 +155,10 @@ export class TaTaskCardComponent implements OnInit {
 
         if (this.currentStatus == "Completed" || this.currentStatus == "Postponed") {
           this.isDisabled = true;
-        }else{
+        } else {
           this.isDisabled = false;
         }
-        
+
       })
     } catch (exception) {
       console.log("Checking Status Error");
@@ -146,7 +173,7 @@ export class TaTaskCardComponent implements OnInit {
       itinerary_id: this.selectedItinerary._id,
       cust_id: this.customer.cust_id,
       status: taskStatus,
-      queue_number:100
+      queue_number: 100
     }
 
 
@@ -159,25 +186,54 @@ export class TaTaskCardComponent implements OnInit {
 
       this.refresh.emit();
       if (this.currentStatus == "Completed" || this.currentStatus == "Postponed") {
+        this.shareLocation();
         this.isDisabled = true;
-      }else{
+      } else {
         //console.log("Called")
+        this.stopShareLocation();
         this.isDisabled = false;
       }
       console.log(res.data.status);
     })
 
-    
+
 
   }
 
-  navigate(){
-      let stringDestination = ""+this.customer.location.coordinates[0]+","+this.customer.location.coordinates[1];
-      let url =`https://www.google.com/maps/dir/?api=1&destination=${stringDestination}`;
-      console.log(url);
-     // window.location.href = url;
+  navigate() {
+    let stringDestination = "" + this.customer.location.coordinates[0] + "," + this.customer.location.coordinates[1];
+    let url = `https://www.google.com/maps/dir/?api=1&destination=${stringDestination}`;
+    console.log(url);
+    // window.location.href = url;
 
-      window.open(url, "_blank");
+    window.open(url, "_blank");
+  }
+
+
+  shareLocation() {
+    //console.log(this.selectedItinerary)
+    let data = {
+      travel_agent_id: this.selectedItinerary.travel_agent_id,
+      customer_id: this.customer.cust_id
+    };
+
+    this.taskAssignmentService.shareLocation(data).subscribe(res => {
+      console.log("Sharing location activated");
+      this.isLocationShare = true;
+      console.log(res);
+    })
+  }
+
+  stopShareLocation() {
+    let data = {
+      travel_agent_id: this.selectedItinerary.travel_agent_id,
+      customer_id: this.customer.cust_id
+    };
+
+    this.taskAssignmentService.expireLocation(data).subscribe(res => {
+      this.isLocationShare = false;
+      console.log("Sharing location disabled");
+    })
   }
 
   //   let newStudent={

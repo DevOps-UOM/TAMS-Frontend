@@ -1,4 +1,5 @@
 import { User } from './../../models/user.model';
+import {Role} from './../../models/role.model'
 
 import { Component, OnInit,HostListener, Input,EventEmitter, Output } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -25,14 +26,22 @@ export class NavBarComponent implements OnInit {
 
   @Output() burgerBooleanEmitter: EventEmitter<boolean> = new EventEmitter()
   burgerBoolean:boolean=false;
+  
+  
 
   constructor(
     public userService: UserService,
     private router: Router
-  ) { }
+  ) { 
+    
+
+  }
 
   ngOnInit(): void {
+    
   }
+
+
 
   callScreen(screenName) {
     console.log("called here" + screenName);
@@ -75,6 +84,10 @@ export class NavBarComponent implements OnInit {
   BurgerClick(){
     this.burgerBoolean=!this.burgerBoolean;
     this.burgerBooleanEmitter.emit(this.burgerBoolean);
+  }
+
+  profile(){
+    this.router.navigate(['/userprofile']);
   }
 }
 

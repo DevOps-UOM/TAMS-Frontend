@@ -5,6 +5,9 @@ import { trigger, style, transition, animate, keyframes, query, stagger } from '
 import { emitWarning } from 'process';
 import { TaTaskCardComponent } from "../../shared/ta-task-card/ta-task-card.component";
 import { TaskAssignmentService } from "../../services/task-assignment/task-assignment.service"
+import { UserService } from 'src/app/services/user';
+import { User } from 'src/app/models/user.model';
+import * as moment from 'moment'
 
 @Component({
   selector: 'app-ta-task',
@@ -68,13 +71,15 @@ export class TaTaskComponent implements OnInit {
 
   selectedItinerary: Itinerary;
 
-  date: Date = new Date("2021-04-05");
-  taid: String = "TA001";
+  date: any = moment(moment().format("YYYY-MM-DD")).toDate();
+  taid: String;
   modeSignal: string = modeSignalStatus.markerMode;
 
+  user: User;
 
-
-  constructor(private itineraryService: ItineraryService, private taskAssignmentService: TaskAssignmentService) {
+  constructor(private itineraryService: ItineraryService, private taskAssignmentService: TaskAssignmentService,private userService:UserService) {
+    this.user=userService.getUserPayload()
+    this.taid=this.user.userid
   }
 
   async ngOnInit() {
@@ -151,6 +156,11 @@ export class TaTaskComponent implements OnInit {
 
         (res.body.data && res.body.data.length > 0) ? this.pendingList = res.body.data : this.pendingList = [];
 
+        if(!res.body.status){
+          alert("Today, There are no allocated customers for you");
+          return;
+        }
+  
         console.log(res);
         resolve(x);
       }, (err) => {

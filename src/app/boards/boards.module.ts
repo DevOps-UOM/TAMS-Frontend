@@ -14,12 +14,14 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router'
 import { SharedModule } from '../shared/shared.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { TAItineraryMapComponent } from './ta-itinerary-map/ta-itinerary-map.component';
 import { LeaveComponent } from './leave/leave.component';
 import { TaMapComponent } from './ta-map/ta-map.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminUserManagementComponent } from './admin-user-management/admin-user-management.component';
+
 
 import { TaTaskComponent } from './ta-task/ta-task.component';
 import {MatButtonModule} from '@angular/material/button';
@@ -40,6 +42,10 @@ import { StatDashboardComponent } from './stat-dashboard/stat-dashboard.componen
 import { UserComponent } from './user/user.component';
 import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
+import { TempPinLocationComponent } from './temp-pin-location/temp-pin-location.component';
+
+import { RequestResetComponent } from './user/request-reset/request-reset.component';
+import { ResponseResetComponent } from './user/response-reset/response-reset.component';
 
 // const routes: Routes = [
 //   {
@@ -104,9 +110,37 @@ import { SignInComponent } from './user/sign-in/sign-in.component';
 //     children: [{ path: '', component: SignInComponent}]
 //   }
 // ]
+//     ]
+//   },
+
+
+
+
+//   {
+//     path: 'ca-user-management',
+//     component: CaUserManagementComponent,
+//     children: [
+//       { path: 'ta-agents' , component: TaAgentsTableComponent},
+//       { path: 'customers' , component: CustomerTableComponent},
+//       { path: 'customers-registration' , component: CustomerDetailFormComponent},
+//       { path: 'ta-agents-registration' , component: TaOnlyDetailFormComponent},
+//     ]
+//   },
+//   {  
+//     path: 'stat-dashboard',
+//     component: StatDashboardComponent
+//     // canActivate: [AuthGuard],
+//     // data: { roles: [Role.Admin] }
+//   },
+//   {
+//     path: 'login', component: UserComponent,
+//     children: [{ path: '', component: SignInComponent}]
+//   }
+// ]
 
 
 @NgModule({
+
 
   declarations: [
     TAItineraryMapComponent, 
@@ -123,9 +157,12 @@ import { SignInComponent } from './user/sign-in/sign-in.component';
     UserComponent, 
     ResetPasswordComponent, 
     SignInComponent,
-    PrintItiDetailsComponent
+    PrintItiDetailsComponent,
+    TempPinLocationComponent,
+    RequestResetComponent,
+    ResponseResetComponent
     ],
-  
+
   imports: [
     CommonModule,
     // RouterModule.forChild(routes),
@@ -144,7 +181,8 @@ import { SignInComponent } from './user/sign-in/sign-in.component';
     MatIconModule,
     BoardsRoutingModule
   ],
-  providers: [MatDatepickerModule]
+  providers: [MatDatepickerModule],
+  
 })
 
 export class BoardsModule { }

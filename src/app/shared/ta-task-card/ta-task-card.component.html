@@ -34,6 +34,12 @@
         <button mat-raised-button class="card-button label-btn col-sm-auto" (click)="navigate()">
             Navigate
         </button>
+        <button *ngIf="!isLocationShare && !isDisabled" mat-raised-button class="card-button label-btn col-sm-auto" (click)="shareLocation()">
+            Share Location
+        </button>
+        <button *ngIf="isLocationShare" mat-raised-button class="card-button label-btn col-sm-auto" (click)="stopShareLocation()">
+            Stop Sharing Location
+        </button>
     </div>
     <div fxLayout="row " fxLayoutAlign="start center ">
         <div class="text-card-area ">

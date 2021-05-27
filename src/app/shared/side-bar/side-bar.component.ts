@@ -67,6 +67,9 @@ export class SideBarComponent implements OnInit {
       case 'Statistical Dashboard':
         this.router.navigate(["/boards/stat-dashboard"])
         break;
+      case 'Pin Customer':
+        this.router.navigate(["/boards/pin-customer"])
+        break;
 
       default:
         this.router.navigate(['/boards/home']);
@@ -82,6 +85,10 @@ export class SideBarComponent implements OnInit {
         console.log("sdsds");
         break;
     }
+  }
+
+  onLogout(){
+    this.userService.logout();
   }
 
 

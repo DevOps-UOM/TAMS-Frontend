@@ -20,3 +20,8 @@
     float: left;
     width: 100%;
 }
+
+.center {
+    margin: auto;
+    padding: 10px;
+}

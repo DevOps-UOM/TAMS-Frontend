@@ -14,11 +14,15 @@
             </div>
         </div>
         <div id="userMenuDropdown" class="dropdown-content">
-            <div class="agent-type"><label>Travel Agent</label></div>
+            <div class="agent-type"><label>{{userService.getUserPayload().role}}</label></div>
             <hr>
-            <a href="#home">Profile</a>
+            <a (click)="profile()">Profile</a>
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
         </div>
+        <div class="button" (click)="callScreen('Itinerary Map')">
+            <p class="label">TA Leave</p>
+        </div>
+        
     </div>
 </div>

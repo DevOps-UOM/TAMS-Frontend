@@ -58,6 +58,10 @@ export class GeoService {
       })
   }
 
+  getLoc(key:string): any{
+    return this.db.object('/locations/'+key);
+  }
+
   updateOnDisconnect(key:string): Promise<void>{
     return this.db.object('/locations/'+key).query.ref.onDisconnect().remove()
   }
