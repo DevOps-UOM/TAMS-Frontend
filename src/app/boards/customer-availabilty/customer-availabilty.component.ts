@@ -1,8 +1,10 @@
+import { EditTasksComponent } from './../../shared/edit-tasks/edit-tasks.component';
+import { from } from 'rxjs';
 import { CustomerService } from './../../services/customer/customer.service';
 import { TaskServiceService } from './../../services/task-service.service';
 import { AddTaskComponent } from './../../shared/add-task/add-task.component';
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
 import {AvailabilityServiceService} from '../../services/availability-service.service'
 import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
 import * as moment from 'moment';
@@ -39,6 +41,14 @@ export class CustomerAvailabiltyComponent implements OnInit {
     this.loadTask();
     this.loadcustomers();
   }
+
+  onOptionsSelected(value:any){
+    console.log("the selected value is " + value);
+}
+
+
+
+
   // tslint:disable-next-line:typedef
   loadcustomers() {
     this.customerService.listAllCustomers()
@@ -48,7 +58,6 @@ export class CustomerAvailabiltyComponent implements OnInit {
           console.log(res.data)
         },
         error => {
-
         }
       );
   }
@@ -90,7 +99,7 @@ export class CustomerAvailabiltyComponent implements OnInit {
     });
   }
 
-  // tslint:disable-next-line:typedef
+
   onClickSubmit() {
     console.log(this.availabilityForm.value);
     this.availabilityService.createAvailability(this.availabilityForm.value)
@@ -118,6 +127,17 @@ export class CustomerAvailabiltyComponent implements OnInit {
     }
   }
 
+  editTask(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig. width = "50%";
+    const dialogRef = this.dialog.open(EditTasksComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadTask()
+    })
+  }
+
   addTask(){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -127,6 +147,10 @@ export class CustomerAvailabiltyComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.loadTask()
     })
+
+  }
+
+  onEdit(id: string){
 
   }
 
@@ -140,7 +164,6 @@ export class CustomerAvailabiltyComponent implements OnInit {
     }
 
   }
-
 
 
 

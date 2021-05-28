@@ -17,4 +17,8 @@ export class TaskServiceService {
   getAllTask(): Observable<any> {
     return this.http.get(environment.apiBaseUrl+'/task');
   }
+
+  deleteTask(id: string){
+    return this.http.delete(environment.apiBaseUrl+ '/task/'+ id);
+  }
 }

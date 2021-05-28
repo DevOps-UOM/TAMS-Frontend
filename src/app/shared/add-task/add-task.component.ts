@@ -12,7 +12,7 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./add-task.component.css']
 })
 export class AddTaskComponent implements OnInit {
-  
+
 
   taskForm: FormGroup;
 
@@ -30,7 +30,7 @@ export class AddTaskComponent implements OnInit {
     this.taskForm = this.fb.group({
       note: ['', Validators.required],
       task_name: ['', Validators.required],
-      // task_duration: ['', Validators.required]
+      task_duration: ['', Validators.required]
     });
   }
 
@@ -47,7 +47,7 @@ export class AddTaskComponent implements OnInit {
       );
     this.taskForm.reset();
     }
-  
+
   onClose(){
     this.dialogRef.close();
   }
