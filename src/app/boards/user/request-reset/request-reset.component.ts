@@ -33,7 +33,7 @@ export class RequestResetComponent implements OnInit {
       this.authService.requestReset(this.RequestResetForm.value).subscribe(
         data => {
           this.RequestResetForm.reset();
-          this.successMessage = "Reset password link send to email sucessfully.";
+          this.successMessage = "Reset password link sent to email sucessfully.";
           setTimeout(() => {
             this.successMessage = null;
             // this.router.navigate(['boards/login']);
@@ -46,6 +46,8 @@ export class RequestResetComponent implements OnInit {
           }
         }
       );
+      this.RequestResetForm.reset();
+      this.successMessage = "Reset password link sent to email sucessfully.";
     } else {
       this.IsvalidForm = false;
     }
