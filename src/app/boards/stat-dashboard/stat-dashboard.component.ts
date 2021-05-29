@@ -27,6 +27,12 @@ export class StatDashboardComponent implements OnInit {
   leastefficientdays: any;
   displayleastefficientdays: any;
 
+  dailytaskcount: any;
+  displaydailytaskcount: any;
+
+  monthlytaskcount: any;
+  displaymonthlytaskcount: any;
+
   private loading: boolean = false;
   customerList: AllocatedCustomers[] = [];
 
@@ -36,6 +42,16 @@ export class StatDashboardComponent implements OnInit {
   taid: String = "TA001";
   modeSignal: string = modeSignalStatus.markerMode;
 
+  dailyTaskCount = {
+    total: 0,
+    completed: 0
+  }
+
+  monthlyTaskCount = {
+    total: 0,
+    completed: 0
+  }
+
   constructor(private itineraryService: ItineraryService, private statDashboardService: StatDashboardService) { }
 
   ngOnInit() {
@@ -44,6 +60,8 @@ export class StatDashboardComponent implements OnInit {
     this.loadMostVisitedCustomers();
     this.loadMostEfficientDays();
     this.loadLeastEfficientDays();
+    this.loadDailyTaskCount();
+    this.loadMonthlyTaskCount();
 
     //   this.sub = this.activatedRoute.params.subscribe(params => {
     //     const userId = params['userid'];
@@ -116,6 +134,59 @@ export class StatDashboardComponent implements OnInit {
       );
   }
 
+
+  loadDailyTaskCount() {
+    this.statDashboardService.listDailyTaskCount()
+      .subscribe(
+        res => {
+          this.dailytaskcount = res.data;
+          console.log(res);
+
+          this.displaydailytaskcount = this.dailytaskcount;
+          console.log(this.displaydailytaskcount);
+
+          this.dailytaskcount.forEach(element => {
+            element?.['tasksList'].forEach(task => {
+              console.log(task['status']);
+              ++this.dailyTaskCount['total']
+              if (task['status'] == 'completed') {
+                ++this.dailyTaskCount['completed']
+              }
+            });
+          });
+        },
+        error => {
+
+        }
+      );
+  }
+
+
+  loadMonthlyTaskCount() {
+    this.statDashboardService.listMonthlyTaskCount()
+      .subscribe(
+        res => {
+          this.monthlytaskcount = res.data;
+          console.log(res);
+
+          this.displaymonthlytaskcount = this.monthlytaskcount;
+          console.log(this.displaymonthlytaskcount);
+
+          this.monthlytaskcount.forEach(element => {
+            element?.['tasksList'].forEach(task => {
+              console.log(task['status']);
+              ++this.monthlyTaskCount['total']
+              if (task['status'] == 'completed') {
+                ++this.monthlyTaskCount['completed']
+              }
+            });
+          });
+        },
+        error => {
+
+        }
+      );
+  }
 
 
 

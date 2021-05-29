@@ -25,6 +25,14 @@ export class StatDashboardService {
   listLeastEfficientDays(): Observable<any> {
     return this.http.get('http://localhost:3000/least-efficient-days');
   }
+
+  listDailyTaskCount(): Observable<any> {
+    return this.http.get('http://localhost:3000/list-daily-task-count');
+  }
+
+  listMonthlyTaskCount(): Observable<any> {
+    return this.http.get('http://localhost:3000/list-monthly-task-count');
+  }
 }
 
 
