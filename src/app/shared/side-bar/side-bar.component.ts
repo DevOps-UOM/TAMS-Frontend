@@ -34,7 +34,9 @@ export class SideBarComponent implements OnInit {
     private router: Router
   ) {
     this.user = userService.getUserPayload();
-    this.role=this.user.role
+    if(this.user && this.user.role){
+      this.role=this.user.role
+    }
   }
 
   ngOnInit(): void {

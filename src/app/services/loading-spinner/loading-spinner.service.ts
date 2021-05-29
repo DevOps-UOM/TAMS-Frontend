@@ -23,7 +23,6 @@ export class LoadingSpinnerService  {
     
      if(++this.count ===1){
       console.log("---------------Loading init--------------")
-      console.log(this.count)
        this.spinner$.next('start');
      }
   }

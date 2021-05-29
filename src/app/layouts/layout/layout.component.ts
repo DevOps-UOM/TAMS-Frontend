@@ -4,6 +4,7 @@ import { DataService } from '../../services/data/data.service'
 import {Subscription} from 'rxjs'
 import { LayoutConfigService } from 'src/app/services/layout-service/layout.service';
 
+
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
@@ -20,6 +21,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   subscription: Subscription;
 
   config: any
+
 
   @HostListener('window:resize', [])
   private onResize() {
@@ -63,9 +65,11 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   constructor(
     private cdr: ChangeDetectorRef,
     private data: DataService,
-    private configService: LayoutConfigService
+    private configService: LayoutConfigService,
   ) {
     this.config = configService.config; 
+
+    
    }
 
   ngOnInit(): void {
@@ -75,6 +79,8 @@ export class LayoutComponent implements OnInit, AfterViewInit {
       this.config = config.config;
     })
     this.showSideBar(this.isTablet|| this.isDesktop);
+
+    
   }
 
   showSideBar(burgerBoolean:boolean){

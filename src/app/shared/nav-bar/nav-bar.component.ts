@@ -34,11 +34,14 @@ export class NavBarComponent implements OnInit {
     private router: Router
   ) { 
     this.user = userService.getUserPayload();
-    switch(this.user.role){
-      case Role.ca : this.role="Call Center Agent";break;
-      case Role.ta : this.role="Travel Agent";break;
-      case Role.Admin : this.role="Admin";break;
+    if(this.user && this.user.role){
+      switch(this.user.role){
+        case Role.ca : this.role="Call Center Agent";break;
+        case Role.ta : this.role="Travel Agent";break;
+        case Role.Admin : this.role="Admin";break;
+      }
     }
+    
   }
 
   ngOnInit(): void {

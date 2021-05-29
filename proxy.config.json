@@ -1,0 +1,15 @@
+{
+    "/api/**": {
+        "target": "https://gelatinous-oxidized-raven.glitch.me",
+        "secure": false,
+        "loglevel": "debug",
+        "changeOrigin": true
+    },
+    "/customers/**": {
+        "target": "https://gelatinous-oxidized-raven.glitch.me",
+        "secure": false,
+        "loglevel": "debug",
+        "changeOrigin": true
+    }
+
+}
