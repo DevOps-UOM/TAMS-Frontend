@@ -34,7 +34,7 @@ export class TaOnlyDetailFormComponent implements OnInit {
       province: [''],
       bio: [''],
       role: [''], //role
-      rate: [''],
+      // rate: [''],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required]
     }, {

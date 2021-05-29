@@ -34,7 +34,9 @@ export class CustomerDetailFormComponent {
   savingCustomer: ICustomer;
 
   formCust: any;
-  childData: string;
+
+  pinnedLocation: PointLoc = new PointLoc();
+
 
   constructor(
     private http: HttpClient,
@@ -339,13 +341,15 @@ export class CustomerDetailFormComponent {
     const dialogRef = this.dialog.open(PinCustomerComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
-      console.log(data)
+      this.pinnedLocation = data as PointLoc;
+      console.log(data);
     })
 
   }
 
-  parentMethod(data) {
-    this.childData = data;
-  }
+}
 
+class PointLoc {
+  public lat: number = 0;
+  public lng: number = 0;
 }

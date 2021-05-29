@@ -33,7 +33,6 @@ export class SignInComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    console.log("loggin in")
     this.userService.login(form.value).subscribe(
       res => {console.log("Login in")
         this.userService.setToken(res['token']);

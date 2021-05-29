@@ -20,7 +20,7 @@ export class RequestResetComponent implements OnInit {
     private router: Router,
   ) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.RequestResetForm = new FormGroup({
       'email': new FormControl(null, [Validators.required, Validators.email], this.forbiddenEmails),
     });
