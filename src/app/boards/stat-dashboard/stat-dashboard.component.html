@@ -1,53 +1,35 @@
 <div class="row" style="width: 100%">
-  <div class="col-md-4">
+  <div class="col-md-6">
     <div class="card w-75" style="width: 18rem">
       <div class="card-body">
         <h4 class="card-title">Daily Task Status</h4>
         <div class="text-right">
           <h2 class="font-light m-b-0">
-            <i class="ti-arrow-up text-success"></i> 16/20
+            <i class="ti-arrow-up text-success"></i> {{dailyTaskCount['completed']}}/{{dailyTaskCount['total']}}
           </h2>
           <span class="text-muted">Task Completion</span>
         </div>
-        <span class="text-success">80%</span>
+        <span class="text-success">{{((dailyTaskCount['completed']/dailyTaskCount['total'])*100).toFixed(1)}}%</span>
         <div class="progress">
-          <div class="progress-bar bg-success" role="progressbar" style="width: 80%; height: 100%" aria-valuenow="25"
+          <div class="progress-bar bg-success" role="progressbar" style="width: 20%; height: 100%" aria-valuenow="25"
             aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-md-4">
-    <div class="card w-75" style="width: 18rem">
-      <div class="card-body">
-        <h4 class="card-title">Weekly Task Status</h4>
-        <div class="text-right">
-          <h2 class="font-light m-b-0">
-            <i class="ti-arrow-up text-success"></i> 48/100
-          </h2>
-          <span class="text-muted">Task Completion</span>
-        </div>
-        <span class="text-success">48%</span>
-        <div class="progress">
-          <div class="progress-bar bg-success" role="progressbar" style="width: 48%; height: 100%" aria-valuenow="25"
-            aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4">
+  <div class="col-md-6">
     <div class="card w-75" style="width: 18rem">
       <div class="card-body">
         <h4 class="card-title">Monthly Task Status</h4>
         <div class="text-right">
           <h2 class="font-light m-b-0">
-            <i class="ti-arrow-up text-success"></i> 48/100
+            <i class="ti-arrow-up text-success"></i> {{monthlyTaskCount['completed']}}/{{monthlyTaskCount['total']}}
           </h2>
           <span class="text-muted">Task Completion</span>
         </div>
-        <span class="text-success">21%</span>
+        <span class="text-success">{{((monthlyTaskCount['completed']/monthlyTaskCount['total'])*100).toFixed(1)}}%</span>
         <div class="progress">
-          <div class="progress-bar bg-success" role="progressbar" style="width: 21%; height: 100%" aria-valuenow="25"
+          <div class="progress-bar bg-success" role="progressbar" style="width: 5%; height: 100%" aria-valuenow="25"
             aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       </div>
@@ -60,70 +42,25 @@
     <div class="card-body" style="width: 100%">
       <div class="d-md-flex align-items-center">
         <h4 class="card-title mb-0">Best Performing Travelling Agents</h4>
-        <div class="ml-auto">
-          <select class="custom-select">
-            <option selected>January</option>
-            <option value="1">February</option>
-            <option value="2">March</option>
-            <option value="3">April</option>
-          </select>
-        </div>
       </div>
       <div class="table-responsive m-t-40">
         <table class="table stylish-table">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Agent ID</th>
-              <th>Score</th>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Agent ID</th>
+              <th scope="col">Average Rating</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                <h4>Kasun Amarasekara</h4>
-              </td>
-              <td>
-                <h4>TA0084</h4>
-              </td>
-              <td>
-                <h4>91.54</h4>
-              </td>
+            <tr *ngFor="let bestagent of bestagents">
+                <td>{{bestagent.first_name}}</td>
+                <td>{{bestagent.last_name}}</td>
+                <td>{{bestagent.userid}}</td>
+                <td>{{bestagent.rate}}</td>
             </tr>
-            <tr>
-              <td>
-                <h4>Dilshan Sagara</h4>
-              </td>
-              <td>
-                <h4>TA0002</h4>
-              </td>
-              <td>
-                <h4>88.12</h4>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <h4>Johan Fernando</h4>
-              </td>
-              <td>
-                <h4>TA0009</h4>
-              </td>
-              <td>
-                <h4>85.51</h4>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <h4>Nandana Disasekara</h4>
-              </td>
-              <td>
-                <h4>TA0071</h4>
-              </td>
-              <td>
-                <h4>69.94</h4>
-              </td>
-            </tr>
-          </tbody>
+        </tbody>
         </table>
       </div>
     </div>
@@ -133,61 +70,70 @@
     <div class="card-body" style="width: 100%">
       <div class="d-md-flex align-items-center">
         <h4 class="card-title mb-0">Most Visited Customers</h4>
-        <div class="ml-auto">
-          <select class="custom-select">
-            <option selected>January</option>
-            <option value="1">February</option>
-            <option value="2">March</option>
-            <option value="3">April</option>
-          </select>
-        </div>
       </div>
       <div class="table-responsive m-t-40">
         <table class="table stylish-table">
           <thead>
             <tr>
-              <th>Name</th>
+              <th>First Name</th>
+              <th>Last Name</th>
               <th>Customer ID</th>
+              <th>City</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                <h4>Kasun Amarasekara</h4>
-              </td>
-              <td>
-                <h4>TA0084</h4>
-              </td>
+            <tr *ngFor="let mostvisitedcustomer of mostvisitedcustomers">
+                <td>{{mostvisitedcustomer.user.name.first_name}}</td>
+                <td>{{mostvisitedcustomer.user.name.last_name}}</td>
+                <td>{{mostvisitedcustomer.user.cust_id}}</td>
+                <td>{{mostvisitedcustomer.user.area}}</td>
             </tr>
-            <tr>
-              <td>
-                <h4>Dilshan Sagara</h4>
-              </td>
-              <td>
-                <h4>TA0002</h4>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <h4>Johan Fernando</h4>
-              </td>
-              <td>
-                <h4>TA0009</h4>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <h4>Nandana Disasekara</h4>
-              </td>
-              <td>
-                <h4>TA0071</h4>
-              </td>
-            </tr>
-          </tbody>
+        </tbody>         
         </table>
       </div>
     </div>
   </div>
+</div>
+
+
+<div class="row" style="width: 100%">
+  <div class="card" style="width: 40%">
+    <div class="card-body" style="width: 100%">
+      <div class="table-responsive m-t-40">
+        <table class="table stylish-table">
+          <thead>
+            <tr>
+              <th scope="col">Most Efficient Dates</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let mostefficientday of mostefficientdays">
+                <td>{{mostefficientday._id}}</td>
+            </tr>
+        </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="width: 40%">
+  <div class="card-body" style="width: 100%">
+    <div class="table-responsive m-t-40">
+      <table class="table stylish-table">
+        <thead>
+          <tr>
+            <th scope="col">Least Efficient Dates</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let leastefficientday of leastefficientdays">
+              <td>{{leastefficientday._id}}</td>
+          </tr>
+      </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 </div>
 
 <div class="row" style="width: 100%">
