@@ -16,22 +16,22 @@ export class StatDashboardService {
   }
 
   listMostVisitedCustomers(): Observable<any> {
-    return this.http.get('http://localhost:3000/most-visited-customers');
+    return this.http.get(environment.apiBaseUrl+'/most-visited-customers');
   }
 
   listMostEfficientDays(): Observable<any> {
-    return this.http.get('http://localhost:3000/most-efficient-days');
+    return this.http.get(environment.apiBaseUrl+'/most-efficient-days');
   }
 
   listLeastEfficientDays(): Observable<any> {
-    return this.http.get('http://localhost:3000/least-efficient-days');
+    return this.http.get(environment.apiBaseUrl+'/least-efficient-days');
   }
 
   listDailyTaskCount(): Observable<any> {
-    return this.http.get('http://localhost:3000/list-daily-task-count');
+    return this.http.get(environment.apiBaseUrl+'/list-daily-task-count');
   }
 
   listMonthlyTaskCount(): Observable<any> {
-    return this.http.get('http://localhost:3000/list-monthly-task-count');
+    return this.http.get(environment.apiBaseUrl+'/list-monthly-task-count');
   }
 }
