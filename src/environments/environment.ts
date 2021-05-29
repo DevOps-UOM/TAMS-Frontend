@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   firebaseConfig:{
     apiKey: "AIzaSyA3NaSDYcEIOfu68KY2WxtiwXESh5KKoLc",
-    authDomain: "tams-uom.web.app",
+    authDomain: "tams-uom.firebaseapp.com",
     databaseURL: "https://tams-uom.firebaseio.com",
     projectId: "tams-uom",
     storageBucket: "tams-uom.appspot.com",
