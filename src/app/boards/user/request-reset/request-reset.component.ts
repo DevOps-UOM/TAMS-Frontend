@@ -20,7 +20,7 @@ export class RequestResetComponent implements OnInit {
     private router: Router,
   ) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.RequestResetForm = new FormGroup({
       'email': new FormControl(null, [Validators.required, Validators.email], this.forbiddenEmails),
     });
@@ -46,6 +46,8 @@ export class RequestResetComponent implements OnInit {
           }
         }
       );
+      this.RequestResetForm.reset();
+      this.successMessage = "Reset password link send to email sucessfully.";
     } else {
       this.IsvalidForm = false;
     }

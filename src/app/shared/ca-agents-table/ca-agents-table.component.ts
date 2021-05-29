@@ -57,6 +57,10 @@ export class CaAgentsTableComponent implements OnInit {
     this.toastr.error('', 'Deleted successfully!');
   }
 
+  onEdit() {
+
+  }
+
 }
 
 

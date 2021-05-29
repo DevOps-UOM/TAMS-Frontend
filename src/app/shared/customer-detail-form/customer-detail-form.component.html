@@ -21,22 +21,24 @@
 
 
                     <div>
-                        <label for="coordinates">Location</label>
-
-
-                        <div fxlayout="row" class='cordinates'>
-                            <div> x : <input class="cordinate form-control" type="text" formControlName="x"></div>
-                            <div> y: <input class="cordinate form-control" type="text" formControlName="y"></div>
-                        </div>
-                        <br />
+                        <label for="coordinates">Location</label><br />
 
                         <button class="btn btn-info" style="background-color:#33B585 ; font-size:15px"
                             (click)="pinCustomer()">Pin Customer</button>
-                    </div>
 
+                        <div fxlayout="row" class='cordinates'>
+                            <div> Latitude : <input class="cordinate form-control" type="text" formControlName="x"
+                                    [value]="pinnedLocation.lat">
+                            </div>
+                            <div> Longitude: <input class="cordinate form-control" type="text" formControlName="y"
+                                    [value]="pinnedLocation.lng">
+                            </div>
+                        </div>
+                        <br />
+
+                    </div>
                     <br /> <br />
 
-                    <!-- <label for="type">Location Type</label> &nbsp; &nbsp; &nbsp; -->
                     <input type="text" id="type" class="form-control" formControlName="type" value="Point" hidden>
                     <!-- <br /> <br /> -->
                 </div>
@@ -71,8 +73,7 @@
                 <br /> <br />
 
                 <label for="default_agent_id">Assigned Travelling Agent</label> &nbsp; &nbsp; &nbsp;
-                <!-- <input type="text" id="default_agent_id"  class="form-control" formControlName="default_agent_id"> -->
-                <br /> <br />
+
 
                 <select formControlName="default_agent_id" class="form-control" searchable="Search here..">
                     <!-- <option value="" disabled selected>Choose agent</option> -->

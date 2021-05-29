@@ -22,6 +22,9 @@
                 <td>{{ grade.last_name }}</td>
                 <td>{{ grade.mobile_number }}</td>
                 <td>
+                    <a class="action-btn" (click)="onEdit()">
+                        <i class="material-icons">edit</i>
+                    </a>
                     <a class="action-btn" (click)="onDelete(grade.userid)">
                         <i class="material-icons">delete</i>
                     </a>
