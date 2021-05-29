@@ -149,7 +149,7 @@ export class StatDashboardComponent implements OnInit {
             element?.['tasksList'].forEach(task => {
               console.log(task['status']);
               ++this.dailyTaskCount['total']
-              if (task['status'] == 'completed') {
+              if (task['status'] == 'Completed') {
                 ++this.dailyTaskCount['completed']
               }
             });
@@ -176,7 +176,7 @@ export class StatDashboardComponent implements OnInit {
             element?.['tasksList'].forEach(task => {
               console.log(task['status']);
               ++this.monthlyTaskCount['total']
-              if (task['status'] == 'completed') {
+              if (task['status'] == 'Completed') {
                 ++this.monthlyTaskCount['completed']
               }
             });
