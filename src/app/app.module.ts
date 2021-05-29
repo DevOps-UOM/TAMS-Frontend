@@ -21,7 +21,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { InterceptorService } from './services/interceptor/interceptor.service';
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -46,7 +45,7 @@ export class MyHammerConfig extends HammerGestureConfig{
     AlertsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     BrowserAnimationsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    // ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ToastrModule.forRoot(),
     NgbModule,
     MatProgressSpinnerModule
@@ -54,11 +53,13 @@ export class MyHammerConfig extends HammerGestureConfig{
   providers: [{
     provide:HAMMER_GESTURE_CONFIG,
     useClass:MyHammerConfig
-  },{
-    provide:HTTP_INTERCEPTORS,
-    useClass:InterceptorService,
-    multi:true
-  }],
+  },
+  // {
+  //   provide:HTTP_INTERCEPTORS,
+  //   useClass:InterceptorService,
+  //   multi:true
+  // }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

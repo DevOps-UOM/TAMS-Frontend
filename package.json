@@ -1,10 +1,9 @@
 {
-
     "name": "tamsfrontend",
     "version": "0.0.0",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve --host 0.0.0.0",
+        "start": "ng serve",
         "build": "ng build",
         "test": "ng test",
         "lint": "ng lint",
@@ -29,6 +28,7 @@
         "@angular/router": "~10.1.5",
         "@angular/service-worker": "~10.1.5",
         "@ng-bootstrap/ng-bootstrap": "^8.0.4",
+        "@types/jasmine": "^3.7.6",
         "agm-direction": "^0.8.7",
         "angular-alert-module": "^2.0.3",
         "bootstrap": "^4.6.0",
@@ -53,8 +53,7 @@
         "@angular-devkit/build-angular": "~0.1001.6",
         "@angular/cli": "~10.1.6",
         "@angular/compiler-cli": "~10.1.5",
-        "@types/googlemaps": "^3.39.12",
-        "@typs/jasmine": "~3.5.0",
+        "@types/googlemaps": "^3.39.13",
         "@types/jasminewd2": "~2.0.3",
         "@types/node": "^12.11.1",
         "codelyzer": "^6.0.0",

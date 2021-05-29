@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { LoadingSpinnerService } from 'src/app/services/loading-spinner/loading-spinner.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-loading-spinner',
@@ -26,6 +27,7 @@ export class LoadingSpinnerComponent implements OnInit {
   init(){
     this.spinnerService.getSpinnerObserver().subscribe((status)=>{
       console.log("---------------Loading--------------")
+      console.log(environment.apiBaseUrl);
       if(status==="start"){
         this.showSpinner=true;
       }else{

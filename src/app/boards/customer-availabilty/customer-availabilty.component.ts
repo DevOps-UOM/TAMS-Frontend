@@ -95,6 +95,9 @@ export class CustomerAvailabiltyComponent implements OnInit {
     this.availabilityService.createAvailability(this.availabilityForm.value)
       .subscribe(
         res => {
+          if(res.data === "RecordExist"){
+            alert("Record already exist");
+          }
           console.log(res);
           this.loadAvailability();
         }, error => {

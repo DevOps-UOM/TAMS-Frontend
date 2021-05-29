@@ -6,6 +6,7 @@ import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {PrintItiDetailsComponent} from "../print-iti-details/print-iti-details.component";
 import {UserServiceService} from '../../services/user-service/user-service.service'
 import {Grade} from "../../models/grade.model";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-itinerary-details',
@@ -52,7 +53,7 @@ export class ItineraryDetailsComponent implements OnInit {
 
 
   loadAgents(){
-    this.http.get<{ status: string, msg: string, data: Grade[] }>('http://localhost:3000/ta-agents').subscribe((postData) => {
+    this.http.get<{ status: string, msg: string, data: Grade[] }>(environment.apiBaseUrl+'/ta-agents').subscribe((postData) => {
       this.travelAgents = postData['data'];
       console.log(this.travelAgents);
 

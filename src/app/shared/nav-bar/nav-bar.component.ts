@@ -34,39 +34,20 @@ export class NavBarComponent implements OnInit {
     private router: Router
   ) { 
     this.user = userService.getUserPayload();
-    switch(this.user.role){
-      case Role.ca : this.role="Call Center Agent";break;
-      case Role.ta : this.role="Travel Agent";break;
-      case Role.Admin : this.role="Admin";break;
+    if(this.user && this.user.role){
+      switch(this.user.role){
+        case Role.ca : this.role="Call Center Agent";break;
+        case Role.ta : this.role="Travel Agent";break;
+        case Role.Admin : this.role="Admin";break;
+      }
     }
+    
   }
 
   ngOnInit(): void {
     
   }
 
-
-
-  callScreen(screenName) {
-    console.log("called here" + screenName);
-    switch (screenName) {
-      case 'Itinerary Map':
-        this.router.navigate(['/boards/itinerary-map']);
-        break;
-      case 'Leaves':
-        this.router.navigate(['/boards/leave']);
-        break;
-      case 'Itinerary Task':
-        this.router.navigate(['/boards/itinerary-task']);
-        break;
-      
-
-      default:
-        this.router.navigate(['/boards/home']);
-        break;
-    }
-
-  }
   userMenu() {
     document.getElementById("userMenuDropdown").classList.toggle("show");
   }

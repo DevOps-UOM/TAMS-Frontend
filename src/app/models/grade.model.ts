@@ -11,4 +11,5 @@ export interface Grade {
   role: string;
   password: string;
   rate: number;
+  is_deleted: boolean;
 }
