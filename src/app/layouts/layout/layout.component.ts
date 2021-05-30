@@ -1,9 +1,13 @@
 import { Component, HostListener, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 
 import { DataService } from '../../services/data/data.service'
-import {Subscription} from 'rxjs'
+import { Subscription } from 'rxjs'
 import { LayoutConfigService } from 'src/app/services/layout-service/layout.service';
-
+import { GpsTrackService } from 'src/app/services/gps-track/gps-track.service';
+import { User } from 'src/app/models/user.model';
+import { Role } from 'src/app/models/role.model';
+import { LayoutConfig } from 'src/app/models/layout.config';
+import { UserService } from 'src/app/services/user';
 
 @Component({
   selector: 'app-layout',
@@ -17,11 +21,11 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   fontSize: number;
   viewInitAfter: boolean = false;
 
-  isShowSidebar:boolean =false;
+  isShowSidebar: boolean = false;
   subscription: Subscription;
 
   config: any
-
+  user: User;
 
   @HostListener('window:resize', [])
   private onResize() {
@@ -33,7 +37,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
     this.cdr.detectChanges();
   }
 
-  ngOnChange(){
+  ngOnChange() {
     this.subscription = this.data.currentMessage.subscribe(isShowSidebar => this.isShowSidebar = isShowSidebar)
   }
 
@@ -66,11 +70,13 @@ export class LayoutComponent implements OnInit, AfterViewInit {
     private cdr: ChangeDetectorRef,
     private data: DataService,
     private configService: LayoutConfigService,
+    private userService: UserService,
+    public gpsTrackService: GpsTrackService,
   ) {
-    this.config = configService.config; 
+    this.config = configService.config;
 
-    
-   }
+
+  }
 
   ngOnInit(): void {
     this.detectScreenSize();
@@ -78,13 +84,21 @@ export class LayoutComponent implements OnInit, AfterViewInit {
     this.configService.configChangeListner.subscribe(config => {
       this.config = config.config;
     })
-    this.showSideBar(this.isTablet|| this.isDesktop);
+    this.showSideBar(this.isTablet || this.isDesktop);
 
-    
+    this.user = this.userService.getUserPayload();
+    if (this.user != null && this.user.userid != null && this.user.role === Role.ta) {
+      this.configService.setConfig(new LayoutConfig(true, false));
+      console.log("tracking user")
+      this.gpsTrackService.trackMe();
+    } else if (this.user != null && this.user.userid != null) {
+      this.configService.setConfig(new LayoutConfig(true, true));
+    }
+
   }
 
-  showSideBar(burgerBoolean:boolean){
-    this.isShowSidebar=burgerBoolean;
+  showSideBar(burgerBoolean: boolean) {
+    this.isShowSidebar = burgerBoolean;
 
     this.data.showSidebar(this.isShowSidebar);
     //console.log(this.isShowSidebar);

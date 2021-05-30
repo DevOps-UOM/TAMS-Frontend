@@ -14,4 +14,24 @@ export class StatDashboardService {
   listAllAgents(): Observable<any> {
     return this.http.get(environment.apiBaseUrl+'/best-agents');
   }
+
+  listMostVisitedCustomers(): Observable<any> {
+    return this.http.get(environment.apiBaseUrl+'/most-visited-customers');
+  }
+
+  listMostEfficientDays(): Observable<any> {
+    return this.http.get(environment.apiBaseUrl+'/most-efficient-days');
+  }
+
+  listLeastEfficientDays(): Observable<any> {
+    return this.http.get(environment.apiBaseUrl+'/least-efficient-days');
+  }
+
+  listDailyTaskCount(): Observable<any> {
+    return this.http.get(environment.apiBaseUrl+'/list-daily-task-count');
+  }
+
+  listMonthlyTaskCount(): Observable<any> {
+    return this.http.get(environment.apiBaseUrl+'/list-monthly-task-count');
+  }
 }

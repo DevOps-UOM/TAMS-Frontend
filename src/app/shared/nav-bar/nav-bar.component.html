@@ -1,8 +1,15 @@
 <div class="flex-container shadow-sm p-3 m-0" fxLayoutAlign="space-between center" @fade *ngIf="userService.getUserPayload()">
     <div class="burger_btn_area" *ngIf="userService.getUserPayload()">
-        <div class="burger_btn" (click)="BurgerClick()">
 
+        <div *ngIf="userService.getUserPayload().role=='ta'; else elseBlock">
+            <div class="switch_btn" (click)="switchPage()"></div>
         </div>
+        <ng-template #elseBlock>
+            <div class="burger_btn" (click)="BurgerClick()">
+            </div>
+        </ng-template>
+
+
     </div>
     <div></div>
     <div class="user" *ngIf="userService.getUserPayload()">

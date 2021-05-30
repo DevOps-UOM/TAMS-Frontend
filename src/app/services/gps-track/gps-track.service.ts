@@ -39,7 +39,7 @@ export class GpsTrackService {
         this.liveLng = position.coords.longitude;
 
         //var locData;
-
+        console.log(this.user);
         if (this.user && this.user.userid) {
           this.geo.get(this.user.userid.toString()).then(res => {
             console.log(res);

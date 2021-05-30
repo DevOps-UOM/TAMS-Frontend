@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { GpsTrackService } from 'src/app/services/gps-track/gps-track.service';
 import { User } from 'src/app/models/user.model';
 import { Role } from 'src/app/models/role.model';
+import { LayoutConfigService } from 'src/app/services/layout-service/layout.service';
+import { LayoutConfig } from 'src/app/models/layout.config';
 
 @Component({
   selector: 'app-sign-in',
@@ -14,7 +16,7 @@ import { Role } from 'src/app/models/role.model';
 })
 export class SignInComponent implements OnInit {
 
-  constructor(private userService: UserService, private router: Router, public gpsTrackService: GpsTrackService) { }
+  constructor(private userService: UserService, private router: Router, public gpsTrackService: GpsTrackService,private configService: LayoutConfigService) { }
 
   model = {
     email: '',
@@ -25,25 +27,20 @@ export class SignInComponent implements OnInit {
 
   serverErrorMessages: string;
 
-  user: User;
+ 
 
   ngOnInit() {
     if (this.userService.isLoggedIn())
-      this.router.navigate(['/boards/itinerary-map']);
+      this.router.navigate(['/userprofile']);
   }
 
   onSubmit(form: NgForm) {
-    console.log("loggin in")
     this.userService.login(form.value).subscribe(
       res => {console.log("Login in")
         this.userService.setToken(res['token']);
         this.userService.setObservableUser();
 
-        this.user = this.userService.getUserPayload()
-        if (this.user != null && this.user.userid != null && this.user.role === Role.ta) {
-        console.log("tracking user")
-          this.gpsTrackService.trackMe();
-        }
+        
 
         this.router.navigateByUrl('/userprofile');
 

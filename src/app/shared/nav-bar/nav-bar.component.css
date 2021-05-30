@@ -113,3 +113,13 @@
 .burger_btn:hover {
     background-color: rgba(155, 155, 155, 0.568);
 }
+
+.switch_btn {
+    height: 35px;
+    width: 35px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-image: url("../../../assets/images/ic_arrow.svg");
+    border-radius: 5px;
+}

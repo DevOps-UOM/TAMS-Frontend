@@ -26,15 +26,12 @@ export class LoadingSpinnerComponent implements OnInit {
 
   init(){
     this.spinnerService.getSpinnerObserver().subscribe((status)=>{
-      console.log("---------------Loading--------------")
-      console.log(environment.apiBaseUrl);
       if(status==="start"){
         this.showSpinner=true;
       }else{
         this.showSpinner=false;
       }
       
-      console.log(this.showSpinner)
        this.cdRef.detectChanges();
     })
   }

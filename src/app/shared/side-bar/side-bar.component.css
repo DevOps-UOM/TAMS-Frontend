@@ -2,7 +2,7 @@
     background-color: #298e69;
     height: 100vh;
     width: 100%;
-    min-width: 240px;
+    min-width: fit-content;
 }
 
 .title {

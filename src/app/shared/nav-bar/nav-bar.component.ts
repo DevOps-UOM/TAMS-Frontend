@@ -78,5 +78,16 @@ export class NavBarComponent implements OnInit {
   onLogout(){
     this.userService.logout();
   }
+
+  switchPage(){
+    let url = this.router.routerState.snapshot.url;
+    console.log(url)
+    switch(url){
+      case '/boards/itinerary-map':this.router.navigate(['/boards/itinerary-task']);break;
+      case '/boards/itinerary-task':this.router.navigate(['/boards/itinerary-map']);break;
+      default : this.router.navigate(['/boards/itinerary-map']);
+    }
+  }
+
 }
 

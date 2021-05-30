@@ -151,7 +151,6 @@ import { ResponseResetComponent } from './user/response-reset/response-reset.com
     AssignComponent,
     TaMapComponent,
     ItineraryDetailsComponent,
-    
     CaUserManagementComponent,
     StatDashboardComponent, 
     UserComponent, 

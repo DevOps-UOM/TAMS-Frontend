@@ -22,15 +22,13 @@ export class LoadingSpinnerService  {
   requestStarted(){
     
      if(++this.count ===1){
-      console.log("---------------Loading init--------------")
        this.spinner$.next('start');
      }
   }
 
   requestEnd(){
     if(this.count ===0 || --this.count ===0){
-      console.log("---------------Loading end--------------")
-      console.log(this.count)
+
       this.spinner$.next('stop');
     }
   }
