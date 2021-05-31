@@ -2,7 +2,7 @@
     <div class="row mt-5">
         <div class="col text-center">
             <b class="text-black-50">
-                {{'Customer Availabilty' }}
+                <h1>Customer Availabilty</h1>
             </b>
         </div>
     </div>
@@ -13,43 +13,56 @@
                 <select required formControlName="cust_id" class="form-control" searchable="Search here..">
                     <option value="" disabled selected>Choose Customer</option>
                     <option *ngFor="let customer of customers" [value]="customer._id" >{{customer.cust_id}}- {{customer.name.first_name}} {{customer.name.last_name}}</option>
-                  </select>
+                </select>
 
                 <!-- <input required formControlName="cust_id" type="text" class="form-control" placeholder=""> -->
             </div>
             <div class="form-group col-md">
-                <label for="">Estimated Duration</label>
-                <select class="custom-select" formControlName="task_duration">
-                    <option value="" disabled selected>Choose Duration</option>
-                    <option selected="selected" >15 min</option>
-                    <option >30 min</option>
-                    <option >45 min</option>
-                </select>
+              <label for="">Date</label><br>
+              <input matInput [matDatepicker]="picker" [min]="minDate" formControlName="date" class="date col-md-8">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
             </div>
-            <div class="form-group col-md">
-                <label for="">Date</label><br>
-                <input matInput [matDatepicker]="picker" [min]="minDate" formControlName="date" class="form-date">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
+            <div class="col-md">
+              <label for="">Estimated Duration</label>
+              <select class="custom-select" formControlName="task_duration">
+                  <option value="" disabled selected>Choose Duration</option>
+                  <option selected="selected" >15 min</option>
+                  <option >20 min</option>
+                  <option >30 min</option>
+                  <option >45 min</option>
+                  <option >1 hr</option>
+
+              </select>
             </div>
 
         </div>
         <div class="form-row">
             <div class="form-group col-md">
                 <label for="">Select Task</label>
-                <select multiple=true class="form-control" formControlName="task" size="11" >
-                    <option [ngValue]="t._id" *ngFor="let t of displayTasks">{{t.task_name}}</option>
+                <select multiple="true"   class="form-control" formControlName="task" size="12" [(ngModel)]="selectedValue" (ngModelChange)='onOptionsSelected($event)' >
+                    <option [ngValue]="t._id"  *ngFor="let t of displayTasks">{{t.task_name}}</option>
                 </select>
             </div>
+
             <div class="form-group col-md">
                 <label for="">Special Notes</label>
                 <textarea formControlName="note" name="" id="" cols="30" rows="10" class="form-control"></textarea>
             </div>
+
         </div>
+        <div class="mt-2" ><div>   Selected total duration: <h2>{{totalDuration}} {{min}}</h2><div class="form-group col-md">
+
+      </div></div></div><br>
 
 
 
         <div class="btn btn-info" style="background-color:#33B585" (click)="addTask()" >Add Task</div>
+
+        <div class="btn btn-info" style="background-color:#33B585; margin-left: 10px;" (click)="editTask()" ><div class="fa fa-cog "></div></div>
+
+
+
         <div (click)="onClickSubmit()" class="btn btn-info float-right ml-2" style="background-color:#33B585">
             Add Availabilty
         </div>
@@ -86,7 +99,7 @@
                 </td>
                 <td>{{v.task_duration}}</td>
                 <td><i class="fa fa-trash zoom" style="cursor: pointer;" (click)="onDelete(v._id, v.date)"  ></i></td>
-                <td><i class="fa fa-edit zoom" style="cursor: pointer;" (click)="onEdit(v._id)"  ></i></td>
+                <!-- <td><i class="fa fa-edit zoom" style="cursor: pointer;" (click)="onEdit(v._id)"  ></i></td> -->
             </tr>
         </tbody>
     </table>

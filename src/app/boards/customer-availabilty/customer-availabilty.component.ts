@@ -25,6 +25,11 @@ export class CustomerAvailabiltyComponent implements OnInit {
   minDate = moment(moment().format("YYYY-MM-DD")).toDate();
   customers: any;
   displaycustomers: any;
+  selected: any;
+  selectedValue: any;
+  totalDuration: any;
+  min = "min"
+
 
 
   constructor(
@@ -42,9 +47,31 @@ export class CustomerAvailabiltyComponent implements OnInit {
     this.loadcustomers();
   }
 
-  onOptionsSelected(value:any){
-    console.log("the selected value is " + value);
-}
+  onOptionsSelected(e){
+
+    var td = 0;
+    var y = this.tasks;
+    if(this.selectedValue)
+    {
+      e.toString().split(',').forEach(function(value){
+        {
+          let x = y.find(o => o._id === value);
+           if( x !== undefined){
+             td = td + x.task_duration;
+           }
+         }
+      })
+    }
+    this.totalDuration = td;
+
+    if(this.totalDuration>60){
+      this.totalDuration = "More than 1hour"
+      this.min = ""
+    }else{
+      this.min = "min"
+    }
+
+  }
 
 
 
@@ -131,7 +158,7 @@ export class CustomerAvailabiltyComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig. width = "50%";
+    dialogConfig. width = "30%";
     const dialogRef = this.dialog.open(EditTasksComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       this.loadTask()
