@@ -6,8 +6,8 @@
     <input placeholder="IdSearch" #idsearch type="" class="form-control float-right" (input)="onIdSearch(idsearch.value)">
 </div> -->
 
-  <div class="col-md-2 mb-8">
-      <i (click)="onClickReset(search)" class="fa fa-refresh zoom" style="cursor: pointer; "></i>
+  <div class="col-md-2 mb-8" (click)="onClickReset(search)" class="btn btn-secondary" style="cursor: pointer; margin-left: 10px ; ">
+      Reset
   </div>
 </div>
     <table class="table table-hover mt-5">
