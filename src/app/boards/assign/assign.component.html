@@ -1,11 +1,11 @@
 
 
 <div class="row mt-4 ml-4">
-    <div class="col-md-10 mb-8">
+    <div >
         <input placeholder="Search" #search type="date" class="form-control" (input)="onSearch(search.value)">
     </div>
     <div class="col-md-2 mb-8">
-        <button (click)="onClickReset(search)" class="btn btn-danger"> reset</button>
+        <button (click)="onClickReset(search)" class="btn btn-secondary"> Reset</button>
     </div>
 </div>
 
@@ -47,19 +47,19 @@
 
     <br><br>
 
-    <div class="row mt-4 ml-5">
+    <!-- <div class="row mt-4 ml-5">
       <div class="col-md-10 mb-8">
           <input placeholder="Search" #search type="date" class="form-control" (input)="onSearch(search.value)">
       </div>
       <div class="col-md-2 mb-8">
           <button (click)="onClickReset(search)" class="btn btn-danger"> reset</button>
       </div>
-  </div>
+  </div> -->
 
 
 
   <div class="col-md">
-    <button class="btn-light float-right" (click)="onAssign()">Assign</button>
+    <div class="btn btn-info float-right" style="background-color:#33B585; margin-right: 20px;"(click)="onAssign()">Assign</div>
   </div>
 </div>
 

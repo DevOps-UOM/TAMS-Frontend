@@ -86,28 +86,31 @@ export class LeaveComponent implements OnInit {
         res => {
           console.log(res);
           this.loadleaves();
+          alert("Leave added successfully")
         }, error => {
           console.log(error);
         }
       );
     this.leaveForm.reset();
 
+
   }
 
   onSearch(term: any) {
+
     console.log(term);
     if (term === '') {
       this.displayleaves = this.leaves;
     } else {
       this.displayleaves =  this.leaves.filter((a) => {
-        if(a.ta_id.toLowerCase().indexOf(term.toLowerCase()) > -1) {
+        if(a.travel_agent.userid.toLowerCase().indexOf(term.toLowerCase()) > -1) {
           return a
         }
       });
     }
   }
 
- 
+
   range = new FormGroup({
     start: new FormControl(),
     end: new FormControl()
@@ -119,6 +122,7 @@ export class LeaveComponent implements OnInit {
     if ( delBtn == true ) {
       this.leavesService.deleteLeaves(id).subscribe((res:any) => {
       this.loadleaves();
+      alert("Deleted Successfully")
       console.log(id);
     } );
     }
