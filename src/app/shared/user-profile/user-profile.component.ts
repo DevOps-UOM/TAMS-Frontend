@@ -12,15 +12,19 @@ import { LayoutConfig } from 'src/app/models/layout.config';
 })
 export class UserProfileComponent implements OnInit {
   userDetails;
-  constructor(public userService: UserService, private router: Router,private configService: LayoutConfigService) { }
+  constructor(public userService: UserService, private router: Router, private configService: LayoutConfigService) { }
 
   ngOnInit() {
-    this.configService.setConfig(new LayoutConfig(true,true));
+    this.configService.setConfig(new LayoutConfig(true, true));
     this.userDetails = this.userService.getUserPayload();
   }
 
-  onLogout(){
+  onLogout() {
     this.userService.logout();
+  }
+
+  navigateToProfile() {
+    this.router.navigate(['../boards/request-reset-password']);
   }
 
 }

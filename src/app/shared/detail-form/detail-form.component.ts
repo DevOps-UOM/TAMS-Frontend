@@ -50,7 +50,7 @@ export class DetailFormComponent implements OnInit {
       province: [''],
       bio: [''],
       role: [''], //role
-      rate: [''],
+      // rate: [''],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required]
     }, {
@@ -59,10 +59,6 @@ export class DetailFormComponent implements OnInit {
   }
 
   get f() { return this.form.controls; }
-
-
-
-
 
   OnSubmit() {
     this.submitted = true;
@@ -84,9 +80,10 @@ export class DetailFormComponent implements OnInit {
         province: this.form.value.province,
         bio: this.form.value.bio,
         role: this.form.value.role,
-        rate: this.form.value.rate,
         password: this.form.value.password,
-        confirmPassword: this.form.value.confirmPassword
+        confirmPassword: this.form.value.confirmPassword,
+        rate: this.form.value.rate,
+        is_deleted: this.form.value.is_deleted
       };
 
       this.formControllService.uploadDetails(formData);

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { PinCustomerComponent } from 'src/app/shared/pin-customer/pin-customer.component';
 
 @Component({
@@ -16,14 +16,14 @@ export class TempPinLocationComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  pinCustomer(){
+  pinCustomer() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-    dialogConfig. width = "50%";
+    dialogConfig.width = "50%";
     const dialogRef = this.dialog.open(PinCustomerComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe(data=>{
+    dialogRef.afterClosed().subscribe(data => {
       console.log(data)
     })
 

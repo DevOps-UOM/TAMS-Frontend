@@ -7,14 +7,14 @@ import { Router } from '@angular/router';
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css'],
-  providers : [UserService]
+  providers: [UserService]
 })
 export class SignInComponent implements OnInit {
 
-  constructor(private userService: UserService, private router : Router) { }
+  constructor(private userService: UserService, private router: Router) { }
 
-  model ={
-    email : '',
+  model = {
+    email: '',
     password: ''
   };
 
@@ -23,11 +23,11 @@ export class SignInComponent implements OnInit {
   serverErrorMessages: string;
 
   ngOnInit() {
-    if(this.userService.isLoggedIn())
+    if (this.userService.isLoggedIn())
       this.router.navigate(['/boards/itinerary-map']);
   }
 
-  onSubmit(form : NgForm){
+  onSubmit(form: NgForm) {
     this.userService.login(form.value).subscribe(
       res => {
         this.userService.setToken(res['token']);
@@ -40,6 +40,10 @@ export class SignInComponent implements OnInit {
     );
     // console.log('clicked')
     // this.userService.observableUser.next(null);
+  }
+
+  navigateToProfile() {
+    this.router.navigate(['../boards/request-reset-password']);
   }
 
 }
