@@ -18,6 +18,7 @@ export class AssignComponent implements OnInit {
   searchTerm: any;
   travelAgents = [];
   date;
+  hasLeave: false;
 
   constructor(
     private http: HttpClient,
@@ -78,7 +79,7 @@ export class AssignComponent implements OnInit {
               console.log(res)
             },
             error => {
-  
+
             }
           );
     }else{
@@ -90,7 +91,6 @@ export class AssignComponent implements OnInit {
   loadAgents(){
     this.http.get<{ status: string, msg: string, data: Grade[] }>(environment.apiBaseUrl+'/ta-agents').subscribe((postData) => {
       this.travelAgents = postData['data'];
-      console.log(this.travelAgents);
 
     });
 

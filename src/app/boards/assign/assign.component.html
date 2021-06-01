@@ -16,16 +16,17 @@
                 <tr>
                     <th scope="col">Customer</th>
                     <th scope="col">Date</th>
-                    <th scope="col">Customer Area</th>
+                   <th scope="col">Customer Area</th>
                     <th scope="col">To do task</th>
                     <th scope="col">Assingend TA Name</th>
 
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let v of displayAvailabilities">
+                <tr  *ngFor="let v of displayAvailabilities" [style.background-color]="v.cust_id.default_agent_id.on_leave ? '#ffcccc': '' " >
                     <th scope="row">{{v.cust_id.cust_id}}- {{v.cust_id.name.first_name}}</th>
                     <td>{{v.date | date:'shortDate' }}</td>
+
                     <td>{{v.cust_id.area}}</td>
                   <td>
                     <div *ngFor="let single_task of v.task; let i = index">
@@ -35,26 +36,19 @@
                     <td>
                       <select [(ngModel)]="v.cust_id.default_agent_id._id" class="form-control" >
 <!--                       <option  [value]="v.cust_id.default_agent_id._id"   disabled selected="selected">{{v.cust_id.default_agent_id.first_name}}</option>-->
-                      <option *ngFor="let agent of travelAgents" [value]="agent._id" >{{agent.userid}}- {{agent.first_name}} {{agent.last_name}}</option>
+                      <option  *ngFor="let agent of travelAgents" [value]="agent._id" [disabled]="agent.on_leave"  [style.color]="agent.on_leave ? 'red' : ''" >{{agent.userid}}- {{agent.first_name}} {{agent.last_name}} </option>
                     </select>
                     </td>
+
 
                 </tr>
             </tbody>
         </table>
-    </div>
 
 
-    <br><br>
+</div>
 
-    <!-- <div class="row mt-4 ml-5">
-      <div class="col-md-10 mb-8">
-          <input placeholder="Search" #search type="date" class="form-control" (input)="onSearch(search.value)">
-      </div>
-      <div class="col-md-2 mb-8">
-          <button (click)="onClickReset(search)" class="btn btn-danger"> reset</button>
-      </div>
-  </div> -->
+
 
 
 
@@ -62,4 +56,3 @@
     <div class="btn btn-info float-right" style="background-color:#33B585; margin-right: 20px;"(click)="onAssign()">Assign</div>
   </div>
 </div>
-
