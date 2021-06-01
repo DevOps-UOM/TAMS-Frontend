@@ -1,9 +1,6 @@
-
-import { Component, OnInit } from '@angular/core';
-import { AvailabilityServiceService } from 'src/app/services/availability-service.service';
+import {Component, OnInit} from '@angular/core';
+import {AvailabilityServiceService} from 'src/app/services/availability-service.service';
 import * as moment from 'moment';
-import {LeaveService} from '../../services/leave/leave.service';
-import { MatEndDate, MatStartDate } from '@angular/material/datepicker';
 import {HttpClient} from "@angular/common/http";
 import {AssignService} from "../../services/assign/assign.service";
 import {Grade} from "../../models/grade.model";
@@ -18,26 +15,21 @@ export class AssignComponent implements OnInit {
 
   availabilities: any;
   displayAvailabilities: any;
-  leaves: any;
-  displayleaves: any;
-  date: any;
   searchTerm: any;
   travelAgents = [];
+  date;
+  hasLeave: false;
 
   constructor(
     private http: HttpClient,
     private availabilityService: AvailabilityServiceService,
-    private leavesService: LeaveService,
     private assignService: AssignService
 
   ) { }
 
   ngOnInit(): void {
-
-    this.loadleaves();
     this.loadAgents();
     this.loadAvailability()
-
   }
 
   loadAvailability() {
@@ -47,19 +39,6 @@ export class AssignComponent implements OnInit {
           console.log(res.data);
           this.availabilities = res.data;
           this.displayAvailabilities =  this.availabilities;
-        },
-        error => {
-
-        }
-      );
-  }
-
-  loadleaves() {
-    this.leavesService.getAllleaves()
-      .subscribe(
-        res => {
-          this.leaves = res.data;
-          this.displayleaves =  this.leaves;
         },
         error => {
 
@@ -87,20 +66,6 @@ export class AssignComponent implements OnInit {
 
   }
 
-
-  onSearch2(term: any){
-    console.log(moment(term).format('YYYY-MM-DD'));
-    console.log(term);
-    if (term === ''||(term>=MatStartDate&& term<=MatEndDate)){
-      this.displayleaves =this.leaves;
-    }else{
-      this.displayleaves=this.leaves.filter((a) =>{
-        return moment(a.date).format('YYYY-MM-DD') === term
-
-    });
-  }
-}
-
   onAssign(){
     if(this.date){
       let dataArr=[];
@@ -114,6 +79,7 @@ export class AssignComponent implements OnInit {
               console.log(res)
             },
             error => {
+
             }
           );
     }else{
@@ -125,11 +91,12 @@ export class AssignComponent implements OnInit {
   loadAgents(){
     this.http.get<{ status: string, msg: string, data: Grade[] }>(environment.apiBaseUrl+'/ta-agents').subscribe((postData) => {
       this.travelAgents = postData['data'];
-      console.log(this.travelAgents);
 
     });
 
   }
+
+
 
 
 }

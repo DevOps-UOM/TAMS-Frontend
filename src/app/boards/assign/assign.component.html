@@ -23,8 +23,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr  *ngFor="let v of displayAvailabilities; let a of travelAgents" >
-                    <th  [style.color]=" 'travelAgents.on_leave' ? 'red' : ''" scope="row">{{v.cust_id.cust_id}}- {{v.cust_id.name.first_name}}</th>
+                <tr  *ngFor="let v of displayAvailabilities" [style.background-color]="v.cust_id.default_agent_id.on_leave ? '#ffcccc': '' " >
+                    <th scope="row">{{v.cust_id.cust_id}}- {{v.cust_id.name.first_name}}</th>
                     <td>{{v.date | date:'shortDate' }}</td>
 
                     <td>{{v.cust_id.area}}</td>
@@ -36,9 +36,10 @@
                     <td>
                       <select [(ngModel)]="v.cust_id.default_agent_id._id" class="form-control" >
 <!--                       <option  [value]="v.cust_id.default_agent_id._id"   disabled selected="selected">{{v.cust_id.default_agent_id.first_name}}</option>-->
-                      <option *ngFor="let agent of travelAgents" [value]="agent._id" [disabled]="agent.on_leave" [style.color]="agent.on_leave ? 'red' : ''" >{{agent.userid}}- {{agent.first_name}} {{agent.last_name}} </option>
+                      <option  *ngFor="let agent of travelAgents" [value]="agent._id" [disabled]="agent.on_leave"  [style.color]="agent.on_leave ? 'red' : ''" >{{agent.userid}}- {{agent.first_name}} {{agent.last_name}} </option>
                     </select>
                     </td>
+
 
                 </tr>
             </tbody>
