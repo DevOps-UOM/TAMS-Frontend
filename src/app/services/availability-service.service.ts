@@ -23,4 +23,8 @@ export class AvailabilityServiceService {
   deleteAvailability(date: Date, custid: String) {
     return this.http.delete(environment.apiBaseUrl+ '/availability/' + date + '/' + custid);
   }
+
+  populateForm(availability){
+    
+  }
 }

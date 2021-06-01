@@ -64,7 +64,7 @@ export class ItineraryDetailsComponent implements OnInit {
     this.itineraries[i];
 
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
+    dialogConfig.disableClose = false ;
     dialogConfig.autoFocus = true;
     dialogConfig. width = "100%";
     const dialogRef = this.dialog.open(PrintItiDetailsComponent, { width:"100%", autoFocus:true, disableClose:true, data: this.itineraries[i] });

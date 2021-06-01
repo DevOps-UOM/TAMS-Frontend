@@ -125,6 +125,16 @@ export class CustomerAvailabiltyComponent implements OnInit {
       task_duration: ['', Validators.required]
     });
   }
+  initializeFormGroup() {
+    this.availabilityForm.setValue({
+      $key: null,
+      cust_id: '',
+      date: '',
+      note: '',
+      task: '',
+      task_duration: '',
+    });
+  }
 
 
   onClickSubmit() {
@@ -167,7 +177,7 @@ export class CustomerAvailabiltyComponent implements OnInit {
 
   addTask(){
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
+    dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
     dialogConfig. width = "30%";
     const dialogRef = this.dialog.open(AddTaskComponent, dialogConfig);
@@ -177,9 +187,13 @@ export class CustomerAvailabiltyComponent implements OnInit {
 
   }
 
-  onEdit(id: string){
+  onEdit(id){
+    this.availabilityForm.setValue(id);
+    console.log("nirosh");
 
   }
+
+
 
   onDelete(id:string , date: Date){
     var delBtn = confirm(" Do you want to delete ?");
