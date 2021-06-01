@@ -1,52 +1,68 @@
 <div class="CustAvailComponent">
     <div class="row mt-5">
         <div class="col text-center">
-            <h1 class="text-black-50">
-                {{'Customer Availabilty' | uppercase}}
-            </h1>
+            <b class="text-black-50">
+                <h1>Customer Availabilty</h1>
+            </b>
         </div>
     </div>
     <form [formGroup]="availabilityForm" class="mt-5">
         <div class="form-row">
             <div class="form-group col-md">
-                <label for="">Customer ID</label>
-                <input required formControlName="cust_id" type="text" class="form-control" placeholder="">
+                <label for="">Customer</label>
+                <select required formControlName="cust_id" class="form-control" searchable="Search here..">
+                    <option value="" disabled selected>Choose Customer</option>
+                    <option *ngFor="let customer of customers" [value]="customer._id" >{{customer.cust_id}}- {{customer.name.first_name}} {{customer.name.last_name}}</option>
+                </select>
+
+                <!-- <input required formControlName="cust_id" type="text" class="form-control" placeholder=""> -->
             </div>
             <div class="form-group col-md">
-                <label for="">Date</label>
-                <input formControlName="date" type="date" class="form-control">
+              <label for="">Date</label><br>
+              <input matInput [matDatepicker]="picker" [min]="minDate" formControlName="date" class="date col-md-8">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
             </div>
-            <div class="form-group col-md">
-                <label for="">From</label>
-                <input formControlName="time_from" type="time" class="form-control">
-            </div>
-            <div class="form-group col-md">
-                <label for="">To</label>
-                <input formControlName="time_to" type="time" class="form-control">
-            </div>
-            <div class="form-group col-md">
-                <label for="">Estimated Task Duration</label>
-                <select class="custom-select" formControlName="task_duration">
-           <option selected >15 min</option>
-           <option >30 min</option>
-           <option >45 min</option>
-         </select>
+            <div class="col-md">
+              <label for="">Estimated Duration</label>
+              <select class="custom-select" formControlName="task_duration">
+                  <option value="" disabled selected>Choose Duration</option>
+                  <option selected="selected" >15 min</option>
+                  <option >20 min</option>
+                  <option >30 min</option>
+                  <option >45 min</option>
+                  <option >1 hr</option>
+
+              </select>
             </div>
 
         </div>
         <div class="form-row">
             <div class="form-group col-md">
                 <label for="">Select Task</label>
-                <select multiple=true class="form-control" formControlName="task" size="11" >
-                    <option [ngValue]="t._id" *ngFor="let t of displayTasks">{{t.task_name}}</option> 
+                <select multiple="true"   class="form-control" formControlName="task" size="12" [(ngModel)]="selectedValue" (ngModelChange)='onOptionsSelected($event)' >
+                    <option [ngValue]="t._id"  *ngFor="let t of displayTasks">{{t.task_name}}</option>
                 </select>
             </div>
+
             <div class="form-group col-md">
                 <label for="">Special Notes</label>
                 <textarea formControlName="note" name="" id="" cols="30" rows="10" class="form-control"></textarea>
             </div>
+
         </div>
+        <div class="mt-2" ><div>   Selected total duration: <h2>{{totalDuration}} {{min}}</h2><div class="form-group col-md">
+
+      </div></div></div><br>
+
+
+
         <div class="btn btn-info" style="background-color:#33B585" (click)="addTask()" >Add Task</div>
+
+        <div class="btn btn-info" style="background-color:#33B585; margin-left: 10px;" (click)="editTask()" ><div class="fa fa-cog "></div></div>
+
+
+
         <div (click)="onClickSubmit()" class="btn btn-info float-right ml-2" style="background-color:#33B585">
             Add Availabilty
         </div>
@@ -62,19 +78,19 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">Customer Id</th>
+                <th scope="col">Customer</th>
+                <th scope="col">Default Agent</th>
                 <th scope="col">Date</th>
-                <th scope="col">Available Time</th>
                 <th scope="col">Note</th>
                 <th scope="col">Task</th>
-                <th scope="col">Duration</th>
+                <th scope="col">Est. Duration</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let v of displayAvailabilities">
-                <th scope="row">{{v.cust_id}}</th>
+                <th scope="row">{{v.cust_id.cust_id}}- {{v.cust_id.name.first_name}} {{v.cust_id.name.last_name}}</th>
+                <th>{{v.cust_id.default_agent_id.first_name}} {{v.cust_id.default_agent_id.last_name}}</th>
                 <td>{{v.date | date:'shortDate' }}</td>
-                <td>{{v.time_from }} - {{v.time_to}}</td>
                 <td>{{v.note}}</td>
                 <td>
                     <div *ngFor="let single_task of v.task">
@@ -82,7 +98,10 @@
                     </div>
                 </td>
                 <td>{{v.task_duration}}</td>
+                <td><i class="fa fa-trash zoom" style="cursor: pointer;" (click)="onDelete(v._id, v.date)"  ></i></td>
+                <!-- <td><i class="fa fa-edit zoom" style="cursor: pointer;" (click)="onEdit(v._id)"  ></i></td> -->
             </tr>
         </tbody>
     </table>
 </div>
+

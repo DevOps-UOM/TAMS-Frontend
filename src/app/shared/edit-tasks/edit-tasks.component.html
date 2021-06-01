@@ -1,0 +1,25 @@
+
+<span class="bg-light content-center text-center te" style="font-size: large; text-align: center; color: #33B585;" >
+  <b class="text-black-50 ">Edit Tasks </b>
+<button class="btn float-right" ><i class="fa fa-close btn-dialog-close" mat-stroked-button (click)="onClose()" tabindex="-1" ></i></button>
+</span>
+<div>
+  <table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Task</th>
+            <th scope="col">Task Duration</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let v of displayTasks">
+            <td scope="row">{{v.task_name}}</td>
+            <td>{{v.task_duration}}</td>
+            <td><i class="fa fa-trash zoom" style="cursor: pointer;" (click)="onDelete(v._id)"  ></i></td>
+            <!-- <td><i class="fa fa-edit zoom" style="cursor: pointer;" (click)="onEdit(v._id)"  ></i></td> -->
+        </tr>
+    </tbody>
+</table>
+
+
+</div>

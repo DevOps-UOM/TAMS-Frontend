@@ -8,21 +8,17 @@
     </div>
     <form [formGroup]="leaveForm" class="mt-5">
         <div class="form-row">
-            <div class="form-group col-md">
-                <label for="">Travel Agent's ID</label>
-                <input formControlName="ta_id" type="text" class="form-control" placeholder="">
-            </div>
-            <div class="form-group col-md">
-                <label for="">Travel Agent's Name</label>
-                <input formControlName="ta_name" type="text" class="form-control" placeholder="">
-            </div>
-            <!-- <div class="form-group col-md">
-                <label for="">Leave Date</label>
-                <input formControlName="leave_date" type="date" class="form-control">
-            </div> -->
+
+          <div class="form-group col-md">
+            <label for="">Travel Agent</label>
+            <select formControlName="travel_agent" class="form-control" type="text" searchable="Search here..">
+              <option value="" disabled selected>Choose agent</option>
+              <option *ngFor="let agent of travelAgents" [value]="agent._id" >{{agent.userid}}- {{agent.first_name}} {{agent.last_name}}</option>
+            </select>
+          </div>
 
             <div class="row">
-                <div class="col-md-12" formGroupName="leave_date">
+                <div class="col-md-12" >
                     <!-- <mat-form-field appearance="fill"> -->
                         <!-- <mat-label>Enter a date range</mat-label> -->
                         <mat-date-range-input [rangePicker]="picker" [min]="minDate">
@@ -31,21 +27,14 @@
                         </mat-date-range-input>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-date-range-picker #picker></mat-date-range-picker>
-                      
+
                         <!-- <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error> -->
                         <!-- <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error> -->
                       <!-- </mat-form-field> -->
                 </div>
-            </div>  
-
-            <div class="form-group col-md">
-                <label for="">Part Of The Day</label>
-                <select class="custom-select" formControlName="pod">
-             <option selected >Morning</option>
-             <option >Evening</option>
-             <option >Full Day</option>
-           </select>
             </div>
+
+
 
         </div>
         <div class="form-row">
@@ -74,19 +63,20 @@
                 <th scope="col">TA Id</th>
                 <th scope="col">TA Name</th>
                 <th scope="col">Leave Date</th>
-                <th scope="col">POD</th>
+<!--                <th scope="col">POD</th>-->
                 <th scope="col">Special Notes</th>
 
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let lv of displayleaves">
-                <th scope="row">{{lv.ta_id}}</th>
-                <td>{{lv.ta_name}}</td>
-                <td>{{lv.leave_date.start_date | date:'shortDate' }} - {{lv.leave_date.end_date | date:'shortDate' }}</td>
-                <td>{{lv.pod}}</td>
+                <th scope="row">{{lv.travel_agent.userid}}</th>
+                <td>{{lv.travel_agent.first_name}} {{lv.travel_agent.last_name}}</td>
+                <td>{{lv.start_date | date:'dd/MM' }} - {{lv.end_date | date:'dd/MM' }}</td>
+
                 <td>{{lv.note}}</td>
-                <td> <button (click) = "deleteRow(i)"><i class="fa fa-trash"></i></button></td>
+
+                <td><i class="fa fa-trash zoom" style="cursor: pointer;" (click)="onDelete(lv._id)"  ></i></td>
 
             </tr>
         </tbody>

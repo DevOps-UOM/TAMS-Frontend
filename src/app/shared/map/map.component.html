@@ -1,6 +1,6 @@
-<div class="outer-wrapper">
-    <div class="map-wrapper" id="wrapper" #wrapper>
-
+<div class="outer-wrapper ">
+    <div class="map-wrapper center" id="wrapper" #wrapper>
+        <!-- 
         <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" [scrollwheel]="true" (idle)="idle()" (centerChange)="centerChange($event)" id="AgmMap" #AgmMap>
             <div *ngIf="markers.length>0 && modeSignal==='markerMode'">
                 <agm-marker *ngFor="let m of markers;index as i" [latitude]="m.lat" [longitude]="m.lng" [iconUrl]="customerLocationIcon">
@@ -12,9 +12,8 @@
                 </agm-marker>
             </div>
             <div *ngIf="destination && modeSignal==='directionMode'">
-                <agm-marker [latitude]="currentLat" [longitude]="currentLng" [iconUrl]="currentLocaionIcon">
-                </agm-marker>
-                <agm-direction [origin]="origin" [destination]="destination" [waypoints]="waypoints">
+                
+                <agm-direction [origin]="origin" [waypoints]="waypoints" [destination]="destination" [optimizeWaypoints]="true">
 
                 </agm-direction>
             </div>
@@ -23,6 +22,9 @@
 
                 </agm-direction>
             </div>
-        </agm-map>
+
+
+        </agm-map> -->
+        <div id="map"></div>
     </div>
 </div>

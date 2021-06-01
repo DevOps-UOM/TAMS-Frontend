@@ -2,6 +2,11 @@ import { Component, OnInit ,OnDestroy} from '@angular/core';
 import { AllocatedCustomers, modeSignalStatus } from 'src/app/models/itinerary.model';
 import { ItineraryService } from '../../services/itinerary/itinerary.service';
 import { Overlay } from '@angular/cdk/overlay';
+import { ContentObserver } from '@angular/cdk/observers';
+import { UserService } from 'src/app/services/user';
+import { User } from 'src/app/models/user.model';
+import * as moment from 'moment'
+
 
 @Component({
   selector: 'app-ta-itinerary-map',
@@ -11,36 +16,65 @@ import { Overlay } from '@angular/cdk/overlay';
 export class TAItineraryMapComponent implements OnInit {
 
   private loading: boolean = false;
-   customerList: AllocatedCustomers[] = [];
+  customerList: AllocatedCustomers[] = [];
 
   selectedItinerary: any;
 
-  date: Date = new Date("2012-04-23");
-  taid: String = "TA001";
-  modeSignal:string= modeSignalStatus.markerMode;
+  date: any = moment(moment().format("YYYY-MM-DD")).toDate();
+  taid: String;
+  modeSignal:string= modeSignalStatus.directionMode;
 
-  
+  user:User
 
-  constructor(private itineraryService: ItineraryService) {
-
+  constructor(private itineraryService: ItineraryService,private userService : UserService) {
+    this.user=userService.getUserPayload()
+    this.taid=this.user.userid
   }
 
   ngOnInit(){
+    //console.log("called")
     this.getCustomers();
-    
+    this.getItineraryDet();
   }
 
- 
+ getItineraryDet(){
+   try{
+
+    console.log(this.date);
+    console.log(this.taid);
+
+    this.itineraryService.getASingleItinerary(this.date, this.taid).subscribe((res)=>{
+      this.selectedItinerary=res.data[0]._id;
+      console.log(res);
+    })
+   }catch(error){
+    alert("Error in getting Itinerary Details")
+   }
+ }
 
   getCustomers() {
     this.loading = true;
    try {
-    this.itineraryService.getAllocatedCustomers(this.date, this.taid).subscribe((res) => {
+
+    console.log(this.date);
+    console.log(this.taid);
+
+    this.itineraryService.getAllocatedPendingCustomers(this.date, this.taid).subscribe((res) => {
       this.loading = false;
+      console.log(res);
+
+      if(!res.body.status){
+        alert("Today, There are no allocated customers for you");
+        return;
+      }
+
      (res.body.data && res.body.data.length>0)? this.customerList = res.body.data : this.customerList=[];
       //console.log("Dataaaa"+JSON.stringify(this.customerList));
+
+      
     })
      
+
    } catch (exception) {
      console.log("Recieved Empty Customer List!");
    }

@@ -2,6 +2,7 @@ import { Grade } from './../models/grade.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'any'
@@ -16,11 +17,12 @@ export class FormControllService {
 
   constructor(private http: HttpClient) { }
 
-  uploadDetails(form: Grade){
-    this.http.post<{status: string, msg: string}>('http://localhost:3000/users', form).subscribe(
+  uploadDetails(form: Grade) {
+    this.http.post<{ status: string, msg: string }>(environment.apiBaseUrl + '/users', form).subscribe(
       (responseData) => {
         console.log(responseData['msg']);
         this.updatedgrade.next(form);
+        this.updatedMaxgrade.next(form);
 
         // if (form.totMark == "Travelling Agent"){
         //   this.updatedMaxgrade.next(form);
@@ -28,6 +30,11 @@ export class FormControllService {
         // http://localhost:3000/marks
       });
   }
+
+  //  findOne(userid: string){
+  //   return this.http.get('http://localhost:3000/ta-agents/:userid')
+  // }
+
 
 
 }

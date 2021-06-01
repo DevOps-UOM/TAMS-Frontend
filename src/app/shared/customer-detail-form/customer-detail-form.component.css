@@ -1,0 +1,15 @@
+
+
+
+.form-control {
+  box-shadow: 0 5px 6px 0 #e9f2ff;
+
+}
+
+.form-control::placeholder {
+  font-family: FontAwesome;
+}
+
+.cordinate {
+  width: 100px;
+}

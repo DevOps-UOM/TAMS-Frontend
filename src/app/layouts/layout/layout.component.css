@@ -1,18 +1,23 @@
 .content {
-    height: auto;
+    height: 86vh;
+    box-sizing: border-box;
     z-index: 1;
     width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 app-nav-bar {
     z-index: 10;
     width: 100%;
+    padding: 0px;
 }
 
 .sidebar {
-    z-index: 10;
+    z-index: 15;
     height: auto;
     width: 300px;
+    position: sticky;
 }
 
 .boards {
@@ -21,4 +26,9 @@ app-nav-bar {
 
 .navbar {
     height: 10%;
+    padding: 0px;
+}
+
+.container-row {
+    height: 100vh;
 }

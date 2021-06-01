@@ -1,6 +1,6 @@
 .sidebar {
-    background-color: #298E69;
-    height: 1000px;
+    background-color: #298e69;
+    height: 100vh;
     width: 100%;
     min-width: 240px;
 }
@@ -9,7 +9,7 @@
     font-size: 28px;
     font-weight: 700;
     color: rgb(255, 255, 255);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .topic {
@@ -18,24 +18,30 @@
 }
 
 .label {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 350;
     color: rgb(255, 255, 255);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.buttons {
+    height: 78vh;
+    overflow-y: scroll;
 }
 
 .button {
+    cursor: pointer;
     padding: 5px;
     padding-left: 20%;
     padding-top: 13px;
 }
 
 .log-button:hover {
-    background-color: #39C892;
+    background-color: #39c892;
 }
 
 .button:hover {
-    background-color: #39C892;
+    background-color: #39c892;
 }
 
 .log-button {
@@ -46,13 +52,13 @@
     padding-bottom: 4px;
     vertical-align: middle;
     border-radius: 30px;
-    background-color: #298E69;
+    background-color: #298e69;
     width: fit-content;
 }
 
 .sidebar-log-area {
     position: relative;
-    top: 200px;
+    top: 2px;
 }
 
 .center {
@@ -78,9 +84,9 @@
 }
 
 .collapse-button:hover {
-    background-color: #39C892;
+    background-color: #39c892;
 }
 
 .sub-button:hover {
-    background-color: #39C892;
+    background-color: #39c892;
 }

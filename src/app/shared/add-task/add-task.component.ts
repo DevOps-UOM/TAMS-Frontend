@@ -1,3 +1,5 @@
+import { from } from 'rxjs';
+//import { MatIconModule } from '@angular/material/icon';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TaskServiceService } from './../../services/task-service.service';
 import { Component, OnInit } from '@angular/core';
@@ -10,7 +12,7 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./add-task.component.css']
 })
 export class AddTaskComponent implements OnInit {
-  
+
 
   taskForm: FormGroup;
 
@@ -44,6 +46,10 @@ export class AddTaskComponent implements OnInit {
         }
       );
     this.taskForm.reset();
+    }
 
-      }
+  onClose(){
+    this.dialogRef.close();
+  }
+
     }
