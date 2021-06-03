@@ -40,6 +40,7 @@ export class AddTaskComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res);
+          alert("Task added successfully!")
           this.dialogRef.close()
         }, error => {
           console.log(error);

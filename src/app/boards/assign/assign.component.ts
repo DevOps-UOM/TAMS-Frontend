@@ -29,7 +29,13 @@ export class AssignComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadAgents();
-    this.loadAvailability()
+    this.loadAvailability();
+    // var today = new Date;
+    // this.onSearch("2021-06-02");
+    // console.log(today.getDate());
+
+
+
   }
 
   loadAvailability() {
@@ -52,6 +58,8 @@ export class AssignComponent implements OnInit {
 
   // @ts-ignore
   onSearch(term: any) {
+    console.log(term);
+
     console.log(moment(term).format('YYYY-MM-DD'));
     console.log(term);
 
@@ -70,9 +78,11 @@ export class AssignComponent implements OnInit {
     if(this.date){
       let dataArr=[];
       let payload = this.displayAvailabilities.forEach((m) => {
+
         let obj =  {customer: m.cust_id._id, travel_agent: m.cust_id.default_agent_id._id, iti_date: m.date};
         dataArr.push(obj);
       })
+      alert('Leave Added!');
       this.assignService.createAssign(dataArr)
           .subscribe(
             res => {

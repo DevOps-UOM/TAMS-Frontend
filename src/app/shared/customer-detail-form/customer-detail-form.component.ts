@@ -1,4 +1,3 @@
-import { Coordinates } from './../../models/realtimedb.model';
 import { HttpClient } from '@angular/common/http';
 import { AllocatedCustomers } from './../../models/itinerary.model';
 import { CustomerService } from './../../services/customer/customer.service';
@@ -303,7 +302,7 @@ export class CustomerDetailFormComponent {
   // public changeListener(files: FileList){
   //   console.log(files);
   //   if(files && files.length > 0) {
-  //      let file : File = files.item(0); 
+  //      let file : File = files.item(0);
   //        console.log(file.name);
   //        console.log(file.size);
   //        console.log(file.type);

@@ -5,10 +5,25 @@
   }
 
   .zoom {
- 
+
     transition: transform .2s; /* Animation */
     margin: 0 auto;
   }
   .zoom:hover {
     transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
   }
+
+
+  .uploader-status{
+
+    width: 100%;
+    text-align: center;
+    height:600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .uploader-status ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+    stroke:  #298E69;
+}

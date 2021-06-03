@@ -2,15 +2,12 @@
   <div class="">
       <input placeholder="Search" #search type="date" class="form-control float-right" (input)="onSearch(search.value)">
   </div>
-  <!-- <div class="">
-    <input placeholder="IdSearch" #idsearch type="" class="form-control float-right" (input)="onIdSearch(idsearch.value)">
-</div> -->
 
   <div class="col-md-2 mb-8" (click)="onClickReset(search)" class="btn btn-secondary" style="cursor: pointer; margin-left: 10px ; ">
       Reset
   </div>
 </div>
-    <table class="table table-hover mt-5">
+    <table class="table table-hover mt-5" *ngIf="displayItineraries">
         <thead>
           <tr>
             <th scope="row">Itinerary No.</th>
@@ -20,16 +17,27 @@
             <th></th>
           </tr>
         </thead>
+
         <tbody>
             <tr *ngFor="let t of displayItineraries;let i= index " >
                 <td scope="row" style="cursor: pointer;" >{{i+1}} </td>
-                <td>{{t.travel_agent_id}} </td>
-                <td>  </td>
-                <td>{{t.date | date:'shortDate' }} </td>
+                <td>{{t.agent.userid}} </td>
+                <td> {{t.agent.first_name}} {{t.agent.last_name}}</td>
+                <td>{{t._doc.date | date:'shortDate' }} </td>
                 <td><i class="fa fa-trash zoom" style="cursor: pointer;" (click)="onItiDelete(t.travel_agent_id, t.date) " ></i></td>
-                <div class="btn btn-info" style="background-color:#33B585" (click)="printIti(i)" >Print</div>
+                <div class="btn btn-info" style="background-color:#33B585" (click)="printIti(t)" >Print</div>
 
             </tr>
         </tbody>
 
     </table>
+
+
+    <div fxLayout="column" fxLayoutGap="20px"  *ngIf="!displayItineraries" class="uploader-status">
+      <mat-spinner></mat-spinner>
+      <p style="color: gray; font-size: 20px;">Loading iternaries ...</p>
+  </div>
+
+
+
+

@@ -12,7 +12,7 @@
                 <label for="">Customer</label>
                 <select required formControlName="cust_id" class="form-control" searchable="Search here..">
                     <option value="" disabled selected>Choose Customer</option>
-                    <option *ngFor="let customer of customers" [value]="customer._id" >{{customer.cust_id}}- {{customer.name.first_name}} {{customer.name.last_name}}</option>
+                    <option *ngFor="let customer of customers" [disabled]="isDisable" [value]="customer.cust_id" >{{customer.cust_id}}- {{customer.name.first_name}} {{customer.name.last_name}}</option>
                 </select>
 
                 <!-- <input required formControlName="cust_id" type="text" class="form-control" placeholder=""> -->
@@ -51,7 +51,7 @@
             </div>
 
         </div>
-        <div class="mt-2" ><div>   Selected total duration: <h2>{{totalDuration}} {{min}}</h2><div class="form-group col-md">
+        <div class="mt-2" ><div>   Selected total duration: <h2 [style.color]="timeColor">{{totalDuration}} {{min}}</h2><div class="form-group col-md">
 
       </div></div></div><br>
 
@@ -66,14 +66,26 @@
         <div (click)="onClickSubmit()" class="btn btn-info float-right ml-2" style="background-color:#33B585">
             Add Availabilty
         </div>
-        <input type="reset" value="Clear" class="btn btn-info float-right" style="background-color:#33B585">
+        <input type="reset" (click)="clear()" value="Clear" class="btn btn-info float-right" style="background-color:#33B585">
     </form>
 
 
     <br><br><br>
-    <div class="col-md-3">
-        <input placeholder="Search" #search type="text" class="form-control" (input)="onSearch(search.value)">
-    </div>
+      <div class="col-md-6 form-row">
+        <div class="col-md">
+          <input placeholder="Search by ID" #search type="text" class="form-control" (input)="onSearch(search.value)">
+        </div>
+        <div class="col-md">
+            <input #filterr type="date" class="form-control float-right" (input)="onFilter(filterr.value)">
+        </div>
+        <div class="col-md" (click)="onClickReset(filterr)" class="btn btn-secondary" style="cursor: pointer; margin-left: 10px ; ">
+            Reset
+        </div>
+
+      </div>
+
+
+
     <br><br>
     <table class="table table-striped">
         <thead>
@@ -87,7 +99,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let v of displayAvailabilities">
+            <tr *ngFor="let v of displayAvailabilities" >
                 <th scope="row">{{v.cust_id.cust_id}}- {{v.cust_id.name.first_name}} {{v.cust_id.name.last_name}}</th>
                 <th>{{v.cust_id.default_agent_id.first_name}} {{v.cust_id.default_agent_id.last_name}}</th>
                 <td>{{v.date | date:'shortDate' }}</td>
@@ -99,7 +111,7 @@
                 </td>
                 <td>{{v.task_duration}}</td>
                 <td><i class="fa fa-trash zoom" style="cursor: pointer;" (click)="onDelete(v._id, v.date)"  ></i></td>
-                <td><i class="fa fa-edit zoom" style="cursor: pointer;" (click)="onEdit(v.cust_id)"  ></i></td>
+                <td><i class="fa fa-edit zoom" style="cursor: pointer;" (click)="onEdit(v)"  ></i></td>
             </tr>
         </tbody>
     </table>

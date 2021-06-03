@@ -19,7 +19,7 @@ export class PrintItiDetailsComponent implements OnInit {
   ) {
     this.details = data;
     console.log(this.details.assigned_customer_id);
-    this.customers = this.details.assigned_customer_id;
+    this.customers = this.details._doc.assigned_customer_id;
   }
 
   ngOnInit(): void {

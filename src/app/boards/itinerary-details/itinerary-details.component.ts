@@ -60,14 +60,14 @@ export class ItineraryDetailsComponent implements OnInit {
 
   }
 
-  printIti(i : number ){
-    this.itineraries[i];
+  printIti(iternary){
+    // this.itineraries[i];
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false ;
     dialogConfig.autoFocus = true;
     dialogConfig. width = "100%";
-    const dialogRef = this.dialog.open(PrintItiDetailsComponent, { width:"100%", autoFocus:true, disableClose:true, data: this.itineraries[i] });
+    const dialogRef = this.dialog.open(PrintItiDetailsComponent, { width:"100%", autoFocus:true, disableClose:true, data: iternary });
     dialogRef.afterClosed().subscribe(result => {
     })
 

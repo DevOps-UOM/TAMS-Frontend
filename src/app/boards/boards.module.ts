@@ -1,3 +1,4 @@
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BoardsRoutingModule } from './boards-routing.module';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { TaOnlyDetailFormComponent } from './../shared/ta-only-detail-form/ta-only-detail-form.component';
@@ -86,7 +87,7 @@ import { ResponseResetComponent } from './user/response-reset/response-reset.com
 //     children: [
 //       { path: 'ca-agents' , component: CaAgentsTableComponent},
 //       { path: 'ta-agents' , component: TaAgentsTableComponent}
-    
+
 //     ]
 //   },
 //   {
@@ -99,7 +100,7 @@ import { ResponseResetComponent } from './user/response-reset/response-reset.com
 //       { path: 'ta-agents-registration' , component: TaOnlyDetailFormComponent},
 //     ]
 //   },
-//   {  
+//   {
 //     path: 'stat-dashboard',
 //     component: StatDashboardComponent,
 //     canActivate: [AuthGuard],
@@ -126,7 +127,7 @@ import { ResponseResetComponent } from './user/response-reset/response-reset.com
 //       { path: 'ta-agents-registration' , component: TaOnlyDetailFormComponent},
 //     ]
 //   },
-//   {  
+//   {
 //     path: 'stat-dashboard',
 //     component: StatDashboardComponent
 //     // canActivate: [AuthGuard],
@@ -143,7 +144,7 @@ import { ResponseResetComponent } from './user/response-reset/response-reset.com
 
 
   declarations: [
-    TAItineraryMapComponent, 
+    TAItineraryMapComponent,
     TaTaskComponent,
     LeaveComponent,
     AdminUserManagementComponent,
@@ -151,11 +152,11 @@ import { ResponseResetComponent } from './user/response-reset/response-reset.com
     AssignComponent,
     TaMapComponent,
     ItineraryDetailsComponent,
-    
+
     CaUserManagementComponent,
-    StatDashboardComponent, 
-    UserComponent, 
-    ResetPasswordComponent, 
+    StatDashboardComponent,
+    UserComponent,
+    ResetPasswordComponent,
     SignInComponent,
     PrintItiDetailsComponent,
     TempPinLocationComponent,
@@ -174,15 +175,16 @@ import { ResponseResetComponent } from './user/response-reset/response-reset.com
     MatButtonModule,
     MatSliderModule,
     OverlayModule,
-    MatDialogModule, 
+    MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
     Ng2SearchPipeModule,
     MatIconModule,
-    BoardsRoutingModule
+    BoardsRoutingModule,
+    MatProgressSpinnerModule
   ],
   providers: [MatDatepickerModule],
-  
+
 })
 
 export class BoardsModule { }

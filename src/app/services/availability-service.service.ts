@@ -20,11 +20,11 @@ export class AvailabilityServiceService {
     return this.http.get(environment.apiBaseUrl+'/availability');
   }
 
-  deleteAvailability(date: Date, custid: String) {
-    return this.http.delete(environment.apiBaseUrl+ '/availability/' + date + '/' + custid);
+  updateAvailability(id: string,availability):Observable<any> {
+    return this.http.put<any>( `${environment.apiBaseUrl}/availability/${id}`,availability,{observe:"response"})
   }
 
-  populateForm(availability){
-    
+  deleteAvailability(date: Date, custid: String) {
+    return this.http.delete(environment.apiBaseUrl+ '/availability/' + date + '/' + custid);
   }
 }

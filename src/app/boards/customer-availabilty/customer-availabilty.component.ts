@@ -15,7 +15,7 @@ import * as moment from 'moment';
   styleUrls: ['./customer-availabilty.component.css']
 })
 export class CustomerAvailabiltyComponent implements OnInit {
-
+  filter : any;
   custId = '';
   availabilityForm: FormGroup;
   availabilities: any;
@@ -29,6 +29,13 @@ export class CustomerAvailabiltyComponent implements OnInit {
   selectedValue: any;
   totalDuration: any;
   min = "min"
+  isDisable = false;
+  timeColor= "black";
+  editColor = null;
+
+  selectedAvailabilityForEdit : any;
+
+
 
 
 
@@ -64,10 +71,15 @@ export class CustomerAvailabiltyComponent implements OnInit {
     }
     this.totalDuration = td;
 
-    if(this.totalDuration>60){
-      this.totalDuration = "More than 1hour"
-      this.min = ""
+    if(this.totalDuration==60){
+      this.min = "";
+      this.totalDuration = " 1hour";
+    }else if(this.totalDuration>60){
+      this.totalDuration = "More than 1hour";
+      this.timeColor = "red";
+      this.min = "";
     }else{
+      this.timeColor = "black";
       this.min = "min"
     }
 
@@ -103,6 +115,10 @@ export class CustomerAvailabiltyComponent implements OnInit {
       );
   }
 
+  clear(){
+    this.isDisable= false;
+  }
+
   loadTask() {
     this.TaskService.getAllTask()
       .subscribe(
@@ -118,6 +134,7 @@ export class CustomerAvailabiltyComponent implements OnInit {
 
   formInstaller(): void {
     this.availabilityForm = this.fb.group({
+      $key: false,
       cust_id: ['', Validators.required],
       date: ['', Validators.required],
       note: ['', Validators.required],
@@ -125,30 +142,62 @@ export class CustomerAvailabiltyComponent implements OnInit {
       task_duration: ['', Validators.required]
     });
   }
-  initializeFormGroup() {
-    this.availabilityForm.setValue({
-      $key: null,
-      cust_id: '',
-      date: '',
-      note: '',
-      task: '',
-      task_duration: '',
-    });
-  }
+
 
 
   onClickSubmit() {
-    console.log(this.availabilityForm.value);
-    this.availabilityService.createAvailability(this.availabilityForm.value)
+    this.editColor = null;
+    let formValues = this.availabilityForm.value
+    const _idCustomer = this.customers.filter(item => item.cust_id === formValues.cust_id)[0]
+
+    console.log("Previous record")
+    console.log(formValues)
+
+
+    formValues = {...formValues, cust_id : _idCustomer._id}
+
+    console.log("updated record **************")
+    console.log(formValues)
+
+    if(this.availabilityForm.get('$key').value){
+      const _id = this.selectedAvailabilityForEdit._id;
+      formValues = {...formValues,_id}
+      delete formValues.$key;
+      console.log("updated record *************222222222222222*")
+      console.log(formValues)
+      this.availabilityService.updateAvailability(_id,formValues).subscribe(res=>{
+        this.loadAvailability();
+        alert("availablity update successful")
+
+      },err=>{
+        alert("Somthing went wrong!")
+        console.log(err)
+      });
+
+
+    }else{
+      // alert("creating")
+      this.availabilityService.createAvailability(formValues)
       .subscribe(
         res => {
-          console.log(res);
+          // alert("editing")
+          console.log( res);
           this.loadAvailability();
+          if(res.data == "Availability already created!")
+          {
+           return alert(res.data)
+          }else if(res.data == "Somthing went wrong!") {
+            return alert("Somthing went wrong!")
+          } return alert("Availability created successfully!")
+
         }, error => {
           console.log(error);
+
         }
       );
+    }
     this.availabilityForm.reset();
+    this.isDisable= false;
   }
 
   onSearch(term: any) {
@@ -187,9 +236,20 @@ export class CustomerAvailabiltyComponent implements OnInit {
 
   }
 
-  onEdit(id){
-    this.availabilityForm.setValue(id);
-    console.log("nirosh");
+  onEdit(availability){
+    // window.scrollTo(0, 0)
+
+    this.selectedAvailabilityForEdit = availability;
+    console.log(this.selectedAvailabilityForEdit)
+    this.availabilityForm.setValue({
+      $key: true,
+      cust_id: availability.cust_id.cust_id,
+      date: availability.date,
+      note: availability.note,
+      task: availability.task,
+      task_duration: availability.task_duration,
+    });
+    this.isDisable = true;
 
   }
 
@@ -201,10 +261,30 @@ export class CustomerAvailabiltyComponent implements OnInit {
       this.availabilityService.deleteAvailability(date, id).subscribe((res:any) => {
       this.loadAvailability();
       console.log(id, date);
+      alert("Availability deleted successfully!")
     } );
     }
 
   }
+
+  onFilter(term: any) {
+    console.log(moment(term).format('YYYY-MM-DD'));
+    console.log(term);
+
+    if (term === '') {
+      this.displayAvailabilities = this.availabilities;
+    } else {
+      this.displayAvailabilities =  this.availabilities.filter((a) => {
+       return moment(a.date).format('YYYY-MM-DD') === term
+      });
+    }
+  }
+
+  onClickReset(filter) {
+    this.editColor = null;
+    filter.value = null
+      this.displayAvailabilities = this.availabilities;
+    }
 
 
 
